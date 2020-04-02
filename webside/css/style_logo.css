@@ -1,0 +1,16 @@
+.wrapper {
+  background: #fff;
+  margin: 200 px 0 px;
+  padding: 100 px 0 px;
+}
+
+.container {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+}
+
+#icon {
+  width: 30%;
+  margin-top: 20 px;
+}
