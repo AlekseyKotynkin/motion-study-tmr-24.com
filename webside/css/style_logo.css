@@ -1,16 +1,24 @@
+body {
+  background: #ECEFF1;
+  color: rgba(0,0,0,0.87);
+  margin: 20px;
+  padding: 0px;
+  font-family: Helvetica,sans-serif;
+}
+
 .wrapper {
   background: #fff;
-  margin: 200 px 0 px;
-  padding: 100 px 0 px;
+  margin: 200px 0 px;
+  padding: 300px 0 px;
 }
 
 .container {
   display: block;
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
 }
 
 #icon {
   width: 30%;
-  margin-top: 20 px;
+  margin-top: 20px;
 }
