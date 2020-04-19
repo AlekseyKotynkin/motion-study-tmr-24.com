@@ -1,14 +1,24 @@
 {
-  "name": "package.json",
+  "name": "public",
   "version": "1.0.0",
-  "description": "",
+  "description": "TMR-24.com motion study",
   "main": "index.js",
+  "dependencies": {
+    "firebase": "^7.14.1",
+    "firebaseui": "^4.5.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlekseyKotynkin/motion-study-tmr-24.com.git"
+  },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "firebase": "^7.14.1"
-  }
+  "bugs": {
+    "url": "https://github.com/AlekseyKotynkin/motion-study-tmr-24.com/issues"
+  },
+  "homepage": "https://github.com/AlekseyKotynkin/motion-study-tmr-24.com#readme"
 }
