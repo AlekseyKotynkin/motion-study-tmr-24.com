@@ -1,151 +1,53 @@
-/*
- Firebase Authentication Working Example, JavaScript, CSS, and HTML crafted with love and lots of coffee.
- (c) 2016, Ron Royston, MIT License
- https://rack.pub
-*/
-html body {
-  font-family: 'Roboto', sans-serif;
-  background: #f5f5f5;
+* {
+  box-sizing: border-box;
 }
 
-label {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  color: #616161;
-  font-size: 1.2em;
+body {
+  margin: 0;
 }
 
-.drawer-separator {
-  height: 1px;
-  background-color: #dcdcdc;
-  margin: 8px 0;
-}
-
-.social-icon {
-  position: absolute;
-  height: 36px;
-  left: 1px;
-  opacity: .3;
-}
-
-.oauth-login-button {
-  width: 148px;
-  margin: 12px;
-}
-
-.license {
-  font-size: .6em;
-}
-.opacity4 {
-  opacity: .4;
-}
-
-.text-center {
+#container {
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.oin {
-  color: #424242;
-  font-size: .8em;
-  vertical-align: 15%;
+.clearfix {
+  clear: both;
 }
 
-.text-left{
-  text-align:left;
-}
-.mdl-card {
-  width: 512px;
-}
-
-.mdl-card__supporting-text{
-  color:#757575;
-}
-
-.mdl-card__menu {
-  color: #fff;
-}
-
-.mdl-layout__drawer-button {
-  color: #757575 !important;
-}
-
-.demo-layout-transparent .mdl-layout__header,
-.demo-layout-transparent .mdl-layout__drawer-button {
-  color: white;
-}
-
-.mdl-layout__content {
-  flex: 1 0 auto;
-}
-
-.mdl-card__actions {
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-.mdl-card__actions > .mdl-button--icon {
-  margin-right: 3px;
-  margin-left: 3px;
-}
-
-.mdl-card__title {
-  color: #fff;
-  height: 176px;
-  background: url('images/seaside.jpg') center / cover;
-}
-
-.login-card > .mdl-card__title {
-  background: url('images/sun.png') center / cover;
-}
-
-#private-card > .mdl-card__title {
-  background: url('images/top.jpg') center / cover;
-}
-
-#public-card > .mdl-card__title {
-  background: url('images/mountains.png') center / cover;
-}
-
-#help-card > .mdl-card__title {
-  background: url('images/help.jpg') center / cover;
-}
-
-#action-handler > .mdl-card__title {
-  background: url('images/lines.png') center / cover;
-}
-
-#account-menu-button {
-  text-transform: capitalize;
-  display:none;
-}
-
-#sign-in-button {
-  display:none;
-}
-
-#chip:hover {
-  cursor: pointer;
-}
-
-#login-card {
+.hidden {
   display: none;
 }
-#register-card {
-  display: none;
+
+#user-info {
+  border: 1px solid #CCC;
+  clear: both;
+  margin: 0 auto 20px;
+  max-width: 400px;
+  padding: 10px;
+  text-align: left;
 }
-#notice-card {
-  display: none;
+
+#photo-container {
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  float: left;
+  height: 80px;
+  margin-right: 10px;
+  width: 80px;
 }
-#logout-card {
-  display: none;
+
+#photo {
+  height: 80px;
+  margin: 0;
+  width: 80px;
 }
-#secure-card {
-  display: none;
-}
-#pwd-users-only-div{
-  display:none;
-}
-#verify-password-div{
-  display:none;
+
+@media (max-width: 300px) {
+  #photo-container,
+  #photo {
+    height: 40px;
+    width: 40px;
+  }
 }
