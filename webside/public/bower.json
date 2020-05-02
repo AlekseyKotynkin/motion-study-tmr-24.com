@@ -1,0 +1,21 @@
+{
+  "name": "purple_admin",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "bootstrapdash"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AlekseyKotynkin/motion-study-tmr-24.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "^7.14.2"
+  }
+}

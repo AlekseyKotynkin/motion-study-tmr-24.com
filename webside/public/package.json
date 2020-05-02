@@ -1,24 +1,47 @@
 {
-  "name": "public",
-  "version": "1.0.0",
-  "description": "TMR-24.com motion study",
-  "main": "index.js",
+  "name": "purple_admin",
+  "version": "3.0.0",
+  "description": "",
+  "main": "index.html",
   "dependencies": {
-    "firebase": "^7.14.1",
-    "firebaseui": "^4.5.0"
+    "@mdi/font": "3.7.95",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
+    "firebase-admin": "^8.11.0",
+    "firebase-functions": "^3.6.1",
+    "jquery": "^3.4.1",
+    "perfect-scrollbar": "^1.4.0",
+    "popper.js": "^1.15.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "compass-mixins": "^0.12.10",
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-inject": "5.0.2",
+    "gulp-inject-partials": "^1.0.5",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-prettify": "^0.5.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-util": "^3.0.8",
+    "merge-stream": "^2.0.0",
+    "minimatch": "^3.0.4",
+    "require-dir": "^1.2.0",
+    "run-sequence": "^2.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AlekseyKotynkin/motion-study-tmr-24.com.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AlekseyKotynkin/motion-study-tmr-24.com/issues"
-  },
-  "homepage": "https://github.com/AlekseyKotynkin/motion-study-tmr-24.com#readme"
+  "author": "bootstrapdash",
+  "url": "http://www.bootstrapdash.com/",
+  "copyright": "",
+  "license": ""
 }

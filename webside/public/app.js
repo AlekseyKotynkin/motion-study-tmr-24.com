@@ -13,16 +13,16 @@
  */
 
 /**
- * FirebaseUI initialization to be used in a Single Page application context.
+ * * Инициализация FirebaseUI для использования в контексте одной страницы приложения.
  */
-
+ 
 /**
  * @return {!Object} The FirebaseUI config.
  */
 function getUiConfig() {
   return {
     'callbacks': {
-      // Called when the user has been successfully signed in.
+      // Вызывается, когда пользователь успешно вошел в систему.
       'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
         if (authResult.user) {
           handleSignedInUser(authResult.user);
@@ -32,19 +32,19 @@ function getUiConfig() {
               authResult.additionalUserInfo.isNewUser ?
               'New User' : 'Existing User';
         }
-        // Do not redirect.
+        //Не перенаправлять.
         return false;
       }
     },
-    // Opens IDP Providers sign-in flow in a popup.
+    // Открывает поток входа провайдеров IDP во всплывающем окне.
     'signInFlow': 'popup',
     'signInOptions': [
-      // TODO(developer): Remove the providers you don't need for your app.
+      // TODO (разработчик): удалите провайдеров, которые вам не нужны для вашего приложения.
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // Required to enable this provider in One-Tap Sign-up.
+        // Требуется для включения этого провайдера при регистрации одним касанием.
         authMethod: 'https://accounts.google.com',
-        // Required to enable ID token credentials for this provider.
+        // Требуется для включения идентификационных данных токена для этого провайдера.
         clientId: CLIENT_ID
       },
       {
@@ -60,7 +60,7 @@ function getUiConfig() {
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
       {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // Whether the display name should be displayed in Sign Up page.
+        // Должно ли отображаемое имя отображаться на странице регистрации.
         requireDisplayName: true,
         signInMethod: getEmailSignInMethod()
       },
