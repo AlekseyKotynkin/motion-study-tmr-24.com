@@ -59,3 +59,11 @@ function parseQueryString(queryString) {
   }
   return config;
 }
+
+
+/**
+ * @return {string} The email signInMethod from the configuration.
+ *  Знак электронной почты InMethod из конфигурации.
+ */
+var UserNamelocalStorage = localStorage.getItem('displayName');
+console.log(UserNamelocalStorage);
