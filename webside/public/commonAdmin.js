@@ -62,8 +62,13 @@ function parseQueryString(queryString) {
 
 
 /**
- * @return {string} The email signInMethod from the configuration.
- *  Знак электронной почты InMethod из конфигурации.
+ * @return {string}
+ *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
  */
-var UserNamelocalStorage = localStorage.getItem('displayName');
+const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
+const EmailLocalStorage = (LocalStorageValueObject[0]).email;
+const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 console.log(UserNamelocalStorage);
+console.log(EmailLocalStorage);
+console.log(FotoUrlLocalStorage);

@@ -11,12 +11,20 @@
     <!-- endinject -->
     <!-- Проверяем наличие localStorage -->
     <script type="text/javascript">
-      if (localStorage.length === 0)
-      {
-      window.location.replace("widget.html");
-      }
+      let itemsArray = [{
+        email: "cay211076@gmail.com",
+        displayName: "Alexey Kotynkin",
+        photoUrl: "https://lh5.googleusercontent.com/-ORbvYxej7qs/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPqxx_SU_8XLi3xrfVJdMYFoh_btg/photo.jpg",
+        providerId: "google.com"
+      }]
+      localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray))
     </script>
     <script src="commonAdmin.js"></script>
+
+
+
+
+
       <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
