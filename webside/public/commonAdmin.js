@@ -69,6 +69,3 @@ const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rem
 const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
-console.log(UserNamelocalStorage);
-console.log(EmailLocalStorage);
-console.log(FotoUrlLocalStorage);
