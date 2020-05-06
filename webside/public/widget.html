@@ -2,16 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>FirebaseUI Auth Demo</title>
+    <title>TMR Systems</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-functions.js"></script>
     <script src="js/index.js"></script>
-    <script src="common.js"></script>
+    <script src="commonAdmin.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css"/>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <style>
       body {
         margin: 0;
@@ -46,8 +47,8 @@
             clientId: CLIENT_ID
           },
           firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
           {
             provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
             signInMethod: getEmailSignInMethod()
@@ -65,7 +66,7 @@
           {
             provider: 'apple.com',
           },
-          firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+          // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
         ],
         // Terms of service url.
         'tosUrl': 'https://www.google.com',
@@ -83,5 +84,11 @@
   </head>
   <body>
     <div id="firebaseui-auth-container"></div>
+    <center>
+     <div class="container" style="container">
+      <a onclick="SignoutAdmin()" class="center" href="#">
+        <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+     </div>
+    </center>
   </body>
 </html>
