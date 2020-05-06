@@ -60,7 +60,29 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <img src="assets/images/faces/face1.jpg" alt="image">
+                  <!-- <script>img src=document.write(FotoUrlLocalStorage);</script>
+                  <script>
+                  var img = document.createElement("img");
+                  img.src = FotoUrlLocalStorage;
+                  picHolder.appendChild(img);
+
+
+                  ttt=document.write('<img src= (FotoUrlLocalStorage)   alt="image"/>');
+
+                  console.log(ttt);
+                  console.log(FotoUrlLocalStorage);
+                  console.log(img.src);
+                   </script> -->
+                  <!-- <script>document.write("<img src="FotoUrlLocalStorage" alt="image"/>");</script> -->
+                  <!-- document.write("<img src='" + imgNumber + ".png' alt="' /> ") ; -->
+
+                  <img src="" name="IDFotoUrlLocalStorage" alt="image">
+                  <script>
+                  hiddenImg= new Image();
+                  hiddenImg.src= FotoUrlLocalStorage;
+                  document.IDFotoUrlLocalStorage.src=hiddenImg.src;
+                  </script>
+
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
