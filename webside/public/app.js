@@ -15,7 +15,7 @@
 /**
  * * Инициализация FirebaseUI для использования в контексте одной страницы приложения.
  */
- 
+
 /**
  * @return {!Object} The FirebaseUI config.
  */
@@ -159,6 +159,8 @@ var handleSignedOutUser = function() {
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
+// Прослушайте изменения в состоянии авторизации, чтобы он отображал правильный пользовательский интерфейс, когда
+// пользователь вошел в систему или нет.
 firebase.auth().onAuthStateChanged(function(user) {
   document.getElementById('loading').style.display = 'none';
   document.getElementById('loaded').style.display = 'block';

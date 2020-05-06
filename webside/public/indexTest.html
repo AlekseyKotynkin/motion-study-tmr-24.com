@@ -39,8 +39,8 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo" href="index.html"><img src="svg/logo TMR Systems 192 80.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="svg/iconka_business_512x512.svg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -60,29 +60,12 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <!-- <script>img src=document.write(FotoUrlLocalStorage);</script>
-                  <script>
-                  var img = document.createElement("img");
-                  img.src = FotoUrlLocalStorage;
-                  picHolder.appendChild(img);
-
-
-                  ttt=document.write('<img src= (FotoUrlLocalStorage)   alt="image"/>');
-
-                  console.log(ttt);
-                  console.log(FotoUrlLocalStorage);
-                  console.log(img.src);
-                   </script> -->
-                  <!-- <script>document.write("<img src="FotoUrlLocalStorage" alt="image"/>");</script> -->
-                  <!-- document.write("<img src='" + imgNumber + ".png' alt="' /> ") ; -->
-
                   <img src="" name="IDFotoUrlLocalStorage" alt="image">
-                  <script>
-                  hiddenImg= new Image();
-                  hiddenImg.src= FotoUrlLocalStorage;
-                  document.IDFotoUrlLocalStorage.src=hiddenImg.src;
-                  </script>
-
+                    <script>
+                      hiddenImg= new Image();
+                      hiddenImg.src= FotoUrlLocalStorage;
+                      document.IDFotoUrlLocalStorage.src=hiddenImg.src;
+                    </script>
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
@@ -95,7 +78,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a onclick="SignoutAdmin()" class="dropdown-item" href="#">
                   <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
               </div>
             </li>
