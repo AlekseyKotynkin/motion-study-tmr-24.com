@@ -16,51 +16,6 @@
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 
-/**
- * @return {string} The reCAPTCHA rendering mode from the configuration.
- */
-function getRecaptchaMode() {
-  var config = parseQueryString(location.hash);
-  return config['recaptcha'] === 'invisible' ?
-      'invisible' : 'normal';
-}
-
-
-/**
- * @return {string} The email signInMethod from the configuration.
- *  Знак электронной почты InMethod из конфигурации.
- */
-function getEmailSignInMethod() {
-  var config = parseQueryString(location.hash);
-  return config['emailSignInMethod'] === 'password' ?
-      'password' : 'emailLink';
-}
-
-
-/**
- * @param {string} queryString The full query string.
- *
- * @return {!Object<string, string>} The parsed query parameters.
- *
- */
-function parseQueryString(queryString) {
-  // Remove first character if it is ? or #.
-  if (queryString.length &&
-      (queryString.charAt(0) == '#' || queryString.charAt(0) == '?')) {
-    queryString = queryString.substring(1);
-  }
-  var config = {};
-  var pairs = queryString.split('&');
-  for (var i = 0; i < pairs.length; i++) {
-    var pair = pairs[i].split('=');
-    if (pair.length == 2) {
-      config[pair[0]] = pair[1];
-    }
-  }
-  return config;
-}
-
-
  /**
  * @return {string}
  *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -69,18 +24,3 @@ const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rem
 const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
-
-  /**
-  * @return {string}
-   *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
-   */
-   function SignoutAdmin() {
-     localStorage.clear('firebaseui::rememberedAccounts');
-     window.location.replace("index.html")
-   }
-
-   /**
-   * @return {string}
-    *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
-    */
-    
