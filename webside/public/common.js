@@ -85,6 +85,6 @@ function parseQueryString(queryString) {
        var errorCode = error.code;
        var errorMessage = error.message;
        alert (errorCode,errorMessage);
-       window.location.replace("../../index.html")
+       window.location.replace("index.html")
      });
    };

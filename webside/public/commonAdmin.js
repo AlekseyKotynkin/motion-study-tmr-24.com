@@ -24,3 +24,12 @@ const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rem
 const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+
+/**
+* @return {string}
+ *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+ */
+ function SignoutAdmin() {
+   localStorage.clear('firebaseui::rememberedAccounts');
+   window.location.replace("index.html")
+ }
