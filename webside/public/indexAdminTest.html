@@ -364,50 +364,49 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">List of organizations in which you are involved</h4>
-                    <!-- <div class="bd-example bd-example-padded-bottom"> -->
                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModal">
                         + Add Organization
                       </button>
-                <!-- </div> -->
               <!-- Модальное окно регистрации Организации. -->
               <div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" id="gridModalLabel">+ Add Organization</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                       <div class="container-fluid bd-example-row">
-                        <div class="row">
-                          <div class="col-md-4">.col-md-4</div>
-                          <div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
-                          <div class="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-9">
-                            Level 1: .col-sm-9
-                            <div class="row">
-                              <div class="col-xs-8 col-sm-6">
-                                Level 2: .col-xs-8 .col-sm-6
-                              </div>
-                              <div class="col-xs-4 col-sm-6">
-                                Level 2: .col-xs-4 .col-sm-6
-                              </div>
+                        <div class="col-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">+ Add Organization</h4>
+                              <p class="card-description"> Create a new organization account </p>
+                              <form class="forms-sample">
+                                <div class="form-group">
+                                  <label>File upload</label>
+                                  <input type="file" name="img[]" class="file-upload-default">
+                                  <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                      <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputName1">Organization</label>
+                                  <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputCity1">Position</label>
+                                  <input type="text" class="form-control" id="exampleInputPosition" placeholder="your position">
+                                </div>
+                                <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+                                <button class="btn btn-light">Cancel</button>
+                              </form>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                   </div>
                 </div>
