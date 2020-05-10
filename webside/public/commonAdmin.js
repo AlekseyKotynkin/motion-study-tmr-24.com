@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -33,3 +33,35 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
    localStorage.clear('firebaseui::rememberedAccounts');
    window.location.replace("index.html")
  }
+
+ /**
+ * @return {string}
+  *  Обработка модального окна Регистрация Организации.
+  */
+
+  function gridSystemModalNewOrganization()
+  {
+    var Organization = document.getElementById("exampleInputNameOrganization").value;
+    var Position = document.getElementById("exampleInputPosition").value;
+    var email = EmailLocalStorage;
+
+      // sign up the Username
+     alert(Organization);
+     alert(email);
+     console.log(firestore);
+     alert(firestore);
+
+
+
+  firestore.collection("users").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+  };
