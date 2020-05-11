@@ -55,11 +55,14 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     PositionOfYourManager: "",
     NameOfYourManager: "",
     // DocumentCreationTimes: FieldValue.serverTimestamp(),
+
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
+    alert("Document written with ID: ", docRef.id);
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
+    alert("Error adding document: ", error);
 });
   };
