@@ -44,19 +44,17 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     var Organization = document.getElementById("exampleInputNameOrganization").value;
     var Position = document.getElementById("exampleInputPosition").value;
     var email = EmailLocalStorage;
-
-      // sign up the Username
-     alert(Organization);
-     alert(email);
-     console.log(firestore);
-     alert(firestore);
-
-
-
-  firestore.collection("users").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
+      // Добавляем в коллекциию новую организацию и данные основателя.
+  firestore.collection("Organization").add({
+    StatusUser: "StatusUser_Owner",
+    Organization: Organization,
+    Subdivision: "",
+    Position: Position,
+    OwnerEmail: email,
+    OwnerID: "",
+    PositionOfYourManager: "",
+    NameOfYourManager: "",
+    // DocumentCreationTimes: FieldValue.serverTimestamp(),
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);

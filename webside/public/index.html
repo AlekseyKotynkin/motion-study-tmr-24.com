@@ -15,14 +15,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-functions.js"></script>
     <script src="js/index.js"></script>
-    <script type="text/javascript">
-    firebase.auth().signInWithCustomToken(token).catch(function(error) {
-    // Обрабатывать ошибки здесь.
-       var errorCode = error.code;
-       var errorMessage = error.message;
-    // ...
-    });
-    </script>
     <!-- Проверяем наличие localStorage -->
     <script type="text/javascript">
      if (localStorage.length > 0)
