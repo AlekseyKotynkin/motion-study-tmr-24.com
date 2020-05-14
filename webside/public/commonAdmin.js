@@ -45,7 +45,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     var Position = document.getElementById("exampleInputPosition").value;
     var email = EmailLocalStorage;
       // Добавляем в коллекциию новую организацию и данные основателя.
-  firestore.collection("Organization").add({
+    db.collection("Organization").add({
     StatusUser: "StatusUser_Owner",
     Organization: Organization,
     Subdivision: "",
@@ -66,3 +66,29 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     alert("Error adding document: ", error);
 });
   };
+
+
+    /**
+    * @return {string}
+     *  Обработка модального окна Регистрация Организации.
+     */
+
+    function createATableOfClientOrganizations()
+    {
+      firebase.initializeApp({
+       var email = EmailLocalStorage;
+       db.collection("Organization").where("OwnerEmail", "==", email)
+           .get()
+           .then(function(querySnapshot)
+           {
+               querySnapshot.forEach(function(doc) {
+                   // doc.data() is never undefined for query doc snapshots
+                   console.log(doc.id, " => ", doc.data());
+                   alert(doc.id, " => ", doc.data());
+               });
+           })
+           .catch(function(error) {
+               console.log("Error getting documents: ", error);
+               alert("Error getting documents: ", error);
+           });
+    };

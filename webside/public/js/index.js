@@ -13,3 +13,5 @@ var firebaseConfig = {
  // firebase.analytics();
 
 var CLIENT_ID = '475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com';
+
+var db = firebase.firestore();
