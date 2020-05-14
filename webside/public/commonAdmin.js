@@ -43,52 +43,46 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
   {
     var Organization = document.getElementById("exampleInputNameOrganization").value;
     var Position = document.getElementById("exampleInputPosition").value;
-    var email = EmailLocalStorage;
-      // Добавляем в коллекциию новую организацию и данные основателя.
+    // Добавляем в коллекциию новую организацию и данные основателя.
     db.collection("Organization").add({
     StatusUser: "StatusUser_Owner",
     Organization: Organization,
     Subdivision: "",
     Position: Position,
-    OwnerEmail: email,
+    OwnerEmail: EmailLocalStorage,
     OwnerID: "",
     PositionOfYourManager: "",
     NameOfYourManager: "",
     // DocumentCreationTimes: FieldValue.serverTimestamp(),
 
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-    alert("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-    alert("Error adding document: ", error);
-});
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        alert("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+        alert("Error adding document: ", error);
+    });
   };
 
 
     /**
     * @return {string}
-     *  Обработка модального окна Регистрация Организации.
+     *  Получение данных для таблицы List Of Organizations In Which You Are Involved из firestore.
      */
 
     function createATableOfClientOrganizations()
     {
-      firebase.initializeApp({
-       var email = EmailLocalStorage;
-       db.collection("Organization").where("OwnerEmail", "==", email)
-           .get()
-           .then(function(querySnapshot)
-           {
-               querySnapshot.forEach(function(doc) {
-                   // doc.data() is never undefined for query doc snapshots
-                   console.log(doc.id, " => ", doc.data());
-                   alert(doc.id, " => ", doc.data());
-               });
-           })
-           .catch(function(error) {
-               console.log("Error getting documents: ", error);
-               alert("Error getting documents: ", error);
-           });
+        db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+          .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                });
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
     };
