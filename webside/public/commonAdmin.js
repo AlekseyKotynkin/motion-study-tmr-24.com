@@ -15,6 +15,50 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
+let items1=[];
+items1.length = 0;
+let items = [{
+            NameOfYourManager: 'Milano',
+            Organization: 'Italy',
+            link: 'details.html#42'
+        },
+        {
+            NameOfYourManager: 'London',
+            Organization: 'England',
+            link: 'details.html#10'
+        },
+        {
+            NameOfYourManager: 'Rome',
+            Organization: 'Italy',
+            link: 'details.html#39'
+        }
+
+    ];
+// console.log(items);
+// console.dir(items);
+let items2 = [{
+  StatusUser: "StatusUser_Owner",
+  Organization: "Organization",
+  Subdivision: "вып",
+  Position: "Position",
+  OwnerEmail: "EmailLocalStorage",
+  OwnerID: "вы",
+  PositionOfYourManager: "рро",
+  NameOfYourManager: "рр",
+},
+{
+  StatusUser: "StatusUser_Owner",
+  Organization: "Organization",
+  Subdivision: "вып",
+  Position: "Position",
+  OwnerEmail: "EmailLocalStorage",
+  OwnerID: "вы",
+  PositionOfYourManager: "рро",
+  NameOfYourManager: "рр",
+}
+    ];
+
+
 
  /**
  * @return {string}
@@ -80,8 +124,12 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
                     console.log(doc.id, " => ", doc.data());
-                });
-            })
+                    items1.push(doc.data());
+
+                    console.log(doc.data());
+                  });
+
+                })
             .catch(function(error) {
                 console.log("Error getting documents: ", error);
             });

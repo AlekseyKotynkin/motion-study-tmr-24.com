@@ -25,22 +25,13 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-functions.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script> -->
     <script src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="js/index.js"></script>
     <script src="commonAdmin.js"></script>
-    <!-- <script type="text/javascript">
-      const firebase = require("firebase");
-       // Required for side-effects
-      require("firebase/firestore");
-    </script> -->
-
-
-
-
-      <!-- Plugin css for this page -->
+    <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -313,8 +304,8 @@
               </div>
               <!-- Окно выбора Организации. -->
                     <div class="table-responsive">
-                      <script type="text/javascript">createATableOfClientOrganizations()</script>
-                      <table class="table">
+                       <script type="text/javascript">createATableOfClientOrganizations()</script>
+                      <!--<table class="table">
                         <thead>
                           <tr>
                             <th> Status </th>
@@ -340,7 +331,6 @@
                               <img src="assets/images/faces/face1.jpg" class="mr-2" alt="image"> David Grey </td>
                             <td> Fund is not recieved </td>
                             <td>
-                              <!-- <label class="badge badge-gradient-success">DONE</label> -->
                               DONE
                             </td>
                             <td> Dec 5, 2017 </td>
@@ -353,7 +343,73 @@
                             </td>
                           </tr>
                         </tbody>
-                      </table>
+                      </table> -->
+                      <table id="table"class="table">
+    <thead>
+        <tr>
+            <!-- <th>City</th>
+            <th>Country</th> -->
+            <th> Organization </th>
+            <th> Subdivision </th>
+            <th> Position </th>
+            <th> Position of your manager </th>
+            <th> Name of your manager </th>
+            <th> Status </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+
+    console.log(items);
+    console.log(items1);
+    console.log(items2);
+
+    var container = document.getElementById("table").getElementsByTagName("tbody")[0];
+
+    items.forEach(item => {
+        var tr = document.createElement("tr");
+
+        var cityName = document.createElement('a');
+        // cityName.href = item.link;
+        cityName.innerHTML = item.NameOfYourManager;
+
+        var cityColumn = document.createElement('td');
+        cityColumn.appendChild(cityName);
+
+        var countryColumn = document.createElement('td');
+        countryColumn.innerHTML = item.Organization;
+
+        // var a = document.createElement('td');
+        // countryColumn.innerHTML = item.OwnerEmail;
+        //
+        // var s = document.createElement('td');
+        // countryColumn.innerHTML = item.OwnerID;
+        //
+        // var d = document.createElement('td');
+        // countryColumn.innerHTML = item.Position;
+        //
+        // var f = document.createElement('td');
+        // countryColumn.innerHTML = item.PositionOfYourManager;
+        //
+        // var g = document.createElement('td');
+        // countryColumn.innerHTML = item.StatusUser;
+        //
+        // var h = document.createElement('td');
+        // countryColumn.innerHTML = item.Subdivision;
+
+
+        tr.appendChild(cityColumn);
+        tr.appendChild(countryColumn);
+
+        container.appendChild(tr);
+    });
+
+</script>
                     </div>
                   </div>
                 </div>
