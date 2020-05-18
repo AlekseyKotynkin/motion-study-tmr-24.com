@@ -16,7 +16,6 @@
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 let items=[];
-let items1=[];
 
  /**
  * @return {string}
@@ -79,18 +78,16 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
         db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
           .get()
             .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    items.push(doc.data());
-                    // console.log(doc.data());
-                    // console.log(doc.id, " => ", doc.data());
-                  });
+              querySnapshot.forEach(function(doc) {
+                items.push({...doc.data(),...{idOrganization: doc.id}});
+              });
 
-                })
+            })
             .catch(function(error) {
                 console.log("Error getting documents: ", error);
             })
               .finally(() => {items;
+                console.log(items);
                 items.forEach(item => {
                     var tr = document.createElement("tr");
 
