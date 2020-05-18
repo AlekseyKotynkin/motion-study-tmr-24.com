@@ -15,50 +15,8 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
+let items=[];
 let items1=[];
-items1.length = 0;
-let items = [{
-            NameOfYourManager: 'Milano',
-            Organization: 'Italy',
-            link: 'details.html#42'
-        },
-        {
-            NameOfYourManager: 'London',
-            Organization: 'England',
-            link: 'details.html#10'
-        },
-        {
-            NameOfYourManager: 'Rome',
-            Organization: 'Italy',
-            link: 'details.html#39'
-        }
-
-    ];
-// console.log(items);
-// console.dir(items);
-let items2 = [{
-  StatusUser: "StatusUser_Owner",
-  Organization: "Organization",
-  Subdivision: "вып",
-  Position: "Position",
-  OwnerEmail: "EmailLocalStorage",
-  OwnerID: "вы",
-  PositionOfYourManager: "рро",
-  NameOfYourManager: "рр",
-},
-{
-  StatusUser: "StatusUser_Owner",
-  Organization: "Organization",
-  Subdivision: "вып",
-  Position: "Position",
-  OwnerEmail: "EmailLocalStorage",
-  OwnerID: "вы",
-  PositionOfYourManager: "рро",
-  NameOfYourManager: "рр",
-}
-    ];
-
-
 
  /**
  * @return {string}
@@ -123,14 +81,61 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    items1.push(doc.data());
-
+                    items.push(doc.data());
                     console.log(doc.data());
                   });
 
                 })
             .catch(function(error) {
                 console.log("Error getting documents: ", error);
+            })
+              .finally(() => {items;
+                items.forEach(item => {
+                    var tr = document.createElement("tr");
+
+                    var OrganizationName = document.createElement('a');
+                    // cityName.href = item.link;
+                    OrganizationName.innerHTML = item.Organization;
+
+                    var OrganizationColumn = document.createElement('td');
+                    OrganizationColumn.appendChild(OrganizationName);
+
+                    var SubdivisionColumn = document.createElement('td');
+                    SubdivisionColumn.innerHTML = item.Subdivision;
+
+                    var PositionColumn = document.createElement('td');
+                    PositionColumn.innerHTML = item.Position;
+
+                    var PositionOfYourManagerColumn = document.createElement('td');
+                    PositionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
+
+                    var NameOfYourManagerColumn = document.createElement('td');
+                    NameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
+
+                    var StatusUserColumn = document.createElement('td');
+                    StatusUserColumn.innerHTML = item.StatusUser;
+
+
+                    // var s = document.createElement('td');
+                    // countryColumn.innerHTML = item.OwnerID;
+                    //
+                    // var d = document.createElement('td');
+                    // countryColumn.innerHTML = item.OwnerEmail;
+
+
+
+
+
+                    tr.appendChild(OrganizationColumn);
+                    tr.appendChild(SubdivisionColumn);
+                    tr.appendChild(PositionColumn);
+                    tr.appendChild(PositionOfYourManagerColumn);
+                    tr.appendChild(NameOfYourManagerColumn);
+                    tr.appendChild(StatusUserColumn);
+
+
+                    
+                    container.appendChild(tr);
+                });
             });
     };
