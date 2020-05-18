@@ -82,7 +82,8 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
                     items.push(doc.data());
-                    console.log(doc.data());
+                    // console.log(doc.data());
+                    // console.log(doc.id, " => ", doc.data());
                   });
 
                 })
@@ -116,15 +117,23 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                     StatusUserColumn.innerHTML = item.StatusUser;
 
 
-                    // var s = document.createElement('td');
-                    // countryColumn.innerHTML = item.OwnerID;
-                    //
-                    // var d = document.createElement('td');
-                    // countryColumn.innerHTML = item.OwnerEmail;
+                    var toComeInUserName = document.createElement('button');
+                    // cityName.href = item.link;
+                    toComeInUserName.innerHTML = "To come in";
+                    toComeInUserName.className = 'badge badge-gradient-success';
+                    // toComeInUserName.setAttribute('onclick', 'delButton(event)');
 
+                    var toComeInUserColumn = document.createElement('td');
+                    toComeInUserColumn.appendChild(toComeInUserName);
 
+                    var QuitName = document.createElement('button');
+                    // cityName.href = item.link;
+                    QuitName.innerHTML = "Quit";
+                    QuitName.className = 'badge badge-gradient-danger';
+                    // QuitName.setAttribute('onclick', 'delButton(event)');
 
-
+                    var QuitColumn = document.createElement('td');
+                    QuitColumn.appendChild(QuitName);
 
                     tr.appendChild(OrganizationColumn);
                     tr.appendChild(SubdivisionColumn);
@@ -132,9 +141,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                     tr.appendChild(PositionOfYourManagerColumn);
                     tr.appendChild(NameOfYourManagerColumn);
                     tr.appendChild(StatusUserColumn);
+                    tr.appendChild(toComeInUserColumn);
+                    tr.appendChild(QuitColumn);
 
-
-                    
                     container.appendChild(tr);
                 });
             });
