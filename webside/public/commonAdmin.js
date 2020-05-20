@@ -73,7 +73,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      *  Получение данных для таблицы List Of Organizations In Which You Are Involved из firestore.
      */
 
-    function createATableOfClientOrganizations()
+    function createATableOfClientAdmin()
     {
     db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     .get()
@@ -151,39 +151,16 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
   function toComeInButton(obj) {
     //обработка редактирования строки...
-    var objId = obj.id;
-    alert(obj.id);
-    console.log(event);
-    // получим стркоу
-    var table = document.querySelector('#table');
-    console.log(table);
-    var info = document.querySelector('#info');
-    console.log(info);
-    var trs = document.querySelectorAll('tr');
-    console.log(trs);
-    var elem = document.getElementById('tr');
-    console.log(elem);
-
-    // var tr = event.parentNode.parentNode;
-    // // tr.style.backgroundColor = "yellow";
-    // console.log(tr);
-    //
-    // // получим значения из строки
-    // var valueItem = tr.cells[2].innerText;
-    // var valueQuantity = tr.cells[3].innerText;
-    // var valuePrice = tr.cells[4].innerText;
-    // // заполним инпуты значениями из строки
-    // document.getElementsByClassName('input_add')[0].value = valueItem;
-    // document.getElementsByClassName('input_quant')[0].value = valueQuantity;
-    // document.getElementsByClassName('input_price')[0].value = valuePrice;
-    // // получим нашу кнопку
-    // var inputButton = document.getElementsByClassName('input_button')[0];
-    // inputButton.innerText = "Update"; // меняем текст
-    // inputButton.value = tr.cells[0].innerText; // в value будем хранить индекс строки
-
-    // данный блок не работает в сниппете
-    // localStorage.setItem('DoneList', document.getElementById("tbody").innerHTML);
-  }
+      let objId = obj.id;
+      alert(obj.id);
+        let itemsArray = [{
+          OrganizationId: objId,
+          OwnerEmail: EmailLocalStorage,
+          ProviderId: "TMR-24.com"
+        }]
+      localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
+      window.location.replace("indexAdminOrganization.html");
+    }
 
     /**
     * @return {string}
@@ -191,7 +168,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      */
 
     function quitButton(obj) {
-    var objId = obj.id;
+    let objId = obj.id;
     alert('Document successfully deleted! '+ (objId));
       db.collection("Organization").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");

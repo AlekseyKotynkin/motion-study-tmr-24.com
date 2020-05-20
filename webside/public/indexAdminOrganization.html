@@ -14,7 +14,11 @@
       if (localStorage.getItem('firebaseui::rememberedAccounts') === null)
       {
       window.location.replace("widget.html");
-      }
+      };
+      if (localStorage.getItem('TMR::rememberedAdmin') === null)
+      {
+      window.location.replace("indexAdmin.html");
+      };
     </script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
@@ -301,7 +305,7 @@
               </div>
               <!-- Окно выбора Организации. -->
                     <div class="table-responsive">
-                       <script type="text/javascript">createATableOfClientAdmin()</script>
+                       <script type="text/javascript">createATableOfClientOrganizations()</script>
                         <table id="table"class="table">
                             <thead>
                                 <tr>

@@ -19,6 +19,18 @@
       }]
       localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray))
     </script>
+    <script type="text/javascript">
+      if (localStorage.length === 0)
+      {
+      window.location.replace("widget.html");
+      };
+      // if (localStorage.getItem('TMR::rememberedAdmin').length === 0)
+      // {
+      // window.location.replace("indexAdmin.html");
+      // };
+      let aaa = localStorage.getItem('TMR::rememberedAdmin');
+      alert(aaa);
+    </script>
       <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
