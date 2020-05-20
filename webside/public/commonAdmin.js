@@ -75,73 +75,128 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
     function createATableOfClientOrganizations()
     {
-        db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
-          .get()
-            .then(function(querySnapshot) {
-              querySnapshot.forEach(function(doc) {
-                items.push({...doc.data(),...{idOrganization: doc.id}});
-              });
+    db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        items.push({...doc.data(),...{idOrganization: doc.id}});
+      });
 
-            })
-            .catch(function(error) {
-                console.log("Error getting documents: ", error);
-            })
-              .finally(() => {items;
-                console.log(items);
-                items.forEach(item => {
-                    var tr = document.createElement("tr");
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        })
+          .finally(() => {items;
+        items.forEach(item => {
+          var tr = document.createElement("tr");
 
-                    var OrganizationName = document.createElement('a');
-                    // cityName.href = item.link;
-                    OrganizationName.innerHTML = item.Organization;
+          var organizationName = document.createElement('a');
+          organizationName.innerHTML = item.Organization;
 
-                    var OrganizationColumn = document.createElement('td');
-                    OrganizationColumn.appendChild(OrganizationName);
+          var organizationColumn = document.createElement('td');
+          organizationColumn.appendChild(organizationName);
 
-                    var SubdivisionColumn = document.createElement('td');
-                    SubdivisionColumn.innerHTML = item.Subdivision;
+          var subdivisionColumn = document.createElement('td');
+          subdivisionColumn.innerHTML = item.Subdivision;
 
-                    var PositionColumn = document.createElement('td');
-                    PositionColumn.innerHTML = item.Position;
+          var positionColumn = document.createElement('td');
+          positionColumn.innerHTML = item.Position;
 
-                    var PositionOfYourManagerColumn = document.createElement('td');
-                    PositionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
+          var positionOfYourManagerColumn = document.createElement('td');
+          positionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
 
-                    var NameOfYourManagerColumn = document.createElement('td');
-                    NameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
+          var nameOfYourManagerColumn = document.createElement('td');
+          nameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
 
-                    var StatusUserColumn = document.createElement('td');
-                    StatusUserColumn.innerHTML = item.StatusUser;
+          var statusUserColumn = document.createElement('td');
+          statusUserColumn.innerHTML = item.StatusUser;
+
+          var toComeInUserName = document.createElement('button');
+          toComeInUserName.innerHTML = "To come in";
+          toComeInUserName.className = 'badge badge-gradient-success';
+          toComeInUserName.id = item.idOrganization;
+          toComeInUserName.setAttribute('onclick', 'toComeInButton(this)');
+
+          var toComeInUserColumn = document.createElement('td');
+          toComeInUserColumn.appendChild(toComeInUserName);
+
+          var quitName = document.createElement('button');
+          quitName.innerHTML = "Quit";
+          quitName.className = 'badge badge-gradient-danger';
+          quitName.id = item.idOrganization;
+          quitName.setAttribute('onclick', 'quitButton(this)');
+
+          var quitColumn = document.createElement('td');
+          quitColumn.appendChild(quitName);
+
+          tr.appendChild(organizationColumn);
+          tr.appendChild(subdivisionColumn);
+          tr.appendChild(positionColumn);
+          tr.appendChild(positionOfYourManagerColumn);
+          tr.appendChild(nameOfYourManagerColumn);
+          tr.appendChild(statusUserColumn);
+          tr.appendChild(toComeInUserColumn);
+          tr.appendChild(quitColumn);
+
+          container.appendChild(tr);
+        });
+      });
+  };
 
 
-                    var toComeInUserName = document.createElement('button');
-                    // cityName.href = item.link;
-                    toComeInUserName.innerHTML = "To come in";
-                    toComeInUserName.className = 'badge badge-gradient-success';
-                    // toComeInUserName.setAttribute('onclick', 'delButton(event)');
+  /**
+  * @return {string}
+   *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
+   */
 
-                    var toComeInUserColumn = document.createElement('td');
-                    toComeInUserColumn.appendChild(toComeInUserName);
+  function toComeInButton(obj) {
+    //обработка редактирования строки...
+    var objId = obj.id;
+    alert(obj.id);
+    console.log(event);
+    // получим стркоу
+    var table = document.querySelector('#table');
+    console.log(table);
+    var info = document.querySelector('#info');
+    console.log(info);
+    var trs = document.querySelectorAll('tr');
+    console.log(trs);
+    var elem = document.getElementById('tr');
+    console.log(elem);
 
-                    var QuitName = document.createElement('button');
-                    // cityName.href = item.link;
-                    QuitName.innerHTML = "Quit";
-                    QuitName.className = 'badge badge-gradient-danger';
-                    // QuitName.setAttribute('onclick', 'delButton(event)');
+    // var tr = event.parentNode.parentNode;
+    // // tr.style.backgroundColor = "yellow";
+    // console.log(tr);
+    //
+    // // получим значения из строки
+    // var valueItem = tr.cells[2].innerText;
+    // var valueQuantity = tr.cells[3].innerText;
+    // var valuePrice = tr.cells[4].innerText;
+    // // заполним инпуты значениями из строки
+    // document.getElementsByClassName('input_add')[0].value = valueItem;
+    // document.getElementsByClassName('input_quant')[0].value = valueQuantity;
+    // document.getElementsByClassName('input_price')[0].value = valuePrice;
+    // // получим нашу кнопку
+    // var inputButton = document.getElementsByClassName('input_button')[0];
+    // inputButton.innerText = "Update"; // меняем текст
+    // inputButton.value = tr.cells[0].innerText; // в value будем хранить индекс строки
 
-                    var QuitColumn = document.createElement('td');
-                    QuitColumn.appendChild(QuitName);
+    // данный блок не работает в сниппете
+    // localStorage.setItem('DoneList', document.getElementById("tbody").innerHTML);
+  }
 
-                    tr.appendChild(OrganizationColumn);
-                    tr.appendChild(SubdivisionColumn);
-                    tr.appendChild(PositionColumn);
-                    tr.appendChild(PositionOfYourManagerColumn);
-                    tr.appendChild(NameOfYourManagerColumn);
-                    tr.appendChild(StatusUserColumn);
-                    tr.appendChild(toComeInUserColumn);
-                    tr.appendChild(QuitColumn);
+    /**
+    * @return {string}
+     *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+     */
 
-                    container.appendChild(tr);
-                });
-            });
-    };
+    function quitButton(obj) {
+    var objId = obj.id;
+    alert('Document successfully deleted! '+ (objId));
+      db.collection("Organization").doc(objId).delete().then(function() {
+          console.log("Document successfully deleted!");
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+      window.location.reload();
+    }
