@@ -152,7 +152,8 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
   function toComeInButton(obj) {
     //обработка редактирования строки...
       let objId = obj.id;
-      alert(obj.id);
+      console.log(obj);
+
         let itemsArray = [{
           OrganizationId: objId,
           OwnerEmail: EmailLocalStorage,
@@ -160,7 +161,8 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
         }]
       localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
       window.location.replace("indexAdminOrganization.html");
-    }
+    };
+    alert (obj);
 
     /**
     * @return {string}
