@@ -31,7 +31,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="js/index.js"></script>
-    <script src="commonAdmin.js"></script>
+    <script src="commonAdminOrganization.js"></script>
       <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -254,67 +254,21 @@
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">List of organizations in which you are involved</h4>
-                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewOrganization">
-                        + Add Organization
+                  <div id='headerTableSubdivision' class="card-body">
+                    <h4 class="card-title">List of subdivision in your organization - </h4>
+                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
+                        + Add Subdivision
                       </button>
-              <!-- Модальное окно регистрации Организации. -->
-              <div id="gridSystemModalNewOrganization" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="container-fluid bd-example-row">
-                        <div class="col-12 grid-margin stretch-card">
-                          <div class="card">
-                            <div class="card-body">
-                              <h4 class="card-title">+ Add Organization</h4>
-                              <p class="card-description"> Create a new organization account </p>
-                              <form class="forms-sample">
-                                <div class="form-group">
-                                  <label>File logo</label>
-                                  <input type="file" name="img[]" class="file-upload-default">
-                                  <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                    <span class="input-group-append">
-                                      <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                                    </span>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="exampleInputNameOrganization">Organization</label>
-                                  <input type="text" class="form-control" id="exampleInputNameOrganization" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                  <label for="exampleInputPosition">Position</label>
-                                  <input type="text" class="form-control" id="exampleInputPosition" placeholder="Your position">
-                                </div>
-                                <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewOrganization()">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <!-- Окно выбора Организации. -->
                     <div class="table-responsive">
-                       <script type="text/javascript">createATableOfClientOrganizations()</script>
-                        <table id="table"class="table">
+                       <script type="text/javascript">createATableOfClientSubdivision()</script>
+                        <table id="tableSubdivision"class="table">
                             <thead>
                                 <tr>
-                                  <th> Organization </th>
                                   <th> Subdivision </th>
-                                  <th> Position </th>
-                                  <th> Position of your manager </th>
-                                  <th> Name of your manager </th>
-                                  <th> Status </th>
+                                  <th> Name of department head </th>
+                                  <th> Head of unit </th>
+                                  <th> The number of employees </th>
                                   <th></th>
                                   <th></th>
                                 </tr>
@@ -323,7 +277,7 @@
                             </tbody>
                         </table>
                       <script>
-                        var container = document.getElementById("table").getElementsByTagName("tbody")[0];
+                        var container = document.getElementById("tableSubdivision").getElementsByTagName("tbody")[0];
                       </script>
                     </div>
                   </div>
@@ -332,6 +286,44 @@
             </div>
           </div>
           <!-- content-wrapper ends -->
+          <!-- Модальное окно регистрации Подразделения. -->
+          <div id="gridSystemModalNewSubdivision" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">+ Add Subdivision</h4>
+                          <p class="card-description"> Create a new subdivision account </p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalSubdivisionTitle">Subdivision</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionTitle" placeholder="Title">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalSubdivisionNameOfDepartamentHead">Name of department head</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionNameOfDepartamentHead" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalSubdivisionHeadOfUnit">Head of unit</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionHeadOfUnit" placeholder="Position">
+                            </div>
+                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSubdivision()">Submit</button>
+                            <button class="btn btn-light">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
