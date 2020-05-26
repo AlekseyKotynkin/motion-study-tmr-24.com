@@ -268,23 +268,21 @@
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
-                  <div id='org_div1' class="card-body">
+                  <div id='headerTableSubdivision' class="card-body">
                     <h4 class="card-title">List of subdivision in your organization - </h4>
                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
                         + Add Subdivision
                       </button>
               <!-- Окно выбора Организации. -->
                     <div class="table-responsive">
-                       <!-- <script type="text/javascript">createATableOfClientSubdivision()</script> -->
+                       <script type="text/javascript">createATableOfClientSubdivision()</script>
                         <table id="tableSubdivision"class="table">
                             <thead>
                                 <tr>
-                                  <th> Organization </th>
                                   <th> Subdivision </th>
-                                  <th> Position </th>
-                                  <th> Position of your manager </th>
-                                  <th> Name of your manager </th>
-                                  <th> Status </th>
+                                  <th> Name of department head </th>
+                                  <th> Head of unit </th>
+                                  <th> The number of employees </th>
                                   <th></th>
                                   <th></th>
                                 </tr>
@@ -315,27 +313,21 @@
                       <div class="card">
                         <div class="card-body">
                           <h4 class="card-title">+ Add Subdivision</h4>
-                          <p class="card-description"> Create a new organization account </p>
+                          <p class="card-description"> Create a new subdivision account </p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <label>File logo</label>
-                              <input type="file" name="img[]" class="file-upload-default">
-                              <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                <span class="input-group-append">
-                                  <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                                </span>
-                              </div>
+                              <label for="exampleInputModalSubdivisionTitle">Subdivision</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionTitle" placeholder="Title">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputNameSubdivision">Subdivision</label>
-                              <input type="text" class="form-control" id="exampleInputNameOrganization" placeholder="Name">
+                              <label for="exampleInputModalSubdivisionNameOfDepartamentHead">Name of department head</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionNameOfDepartamentHead" placeholder="Name">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputPosition">Position</label>
-                              <input type="text" class="form-control" id="exampleInputPosition" placeholder="Your position">
+                              <label for="exampleInputModalSubdivisionHeadOfUnit">Head of unit</label>
+                              <input type="text" class="form-control" id="exampleInputModalSubdivisionHeadOfUnit" placeholder="Position">
                             </div>
-                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewOrganization()">Submit</button>
+                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSubdivision()">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                           </form>
                         </div>
