@@ -16,6 +16,7 @@
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 let documentData=[];
+let documentDataSubdivision=[];
 let items=[];
 // let documentData;
 // let d;
@@ -69,7 +70,7 @@ docRef.get().then(function(doc) {
    localStorage.clear('firebaseui::rememberedAccounts');
    localStorage.clear('TMR::rememberedAdmin');
    window.location.replace("index.html")
- }
+ };
 
  /**
  * @return {string}
@@ -101,7 +102,7 @@ docRef.get().then(function(doc) {
 
     /**
     * @return {string}
-     *  Получение данных для таблицы List Of Organizations In Which You Are Involved из firestore.
+     *  Получение данных для таблицы List Of Subdivision In Which You Are Involved из firestore.
      */
   function createATableOfClientSubdivision()
   {
@@ -167,34 +168,178 @@ docRef.get().then(function(doc) {
 
   /**
   // * @return {string}
-   *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
+   *  Обработчик кнопки toComeInUserColumn из таблицы List Of Subdivision In Which You Are Involved.
    */
 
   function toComeInButtonSubdivision(obj) {
-    //обработка редактирования строки...
-      // let objId = obj.id;
-      // alert(obj.id);
-      //   let itemsArray = [{
-      //     OrganizationId: objId,
-      //     OwnerEmail: EmailLocalStorage,
-      //     ProviderId: "TMR-24.com"
-      //   }]
-      // localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
-      // window.location.replace("indexAdminOrganization.html");
-    }
+  //обработка редактирования строки...
+    let objId = obj.id;
+    var docRefFull = docRef.collection("Subdivision").doc(obj.id);
+    docRefFull.get().then(function(doc) {
+      if (doc.exists) {
+          documentDataSubdivision.push(doc.data());
+      } else {
+        console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  })
+    .finally(() => {documentDataSubdivision;
+       documentDataSubdivision.forEach(item => {
+          document.body.innerHTML = document.body.innerHTML.replace('- Select subdivision', '- ');
+          my_div = document.getElementById("headerTablePosition");
+          const ul = my_div.querySelector("h4");
+          let li = item.Subdivision;
+          let lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>';
+          ul.insertAdjacentHTML("beforeend", li);
+          ul.insertAdjacentHTML("afterend", lit);
+      });
+  });
+
+       /**
+       * @return {string}
+        *  Получение данных для таблицы List Of Organizations In Which You Are Involved из firestore.
+        */
+     function createATableOfClientPosition()
+     {
+       // docRef.collection("Subdivision")
+       // .get()
+       // .then(function(querySnapshot) {
+       //   querySnapshot.forEach(function(doc) {
+       //     items.push({...doc.data(),...{idSubdivision: doc.id}});
+       //   });
+       //
+       //     })
+       //     .catch(function(error) {
+       //         console.log("Error getting documents: ", error);
+       //     })
+       //       .finally(() => {items;
+       //     items.forEach(item => {
+       //       var tr = document.createElement("tr");
+       //
+       //       var subdivisionColumn = document.createElement('td');
+       //       subdivisionColumn.innerHTML = item.Subdivision;
+       //
+       //       var nameOfDepartmentHeadColumn = document.createElement('td');
+       //       nameOfDepartmentHeadColumn.innerHTML = item.NameOfDepartmentHead;
+       //
+       //       var headOfUnitColumn = document.createElement('td');
+       //       headOfUnitColumn.innerHTML = item.HeadOfUnit;
+       //
+       //
+       //       var theNumberOfEmployeesColumn = document.createElement('td');
+       //       theNumberOfEmployeesColumn.innerHTML = item.StatusUser;
+       //
+       //       var toComeInUserName = document.createElement('button');
+       //       toComeInUserName.innerHTML = "To come in";
+       //       toComeInUserName.className = 'badge badge-gradient-success';
+       //       toComeInUserName.id = item.idSubdivision;
+       //       toComeInUserName.setAttribute('onclick', 'toComeInButtonSubdivision(this)');
+       //
+       //       var toComeInUserColumn = document.createElement('td');
+       //       toComeInUserColumn.appendChild(toComeInUserName);
+       //
+       //       var quitName = document.createElement('button');
+       //       quitName.innerHTML = "Quit";
+       //       quitName.className = 'badge badge-gradient-danger';
+       //       quitName.id = item.idSubdivision;
+       //       quitName.setAttribute('onclick', 'quitButtonSubdivision(this)');
+       //
+       //       var quitColumn = document.createElement('td');
+       //       quitColumn.appendChild(quitName);
+       //
+       //       tr.appendChild(subdivisionColumn);
+       //       tr.appendChild(nameOfDepartmentHeadColumn);
+       //       tr.appendChild(headOfUnitColumn);
+       //       tr.appendChild(theNumberOfEmployeesColumn);
+       //       tr.appendChild(toComeInUserColumn);
+       //       tr.appendChild(quitColumn);
+       //
+       //       container.appendChild(tr);
+       //     });
+       //   });
+         };
+
+
+
+
+
+
+    };
 
     /**
     * @return {string}
-     *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+     *  Обработчик кнопки quitColumn из таблицы List Of Subdivision In Which You Are Involved.
      */
 
     function quitButtonSubdivision(obj) {
     let objId = obj.id;
     alert('Document successfully deleted! '+ (objId));
-    docRef.collection("Organization").doc(objId).delete().then(function() {
+    docRef.collection("Subdivision").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
       }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
       window.location.reload();
-    }
+    };
+
+
+    /**
+    * @return {string}
+     *  Обработка модального окна Регистрация Должности.
+     */
+
+     function gridSystemModalNewPosition()
+     {
+       var positionTitle = document.getElementById("exampleInputModalPositionTitle").value;
+       var positionComment = document.getElementById("exampleInputModalPositionСomment").value;
+       // Добавляем в документ Подразделения должность.
+       docRef.collection("Subdivision").add({
+       Subdivision: subdivisionTitle,
+       NameOfDepartmentHead: nameOfDepartmentHead,
+       HeadOfUnit: headOfUnit,
+
+       })
+       .then(function(docRef) {
+           console.log("Document written with ID: ", docRef.id);
+           alert("Document written with ID: ", docRef.id);
+       })
+       .catch(function(error) {
+           console.error("Error adding document: ", error);
+           alert("Error adding document: ", error);
+       });
+     };
+
+   /**
+   // * @return {string}
+    *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
+    */
+
+   function toComeInButtonPosition(obj) {
+     //обработка редактирования строки...
+       // let objId = obj.id;
+       // alert(obj.id);
+       //   let itemsArray = [{
+       //     OrganizationId: objId,
+       //     OwnerEmail: EmailLocalStorage,
+       //     ProviderId: "TMR-24.com"
+       //   }]
+       // localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
+       // window.location.replace("indexAdminOrganization.html");
+     }
+
+     /**
+     * @return {string}
+      *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+      */
+
+     function quitButtonPosition(obj) {
+     let objId = obj.id;
+     alert('Document successfully deleted! '+ (objId));
+     docRef.collection("Organization").doc(objId).delete().then(function() {
+           console.log("Document successfully deleted!");
+       }).catch(function(error) {
+           console.error("Error removing document: ", error);
+       });
+       window.location.reload();
+     }
