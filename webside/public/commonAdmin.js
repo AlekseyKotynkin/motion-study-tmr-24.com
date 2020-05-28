@@ -162,7 +162,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
       localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
       window.location.replace("indexAdminOrganization.html");
     };
-    alert (obj);
+
 
     /**
     * @return {string}

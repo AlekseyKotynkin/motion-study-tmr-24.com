@@ -44,24 +44,24 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 *  Заполняем шапку табличной части Подразделения.
 */
 
-var docRef = db.collection("Organization").doc(localStorageOrganizationId);
-docRef.get().then(function(doc) {
+  var docRef = db.collection("Organization").doc(localStorageOrganizationId);
+    docRef.get().then(function(doc) {
     if (doc.exists) {
         documentData.push(doc.data());
     } else {
       console.log("No such document!");
     }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-})
-  .finally(() => {documentData;
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    })
+    .finally(() => {documentData;
      documentData.forEach(item => {
         my_div = document.getElementById("headerTableSubdivision");
         const ul = my_div.querySelector("h4");
         let li = item.Organization;
         ul.insertAdjacentHTML("beforeend", li);
     });
-});
+  });
 
 /**
 * @return {string}
@@ -174,8 +174,8 @@ docRef.get().then(function(doc) {
 
   function toComeInButtonSubdivision(obj) {
   //обработка редактирования строки...
-    let objId = obj.id;
-    var docRefFull = docRef.collection("Subdivision").doc(obj.id);
+    // let objId = obj.id;
+    var docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);;
     docRefFull.get().then(function(doc) {
       if (doc.exists) {
         documentDataSubdivision.push({...doc.data(),...{idSubdivision: doc.id}});
@@ -195,8 +195,10 @@ docRef.get().then(function(doc) {
           ul.insertAdjacentHTML("beforeend", li);
           ul.insertAdjacentHTML("afterend", lit);
       });
-     console.log(docRefFull);
-     docRefFull.get().then(function(querySnapshot) {
+
+     docRefFull.collection("Position")
+     .get()
+     .then(function(querySnapshot) {
        querySnapshot.forEach(function(doc) {
          itemsPosition.push({...doc.data(),...{idPosition: doc.id}});
        });
@@ -242,12 +244,12 @@ docRef.get().then(function(doc) {
            tr.appendChild(toComeInUserColumn);
            tr.appendChild(quitColumn);
 
+           console.log(containerPosition);
            containerPosition.appendChild(tr);
          });
        });
-
-  });
-}
+    });
+  }
 
     /**
     * @return {string}
