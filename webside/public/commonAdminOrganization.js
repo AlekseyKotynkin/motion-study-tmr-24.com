@@ -176,7 +176,10 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 
   function toComeInButtonSubdivision(obj) {
   //обработка редактирования строки...
-    // let objId = obj.id;
+
+    // var removeTab = document.getElementById('headerTablePosition').parentElement.removeChild(removeTab);
+
+
     var docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);;
     docRefFull.get().then(function(doc) {
       if (doc.exists) {
