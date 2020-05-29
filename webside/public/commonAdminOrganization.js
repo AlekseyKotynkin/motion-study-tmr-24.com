@@ -19,6 +19,8 @@ let documentData=[];
 let documentDataSubdivision=[];
 let items=[];
 let itemsPosition=[];
+// let containerPosition = [];
+
 // let documentData;
 // let d;
 
@@ -159,7 +161,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           tr.appendChild(theNumberOfEmployeesColumn);
           tr.appendChild(toComeInUserColumn);
           tr.appendChild(quitColumn);
-
+           console.log(container);
           container.appendChild(tr);
         });
       });
@@ -244,8 +246,9 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            tr.appendChild(toComeInUserColumn);
            tr.appendChild(quitColumn);
 
-           console.log(containerPosition);
-           containerPosition.appendChild(tr);
+           var container = document.getElementById("tablePosition").getElementsByTagName("tbody")[0];
+           console.log(container);
+           container.appendChild(tr);
          });
        });
     });
