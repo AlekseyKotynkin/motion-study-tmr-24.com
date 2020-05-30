@@ -77,7 +77,6 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
  */
  function SignoutAdmin() {
    localStorage.clear();
-
    window.location.replace("index.html")
  };
 
@@ -332,18 +331,18 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            PositionId: objId,
            OwnerEmail: EmailLocalStorage,
            ProviderId: "TMR-24.com"
-         }]
+         }];
        localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArray));
        window.location.replace("indexAdminPosition.html");
-
+      }
      /**
      * @return {string}
       *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
       */
 
-     function quitButtonPosition(obj) {
+     function quitButtonPosition(obj)
+     {
        let objId = obj.id;
-       console.log(localStorageSubdivision);
        alert('Document successfully deleted! '+ (objId));
        docRef.collection("Subdivision").doc(localStorageSubdivision).collection("Position").doc(objId).delete().then(function() {
              console.log("Document successfully deleted!");
@@ -351,4 +350,4 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
              console.error("Error removing document: ", error);
          });
          window.location.reload();
-       };
+    }

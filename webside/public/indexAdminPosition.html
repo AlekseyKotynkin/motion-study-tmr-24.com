@@ -19,6 +19,11 @@
       {
       window.location.replace("indexAdmin.html");
       };
+      if (localStorage.getItem('TMR::rememberedAdminSubdivision') === null);
+      if (localStorage.getItem('TMR::rememberedAdminPosition') === null)
+      {
+      window.location.replace("indexAdminOrganization.html");
+      };
     </script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
@@ -31,7 +36,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="js/index.js"></script>
-    <script src="commonAdminOrganization.js"></script>
+    <script src="commonAdminPosition.js"></script>
       <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->

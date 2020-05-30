@@ -24,6 +24,18 @@
         ProviderId: "TMR-24.com"
       }]
       localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArrayTMR));
+        let itemsArraySubdivisioTMR = [{
+        SubdivisionId: "NWUtjZcWGLTw3GexC2O6",
+        OwnerEmail: "cay211076@gmail.com",
+        ProviderId: "TMR-24.com"
+      }]
+      localStorage.setItem('TMR::rememberedAdminSubdivision', JSON.stringify(itemsArraySubdivisioTMR));
+        let itemsArrayPositionTMR = [{
+        PositionId: "xqZnrnLgRmTZqfh4zmxo",
+        OwnerEmail: "cay211076@gmail.com",
+        ProviderId: "TMR-24.com"
+      }]
+      localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArrayPositionTMR));
 
       if (localStorage.getItem('firebaseui::rememberedAccounts') === null)
       {
@@ -32,6 +44,11 @@
       if (localStorage.getItem('TMR::rememberedAdmin') === null)
       {
       window.location.replace("indexAdmin.html");
+      };
+      if (localStorage.getItem('TMR::rememberedAdminSubdivision') === null);
+      if (localStorage.getItem('TMR::rememberedAdminPosition') === null)
+      {
+      window.location.replace("indexAdminOrganization.html");
       };
     </script>
       <!-- Firebase -->
@@ -45,7 +62,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="js/index.js"></script>
-    <script src="commonAdminOrganization.js"></script>
+    <script src="commonAdminPosition.js"></script>
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
