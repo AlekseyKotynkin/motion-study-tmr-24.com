@@ -161,7 +161,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           tr.appendChild(theNumberOfEmployeesColumn);
           tr.appendChild(toComeInUserColumn);
           tr.appendChild(quitColumn);
-           console.log(container);
+
           container.appendChild(tr);
         });
       });
@@ -178,7 +178,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
   //обработка редактирования строки...
 
     // var removeTab = document.getElementById('headerTablePosition').parentElement.removeChild(removeTab);
-
+    // document.getElementById("headerTablePosition").reset();
 
     var docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);;
     docRefFull.get().then(function(doc) {
@@ -250,7 +250,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            tr.appendChild(quitColumn);
 
            var container = document.getElementById("tablePosition").getElementsByTagName("tbody")[0];
-           console.log(container);
+           
            container.appendChild(tr);
          });
        });
