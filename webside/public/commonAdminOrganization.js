@@ -335,6 +335,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArray));
        window.location.replace("indexAdminPosition.html");
       }
+      
      /**
      * @return {string}
       *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.

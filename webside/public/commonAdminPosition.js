@@ -40,32 +40,32 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 *  Читаем параметры из localStorage 'TMR::rememberedAdmin'.
 */
 const LocalStorageValueObjectOrganization = JSON.parse(localStorage.getItem('TMR::rememberedAdmin'));
-const localStorageOrganizationId = (LocalStorageValueObjectOrganization[0]).OrganizationId;
+const LocalStorageOrganizationId = (LocalStorageValueObjectOrganization[0]).OrganizationId;
 const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).OwnerEmail;
-var docRefOrganization = db.collection("Organization").doc(localStorageOrganizationId);
+var docRefOrganization = db.collection("Organization").doc(LocalStorageOrganizationId);
 let nameOrganization = "";
 let documentDataOrganization=[];
-    // console.log(localStorageOrganizationId);
+
 /**
 * @return {string}
 *  Читаем параметры из localStorage 'TMR::rememberedAdminSubdivision'.
 */
 const LocalStorageValueObjectSubdivision = JSON.parse(localStorage.getItem('TMR::rememberedAdminSubdivision'));
-const localStorageSubdivision = (LocalStorageValueObjectSubdivision[0]).SubdivisionId;
-var docRefSubdivisio = docRefOrganization.collection("Subdivision").doc(localStorageSubdivision);
+const LocalStorageSubdivision = (LocalStorageValueObjectSubdivision[0]).SubdivisionId;
+var docRefSubdivisio = docRefOrganization.collection("Subdivision").doc(LocalStorageSubdivision);
 let nameSubdivision = "";
 let documentDataSubdivision=[];
-    // console.log(localStorageSubdivision);
+
 /**
 * @return {string}
 *  Читаем параметры из localStorage 'TMR::rememberedAdminPosition'.
 */
 const LocalStorageValueObjectPosition = JSON.parse(localStorage.getItem('TMR::rememberedAdminPosition'));
-const localStoragePosition = (LocalStorageValueObjectPosition[0]).PositionId;
-var docRefPosition = docRefSubdivisio.collection("Position").doc(localStoragePosition);
+const LocalStoragePosition = (LocalStorageValueObjectPosition[0]).PositionId;
+var docRefPosition = docRefSubdivisio.collection("Position").doc(LocalStoragePosition);
 let namePosition = "";
 let documentDataPosition=[];
-    // console.log(localStoragePosition);
+
 /**
 * @return {string}
 *  Заполняем шапку табличной части Подразделения.
@@ -137,13 +137,13 @@ if (doc.exists) {
  * @return {string}
   *  Получение данных для таблицы список Настроек List Of Subdivision In Which You Are Involved из firestore.
   */
-function createATableOfClientSettings()
+function createATableOfClientUser()
 {
  docRefPosition.collection("PositionUser")
  .get()
  .then(function(querySnapshot) {
    querySnapshot.forEach(function(doc) {
-     items.push({...doc.data(),...{idPositionUser: doc.id}});
+     itemsPositionUser.push({...doc.data(),...{idPositionUser: doc.id}});
    });
 
      })
@@ -151,20 +151,20 @@ function createATableOfClientSettings()
          console.log("Error getting documents: ", error);
      })
        .finally(() => {itemsPositionUser;
-    itemsPositionUser.forEach(item => {
+       itemsPositionUser.forEach(item => {
        var tr = document.createElement("tr");
 
        var userEmailColumn = document.createElement('td');
        userEmailColumn.innerHTML = item.UserEmail;
 
        var userСommentColumn = document.createElement('td');
-       userСommentColumn.innerHTML = item.userСomment;
+       userСommentColumn.innerHTML = item.UserСomment;
 
        var editUserName = document.createElement('button');
        editUserName.innerHTML = "Edit";
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionUser;
-       editUserName.setAttribute('onclick', 'toComeInButtonPositionUser(this)');
+       editUserName.setAttribute('onclick', 'editButtonUser(this)');
 
        var editUserNameColumn = document.createElement('td');
        editUserNameColumn.appendChild(editUserName);
@@ -173,7 +173,7 @@ function createATableOfClientSettings()
        toDismissName.innerHTML = "To dismiss";
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionUser;
-       toDismissName.setAttribute('onclick', 'quitButtonPositionUser(this)');
+       toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
 
        var toDismissColumn = document.createElement('td');
        toDismissColumn.appendChild(toDismissName);
@@ -184,8 +184,6 @@ function createATableOfClientSettings()
        tr.appendChild(toDismissColumn);
 
        container.appendChild(tr);
-
-       var container = document.getElementById("tableUser").getElementsByTagName("tbody")[0];
      });
    });
 };
@@ -194,7 +192,7 @@ function createATableOfClientSettings()
 * @return {string}
  *  Получение данных для таблицы список Пользователи List Of Subdivision In Which You Are Involved из firestore.
  */
-function createATableOfClientUser()
+function createATableOfClientSettings()
 {
 docRefPosition.collection("PositionSettings")
 .get()
@@ -208,7 +206,7 @@ docRefPosition.collection("PositionSettings")
         console.log("Error getting documents: ", error);
     })
       .finally(() => {items;
-    items.forEach(item => {
+      items.forEach(item => {
       var tr = document.createElement("tr");
 
       var settingsTitleColumn = document.createElement('td');
@@ -221,7 +219,7 @@ docRefPosition.collection("PositionSettings")
       editSettings.innerHTML = "Edit";
       editSettings.className = 'badge badge-gradient-success';
       editSettings.id = item.idPositionSettings;
-      editSettings.setAttribute('onclick', 'toComeInButtonPositionSettings(this)');
+      editSettings.setAttribute('onclick', 'editButtonSettings(this)');
 
       var editSettingsColumn = document.createElement('td');
       editSettingsColumn.appendChild(editSettings);
@@ -230,7 +228,7 @@ docRefPosition.collection("PositionSettings")
       deleteSettings.innerHTML = "Delete";
       deleteSettings.className = 'badge badge-gradient-danger';
       deleteSettings.id = item.idPositionSettings;
-      deleteSettings.setAttribute('onclick', 'quitButtonPositionSettings(this)');
+      deleteSettings.setAttribute('onclick', 'deleteButtonSettings(this)');
 
       var deleteSettingsColumn = document.createElement('td');
       deleteSettingsColumn.appendChild(deleteSettings);
@@ -240,9 +238,9 @@ docRefPosition.collection("PositionSettings")
       tr.appendChild(editSettingsColumn);
       tr.appendChild(deleteSettingsColumn);
 
-      container.appendChild(tr);
-
       var container = document.getElementById("tableSettings").getElementsByTagName("tbody")[0];
+
+      container.appendChild(tr);
     });
   });
 };
@@ -274,61 +272,92 @@ docRefPosition.collection("PositionSettings")
 
 
 
-   /**
-   * @return {string}
-    *  Обработка модального окна Регистрация Настроик Должности.
-    */
+/**
+* @return {string}
+*  Обработка модального окна Регистрация Настроик Должности.
+*/
 
-    function gridSystemModalNewSubdivision()
-    {
-      var settingsTitle = document.getElementById("exampleInputModalSettingsTitle").value;
-      var settingsСomment = document.getElementById("exampleInputModalSettingsСomment").value;
-      // Добавляем в коллекциию организации Подразделения и данные руководителя.
-      docRefPosition.collection("PositionSettings").add({
-      SettingsTitle: settingsTitle,
-      SettingsСomment: settingsСomment,
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-          alert("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-          alert("Error adding document: ", error);
-      });
-    };
+function gridSystemModalNewSubdivision()
+{
+var settingsTitle = document.getElementById("exampleInputModalSettingsTitle").value;
+var settingsСomment = document.getElementById("exampleInputModalSettingsСomment").value;
+docRefPosition.collection("PositionSettings").add({
+SettingsTitle: settingsTitle,
+SettingsСomment: settingsСomment,
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    alert("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+    alert("Error adding document: ", error);
+});
+};
 
-    /**
-    // * @return {string}
-     *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
-     */
+/**
+* @return {string}
+*  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+*/
+function toDismissButtonUser(obj)
+{
+let objId = obj.id;
+alert('Document successfully deleted! '+ (objId));
+docRefPosition.collection("PositionUser").doc(objId).delete().then(function() {
+      console.log("Document successfully deleted!");
+  }).catch(function(error) {
+      console.error("Error removing document: ", error);
+  });
+  window.location.reload();
+}
 
-    function toComeInButtonPosition(obj) {
-      //обработка редактирования строки...
-        let objId = obj.id;
-        console.log(obj);
+ /**
+ * @return {string}
+  *  Обработчик кнопки deleteButtonSettings из таблицы .
+  */
 
-          let itemsArray = [{
-            PositionId: objId,
-            OwnerEmail: EmailLocalStorage,
-            ProviderId: "TMR-24.com"
-          }];
-        localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArray));
-        window.location.replace("indexAdminPosition.html");
-       }
-      /**
-      * @return {string}
-       *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
-       */
+ function deleteButtonSettings(obj)
+ {
+   let objId = obj.id;
+   alert('Document successfully deleted! '+ (objId));
+   docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
+         console.log("Document successfully deleted!");
+     }).catch(function(error) {
+         console.error("Error removing document: ", error);
+     });
+     window.location.reload();
+}
 
-      function quitButtonPosition(obj)
-      {
-        let objId = obj.id;
-        alert('Document successfully deleted! '+ (objId));
-        docRef.collection("Subdivision").doc(localStorageSubdivision).collection("Position").doc(objId).delete().then(function() {
-              console.log("Document successfully deleted!");
-          }).catch(function(error) {
-              console.error("Error removing document: ", error);
-          });
-          window.location.reload();
-     }
+/**
+* @return {string}
+*  Обработчик кнопки deleteButtonSettings из таблицы .
+*/
+
+function editButtonUser(obj)
+{
+ // let objId = obj.id;
+ // alert('Document successfully deleted! '+ (objId));
+ // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
+ //       console.log("Document successfully deleted!");
+ //   }).catch(function(error) {
+ //       console.error("Error removing document: ", error);
+ //   });
+ //   window.location.reload();
+}
+
+ /**
+ * @return {string}
+  *  Обработчик кнопки deleteButtonSettings из таблицы .
+  */
+
+ function editButtonSettings(obj)
+ {
+   // let objId = obj.id;
+   // alert('Document successfully deleted! '+ (objId));
+   // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
+   //       console.log("Document successfully deleted!");
+   //   }).catch(function(error) {
+   //       console.error("Error removing document: ", error);
+   //   });
+   //   window.location.reload();
+}
