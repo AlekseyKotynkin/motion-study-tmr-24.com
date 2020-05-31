@@ -335,13 +335,56 @@ docRefPosition.collection("PositionUser").doc(objId).delete().then(function() {
 
 function editButtonUser(obj)
 {
- // let objId = obj.id;
- // alert('Document successfully deleted! '+ (objId));
- // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
- //       console.log("Document successfully deleted!");
- //   }).catch(function(error) {
- //       console.error("Error removing document: ", error);
- //   });
+  let objId = obj.id;
+  var washingtonRef = docRefPosition.collection("PositionUser").doc(objId);
+  washingtonRef.get().then(function(doc) {
+      if (doc.exists) {
+          console.log("Document data:", doc.data());
+
+
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+
+
+  // var washingtonRef = docRefPosition.collection("PositionUser").doc(objId);
+  console.log(washingtonRef);
+  // Set the "capital" field of the city 'DC'
+  return washingtonRef.update({
+      capital: true
+  })
+  .then(function() {
+      console.log("Document successfully updated!");
+  })
+  .catch(function(error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+  });
+
+
+
+
+
+  // var userTitle = document.getElementById("exampleInputModalUserTitle").value;
+  // var userСomment = document.getElementById("exampleInputModalUserСomment").value;
+  // // Добавляем в коллекциию организации Подразделения и данные руководителя.
+  // docRefPosition.collection("PositionUser").doc(objId)({
+  // UserEmail: userTitle,
+  // UserСomment: userСomment,
+  // })
+  // .then(function(docRef) {
+  //     console.log("Document written with ID: ", docRef.id);
+  //     alert("Document written with ID: ", docRef.id);
+  // })
+  // .catch(function(error) {
+  //     console.error("Error adding document: ", error);
+  //     alert("Error adding document: ", error);
+  // });
+
  //   window.location.reload();
 }
 
