@@ -100,7 +100,6 @@ if (doc.exists) {
   });
 });
 
-
 docRefPosition.get().then(function(doc) {
 if (doc.exists) {
     documentDataPosition.push(doc.data());
@@ -161,28 +160,28 @@ function createATableOfClientSettings()
        var userСommentColumn = document.createElement('td');
        userСommentColumn.innerHTML = item.userСomment;
 
-       var toComeInUserName = document.createElement('button');
-       toComeInUserName.innerHTML = "To come in";
-       toComeInUserName.className = 'badge badge-gradient-success';
-       toComeInUserName.id = item.idPositionUser;
-       toComeInUserName.setAttribute('onclick', 'toComeInButtonPositionUser(this)');
+       var editUserName = document.createElement('button');
+       editUserName.innerHTML = "Edit";
+       editUserName.className = 'badge badge-gradient-success';
+       editUserName.id = item.idPositionUser;
+       editUserName.setAttribute('onclick', 'toComeInButtonPositionUser(this)');
 
-       var toComeInUserColumn = document.createElement('td');
-       toComeInUserColumn.appendChild(toComeInUserName);
+       var editUserNameColumn = document.createElement('td');
+       editUserNameColumn.appendChild(editUserName);
 
-       var quitName = document.createElement('button');
-       quitName.innerHTML = "Quit";
-       quitName.className = 'badge badge-gradient-danger';
-       quitName.id = item.idPositionUser;
-       quitName.setAttribute('onclick', 'quitButtonPositionUser(this)');
+       var toDismissName = document.createElement('button');
+       toDismissName.innerHTML = "To dismiss";
+       toDismissName.className = 'badge badge-gradient-danger';
+       toDismissName.id = item.idPositionUser;
+       toDismissName.setAttribute('onclick', 'quitButtonPositionUser(this)');
 
-       var quitColumn = document.createElement('td');
-       quitColumn.appendChild(quitName);
+       var toDismissColumn = document.createElement('td');
+       toDismissColumn.appendChild(toDismissName);
 
        tr.appendChild(userEmailColumn);
-       tr.appendChild(nameOfDepartmentHeadColumn);
-       tr.appendChild(toComeInUserColumn);
-       tr.appendChild(quitColumn);
+       tr.appendChild(userСommentColumn);
+       tr.appendChild(editUserNameColumn);
+       tr.appendChild(toDismissColumn);
 
        container.appendChild(tr);
 
@@ -218,28 +217,28 @@ docRefPosition.collection("PositionSettings")
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
 
-      var toComeInUserName = document.createElement('button');
-      toComeInUserName.innerHTML = "To come in";
-      toComeInUserName.className = 'badge badge-gradient-success';
-      toComeInUserName.id = item.idPositionSettings;
-      toComeInUserName.setAttribute('onclick', 'toComeInButtonPositionSettings(this)');
+      var editSettings = document.createElement('button');
+      editSettings.innerHTML = "Edit";
+      editSettings.className = 'badge badge-gradient-success';
+      editSettings.id = item.idPositionSettings;
+      editSettings.setAttribute('onclick', 'toComeInButtonPositionSettings(this)');
 
-      var toComeInUserColumn = document.createElement('td');
-      toComeInUserColumn.appendChild(toComeInUserName);
+      var editSettingsColumn = document.createElement('td');
+      editSettingsColumn.appendChild(editSettings);
 
-      var quitName = document.createElement('button');
-      quitName.innerHTML = "Quit";
-      quitName.className = 'badge badge-gradient-danger';
-      quitName.id = item.idPositionSettings;
-      quitName.setAttribute('onclick', 'quitButtonPositionSettings(this)');
+      var deleteSettings = document.createElement('button');
+      deleteSettings.innerHTML = "Delete";
+      deleteSettings.className = 'badge badge-gradient-danger';
+      deleteSettings.id = item.idPositionSettings;
+      deleteSettings.setAttribute('onclick', 'quitButtonPositionSettings(this)');
 
-      var quitColumn = document.createElement('td');
-      quitColumn.appendChild(quitName);
+      var deleteSettingsColumn = document.createElement('td');
+      deleteSettingsColumn.appendChild(deleteSettings);
 
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsСommentColumn);
-      tr.appendChild(toComeInUserColumn);
-      tr.appendChild(quitColumn);
+      tr.appendChild(editSettingsColumn);
+      tr.appendChild(deleteSettingsColumn);
 
       container.appendChild(tr);
 
@@ -254,24 +253,24 @@ docRefPosition.collection("PositionSettings")
   *  Обработка модального окна Регистрация Пользователя Должности.
   */
 
-  function gridSystemModalNewUser()
-  {
-    var userTitle = document.getElementById("exampleInputModalUserTitle").value;
-    var userСomment = document.getElementById("exampleInputModalUserСomment").value;
-    // Добавляем в коллекциию организации Подразделения и данные руководителя.
-    docRefPosition.collection("PositionUser").add({
-    UserEmail: userTitle,
-    UserСomment: userСomment,
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        alert("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-        alert("Error adding document: ", error);
-    });
-  };
+    function gridSystemModalNewUser()
+    {
+      var userTitle = document.getElementById("exampleInputModalUserTitle").value;
+      var userСomment = document.getElementById("exampleInputModalUserСomment").value;
+      // Добавляем в коллекциию организации Подразделения и данные руководителя.
+      docRefPosition.collection("PositionUser").add({
+      UserEmail: userTitle,
+      UserСomment: userСomment,
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          alert("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+          alert("Error adding document: ", error);
+      });
+    };
 
 
 
@@ -298,3 +297,38 @@ docRefPosition.collection("PositionSettings")
           alert("Error adding document: ", error);
       });
     };
+
+    /**
+    // * @return {string}
+     *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
+     */
+
+    function toComeInButtonPosition(obj) {
+      //обработка редактирования строки...
+        let objId = obj.id;
+        console.log(obj);
+
+          let itemsArray = [{
+            PositionId: objId,
+            OwnerEmail: EmailLocalStorage,
+            ProviderId: "TMR-24.com"
+          }];
+        localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArray));
+        window.location.replace("indexAdminPosition.html");
+       }
+      /**
+      * @return {string}
+       *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+       */
+
+      function quitButtonPosition(obj)
+      {
+        let objId = obj.id;
+        alert('Document successfully deleted! '+ (objId));
+        docRef.collection("Subdivision").doc(localStorageSubdivision).collection("Position").doc(objId).delete().then(function() {
+              console.log("Document successfully deleted!");
+          }).catch(function(error) {
+              console.error("Error removing document: ", error);
+          });
+          window.location.reload();
+     }

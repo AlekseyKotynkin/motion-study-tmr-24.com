@@ -255,19 +255,48 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
+            <!-- Окно выбора Должности. -->
+         <div class="content-wrapper">
+           <div class="row">
+             <div class="col-12 grid-margin">
+               <div class="card">
+                 <div id='headerTableUser' class="card-body">
+                   <h4 class="card-title">A list of users : </h4>
+                   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewUser">
+                     + Add User
+                   </button>
+                   <div class="table-responsive">
+                     <table id="tableUser"class="table">
+                      <script type="text/javascript">createATableOfClientUser()</script>
+                       <thead>
+                         <tr>
+                           <th> Users email </th>
+                           <th> Сomment </th>
+                           <th></th>
+                           <th></th>
+                         </tr>
+                        </thead>
+                         <tbody>
+                         </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
           <div class="content-wrapper">
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
-                  <div id='headerTableSubdivision' class="card-body">
-                    <h4 class="card-title">List of subdivision in your organization - </h4>
-                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
-                        + Add Subdivision
+                  <div id='headerTableSettings' class="card-body">
+                    <h4 class="card-title">Settings for : </h4>
+                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewSettings">
+                        + Add settings for button
                       </button>
                       <!-- Окно выбора Подразделения. -->
                     <div class="table-responsive">
-                       <script type="text/javascript">createATableOfClientSubdivision()</script>
-                        <table id="tableSubdivision"class="table">
+                       <script type="text/javascript">createATableOfClientSettings()</script>
+                        <table id="tableSettings"class="table">
                           <thead>
                             <tr>
                               <th> Subdivision </th>
@@ -281,45 +310,19 @@
                           <tbody>
                           </tbody>
                         </table>
-                        <script>
-                          var container = document.getElementById("tableSubdivision").getElementsByTagName("tbody")[0];
-                        </script>
+                        <!-- <script>
+                          var container = document.getElementById("tableSettings").getElementsByTagName("tbody")[0];
+                        </script> -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-             <!-- Окно выбора Должности. -->
-          <div class="content-wrapper">
-            <div class="row">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div id='headerTablePosition' class="card-body">
-                    <h4 class="card-title">List of position in your subdivision - Select subdivision</h4>
-                    <div class="table-responsive">
-                      <table id="tablePosition"class="table">
-                        <thead>
-                          <tr>
-                            <th> Position </th>
-                            <th> Сomment </th>
-                            <th> The number of employees </th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                          <tbody>
-                          </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
           <!-- content-wrapper ends -->
-          <!-- Модальное окно регистрации Подразделения. -->
-          <div id="gridSystemModalNewSubdivision" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <!-- Модальное окно регистрации Пользователя данной должности User. -->
+          <div id="gridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -330,22 +333,18 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">+ Add Subdivision</h4>
-                          <p class="card-description"> Create a new subdivision account </p>
+                          <h4 class="card-title">+ Add User</h4>
+                          <p class="card-description"> Create a new user account </p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionTitle">Subdivision</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionTitle" placeholder="Title">
+                              <label for="exampleInputModalUserTitle">User</label>
+                              <input type="text" class="form-control" id="exampleInputModalUserTitle" placeholder="Name">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionNameOfDepartamentHead">Name of department head</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionNameOfDepartamentHead" placeholder="Name">
+                              <label for="exampleInputModalUserСomment">Сomment</label>
+                              <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="сomment">
                             </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalSubdivisionHeadOfUnit">Head of unit</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionHeadOfUnit" placeholder="Position">
-                            </div>
-                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSubdivision()">Submit</button>
+                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewUser()">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                           </form>
                         </div>
@@ -357,7 +356,7 @@
             </div>
           </div>
           <!-- Модальное окно регистрации Должности. -->
-          <div id="gridSystemModalNewPosition" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div id="gridSystemModalNewSettings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -368,18 +367,18 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">+ Add Position</h4>
-                          <p class="card-description"> Create a new position account </p>
+                          <h4 class="card-title">+ Add Settings</h4>
+                          <p class="card-description"> Create a new settings account </p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <label for="exampleInputModalPositionTitle">Position</label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionTitle" placeholder="Title">
+                              <label for="exampleInputModalSettingsTitle">Name</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsTitle" placeholder="Name">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionСomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionСomment" placeholder="Сomment">
+                              <label for="exampleInputModalSettingsСomment">Сomment</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
                             </div>
-                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewPosition()">Submit</button>
+                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSettings()">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                           </form>
                         </div>
