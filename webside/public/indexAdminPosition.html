@@ -301,10 +301,12 @@
                         <table id="tableSettings"class="table">
                           <thead>
                             <tr>
-                              <th> Button name </th>
-                              <th> Сomment </th>
-                              <th> -- </th>
-                              <th> -- </th>
+                              <th>Button name</th>
+                              <th>Сomment</th>
+                              <th>Active Control</th>
+                              <th>Passive Control</th>
+                              <th>Commit Description</th>
+                              <th>Result Control</th>
                               <th></th>
                               <th></th>
                             </tr>
@@ -317,7 +319,95 @@
                 </div>
               </div>
             </div>
-        </div>
+            <!-- Таблица Активный контроль активности. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div id='headerTableActiveActivityControl' class="card-body">
+                    <h4 class="card-title">Active activity control</h4>
+                    <div class="table-responsive">
+                       <!-- <script type="text/javascript">createATableOfClientSettings()</script> -->
+                        <table id="tableActiveActivityControl"class="table">
+                          <thead>
+                            <tr>
+                              <th>Button name</th>
+                              <th>Active Control</th>
+                              <th>Interval</th>
+                              <th>Duration</th>
+                              <th>Transition</th>
+                              <th>Signal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Таблица Пассивный контроль активности. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div id='headerTablePassiveActivityControl' class="card-body">
+                    <h4 class="card-title">Passive activity control</h4>
+                    <div class="table-responsive">
+                       <!-- <script type="text/javascript">createATableOfClientSettings()</script> -->
+                        <table id="tablePassiveActivityControl"class="table">
+                          <thead>
+                            <tr>
+                              <th>Button name</th>
+                              <th>Passive Control</th>
+                              <th>Interval</th>
+                              <th>Duration</th>
+                              <th>Audio</th>
+                              <th>Photo</th>
+                              <th>Video</th>
+                              <th>Geolocation</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <!-- Таблица Фиксации Результата Активности. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div id='headerTableResultСapture' class="card-body">
+                    <h4 class="card-title">Result capture</h4>
+                    <div class="table-responsive">
+                       <!-- <script type="text/javascript">createATableOfClientSettings()</script> -->
+                        <table id="tableResultСapture"class="table">
+                          <thead>
+                            <tr>
+                              <th>Button name</th>
+                              <th>Commit Description</th>
+                              <th>Result Control</th>
+                              <th>Option 1</th>
+                              <th>Option 2</th>
+                              <th>Option 3</th>
+                              <th>Option 4</th>
+                              <th>Option 5</th>
+                              <th>Option 6</th>
+                              <th>Option 7</th>
+                              <th>Option 8</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- content-wrapper ends -->
           <!-- Модальное окно регистрации Пользователя данной должности User. -->
           <div id="gridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
@@ -365,8 +455,8 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">+ Add Settings</h4>
-                          <p class="card-description"> Create a new settings account </p>
+                          <h4 class="card-title">Edit Settings</h4>
+                          <p class="card-description">Edit settings account </p>
                           <form class="forms-sample">
                             <div class="form-group">
                               <label for="exampleInputModalSettingsTitle">Name</label>
@@ -376,7 +466,173 @@
                               <label for="exampleInputModalSettingsСomment">Сomment</label>
                               <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
                             </div>
+                            <div class="card-body">
+                              <h4 class="card-description">Active Activity Control</h4>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked>Active Control</label>
+                            </div>
+                            <div class="form-check">
+                             <p class="card-description">Interval</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                               <option>1 minutes</option>
+                               <option>3 minutes</option>
+                               <option>5 minutes</option>
+                               <option>10 minutes</option>
+                               <option>15 minutes</option>
+                              </select>
+                            </div>
+                            <div class="form-check">
+                             <p class="card-description">Duration</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                               <option>1 seconds</option>
+                               <option>5 seconds</option>
+                               <option>10 seconds</option>
+                               <option>15 seconds</option>
+                               <option>20 seconds</option>
+                              </select>
+                            </div>
+                            <div class="form-check">
+                             <p class="card-description">Transition</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                               <option>Button 1</option>
+                               <option>Button 2</option>
+                               <option>Button 3</option>
+                               <option>Button 4</option>
+                               <option>Button 5</option>
+                               <option>Button 6</option>
+                               <option>Button 7</option>
+                               <option>Button 8</option>
+                               <option>Button 9</option>
+                               <option>Button 10</option>
+                              </select>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked>Signal</label>
+                            </div>
+                            <div class="card-body">
+                              <h4 class="card-description">Passive Activity Control</h4>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Passive Control</label>
+                            </div>
+                            <div class="form-check">
+                             <p class="card-description">Interval</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                               <option>1 minutes</option>
+                               <option>3 minutes</option>
+                               <option>5 minutes</option>
+                               <option>10 minutes</option>
+                               <option>15 minutes</option>
+                              </select>
+                            </div>
+                            <div class="form-check">
+                             <p class="card-description">Duration</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                                <option>1 seconds</option>
+                                <option>5 seconds</option>
+                                <option>10 seconds</option>
+                                <option>15 seconds</option>
+                                <option>20 seconds</option>
+                              </select>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Audio</label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Photo</label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Video</label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Geolocation</label>
+                            </div>
+                            <div class="card-body">
+                              <h4 class="card-description">Result Capture</h4>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked>Commit Description</label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">Result Control</label>
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption1">Option 1</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption1" placeholder="Option 1">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption2">Option 2</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption2" placeholder="Option 2">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption3">Option 3</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption3" placeholder="Option 3">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption4">Option 4</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption4" placeholder="Option 4">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption5">Option 5</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption5" placeholder="Option 5">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption6">Option 6</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption6" placeholder="Option 6">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption7">Option 7</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption7" placeholder="Option 7">
+                            </div>
+                            <div>
+                              <label for="exampleInputModalSettingsOption8">Option 8</label>
+                              <input type="text" class="form-control" id="exampleInputModalSettingsOption8" placeholder="Option 8">
+                            </div>
                             <button type="submit" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSettings()">Submit</button>
+                            <button class="btn btn-light">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Модальное окно изменения Пользователя данной должности User. -->
+          <div id="editGridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Edit User</h4>
+                          <p class="card-description">Edit user account</p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalUserTitle">User</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserTitle" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserСomment">Сomment</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserСomment" placeholder="сomment">
+                            </div>
+                            <button type="submit" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUser()">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                           </form>
                         </div>
