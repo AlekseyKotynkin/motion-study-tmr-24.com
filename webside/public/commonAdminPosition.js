@@ -215,6 +215,18 @@ docRefPosition.collection("PositionSettings")
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
 
+      var settingsСommentColumn1 = document.createElement('td');
+      settingsСommentColumn1.innerHTML = item.SettingsСomment;
+
+      var settingsСommentColumn2 = document.createElement('td');
+      settingsСommentColumn2.innerHTML = item.SettingsСomment;
+
+      var settingsСommentColumn3 = document.createElement('td');
+      settingsСommentColumn3.innerHTML = item.SettingsСomment;
+
+      var settingsСommentColumn4 = document.createElement('td');
+      settingsСommentColumn4.innerHTML = item.SettingsСomment;
+
       var editSettings = document.createElement('button');
       editSettings.innerHTML = "Edit";
       editSettings.className = 'badge badge-gradient-success';
@@ -235,6 +247,10 @@ docRefPosition.collection("PositionSettings")
 
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsСommentColumn);
+      tr.appendChild(settingsСommentColumn1);
+      tr.appendChild(settingsСommentColumn2);
+      tr.appendChild(settingsСommentColumn3);
+      tr.appendChild(settingsСommentColumn4);
       tr.appendChild(editSettingsColumn);
       tr.appendChild(deleteSettingsColumn);
 
@@ -335,6 +351,13 @@ docRefPosition.collection("PositionUser").doc(objId).delete().then(function() {
 
 function editButtonUser(obj)
 {
+  document.getElementById('editExampleInputModalUserTitle').innerHTML='Hello World!';
+
+  var modal = document.getElementById('editGridSystemModalNewUser');
+  $(document).ready(function(){
+    $("#editGridSystemModalNewUser").modal('show');
+  });
+
   let objId = obj.id;
   var washingtonRef = docRefPosition.collection("PositionUser").doc(objId);
   washingtonRef.get().then(function(doc) {
@@ -343,8 +366,7 @@ function editButtonUser(obj)
 
 
       } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
+        console.log("No such document!");
       }
   }).catch(function(error) {
       console.log("Error getting document:", error);
@@ -395,6 +417,10 @@ function editButtonUser(obj)
 
  function editButtonSettings(obj)
  {
+   var modal = document.getElementById('gridSystemModalNewSettings');
+   $(document).ready(function(){
+     $("#gridSystemModalNewSettings").modal('show');
+   });
    // let objId = obj.id;
    // alert('Document successfully deleted! '+ (objId));
    // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
