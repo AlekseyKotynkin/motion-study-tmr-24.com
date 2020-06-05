@@ -286,31 +286,31 @@ docRefPosition.collection("PositionSettings")
       items.forEach(item => {
       var tr = document.createElement("tr");
 
-      var settingsTitleColumn = document.createElement('td');
-      settingsTitleColumn.innerHTML = item.SettingsTitle;
+      var settingsActiveTitleColumn = document.createElement('td');
+      settingsActiveTitleColumn.innerHTML = item.SettingsTitle;
 
       var settingsActiveControl = document.createElement('td');
       settingsActiveControl.innerHTML = item.SettingsActiveControl;
 
-      var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl
+      var settingsActiveInterval = document.createElement('td');
+      settingsActiveInterval.innerHTML = item.SettingsActiveIntervalMinutes
 
-      var settingsPassiveControl = document.createElement('td');
-      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+      var settingsActiveDuration = document.createElement('td');
+      settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
 
-      var settingsResultCapture = document.createElement('td');
-      settingsResultCapture.innerHTML = item.SettingsResultCapture;
+      var settingsActiveTransition = document.createElement('td');
+      settingsActiveTransition.innerHTML = item.SettingsActiveTransition;
 
-      var settingsCommitDescription = document.createElement('td');
-      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+      var settingsActiveSignal = document.createElement('td');
+      settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
 
 
-      tr.appendChild(settingsTitleColumn);
+      tr.appendChild(settingsActiveTitleColumn);
       tr.appendChild(settingsActiveControl);
-      tr.appendChild(settingsActiveControl);
-      tr.appendChild(settingsPassiveControl);
-      tr.appendChild(settingsCommitDescription);
-      tr.appendChild(settingsResultCapture);
+      tr.appendChild(settingsActiveInterval);
+      tr.appendChild(settingsActiveDuration);
+      tr.appendChild(settingsActiveTransition);
+      tr.appendChild(settingsActiveSignal);
 
 
       var container = document.getElementById("tableActiveActivityControl").getElementsByTagName("tbody")[0];
@@ -343,31 +343,39 @@ docRefPosition.collection("PositionSettings")
       items.forEach(item => {
       var tr = document.createElement("tr");
 
-      var settingsTitleColumn = document.createElement('td');
-      settingsTitleColumn.innerHTML = item.SettingsTitle;
-
-      var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl;
-
-      var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl
+      var settingsPassiveTitleColumn = document.createElement('td');
+      settingsPassiveTitleColumn.innerHTML = item.SettingsTitle;
 
       var settingsPassiveControl = document.createElement('td');
       settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
 
-      var settingsResultCapture = document.createElement('td');
-      settingsResultCapture.innerHTML = item.SettingsResultCapture;
+      var settingsPassiveInterval = document.createElement('td');
+      settingsPassiveInterval.innerHTML = item.SettingsPassiveIntervalMinutes
 
-      var settingsCommitDescription = document.createElement('td');
-      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+      var settingsPassiveDuration = document.createElement('td');
+      settingsPassiveDuration.innerHTML = item.SettingsPassiveDurationSeconds;
+
+      var settingsPassiveAudio = document.createElement('td');
+      settingsPassiveAudio.innerHTML = item.SettingsPassiveAudio;
+
+      var settingsPassivePhoto = document.createElement('td');
+      settingsPassivePhoto.innerHTML = item.SettingsPassivePhoto;
+
+      var settingsPassiveVideo = document.createElement('td');
+      settingsPassiveVideo.innerHTML = item.SettingsPassiveVideo;
+
+      var settingsPassiveGeolocation = document.createElement('td');
+      settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
 
 
-      tr.appendChild(settingsTitleColumn);
-      tr.appendChild(settingsActiveControl);
-      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsPassiveTitleColumn);
       tr.appendChild(settingsPassiveControl);
-      tr.appendChild(settingsCommitDescription);
-      tr.appendChild(settingsResultCapture);
+      tr.appendChild(settingsPassiveInterval);
+      tr.appendChild(settingsPassiveDuration);
+      tr.appendChild(settingsPassiveAudio);
+      tr.appendChild(settingsPassivePhoto);
+      tr.appendChild(settingsPassiveVideo);
+      tr.appendChild(settingsPassiveGeolocation);
 
 
       var container = document.getElementById("tablePassiveActivityControl").getElementsByTagName("tbody")[0];
@@ -403,28 +411,48 @@ docRefPosition.collection("PositionSettings")
       var settingsTitleColumn = document.createElement('td');
       settingsTitleColumn.innerHTML = item.SettingsTitle;
 
-      var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl;
-
-      var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl
-
-      var settingsPassiveControl = document.createElement('td');
-      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
-
-      var settingsResultCapture = document.createElement('td');
-      settingsResultCapture.innerHTML = item.SettingsResultCapture;
-
       var settingsCommitDescription = document.createElement('td');
       settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
 
+      var settingsResultCapture = document.createElement('td');
+      settingsResultCapture.innerHTML = item.SettingsResultCapture
+
+      var settingsResultControlOption1 = document.createElement('td');
+      settingsResultControlOption1.innerHTML = item.SettingsResultControlOption1;
+
+      var settingsResultControlOption2 = document.createElement('td');
+      settingsResultControlOption2.innerHTML = item.SettingsResultControlOption2;
+
+      var settingsResultControlOption3 = document.createElement('td');
+      settingsResultControlOption3.innerHTML = item.SettingsResultControlOption3;
+
+      var settingsResultControlOption4 = document.createElement('td');
+      settingsResultControlOption4.innerHTML = item.SettingsResultControlOption4;
+
+      var settingsResultControlOption5 = document.createElement('td');
+      settingsResultControlOption5.innerHTML = item.SettingsResultControlOption5;
+
+      var settingsResultControlOption6 = document.createElement('td');
+      settingsResultControlOption6.innerHTML = item.SettingsResultControlOption6;
+
+      var settingsResultControlOption7 = document.createElement('td');
+      settingsResultControlOption7.innerHTML = item.SettingsResultControlOption7;
+
+      var settingsResultControlOption8 = document.createElement('td');
+      settingsResultControlOption8.innerHTML = item.SettingsResultControlOption8;
+
 
       tr.appendChild(settingsTitleColumn);
-      tr.appendChild(settingsActiveControl);
-      tr.appendChild(settingsActiveControl);
-      tr.appendChild(settingsPassiveControl);
       tr.appendChild(settingsCommitDescription);
       tr.appendChild(settingsResultCapture);
+      tr.appendChild(settingsResultControlOption1);
+      tr.appendChild(settingsResultControlOption2);
+      tr.appendChild(settingsResultControlOption3);
+      tr.appendChild(settingsResultControlOption4);
+      tr.appendChild(settingsResultControlOption5);
+      tr.appendChild(settingsResultControlOption6);
+      tr.appendChild(settingsResultControlOption7);
+      tr.appendChild(settingsResultControlOption8);
 
 
       var container = document.getElementById("tableResultСapture").getElementsByTagName("tbody")[0];
@@ -472,9 +500,27 @@ function gridSystemModalNewSubdivision()
   SettingsTitle: settingsTitle,
   SettingsСomment: settingsСomment,
   SettingsActiveControl: "false",
+  SettingsActiveIntervalMinutes:"0",
+  SettingsActiveDurationSeconds:"0",
+  SettingsActiveTransition: "No button",
+  SettingsActiveSignal: "false",
   SettingsPassiveControl: "false",
+  SettingsPassiveIntervalMinutes:"0",
+  SettingsPassiveDurationSeconds:"0",
+  SettingsPassiveAudio: "false",
+  SettingsPassivePhoto: "false",
+  SettingsPassiveVideo: "false",
+  SettingsPassiveGeolocation: "false",
+  SettingsCommitDescription: "false",
   SettingsResultCapture: "false",
-  SettingsActiveControl: "false",
+  SettingsResultControlOption1: "",
+  SettingsResultControlOption2: "",
+  SettingsResultControlOption3: "",
+  SettingsResultControlOption4: "",
+  SettingsResultControlOption5: "",
+  SettingsResultControlOption6: "",
+  SettingsResultControlOption7: "",
+  SettingsResultControlOption8: "",
   })
   .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
