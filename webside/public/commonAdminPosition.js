@@ -282,7 +282,6 @@ docRefPosition.collection("PositionSettings")
         console.log("Error getting documents: ", error);
     })
       .finally(() => {items;
-        console.log(items);
       items.forEach(item => {
       var tr = document.createElement("tr");
 
@@ -339,7 +338,6 @@ docRefPosition.collection("PositionSettings")
         console.log("Error getting documents: ", error);
     })
       .finally(() => {items;
-        console.log(items);
       items.forEach(item => {
       var tr = document.createElement("tr");
 
@@ -404,7 +402,6 @@ docRefPosition.collection("PositionSettings")
         console.log("Error getting documents: ", error);
     })
       .finally(() => {items;
-        console.log(items);
       items.forEach(item => {
       var tr = document.createElement("tr");
 
@@ -576,7 +573,7 @@ function deleteButtonSettings(obj)
 
 function editButtonUser(obj)
 {
-  document.getElementById('editExampleInputModalUserTitle').innerHTML='Hello World!';
+  // document.getElementById('editExampleInputModalUserTitle').innerHTML='Hello World!';
 
   var modal = document.getElementById('editGridSystemModalNewUser');
   $(document).ready(function(){
