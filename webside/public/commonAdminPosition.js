@@ -66,9 +66,12 @@ var docRefPosition = docRefSubdivisio.collection("Position").doc(LocalStoragePos
 let namePosition = "";
 let documentDataPosition=[];
 
+let objIdDocUser ="";
+let objIdDocSettings ="";
+
 /**
 * @return {string}
-*  Заполняем шапку табличной части Подразделения.
+*  Заполняем шапки табличных частей Пользователи и Процессы (название кнопок).
 */
 docRefOrganization.get().then(function(doc) {
 if (doc.exists) {
@@ -135,7 +138,7 @@ if (doc.exists) {
 
  /**
  * @return {string}
-  *  Получение данных для таблицы список Настроек List Of Subdivision In Which You Are Involved из firestore.
+  *  Получение данных для таблицы список Пользователей .
   */
 function createATableOfClientUser()
 {
@@ -190,7 +193,7 @@ function createATableOfClientUser()
 
 /**
 * @return {string}
- *  Получение данных для таблицы список Пользователи List Of Subdivision In Which You Are Involved из firestore.
+ *  Получение данных для таблицы список Процессов (название кнопок).
  */
 function createATableOfClientSettings()
 {
@@ -215,17 +218,17 @@ docRefPosition.collection("PositionSettings")
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
 
-      var settingsСommentColumn1 = document.createElement('td');
-      settingsСommentColumn1.innerHTML = item.SettingsСomment;
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl
 
-      var settingsСommentColumn2 = document.createElement('td');
-      settingsСommentColumn2.innerHTML = item.SettingsСomment;
+      var settingsPassiveControl = document.createElement('td');
+      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
 
-      var settingsСommentColumn3 = document.createElement('td');
-      settingsСommentColumn3.innerHTML = item.SettingsСomment;
+      var settingsResultCapture = document.createElement('td');
+      settingsResultCapture.innerHTML = item.SettingsResultCapture;
 
-      var settingsСommentColumn4 = document.createElement('td');
-      settingsСommentColumn4.innerHTML = item.SettingsСomment;
+      var settingsCommitDescription = document.createElement('td');
+      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
 
       var editSettings = document.createElement('button');
       editSettings.innerHTML = "Edit";
@@ -247,10 +250,10 @@ docRefPosition.collection("PositionSettings")
 
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsСommentColumn);
-      tr.appendChild(settingsСommentColumn1);
-      tr.appendChild(settingsСommentColumn2);
-      tr.appendChild(settingsСommentColumn3);
-      tr.appendChild(settingsСommentColumn4);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsPassiveControl);
+      tr.appendChild(settingsCommitDescription);
+      tr.appendChild(settingsResultCapture);
       tr.appendChild(editSettingsColumn);
       tr.appendChild(deleteSettingsColumn);
 
@@ -261,92 +264,268 @@ docRefPosition.collection("PositionSettings")
   });
 };
 
+/**
+* @return {string}
+ *  Получение данных для таблицы список Active Activity Control.
+ */
+function createTableActiveActivityControl()
+{
+docRefPosition.collection("PositionSettings")
+.get()
+.then(function(querySnapshot) {
+  querySnapshot.forEach(function(doc) {
+    // items.push({...doc.data(),...{idPositionSettings: doc.id}});
+  });
 
- /**
- * @return {string}
-  *  Обработка модального окна Регистрация Пользователя Должности.
-  */
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    })
+      .finally(() => {items;
+        console.log(items);
+      items.forEach(item => {
+      var tr = document.createElement("tr");
 
-    function gridSystemModalNewUser()
-    {
-      var userTitle = document.getElementById("exampleInputModalUserTitle").value;
-      var userСomment = document.getElementById("exampleInputModalUserСomment").value;
-      // Добавляем в коллекциию организации Подразделения и данные руководителя.
-      docRefPosition.collection("PositionUser").add({
-      UserEmail: userTitle,
-      UserСomment: userСomment,
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-          alert("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-          alert("Error adding document: ", error);
-      });
-    };
+      var settingsTitleColumn = document.createElement('td');
+      settingsTitleColumn.innerHTML = item.SettingsTitle;
 
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl;
+
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl
+
+      var settingsPassiveControl = document.createElement('td');
+      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+
+      var settingsResultCapture = document.createElement('td');
+      settingsResultCapture.innerHTML = item.SettingsResultCapture;
+
+      var settingsCommitDescription = document.createElement('td');
+      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+
+
+      tr.appendChild(settingsTitleColumn);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsPassiveControl);
+      tr.appendChild(settingsCommitDescription);
+      tr.appendChild(settingsResultCapture);
+
+
+      var container = document.getElementById("tableActiveActivityControl").getElementsByTagName("tbody")[0];
+
+      container.appendChild(tr);
+    });
+  });
+};
 
 
 /**
 * @return {string}
-*  Обработка модального окна Регистрация Настроик Должности.
-*/
-
-function gridSystemModalNewSubdivision()
+ *  Получение данных для таблицы список Passive Activity Control.
+ */
+function createTablePassiveActivityControl()
 {
-var settingsTitle = document.getElementById("exampleInputModalSettingsTitle").value;
-var settingsСomment = document.getElementById("exampleInputModalSettingsСomment").value;
-docRefPosition.collection("PositionSettings").add({
-SettingsTitle: settingsTitle,
-SettingsСomment: settingsСomment,
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-    alert("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-    alert("Error adding document: ", error);
-});
+docRefPosition.collection("PositionSettings")
+.get()
+.then(function(querySnapshot) {
+  querySnapshot.forEach(function(doc) {
+    // items.push({...doc.data(),...{idPositionSettings: doc.id}});
+  });
+
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    })
+      .finally(() => {items;
+        console.log(items);
+      items.forEach(item => {
+      var tr = document.createElement("tr");
+
+      var settingsTitleColumn = document.createElement('td');
+      settingsTitleColumn.innerHTML = item.SettingsTitle;
+
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl;
+
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl
+
+      var settingsPassiveControl = document.createElement('td');
+      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+
+      var settingsResultCapture = document.createElement('td');
+      settingsResultCapture.innerHTML = item.SettingsResultCapture;
+
+      var settingsCommitDescription = document.createElement('td');
+      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+
+
+      tr.appendChild(settingsTitleColumn);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsPassiveControl);
+      tr.appendChild(settingsCommitDescription);
+      tr.appendChild(settingsResultCapture);
+
+
+      var container = document.getElementById("tablePassiveActivityControl").getElementsByTagName("tbody")[0];
+
+      container.appendChild(tr);
+    });
+  });
+};
+
+
+/**
+* @return {string}
+ *  Получение данных для таблицы список Result Сapture.
+ */
+function createTableResultСapture()
+{
+docRefPosition.collection("PositionSettings")
+.get()
+.then(function(querySnapshot) {
+  querySnapshot.forEach(function(doc) {
+    // items.push({...doc.data(),...{idPositionSettings: doc.id}});
+  });
+
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    })
+      .finally(() => {items;
+        console.log(items);
+      items.forEach(item => {
+      var tr = document.createElement("tr");
+
+      var settingsTitleColumn = document.createElement('td');
+      settingsTitleColumn.innerHTML = item.SettingsTitle;
+
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl;
+
+      var settingsActiveControl = document.createElement('td');
+      settingsActiveControl.innerHTML = item.SettingsActiveControl
+
+      var settingsPassiveControl = document.createElement('td');
+      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+
+      var settingsResultCapture = document.createElement('td');
+      settingsResultCapture.innerHTML = item.SettingsResultCapture;
+
+      var settingsCommitDescription = document.createElement('td');
+      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+
+
+      tr.appendChild(settingsTitleColumn);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsActiveControl);
+      tr.appendChild(settingsPassiveControl);
+      tr.appendChild(settingsCommitDescription);
+      tr.appendChild(settingsResultCapture);
+
+
+      var container = document.getElementById("tableResultСapture").getElementsByTagName("tbody")[0];
+
+      container.appendChild(tr);
+    });
+  });
 };
 
 /**
 * @return {string}
-*  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
+*  Обработка модального окна Регистрация Пользователя.
+*/
+
+function gridSystemModalNewUser()
+{
+  var userTitle = document.getElementById("exampleInputModalUserTitle").value;
+  var userСomment = document.getElementById("exampleInputModalUserСomment").value;
+  docRefPosition.collection("PositionUser").add({
+  UserEmail: userTitle,
+  UserСomment: userСomment,
+  })
+  .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      alert("Document written with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+      console.error("Error adding document: ", error);
+      alert("Error adding document: ", error);
+  });
+};
+
+
+
+/**
+* @return {string}
+*  Обработка модального окна Регистрация Настроик Процессов.
+*/
+
+function gridSystemModalNewSubdivision()
+{
+  var settingsTitle = document.getElementById("exampleInputModalSettingsTitle").value;
+  var settingsСomment = document.getElementById("exampleInputModalSettingsСomment").value;
+  docRefPosition.collection("PositionSettings").add({
+  SettingsTitle: settingsTitle,
+  SettingsСomment: settingsСomment,
+  SettingsActiveControl: "false",
+  SettingsPassiveControl: "false",
+  SettingsResultCapture: "false",
+  SettingsActiveControl: "false",
+  })
+  .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      alert("Document written with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+      console.error("Error adding document: ", error);
+      alert("Error adding document: ", error);
+  });
+};
+
+/**
+* @return {string}
+*  Обработчик кнопки toDismiss из таблицы Пользователи.
 */
 function toDismissButtonUser(obj)
 {
-let objId = obj.id;
-alert('Document successfully deleted! '+ (objId));
-docRefPosition.collection("PositionUser").doc(objId).delete().then(function() {
+  let objId = obj.id;
+  alert('Document successfully deleted! '+ (objId));
+  docRefPosition.collection("PositionUser").doc(objId).delete().then(function()
+  {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
+  }).catch(function(error)
+  {
       console.error("Error removing document: ", error);
   });
   window.location.reload();
 }
 
- /**
- * @return {string}
-  *  Обработчик кнопки deleteButtonSettings из таблицы .
-  */
+/**
+* @return {string}
+*  Обработчик кнопки deleteButtonSettings из таблицы Процессов.
+*/
 
- function deleteButtonSettings(obj)
- {
-   let objId = obj.id;
-   alert('Document successfully deleted! '+ (objId));
-   docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
-         console.log("Document successfully deleted!");
-     }).catch(function(error) {
-         console.error("Error removing document: ", error);
-     });
-     window.location.reload();
+function deleteButtonSettings(obj)
+{
+  let objId = obj.id;
+  alert('Document successfully deleted! '+ (objId));
+  docRefPosition.collection("PositionSettings").doc(objId).delete().then(function()
+  {
+       console.log("Document successfully deleted!");
+  }).catch(function(error)
+  {
+       console.error("Error removing document: ", error);
+  });
+   window.location.reload();
 }
 
 /**
 * @return {string}
-*  Обработчик кнопки deleteButtonSettings из таблицы .
+*  Обработчик кнопки editButtonUser из таблицы Пользователи.
 */
 
 function editButtonUser(obj)
@@ -358,11 +537,13 @@ function editButtonUser(obj)
     $("#editGridSystemModalNewUser").modal('show');
   });
 
-  let objId = obj.id;
-  var washingtonRef = docRefPosition.collection("PositionUser").doc(objId);
+  objIdDocUser = obj.id;
+  console.log(objIdDocUser);
+  var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
   washingtonRef.get().then(function(doc) {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
+    if (doc.exists)
+  {
+      console.log("Document data:", doc.data());
 
 
       } else {
@@ -412,15 +593,15 @@ function editButtonUser(obj)
 
  /**
  * @return {string}
-  *  Обработчик кнопки deleteButtonSettings из таблицы .
+  *  Обработчик кнопки editButtonSettings из таблицы Процессы.
   */
-
  function editButtonSettings(obj)
  {
-   var modal = document.getElementById('gridSystemModalNewSettings');
+   var modal = document.getElementById('gridSystemModalEditSettings');
    $(document).ready(function(){
-     $("#gridSystemModalNewSettings").modal('show');
+     $("#gridSystemModalEditSettings").modal('show');
    });
+   console.log(objIdDocUser);
    // let objId = obj.id;
    // alert('Document successfully deleted! '+ (objId));
    // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
