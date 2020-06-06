@@ -489,10 +489,10 @@ function gridSystemModalNewUser()
 *  Обработка модального окна Регистрация Настроик Процессов.
 */
 
-function gridSystemModalNewSubdivision()
+function gridSystemModalNewSettings()
 {
-  var settingsTitle = document.getElementById("exampleInputModalSettingsTitle").value;
-  var settingsСomment = document.getElementById("exampleInputModalSettingsСomment").value;
+  var settingsTitle = document.getElementById("exampleInputModalNewSettingsTitle").value;
+  var settingsСomment = document.getElementById("exampleInputModalNewSettingsСomment").value;
   docRefPosition.collection("PositionSettings").add({
   SettingsTitle: settingsTitle,
   SettingsСomment: settingsСomment,
@@ -573,34 +573,131 @@ function deleteButtonSettings(obj)
 
 function editButtonUser(obj)
 {
-  // document.getElementById('editExampleInputModalUserTitle').innerHTML='Hello World!';
-
-  var modal = document.getElementById('editGridSystemModalNewUser');
-  $(document).ready(function(){
-    $("#editGridSystemModalNewUser").modal('show');
-  });
-
   objIdDocUser = obj.id;
-  console.log(objIdDocUser);
   var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
   washingtonRef.get().then(function(doc) {
     if (doc.exists)
   {
-      console.log("Document data:", doc.data());
-
-
+      let userEmail = doc.data().UserEmail;
+      let userСomment = doc.data().UserСomment;
+      document.getElementById('editExampleInputModalUserTitle').value = userEmail;
+      document.getElementById('editExampleInputModalUserСomment').value = userСomment;
+      var modal = document.getElementById('editGridSystemModalNewUser');
+      $(document).ready(function(){
+        $("#editGridSystemModalNewUser").modal('show');
+      });
       } else {
         console.log("No such document!");
       }
   }).catch(function(error) {
       console.log("Error getting document:", error);
   });
+}
 
+ /**
+ * @return {string}
+  *  Обработчик кнопки editButtonSettings из таблицы Процессы.
+  */
+ function editButtonSettings(obj)
+ {
+   objIdDocSettings = obj.id;
+   var washingtonRef = docRefPosition.collection("PositionSettings").doc(objIdDocSettings);
+   washingtonRef.get().then(function(doc) {
+     if (doc.exists)
+   {   let settingsTitle = doc.data().SettingsTitle;
+       let settingsСomment = doc.data().SettingsСomment;
+       let settingsActiveControl = doc.data().SettingsActiveControl;
+       let settingsActiveIntervalMinutes = doc.data().SettingsActiveIntervalMinutes;
+       let settingsActiveDurationSeconds = doc.data().SettingsActiveDurationSeconds;
+       let settingsActiveTransition = doc.data().SettingsActiveTransition;
+       let settingsActiveSignal = doc.data().SettingsActiveSignal;
+       let settingsPassiveControl = doc.data().SettingsPassiveControl;
+       let settingsPassiveIntervalMinutes = doc.data().SettingsPassiveIntervalMinutes;
+       let settingsPassiveDurationSeconds = doc.data().SettingsPassiveDurationSeconds;
+       let settingsPassiveAudio = doc.data().SettingsPassiveAudio;
+       let settingsPassivePhoto = doc.data().SettingsPassivePhoto;
+       let settingsPassiveVideo = doc.data().SettingsPassiveVideo;
+       let settingsPassiveGeolocation = doc.data().SettingsPassiveGeolocation;
+       let settingsCommitDescription = doc.data().SettingsCommitDescription;
+       let settingsResultCapture = doc.data().SettingsResultCapture;
+       let settingsResultControlOption1 = doc.data().SettingsResultControlOption1;
+       let settingsResultControlOption2 = doc.data().SettingsResultControlOption2;
+       let settingsResultControlOption3 = doc.data().SettingsResultControlOption3;
+       let settingsResultControlOption4 = doc.data().SettingsResultControlOption4;
+       let settingsResultControlOption5 = doc.data().SettingsResultControlOption5;
+       let settingsResultControlOption6 = doc.data().SettingsResultControlOption6;
+       let settingsResultControlOption7 = doc.data().SettingsResultControlOption7;
+       let settingsResultControlOption8 = doc.data().SettingsResultControlOption8;
+       document.getElementById('exampleInputModalSettingsTitle').value = settingsTitle;
+       document.getElementById('exampleInputModalSettingsСomment').value = settingsСomment;
+       document.getElementById('exampleInputModalSettingsActiveControl').checked  = settingsActiveControl;
+       document.getElementById('exampleInputModalSettingsActiveInterval').value = settingsActiveIntervalMinutes;
+       document.getElementById('exampleInputModalSettingsActiveDuration').value = settingsActiveDurationSeconds;
+       document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
+       document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
+       document.getElementById('exampleInputModalSettingsPassiveControl').checked  = settingsPassiveControl;
+       document.getElementById('exampleInputModalSettingsPassiveInterval').value = settingsPassiveIntervalMinutes;
+       document.getElementById('exampleInputModalSettingsPassiveDuration').value = settingsPassiveDurationSeconds;
+       document.getElementById('exampleInputModalSettingsPassiveAudio').checked = settingsPassiveAudio;
+       document.getElementById('exampleInputModalSettingsPassivePhoto').checked = settingsPassivePhoto;
+       document.getElementById('exampleInputModalSettingsPassiveVideo').checked = settingsPassiveVideo;
+       document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked = settingsPassiveGeolocation;
+       document.getElementById('exampleInputModalSettingsCommitDescription').checked = settingsCommitDescription;
+       document.getElementById('exampleInputModalSettingsResultControl').checked = settingsResultCapture;
+       document.getElementById('exampleInputModalSettingsResultControlOption1').value = settingsResultControlOption1;
+       document.getElementById('exampleInputModalSettingsResultControlOption2').value = settingsResultControlOption2;
+       document.getElementById('exampleInputModalSettingsResultControlOption3').value = settingsResultControlOption3;
+       document.getElementById('exampleInputModalSettingsResultControlOption4').value = settingsResultControlOption4;
+       document.getElementById('exampleInputModalSettingsResultControlOption5').value = settingsResultControlOption5;
+       document.getElementById('exampleInputModalSettingsResultControlOption6').value = settingsResultControlOption6;
+       document.getElementById('exampleInputModalSettingsResultControlOption7').value = settingsResultControlOption7;
+       document.getElementById('exampleInputModalSettingsResultControlOption8').value = settingsResultControlOption8;
+       var modal = document.getElementById('gridSystemModalEditSettings');
+       $(document).ready(function(){
+         $("#gridSystemModalEditSettings").modal('show');
+       });
+       } else {
+         console.log("No such document!");
+       }
+   }).catch(function(error) {
+       console.log("Error getting document:", error);
+   });
+ }
 
-  // var washingtonRef = docRefPosition.collection("PositionUser").doc(objId);
+ /**
+ * @return {string}
+  *  Обработчик кнопки Submit из модального окна gridSystemModalEditSettings.
+  */
+ function  gridSystemModalEditSettings()
+{
+
+}
+
+/**
+* @return {string}
+ *  Обработчик кнопки Submit из модального окна editGridSystemModalNewUser.
+ */
+function  editGridSystemModalNewUser()
+{ console.log(objIdDocUser);
+  console.log(docRefPosition);
+  var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
   console.log(washingtonRef);
+
+
+
+
+  console.log(washingtonRef);
+  alert(washingtonRef);
   // Set the "capital" field of the city 'DC'
+
+
+
+
   return washingtonRef.update({
+    // var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
+    // var userСomment = document.getElementById("editExampleInputModalUserСomment").value;
+    //   UserTitle = userTitle;
+    //   UserСomment = userСomment;
       capital: true
   })
   .then(function() {
@@ -610,47 +707,4 @@ function editButtonUser(obj)
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
   });
-
-
-
-
-
-  // var userTitle = document.getElementById("exampleInputModalUserTitle").value;
-  // var userСomment = document.getElementById("exampleInputModalUserСomment").value;
-  // // Добавляем в коллекциию организации Подразделения и данные руководителя.
-  // docRefPosition.collection("PositionUser").doc(objId)({
-  // UserEmail: userTitle,
-  // UserСomment: userСomment,
-  // })
-  // .then(function(docRef) {
-  //     console.log("Document written with ID: ", docRef.id);
-  //     alert("Document written with ID: ", docRef.id);
-  // })
-  // .catch(function(error) {
-  //     console.error("Error adding document: ", error);
-  //     alert("Error adding document: ", error);
-  // });
-
- //   window.location.reload();
-}
-
- /**
- * @return {string}
-  *  Обработчик кнопки editButtonSettings из таблицы Процессы.
-  */
- function editButtonSettings(obj)
- {
-   var modal = document.getElementById('gridSystemModalEditSettings');
-   $(document).ready(function(){
-     $("#gridSystemModalEditSettings").modal('show');
-   });
-   console.log(objIdDocUser);
-   // let objId = obj.id;
-   // alert('Document successfully deleted! '+ (objId));
-   // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function() {
-   //       console.log("Document successfully deleted!");
-   //   }).catch(function(error) {
-   //       console.error("Error removing document: ", error);
-   //   });
-   //   window.location.reload();
 }

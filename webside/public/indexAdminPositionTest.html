@@ -58,8 +58,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-functions.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script> -->
     <!-- endinject -->
     <script src="js/index.js"></script>
     <script src="commonAdminPosition.js"></script>
@@ -486,11 +486,11 @@
                           <form class="forms-sample">
                             <div class="form-group">
                               <label for="exampleInputModalSettingsTitle">Name</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsTitle" placeholder="Name">
+                              <input type="text" class="form-control" id="exampleInputModalNewSettingsTitle" placeholder="Name">
                             </div>
                             <div class="form-group">
                               <label for="exampleInputModalSettingsСomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
+                              <input type="text" class="form-control" id="exampleInputModalNewSettingsСomment" placeholder="Сomment">
                             </div>
                             <div>
                               <br>
@@ -535,7 +535,7 @@
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl"  checked>Active Control</label>
+                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>
                             </div>
                             <div class="form-check">
                              <p class="card-description">Interval</p>
@@ -545,6 +545,7 @@
                                <option>5 minutes</option>
                                <option>10 minutes</option>
                                <option>15 minutes</option>
+                               <option>0</option>
                               </select>
                             </div>
                             <div class="form-check">
@@ -555,6 +556,7 @@
                                <option>10 seconds</option>
                                <option>15 seconds</option>
                                <option>20 seconds</option>
+                               <option>0</option>
                               </select>
                             </div>
                             <div class="form-check">
@@ -570,11 +572,12 @@
                                <option>Button 8</option>
                                <option>Button 9</option>
                                <option>Button 10</option>
+                               <option>No button</option>
                               </select>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal" checked>Signal</label>
+                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label>
                             </div>
                             <div class="card-body">
                               <h4 class="card-description">Passive Activity Control</h4>
@@ -584,23 +587,25 @@
                                 <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
                             </div>
                             <div class="form-check">
-                             <p class="card-description" id="exampleInputModalSettingsPassiveInterval">Interval</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                             <p class="card-description" >Interval</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
                                <option>1 minutes</option>
                                <option>3 minutes</option>
                                <option>5 minutes</option>
                                <option>10 minutes</option>
                                <option>15 minutes</option>
+                               <option>0</option>
                               </select>
                             </div>
                             <div class="form-check">
-                             <p class="card-description" id="exampleInputModalSettingsPassiveDuration">Duration</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle">
+                             <p class="card-description" >Duration</p>
+                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
                                 <option>1 seconds</option>
                                 <option>5 seconds</option>
                                 <option>10 seconds</option>
                                 <option>15 seconds</option>
                                 <option>20 seconds</option>
+                                <option>0</option>
                               </select>
                             </div>
                             <div class="form-check">
@@ -624,7 +629,7 @@
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsCommitDescription" checked>Commit Description</label>
+                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsCommitDescription">Commit Description</label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
