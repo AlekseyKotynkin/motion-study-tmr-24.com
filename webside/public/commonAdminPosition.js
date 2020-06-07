@@ -670,6 +670,42 @@ function editButtonUser(obj)
   */
  function  gridSystemModalEditSettings()
 {
+  let settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
+  let settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
+  let settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
+  let settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
+  let settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
+  let settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
+  let settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
+  let settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
+  let settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
+  let settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
+  let settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
+  let settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
+  let settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
+  let settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
+  let settingsCommitDescription = document.getElementById('exampleInputModalSettingsCommitDescription').checked;
+  let settingsResultCapture = document.getElementById('exampleInputModalSettingsResultControl').checked;
+  let settingsResultControlOption1 = document.getElementById('exampleInputModalSettingsResultControlOption1').value;
+  let settingsResultControlOption2 = document.getElementById('exampleInputModalSettingsResultControlOption2').value;
+  let settingsResultControlOption3 = document.getElementById('exampleInputModalSettingsResultControlOption3').value;
+  let settingsResultControlOption4 = document.getElementById('exampleInputModalSettingsResultControlOption4').value;
+  let settingsResultControlOption5 = document.getElementById('exampleInputModalSettingsResultControlOption5').value;
+  let settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
+  let settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
+  let settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
+
+  docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
+      UserTitle: userTitle,
+      UserСomment: userСomment,
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+
 
 }
 
@@ -678,33 +714,17 @@ function editButtonUser(obj)
  *  Обработчик кнопки Submit из модального окна editGridSystemModalNewUser.
  */
 function  editGridSystemModalNewUser()
-{ console.log(objIdDocUser);
-  console.log(docRefPosition);
-  var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
-  console.log(washingtonRef);
-
-
-
-
-  console.log(washingtonRef);
-  alert(washingtonRef);
-  // Set the "capital" field of the city 'DC'
-
-
-
-
-  return washingtonRef.update({
-    // var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
-    // var userСomment = document.getElementById("editExampleInputModalUserСomment").value;
-    //   UserTitle = userTitle;
-    //   UserСomment = userСomment;
-      capital: true
+{
+  var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
+  var userСomment = document.getElementById("editExampleInputModalUserСomment").value;
+  docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
+      UserTitle: userTitle,
+      UserСomment: userСomment,
   })
   .then(function() {
-      console.log("Document successfully updated!");
+      console.log("Document successfully written!");
   })
   .catch(function(error) {
-      // The document probably doesn't exist.
-      console.error("Error updating document: ", error);
+      console.error("Error writing document: ", error);
   });
 }
