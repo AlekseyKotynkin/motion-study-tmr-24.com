@@ -184,9 +184,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     var articleDiv = document.getElementById("headerTablePosition").innerHTML;
     var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
     document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-
+    console.log(articleDiv);
+    console.log(articleDivOn);
     var xhr= new XMLHttpRequest();
     xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
+    console.log(xhr);
     xhr.send();
     xhr.onreadystatechange= function() {
     if (this.readyState!==4) return;
