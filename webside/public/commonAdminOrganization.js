@@ -226,6 +226,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
               ProviderId: "TMR-24.com"
             }]
           localStorage.setItem('TMR::rememberedAdminSubdivision', JSON.stringify(itemsArray));
+          documentDataSubdivision=[];
 
       });
 
