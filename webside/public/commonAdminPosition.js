@@ -15,16 +15,9 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
-// let documentData=[];
-// let documentDataSubdivision=[];
+
 let items=[];
 let itemsPositionUser=[];
-
-// let itemsPosition=[];
-
-// let docRef=0 ;
-// let docRefFull=0 ;
-
 
 /**
 * @return {string}
@@ -125,14 +118,12 @@ if (doc.exists) {
    });
 });
 
-
 /**
 * @return {string}
  *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
  */
  function SignoutAdmin() {
    localStorage.clear();
-
    window.location.replace("index.html")
  };
 
@@ -383,7 +374,6 @@ docRefPosition.collection("PositionSettings")
   });
 };
 
-
 /**
 * @return {string}
  *  Получение данных для таблицы список Result Сapture.
@@ -396,7 +386,6 @@ docRefPosition.collection("PositionSettings")
   querySnapshot.forEach(function(doc) {
     // items.push({...doc.data(),...{idPositionSettings: doc.id}});
   });
-
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
@@ -438,7 +427,6 @@ docRefPosition.collection("PositionSettings")
       var settingsResultControlOption8 = document.createElement('td');
       settingsResultControlOption8.innerHTML = item.SettingsResultControlOption8;
 
-
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsCommitDescription);
       tr.appendChild(settingsResultCapture);
@@ -451,9 +439,7 @@ docRefPosition.collection("PositionSettings")
       tr.appendChild(settingsResultControlOption7);
       tr.appendChild(settingsResultControlOption8);
 
-
       var container = document.getElementById("tableResultСapture").getElementsByTagName("tbody")[0];
-
       container.appendChild(tr);
     });
   });
@@ -463,7 +449,6 @@ docRefPosition.collection("PositionSettings")
 * @return {string}
 *  Обработка модального окна Регистрация Пользователя.
 */
-
 function gridSystemModalNewUser()
 {
   var userTitle = document.getElementById("exampleInputModalUserTitle").value;
@@ -482,13 +467,10 @@ function gridSystemModalNewUser()
   });
 };
 
-
-
 /**
 * @return {string}
 *  Обработка модального окна Регистрация Настроик Процессов.
 */
-
 function gridSystemModalNewSettings()
 {
   var settingsTitle = document.getElementById("exampleInputModalNewSettingsTitle").value;
@@ -551,7 +533,6 @@ function toDismissButtonUser(obj)
 * @return {string}
 *  Обработчик кнопки deleteButtonSettings из таблицы Процессов.
 */
-
 function deleteButtonSettings(obj)
 {
   let objId = obj.id;
@@ -570,7 +551,6 @@ function deleteButtonSettings(obj)
 * @return {string}
 *  Обработчик кнопки editButtonUser из таблицы Пользователи.
 */
-
 function editButtonUser(obj)
 {
   objIdDocUser = obj.id;
@@ -695,9 +675,31 @@ function editButtonUser(obj)
   let settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
   let settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
 
-  docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
-      UserTitle: userTitle,
-      UserСomment: userСomment,
+  docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
+    SettingsTitle: settingsTitle,
+    SettingsСomment: settingsСomment,
+    SettingsActiveControl: settingsActiveControl,
+    SettingsActiveIntervalMinutes: settingsActiveIntervalMinutes,
+    SettingsActiveDurationSeconds: settingsActiveDurationSeconds,
+    SettingsActiveTransition: settingsActiveTransition,
+    SettingsActiveSignal: settingsActiveSignal,
+    SettingsPassiveControl: settingsPassiveControl,
+    SettingsPassiveIntervalMinutes: settingsPassiveIntervalMinutes,
+    SettingsPassiveDurationSeconds: settingsPassiveDurationSeconds,
+    SettingsPassiveAudio: settingsPassiveAudio,
+    SettingsPassivePhoto: settingsPassivePhoto,
+    SettingsPassiveVideo: settingsPassiveVideo,
+    SettingsPassiveGeolocation: settingsPassiveGeolocation,
+    SettingsCommitDescription: settingsCommitDescription,
+    SettingsResultCapture: settingsResultCapture,
+    SettingsResultControlOption1: settingsResultControlOption1,
+    SettingsResultControlOption2: settingsResultControlOption2,
+    SettingsResultControlOption3: settingsResultControlOption3,
+    SettingsResultControlOption4: settingsResultControlOption4,
+    SettingsResultControlOption5: settingsResultControlOption5,
+    SettingsResultControlOption6: settingsResultControlOption6,
+    SettingsResultControlOption7: settingsResultControlOption7,
+    SettingsResultControlOption8: settingsResultControlOption8,
   })
   .then(function() {
       console.log("Document successfully written!");
@@ -705,8 +707,6 @@ function editButtonUser(obj)
   .catch(function(error) {
       console.error("Error writing document: ", error);
   });
-
-
 }
 
 /**

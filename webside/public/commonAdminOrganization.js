@@ -20,8 +20,6 @@ let documentDataSubdivision=[];
 let items=[];
 let itemsPosition=[];
 let localStorageSubdivision = 0;
-// let docRef=0 ;
-// let docRefFull=0 ;
 
 
  /**
@@ -182,8 +180,19 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
   function toComeInButtonSubdivision(obj) {
   //обработка редактирования строки...
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
-    // var removeTab = document.getElementById('headerTablePosition').parentElement.removeChild(removeTab);
-    // document.getElementById("headerTablePosition").reset();
+
+    var articleDiv = document.getElementById("headerTablePosition").innerHTML;
+    var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
+
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
+    xhr.send();
+    xhr.onreadystatechange= function() {
+    if (this.readyState!==4) return;
+    if (this.status!==200) return; // или любую другую обработку ошибок, которую вы хотите
+    document.getElementById('headerTablePosition').innerHTML= this.responseText;
+    };
 
     var docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);
     docRefFull.get().then(function(doc) {
@@ -207,7 +216,6 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           ul.insertAdjacentHTML("afterend", lit);
 
           localStorageSubdivision = item.idSubdivision;
-          console.log(localStorageSubdivision);
             let itemsArray = [{
               SubdivisionId: localStorageSubdivision,
               OwnerEmail: EmailLocalStorage,
@@ -335,7 +343,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        localStorage.setItem('TMR::rememberedAdminPosition', JSON.stringify(itemsArray));
        window.location.replace("indexAdminPosition.html");
       }
-      
+
      /**
      * @return {string}
       *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
