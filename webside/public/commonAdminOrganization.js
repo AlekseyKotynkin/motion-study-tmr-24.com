@@ -182,10 +182,12 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
 
     var articleDiv = document.getElementById("headerTablePosition").innerHTML;
-    var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+    // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+    var articleDivOn = '';
     document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
     console.log(articleDiv);
     console.log(articleDivOn);
+
     var xhr= new XMLHttpRequest();
     xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
     console.log(xhr);
@@ -278,6 +280,10 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            var container = document.getElementById("tablePosition").getElementsByTagName("tbody")[0];
 
            container.appendChild(tr);
+
+
+           itemsPosition=[];
+           documentDataSubdivision=[];
          });
        });
     });
