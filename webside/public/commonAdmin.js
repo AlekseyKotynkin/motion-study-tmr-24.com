@@ -146,6 +146,86 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
   /**
   * @return {string}
+   *  Получение данных для таблицы List of posts in which you are involved as a User из firestore.
+   */
+
+  function createATableOfClientUser()
+  {
+  // items=[];
+  // db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+  // .get()
+  // .then(function(querySnapshot) {
+  //   querySnapshot.forEach(function(doc) {
+  //     items.push({...doc.data(),...{idOrganization: doc.id}});
+  //   });
+  //
+  //     })
+  //     .catch(function(error) {
+  //         console.log("Error getting documents: ", error);
+  //     })
+  //       .finally(() => {items;
+  //     items.forEach(item => {
+  //       var tr = document.createElement("tr");
+  //
+  //       var organizationName = document.createElement('a');
+  //       organizationName.innerHTML = item.Organization;
+  //
+  //       var organizationColumn = document.createElement('td');
+  //       organizationColumn.appendChild(organizationName);
+  //
+  //       var subdivisionColumn = document.createElement('td');
+  //       subdivisionColumn.innerHTML = item.Subdivision;
+  //
+  //       var positionColumn = document.createElement('td');
+  //       positionColumn.innerHTML = item.Position;
+  //
+  //       var positionOfYourManagerColumn = document.createElement('td');
+  //       positionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
+  //
+  //       var nameOfYourManagerColumn = document.createElement('td');
+  //       nameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
+  //
+  //       var statusUserColumn = document.createElement('td');
+  //       statusUserColumn.innerHTML = item.StatusUser;
+  //
+  //       var toComeInUserName = document.createElement('button');
+  //       toComeInUserName.innerHTML = "To come in";
+  //       toComeInUserName.className = 'badge badge-gradient-success';
+  //       toComeInUserName.id = item.idOrganization;
+  //       toComeInUserName.setAttribute('onclick', 'toComeInButton(this)');
+  //
+  //       var toComeInUserColumn = document.createElement('td');
+  //       toComeInUserColumn.appendChild(toComeInUserName);
+  //
+  //       var quitName = document.createElement('button');
+  //       quitName.innerHTML = "Quit";
+  //       quitName.className = 'badge badge-gradient-danger';
+  //       quitName.id = item.idOrganization;
+  //       quitName.setAttribute('onclick', 'quitButton(this)');
+  //
+  //       var quitColumn = document.createElement('td');
+  //       quitColumn.appendChild(quitName);
+  //
+  //       tr.appendChild(organizationColumn);
+  //       tr.appendChild(subdivisionColumn);
+  //       tr.appendChild(positionColumn);
+  //       tr.appendChild(positionOfYourManagerColumn);
+  //       tr.appendChild(nameOfYourManagerColumn);
+  //       tr.appendChild(statusUserColumn);
+  //       tr.appendChild(toComeInUserColumn);
+  //       tr.appendChild(quitColumn);
+  //
+  //       var container = document.getElementById("tablePostsUser").getElementsByTagName("tbody")[0];
+  //
+  //       container.appendChild(tr);
+  //
+  //     });
+  //   });
+};
+
+
+  /**
+  * @return {string}
    *  Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
    */
 

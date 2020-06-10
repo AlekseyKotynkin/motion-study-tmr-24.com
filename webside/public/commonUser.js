@@ -12,6 +12,21 @@
  * limitations under the License.
  */
 
+
+
+
+
+
+ var buttons = document.querySelectorAll(".button");
+
+ for (var button of buttons) {
+    button.addEventListener('click', function () {
+      buttons.forEach(i => i.classList.remove('active'));
+
+      this.classList.toggle('active');
+    });
+ };
+
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -40,7 +55,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
   *  Обработка модального окна Регистрация Организации.
   */
 
-  function gridSystemModalNewOrganization()
+  function createATableOfClientUser()
   {
     var Organization = document.getElementById("exampleInputNameOrganization").value;
     var Position = document.getElementById("exampleInputPosition").value;
