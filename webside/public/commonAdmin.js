@@ -104,7 +104,8 @@ parentHierarchy.get().then(function (querySnapshot) {
         var toComeInUserName = document.createElement('button');
         toComeInUserName.innerHTML = "To come in";
         toComeInUserName.className = 'badge badge-gradient-success';
-        toComeInUserName.id = item.idOrganization;
+        toComeInUserName.id = item.idDocPositionUser;
+        toComeInUserName.item = item;
         toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
 
         var toComeInUserColumn = document.createElement('td');
@@ -250,7 +251,6 @@ parentHierarchy.get().then(function (querySnapshot) {
   function toComeInButton(obj) {
     //обработка редактирования строки...
       let objId = obj.id;
-      console.log(obj);
 
         let itemsArray = [{
           OrganizationId: objId,
@@ -288,13 +288,11 @@ parentHierarchy.get().then(function (querySnapshot) {
 
 function toComeInButtonUser(obj) {
   //обработка редактирования строки...
-    let objId = obj.id;
-    console.log(obj);
-
+    let objItem = obj.item;
       let itemsArray = [{
-        OrganizationId: objId,
         OwnerEmail: EmailLocalStorage,
-        ProviderId: "TMR-24.com"
+        ProviderId: "TMR-24.com",
+        ParentHierarchy: objItem
       }]
     localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
     window.location.replace("indexUser.html");

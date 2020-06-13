@@ -14,7 +14,11 @@
       if (localStorage.getItem('firebaseui::rememberedAccounts') === null)
       {
       window.location.replace("widget.html");
-      }
+      };
+      if (localStorage.getItem('TMR::rememberedUser') === null)
+      {
+      window.location.replace("indexAdmin.html");
+      };
     </script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
@@ -250,6 +254,8 @@
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
+                  <div id='headerTableProcessesUser' class="card-body">
+                    <h4 class="card-title">List of processes for the post - <script>document.write(li);</script></h4>
                   <br>
                   <br>
                   <br>
@@ -311,6 +317,7 @@
                   <br>
                   <br>
                   <br>
+                  </div>
                 </div>
               </div>
             </div>
