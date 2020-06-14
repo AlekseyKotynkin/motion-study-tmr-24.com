@@ -53,6 +53,8 @@ const EmailPositionUserLocalStorage = (LocalStorageValueObjectUser[0]).OwnerEmai
 let organizationDocName = ParentHierarchyPositionUserlocalStorage.NameOrganization;
 let subdivisionDocName = ParentHierarchyPositionUserlocalStorage.NameSubdivision;
 let positionDocName = ParentHierarchyPositionUserlocalStorage.NamePosition;
+let organizationDocId = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
+let subdivisionDocId = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
 let positionDocId = ParentHierarchyPositionUserlocalStorage.idDocPosition;
 let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organization - "+(organizationDocName);
 
@@ -62,30 +64,37 @@ let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organizati
  */
 
  db.collection("WorkShift").where('IdDocPosition', '==', positionDocId).where("WorkShiftEnd", "==", "")
-     .get()
-     .then(function(querySnapshot) {
-         querySnapshot.forEach(function(doc) {
-             // doc.data() is never undefined for query doc snapshots
-             // console.log(doc.id, " => ", doc.data());
-             idDocShiftUser = doc.id;
-             var articleDiv = document.getElementById("buttonTableProcessesUser").innerHTML;
-             var articleDivOn = '';
-             document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-             my_div = document.getElementById("buttonTableProcessesUser");
-             let lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
-             my_div.insertAdjacentHTML("afterend", lit);
+.get()
+.then(function(querySnapshot) {
+querySnapshot.forEach(function(doc) {
+   // doc.data() is never undefined for query doc snapshots
+   // console.log(doc.id, " => ", doc.data());
+   idDocShiftUser = doc.id;
+   var articleDiv = document.getElementById("buttonTableProcessesUser").innerHTML;
+   var articleDivOn = '';
+   document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
+   my_div = document.getElementById("buttonTableProcessesUser");
+   let lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
+   my_div.insertAdjacentHTML("afterend", lit);
+});
+})
+  .catch(function(error) {
+  console.log("Error getting documents: ", error);
+});
 
-         });
-     })
-     .catch(function(error) {
-         console.log("Error getting documents: ", error);
-     });
-
-
-
-
-
-
+/**
+* @return {string}
+*  Получить настройки процессов для данной Дожности.
+*/
+var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+    });
+});
 
 /**
 * @return {string}
@@ -93,7 +102,6 @@ let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organizati
 */
 function AddShiftUser() {
   let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-
   db.collection("WorkShift").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
     IdDocPosition: positionDocId,
@@ -107,13 +115,8 @@ function AddShiftUser() {
   })
   .catch(function(error) {
       console.error("Error adding document: ", error);
-
   });
-
 }
-
-
-
 
 /**
 * @return {string}
@@ -136,8 +139,6 @@ function AddShiftUser() {
       console.error("Error updating document: ", error);
   });
 }
-
-
 
 /**
 * @return {string}
