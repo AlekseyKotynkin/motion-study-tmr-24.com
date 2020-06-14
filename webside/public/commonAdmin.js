@@ -41,18 +41,17 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
  *  Получение данных для таблицы List of active user sessions из firestore.
  */
 
- db.collection("WorkShift").where('EmailPositionUser', '==', EmailLocalStorage).where("WorkShiftEndTime", "==", "")
+ // db.collection("WorkShift").where('EmailPositionUser', '==', EmailLocalStorage).where("WorkShiftEnd", "==", "")
+  db.collection("WorkShift").where('EmailPositionUser', '==', "cay211076@gmail.com").where("WorkShiftEnd", "==", "")
      .get()
      .then(function(querySnapshot) {
          querySnapshot.forEach(function(doc) {
              // doc.data() is never undefined for query doc snapshots
-             console.log(doc.id, " => ", doc.data());
-             console.log(doc.data().ParentHierarchyPositionUser);
-                let parentHierarchyDoc = doc.data().ParentHierarchyPositionUser;
-                let organizationDocId = parentHierarchyDoc.split("/")[1];
-                let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                let positionDocId = parentHierarchyDoc.split("/")[5];
-                itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+            let parentHierarchyDoc = doc.data().ParentHierarchyPositionUser;
+            let organizationDocId = parentHierarchyDoc.idDocOrganization;
+            let subdivisionDocId = parentHierarchyDoc.idDocSubdivision;
+            let positionDocId = parentHierarchyDoc.idDocPosition;
+            itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
          });
                console.log(itemsActiveUserName);
 
@@ -136,9 +135,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
               });
               });
      })
-     .catch(function(error) {
-         console.log("Error getting documents: ", error);
-     });
+     // .catch(function(error) {
+     //     console.log("Error getting documents: ", error);
+     // });
 
 
 

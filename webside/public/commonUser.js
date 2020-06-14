@@ -93,7 +93,7 @@ let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organizati
 */
 function AddShiftUser() {
   let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-  // Add a new document with a generated id.
+
   db.collection("WorkShift").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
     IdDocPosition: positionDocId,
@@ -103,11 +103,13 @@ function AddShiftUser() {
   })
   .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
+      window.location.replace("indexUser.html");
   })
   .catch(function(error) {
       console.error("Error adding document: ", error);
+
   });
-   window.location.replace("indexUser.html")
+
 }
 
 
@@ -127,12 +129,12 @@ function AddShiftUser() {
   })
   .then(function() {
       console.log("Document successfully updated!");
+      window.location.replace("indexUser.html")
   })
   .catch(function(error) {
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
   });
-     window.location.replace("indexUser.html")
 }
 
 
