@@ -53,8 +53,6 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
             let positionDocId = parentHierarchyDoc.idDocPosition;
             itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
          });
-               console.log(itemsActiveUserName);
-
            itemsActiveUserName.forEach(function(element){
              let organizationDocId = element.idDocOrganization ;
              let subdivisionDocId = element.idDocSubdivision ;
@@ -135,93 +133,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
               });
               });
      })
-     // .catch(function(error) {
-     //     console.log("Error getting documents: ", error);
-     // });
-
-
-
-//   itemsActiveUserName.forEach(function(element){
-//     let organizationDocId = element.idDocOrganization ;
-//     let subdivisionDocId = element.idDocSubdivision ;
-//     let positionDocId = element.idDocPosition ;
-//     let docRefOrganization = db.collection("Organization").doc(organizationDocId);
-//        docRefOrganization.get().then(function(doc) {
-//         if (doc.exists) {
-//             nameActiveUserOrganization = doc.data().Organization;
-//             element['NameOrganization'] = nameActiveUserOrganization;
-//         } else {
-//             console.log("No such document!");
-//         }
-//     }).catch(function(error) {
-//         console.log("Error getting document:", error);
-//     });
-//     let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
-//        docRefSubdivision.get().then(function(doc) {
-//         if (doc.exists) {
-//             nameActiveUserSubdivision = doc.data().Subdivision;
-//             element['NameSubdivision'] = nameActiveUserSubdivision;
-//         } else {
-//             console.log("No such document!");
-//         }
-//     }).catch(function(error) {
-//         console.log("Error getting document:", error);
-//     });
-//     let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
-//        docRefPosition.get().then(function(doc) {
-//         if (doc.exists) {
-//             nameActiveUserPosition = doc.data().Position;
-//             element['NamePosition'] = nameActiveUserPosition;
-//         } else {
-//             console.log("No such document!");
-//         }
-//     }).catch(function(error) {
-//         console.log("Error getting document:", error);
-//     }).finally(() => {
-//       [element].forEach(item =>
-//     {
-//         var tr = document.createElement("tr");
-//
-//         var organizationColumn = document.createElement('td');
-//         organizationColumn.innerHTML = item.NameOrganization;
-//
-//         var subdivisionColumn = document.createElement('td');
-//         subdivisionColumn.innerHTML = item.NameSubdivision;
-//
-//         var positionColumn = document.createElement('td');
-//         positionColumn.innerHTML = item.NamePosition;
-//
-//         var nameOfYourManagerColumn = document.createElement('td');
-//         nameOfYourManagerColumn.innerHTML = item.UserСomment;
-//
-//         var statusUserColumn = document.createElement('td');
-//         statusUserColumn.innerHTML = item.UserEmail;
-//
-//         var toComeInUserName = document.createElement('button');
-//         toComeInUserName.innerHTML = "To come in";
-//         toComeInUserName.className = 'badge badge-gradient-success';
-//         toComeInUserName.id = item.idDocPositionUser;
-//         toComeInUserName.item = item;
-//         toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
-//
-//         var toComeInUserColumn = document.createElement('td');
-//         toComeInUserColumn.appendChild(toComeInUserName);
-//
-//         tr.appendChild(organizationColumn);
-//         tr.appendChild(subdivisionColumn);
-//         tr.appendChild(positionColumn);
-//         tr.appendChild(nameOfYourManagerColumn);
-//         tr.appendChild(statusUserColumn);
-//         tr.appendChild(toComeInUserColumn);
-//
-//         var container = document.getElementById("tableActiveUser").getElementsByTagName("tbody")[0];
-//
-//         container.appendChild(tr);
-//      });
-//     });
-//   });
-// });
-
+     .catch(function(error) {
+         console.log("Error getting documents: ", error);
+     });
 
 /**
 * @return {string}
