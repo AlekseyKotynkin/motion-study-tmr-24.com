@@ -41,8 +41,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
  *  Получение данных для таблицы List of active user sessions из firestore.
  */
 
- // db.collection("WorkShift").where('EmailPositionUser', '==', EmailLocalStorage).where("WorkShiftEnd", "==", "")
-  db.collection("WorkShift").where('EmailPositionUser', '==', "cay211076@gmail.com").where("WorkShiftEnd", "==", "")
+ db.collection("WorkShift").where('EmailPositionUser', '==', EmailLocalStorage).where("WorkShiftEnd", "==", "")
      .get()
      .then(function(querySnapshot) {
          querySnapshot.forEach(function(doc) {
