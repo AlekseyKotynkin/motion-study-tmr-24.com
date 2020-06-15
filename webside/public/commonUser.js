@@ -93,8 +93,23 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
+        items.push({...doc.data(),...{idDocPositionSettings: doc.id}});
+        // console.log(items);
+        let nameButton = doc.data().SettingsTitle;
+        my_div = document.getElementById("idButtons");
+        let fff = "idButtons10";
+        let lit = '<button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="idButtonsX" onclick ="toRegisterProcessUser(this)"></button>';
+        my_div.insertAdjacentHTML("beforeend", lit);
+        my_div = document.getElementById("idButtonsX");
+        let li = '<p class="text">'+(nameButton)+'</p>';
+        my_div.insertAdjacentHTML("beforeend", li);
+        document.getElementById('idButtonsX').id = doc.id;
+
+
+
     });
 });
+
 
 /**
 * @return {string}
@@ -148,3 +163,11 @@ function AddShiftUser() {
    localStorage.clear('firebaseui::rememberedAccounts');
    window.location.replace("index.html")
  }
+
+ /**
+ * @return {string}
+  *  Регистрируем событие процесс Пользователя.
+  */
+   function toRegisterProcessUser() {
+alert("Привет");
+  }
