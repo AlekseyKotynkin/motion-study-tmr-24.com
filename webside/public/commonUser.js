@@ -12,21 +12,14 @@
  * limitations under the License.
  */
 
- var buttons = document.querySelectorAll(".button");
-
- for (var button of buttons) {
-    button.addEventListener('click', function () {
-      buttons.forEach(i => i.classList.remove('active'));
-
-      this.classList.toggle('active');
-    });
- };
 
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 let items=[];
 let idDocShiftUser="";
+
+
 
 
  /**
@@ -76,6 +69,16 @@ querySnapshot.forEach(function(doc) {
    my_div = document.getElementById("buttonTableProcessesUser");
    let lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
    my_div.insertAdjacentHTML("afterend", lit);
+  // Получить активный процесс и активировать кнопку на экране.
+   var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+   docRefWorkShift.collection("ProcessUser").get().then(function(querySnapshot) {
+       querySnapshot.forEach(function(doc) {
+           // doc.data() is never undefined for query doc snapshots
+           console.log(doc.id, " => ", doc.data());
+       });
+   });
+
+
 });
 })
   .catch(function(error) {
@@ -108,10 +111,23 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
     });
 });
 
+/**
+* @return {string}
+* // Получить активный процесс и активировать кнопку на экране.
+*/
+
+
+
+
+
+
+
+
+
 
 /**
 * @return {string}
-*  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+*  Открытие рабочей смены.
 */
 function AddShiftUser() {
   let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
@@ -133,7 +149,7 @@ function AddShiftUser() {
 
 /**
 * @return {string}
-*  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+*  Закрытие рабочей смены.
 */
  function CloseShiftUser() {
   let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
@@ -166,6 +182,54 @@ function AddShiftUser() {
  * @return {string}
   *  Регистрируем событие процесс Пользователя.
   */
-   function toRegisterProcessUser() {
-alert("Привет");
+   function toRegisterProcessUser(obj) {
+     let objId = obj.id;
+     console.log(objId);
+     console.log(obj);
+      // Получить активный процесс и закрыть его.
+var buttons = document.querySelectorAll(".button");
+for (var button of buttons) {
+   button.addEventListener('click', function () {
+     buttons.forEach(i => i.classList.remove('active'));
+     this.classList.toggle('active');
+   });
+};
+console.log(idDocShiftUser);
+    // Проверяем открыта ли смена.
+if (idDocShiftUser == "")
+ {
+alert("Open work shift!");
+}
+ else
+ {
+let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+docRefWorkShift.collection("ProcessUser").add({
+  EmailPositionUser: EmailPositionUserLocalStorage,
+  IdDocPosition: positionDocId,
+  ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+  ProcessUserEnd: "",
+  ProcessUserStartTime: timestampStart,
+  IdDocProcessButton: objId,
+
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+}
+
+
+
+
+
+
+
+
+
+
+
   }
