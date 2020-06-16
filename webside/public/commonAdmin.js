@@ -361,7 +361,7 @@ parentHierarchy.get().then(function (querySnapshot) {
           OrganizationId: objId,
           OwnerEmail: EmailLocalStorage,
           ProviderId: "TMR-24.com"
-        }]
+        }];
       localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
       window.location.replace("indexAdminOrganization.html");
     };
@@ -377,11 +377,12 @@ parentHierarchy.get().then(function (querySnapshot) {
     alert('Document successfully deleted! '+ (objId));
       db.collection("Organization").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
+          window.location.reload();
       }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
-      window.location.reload();
-    }
+
+    };
 
 
 
@@ -398,7 +399,7 @@ function toComeInButtonUser(obj) {
         OwnerEmail: EmailLocalStorage,
         ProviderId: "TMR-24.com",
         ParentHierarchy: objItem
-      }]
+      }];
     localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
     window.location.replace("indexUser.html");
   };

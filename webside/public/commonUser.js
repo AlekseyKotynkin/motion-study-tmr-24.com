@@ -105,8 +105,6 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
         my_div.insertAdjacentHTML("beforeend", li);
         document.getElementById('idButtonsX').id = doc.id;
 
-
-
     });
 });
 

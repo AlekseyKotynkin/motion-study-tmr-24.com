@@ -522,6 +522,7 @@ function toDismissButtonUser(obj)
   docRefPosition.collection("PositionUser").doc(objId).delete().then(function()
   {
       console.log("Document successfully deleted!");
+      window.location.reload();
   }).catch(function(error)
   {
       console.error("Error removing document: ", error);
@@ -540,11 +541,11 @@ function deleteButtonSettings(obj)
   docRefPosition.collection("PositionSettings").doc(objId).delete().then(function()
   {
        console.log("Document successfully deleted!");
+       window.location.reload();
   }).catch(function(error)
   {
        console.error("Error removing document: ", error);
   });
-   window.location.reload();
 }
 
 /**

@@ -299,10 +299,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     alert('Document successfully deleted! '+ (objId));
     docRef.collection("Subdivision").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
+          window.location.reload();
       }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
-      window.location.reload();
+
     };
 
 
@@ -361,8 +362,9 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        alert('Document successfully deleted! '+ (objId));
        docRef.collection("Subdivision").doc(localStorageSubdivision).collection("Position").doc(objId).delete().then(function() {
              console.log("Document successfully deleted!");
+             window.location.reload();
          }).catch(function(error) {
              console.error("Error removing document: ", error);
          });
-         window.location.reload();
+
     }
