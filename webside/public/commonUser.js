@@ -18,6 +18,9 @@
  */
 let items=[];
 let idDocShiftUser="";
+let idActivButtonUser="";
+let idDocActivButtonUser="";
+
 
 
 
@@ -53,7 +56,7 @@ let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organizati
 
 /**
 * @return {string}
- *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+ *  Проверяем есть ли активный сеанс.
  */
 
  db.collection("WorkShift").where('IdDocPosition', '==', positionDocId).where("WorkShiftEnd", "==", "")
@@ -71,17 +74,22 @@ querySnapshot.forEach(function(doc) {
    my_div.insertAdjacentHTML("afterend", lit);
   // Получить активный процесс и активировать кнопку на экране.
    var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-   docRefWorkShift.collection("ProcessUser").get().then(function(querySnapshot) {
-       querySnapshot.forEach(function(doc) {
-           // doc.data() is never undefined for query doc snapshots
-           console.log(doc.id, " => ", doc.data());
+   docRefWorkShift.collection("ProcessUser").where("ProcessUserEnd", "==", "")
+       .get()
+       .then(function(querySnapshot) {
+           querySnapshot.forEach(function(doc) {
+               // doc.data() is never undefined for query doc snapshots
+               // console.log(doc.id, " => ", doc.data());
+               idDocActivButtonUser = doc.id;
+               idActivButtonUser = doc.data().IdDocProcessButton;
+               let elem = document.getElementById(idActivButtonUser);
+               elem.classList.toggle('active');
+           });
+       }).catch(function(error) {
+           console.log("Error getting documents: ", error);
        });
-   });
-
-
 });
-})
-  .catch(function(error) {
+}).catch(function(error) {
   console.log("Error getting documents: ", error);
 });
 
@@ -97,33 +105,16 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         items.push({...doc.data(),...{idDocPositionSettings: doc.id}});
-        // console.log(items);
         let nameButton = doc.data().SettingsTitle;
         my_div = document.getElementById("idButtons");
-        let fff = "idButtons10";
         let lit = '<button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="idButtonsX" onclick ="toRegisterProcessUser(this)"></button>';
         my_div.insertAdjacentHTML("beforeend", lit);
         my_div = document.getElementById("idButtonsX");
         let li = '<p class="text">'+(nameButton)+'</p>';
         my_div.insertAdjacentHTML("beforeend", li);
         document.getElementById('idButtonsX').id = doc.id;
-
     });
 });
-
-/**
-* @return {string}
-* // Получить активный процесс и активировать кнопку на экране.
-*/
-
-
-
-
-
-
-
-
-
 
 /**
 * @return {string}
@@ -182,54 +173,64 @@ function AddShiftUser() {
  * @return {string}
   *  Регистрируем событие процесс Пользователя.
   */
-   function toRegisterProcessUser(obj) {
-     let objId = obj.id;
-     console.log(objId);
-     console.log(obj);
-      // Получить активный процесс и закрыть его.
-var buttons = document.querySelectorAll(".button");
-for (var button of buttons) {
-   button.addEventListener('click', function () {
-     buttons.forEach(i => i.classList.remove('active'));
-     this.classList.toggle('active');
-   });
-};
-console.log(idDocShiftUser);
+function toRegisterProcessUser(obj) {
+   let objId = obj.id;
+   let objDoc = obj.innerText;
+   let objName ="";
     // Проверяем открыта ли смена.
-if (idDocShiftUser == "")
- {
-alert("Open work shift!");
-}
- else
- {
-let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-docRefWorkShift.collection("ProcessUser").add({
+   if (idDocShiftUser == "")
+   {
+   alert("Open work shift!");
+   }
+   else
+   {
+     // Получить активный процесс и закрыть его.
+   if (idDocActivButtonUser == "")
+   {
+   alert("Good luck Go!");
+   }
+   else
+   {
+     console.log(idDocActivButtonUser);
+     let elem = document.getElementById(idActivButtonUser);
+     elem.classList.toggle('active');
+     let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+     var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+     var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
+     // Set the "capital" field of the city 'DC'
+     return docRefWorkShiftProcessUser.update({
+         ProcessUserEndTime: timestampStop,
+         ProcessUserEnd: "false",
+     })
+     .then(function() {
+         console.log("Document successfully updated!");
+         // window.location.replace("indexUser.html")
+     })
+     .catch(function(error) {
+         // The document probably doesn't exist.
+         console.error("Error updating document: ", error);
+     });
+   }
+       // Записываем процесс, регистрируем время.
+   let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+   var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+  docRefWorkShift.collection("ProcessUser").add({
   EmailPositionUser: EmailPositionUserLocalStorage,
   IdDocPosition: positionDocId,
   ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
   ProcessUserEnd: "",
   ProcessUserStartTime: timestampStart,
   IdDocProcessButton: objId,
+  NameDocProcessButton: objDoc,
 
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-});
-
-}
-
-
-
-
-
-
-
-
-
-
+  })
+  .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      idDocActivButtonUser = docRef.id;
+  })
+  .catch(function(error) {
+      console.error("Error adding document: ", error);
+  });
 
   }
+}
