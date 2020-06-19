@@ -155,15 +155,14 @@ function AddShiftUser() {
       elem.classList.toggle('active');
       let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
       var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-      console.log(idDocActivButtonUser);
       var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
       // Set the "capital" field of the city 'DC'
       return docRefWorkShiftProcessUser.update({
           ProcessUserEndTime: timestampStop,
           ProcessUserEnd: "false",
       }).then(function() {
-        idActivButtonUser = "";
-        idDocActivButtonUser = "";
+        // idActivButtonUser = "";
+        // idDocActivButtonUser = "";
         window.location.replace("indexUser.html")
       });
 
@@ -254,15 +253,13 @@ function toRegisterProcessUser(obj) {
     ProcessUserStartTime: timestampStart,
     IdDocProcessButton: idActivButtonUser,
     NameDocProcessButton: objDoc,
-  })
-  .then(function(docRef) {
-      // console.log("Document written with ID: ", docRef.id);
-      idDocActivButtonUser = docRef.id;
-      let elem = document.getElementById(idActivButtonUser);
-      elem.classList.toggle('active');
-  })
-  .catch(function(error) {
-      console.error("Error adding document: ", error);
-  });
+    }).then(function(docRef) {
+        // console.log("Document written with ID: ", docRef.id);
+        idDocActivButtonUser = docRef.id;
+        let elem = document.getElementById(idActivButtonUser);
+        elem.classList.toggle('active');
+    }).catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
   }
 }
