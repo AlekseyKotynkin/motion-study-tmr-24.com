@@ -22,9 +22,6 @@ let idActivButtonUser="";
 let idDocActivButtonUser="";
 
 
-
-
-
  /**
  * @return {string}
  *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
