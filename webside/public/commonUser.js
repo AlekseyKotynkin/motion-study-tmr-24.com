@@ -212,30 +212,26 @@ function toRegisterProcessUser(obj) {
          var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
          // Set the "capital" field of the city 'DC'
          return docRefWorkShiftProcessUser.update({
-             ProcessUserEndTime: timestampStop,
-             ProcessUserEnd: "false",
-         })
-         .then(function() {
-          let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-          var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-          docRefWorkShift.collection("ProcessUser").add({
-          EmailPositionUser: EmailPositionUserLocalStorage,
-          IdDocPosition: positionDocId,
-          ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
-          ProcessUserEnd: "",
-          ProcessUserStartTime: timestampStart,
-          IdDocProcessButton: idActivButtonUser,
-          NameDocProcessButton: objDoc,
-        })
-        .then(function(docRef) {
-            // console.log("Document written with ID: ", docRef.id);
-            // idDocActivButtonUser = docRef.id;
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-        });
-         })
-         .catch(function(error) {
+            ProcessUserEndTime: timestampStop,
+            ProcessUserEnd: "false",
+            }).then(function() {
+            let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+            var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+            docRefWorkShift.collection("ProcessUser").add({
+            EmailPositionUser: EmailPositionUserLocalStorage,
+            IdDocPosition: positionDocId,
+            ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+            ProcessUserEnd: "",
+            ProcessUserStartTime: timestampStart,
+            IdDocProcessButton: idActivButtonUser,
+            NameDocProcessButton: objDoc,
+            }).then(function(docRef) {
+                // console.log("Document written with ID: ", docRef.id);
+                // idDocActivButtonUser = docRef.id;
+            }).catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+         }).catch(function(error) {
              // The document probably doesn't exist.
              console.error("Error updating document: ", error);
          });
