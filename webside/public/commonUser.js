@@ -82,6 +82,8 @@ querySnapshot.forEach(function(doc) {
                // console.log(doc.id, " => ", doc.data());
                idDocActivButtonUser = doc.id;
                idActivButtonUser = doc.data().IdDocProcessButton;
+              // console.log(idDocActivButtonUser);
+              // console.log(idActivButtonUser);
                let elem = document.getElementById(idActivButtonUser);
                elem.classList.toggle('active');
            });
@@ -103,7 +105,7 @@ var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId)
 docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         items.push({...doc.data(),...{idDocPositionSettings: doc.id}});
         let nameButton = doc.data().SettingsTitle;
         my_div = document.getElementById("idButtons");
@@ -152,7 +154,22 @@ function AddShiftUser() {
   })
   .then(function() {
       console.log("Document successfully updated!");
-      window.location.replace("indexUser.html")
+      let elem = document.getElementById(idActivButtonUser);
+      elem.classList.toggle('active');
+      let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+      var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+      console.log(idDocActivButtonUser);
+      var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
+      // Set the "capital" field of the city 'DC'
+      return docRefWorkShiftProcessUser.update({
+          ProcessUserEndTime: timestampStop,
+          ProcessUserEnd: "false",
+      }).then(function() {
+        idActivButtonUser = "";
+        idDocActivButtonUser = "";
+        window.location.replace("indexUser.html")
+      });
+
   })
   .catch(function(error) {
       // The document probably doesn't exist.
@@ -174,9 +191,6 @@ function AddShiftUser() {
   *  Регистрируем событие процесс Пользователя.
   */
 function toRegisterProcessUser(obj) {
-   let objId = obj.id;
-   let objDoc = obj.innerText;
-   let objName ="";
     // Проверяем открыта ли смена.
    if (idDocShiftUser == "")
    {
@@ -191,46 +205,67 @@ function toRegisterProcessUser(obj) {
    }
    else
    {
-     console.log(idDocActivButtonUser);
-     let elem = document.getElementById(idActivButtonUser);
-     elem.classList.toggle('active');
-     let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
-     var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-     var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
-     // Set the "capital" field of the city 'DC'
-     return docRefWorkShiftProcessUser.update({
-         ProcessUserEndTime: timestampStop,
-         ProcessUserEnd: "false",
-     })
-     .then(function() {
-         console.log("Document successfully updated!");
-         // window.location.replace("indexUser.html")
-     })
-     .catch(function(error) {
-         // The document probably doesn't exist.
-         console.error("Error updating document: ", error);
-     });
-   }
+         let elemExit = document.getElementById(idActivButtonUser);
+         elemExit.classList.toggle('active');
+         idActivButtonUser = obj.id;
+         objDoc = obj.innerText;
+         let elem = document.getElementById(idActivButtonUser);
+         elem.classList.toggle('active');
+         let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+         var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+         var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
+         // Set the "capital" field of the city 'DC'
+         return docRefWorkShiftProcessUser.update({
+             ProcessUserEndTime: timestampStop,
+             ProcessUserEnd: "false",
+         })
+         .then(function() {
+          let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+          var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+          docRefWorkShift.collection("ProcessUser").add({
+          EmailPositionUser: EmailPositionUserLocalStorage,
+          IdDocPosition: positionDocId,
+          ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+          ProcessUserEnd: "",
+          ProcessUserStartTime: timestampStart,
+          IdDocProcessButton: idActivButtonUser,
+          NameDocProcessButton: objDoc,
+        })
+        .then(function(docRef) {
+            // console.log("Document written with ID: ", docRef.id);
+            // idDocActivButtonUser = docRef.id;
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+         })
+         .catch(function(error) {
+             // The document probably doesn't exist.
+             console.error("Error updating document: ", error);
+         });
+       }
        // Записываем процесс, регистрируем время.
-   let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-   var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-  docRefWorkShift.collection("ProcessUser").add({
-  EmailPositionUser: EmailPositionUserLocalStorage,
-  IdDocPosition: positionDocId,
-  ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
-  ProcessUserEnd: "",
-  ProcessUserStartTime: timestampStart,
-  IdDocProcessButton: objId,
-  NameDocProcessButton: objDoc,
-
+    idActivButtonUser = obj.id;
+    objDoc = obj.innerText;
+    let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+    var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+    docRefWorkShift.collection("ProcessUser").add({
+    EmailPositionUser: EmailPositionUserLocalStorage,
+    IdDocPosition: positionDocId,
+    ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+    ProcessUserEnd: "",
+    ProcessUserStartTime: timestampStart,
+    IdDocProcessButton: idActivButtonUser,
+    NameDocProcessButton: objDoc,
   })
   .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
       idDocActivButtonUser = docRef.id;
+      let elem = document.getElementById(idActivButtonUser);
+      elem.classList.toggle('active');
   })
   .catch(function(error) {
       console.error("Error adding document: ", error);
   });
-
   }
 }
