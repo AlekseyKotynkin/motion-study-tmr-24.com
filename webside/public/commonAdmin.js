@@ -245,12 +245,12 @@ parentHierarchy.get().then(function (querySnapshot) {
   *  Обработка модального окна Регистрация Организации.
   */
 
-  function gridSystemModalNewOrganization()
+  function gridSystemModalNewOrganizationSubmit()
   {
-    var Organization = document.getElementById("exampleInputNameOrganization").value;
-    var Position = document.getElementById("exampleInputPosition").value;
-    // Добавляем в коллекциию новую организацию и данные основателя.
-    db.collection("Organization").add({
+    let Organization = document.getElementById("exampleInputNameOrganization").value;
+    let Position = document.getElementById("exampleInputPosition").value;
+   //  Add a new document with a generated id.
+  db.collection("Organization").add({
     StatusUser: "StatusUser_Owner",
     Organization: Organization,
     Subdivision: "",
@@ -259,18 +259,15 @@ parentHierarchy.get().then(function (querySnapshot) {
     OwnerID: "",
     PositionOfYourManager: "",
     NameOfYourManager: "",
-    // DocumentCreationTimes: FieldValue.serverTimestamp(),
+  }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      $('#gridSystemModalNewOrganization').modal('toggle');
+      window.location.reload();
 
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        alert("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-        alert("Error adding document: ", error);
-    });
-  };
+  }).catch(function(error) {
+      console.error("Error adding document: ", error);
+  });
+  }
 
 
     /**
