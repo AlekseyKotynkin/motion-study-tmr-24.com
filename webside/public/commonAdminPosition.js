@@ -449,19 +449,18 @@ docRefPosition.collection("PositionSettings")
 * @return {string}
 *  Обработка модального окна Регистрация Пользователя.
 */
-function gridSystemModalNewUser()
+function gridSystemModalNewUserSubmit()
 {
   var userTitle = document.getElementById("exampleInputModalUserTitle").value;
   var userСomment = document.getElementById("exampleInputModalUserСomment").value;
   docRefPosition.collection("PositionUser").add({
   UserEmail: userTitle,
   UserСomment: userСomment,
-  })
-  .then(function(docRef) {
+  }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
-      alert("Document written with ID: ", docRef.id);
-  })
-  .catch(function(error) {
+      $('#gridSystemModalNewUser').modal('toggle');
+      window.location.reload();
+  }).catch(function(error) {
       console.error("Error adding document: ", error);
       alert("Error adding document: ", error);
   });
@@ -471,7 +470,7 @@ function gridSystemModalNewUser()
 * @return {string}
 *  Обработка модального окна Регистрация Настроик Процессов.
 */
-function gridSystemModalNewSettings()
+function gridSystemModalNewSettingsSubmit()
 {
   var settingsTitle = document.getElementById("exampleInputModalNewSettingsTitle").value;
   var settingsСomment = document.getElementById("exampleInputModalNewSettingsСomment").value;
@@ -500,12 +499,11 @@ function gridSystemModalNewSettings()
   SettingsResultControlOption6: "",
   SettingsResultControlOption7: "",
   SettingsResultControlOption8: "",
-  })
-  .then(function(docRef) {
+  }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
-      alert("Document written with ID: ", docRef.id);
-  })
-  .catch(function(error) {
+      $('#gridSystemModalNewSettings').modal('toggle');
+      window.location.reload();
+  }).catch(function(error) {
       console.error("Error adding document: ", error);
       alert("Error adding document: ", error);
   });
@@ -649,7 +647,7 @@ function editButtonUser(obj)
  * @return {string}
   *  Обработчик кнопки Submit из модального окна gridSystemModalEditSettings.
   */
- function  gridSystemModalEditSettings()
+ function  gridSystemModalEditSettingsSubmit()
 {
   let settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
   let settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
@@ -701,11 +699,12 @@ function editButtonUser(obj)
     SettingsResultControlOption6: settingsResultControlOption6,
     SettingsResultControlOption7: settingsResultControlOption7,
     SettingsResultControlOption8: settingsResultControlOption8,
-  })
-  .then(function() {
+  }).then(function() {
       console.log("Document successfully written!");
-  })
-  .catch(function(error) {
+      $('#gridSystemModalEditSettings').modal('toggle');
+      window.location.reload();
+
+  }).catch(function(error) {
       console.error("Error writing document: ", error);
   });
 }
@@ -714,7 +713,7 @@ function editButtonUser(obj)
 * @return {string}
  *  Обработчик кнопки Submit из модального окна editGridSystemModalNewUser.
  */
-function  editGridSystemModalNewUser()
+function  editGridSystemModalNewUserSubmit()
 {
   var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
   var userСomment = document.getElementById("editExampleInputModalUserСomment").value;
@@ -724,6 +723,8 @@ function  editGridSystemModalNewUser()
   })
   .then(function() {
       console.log("Document successfully written!");
+      $('#gridSystemModalNewOrganization').modal('toggle');
+      window.location.reload();
   })
   .catch(function(error) {
       console.error("Error writing document: ", error);

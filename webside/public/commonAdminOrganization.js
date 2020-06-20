@@ -83,7 +83,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
   *  Обработка модального окна Регистрация Подразделения.
   */
 
-  function gridSystemModalNewSubdivision()
+  function gridSystemModalNewSubdivisionSubmit()
   {
     var subdivisionTitle = document.getElementById("exampleInputModalSubdivisionTitle").value;
     var nameOfDepartmentHead = document.getElementById("exampleInputModalSubdivisionNameOfDepartamentHead").value;
@@ -97,7 +97,8 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
-        alert("Document written with ID: ", docRef.id);
+        $('#gridSystemModalNewSubdivision').modal('toggle');
+        window.location.reload();
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -312,7 +313,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
      *  Обработка модального окна Регистрация Должности.
      */
 
-     function gridSystemModalNewPosition()
+     function gridSystemModalNewPositionSubmit()
      {
        var position_Title = document.getElementById("exampleInputModalPositionTitle").value;
        var position_Comment = document.getElementById("exampleInputModalPositionСomment").value;
@@ -324,7 +325,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        })
        .then(function(docRefFull) {
            console.log("Document written with ID: ", docRefFull.id);
-           alert("Document written with ID: ", docRefFull.id);
+           $('#gridSystemModalNewPosition').modal('toggle');  
        })
        .catch(function(error) {
            console.error("Error adding document: ", error);
