@@ -20,6 +20,7 @@ let documentDataSubdivision=[];
 let items=[];
 let itemsPosition=[];
 let localStorageSubdivision = 0;
+let docRefFull=[];
 
 
  /**
@@ -196,7 +197,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     document.getElementById('headerTablePosition').innerHTML= this.responseText;
     };
 
-    var docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);
+    docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);
     docRefFull.get().then(function(doc) {
       if (doc.exists) {
         documentDataSubdivision.push({...doc.data(),...{idSubdivision: doc.id}});
@@ -325,7 +326,8 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        })
        .then(function(docRefFull) {
            console.log("Document written with ID: ", docRefFull.id);
-           $('#gridSystemModalNewPosition').modal('toggle');  
+           $('#gridSystemModalNewPosition').modal('toggle');
+           window.location.reload();
        })
        .catch(function(error) {
            console.error("Error adding document: ", error);

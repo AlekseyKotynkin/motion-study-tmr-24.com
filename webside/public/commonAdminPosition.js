@@ -525,7 +525,6 @@ function toDismissButtonUser(obj)
   {
       console.error("Error removing document: ", error);
   });
-  window.location.reload();
 }
 
 /**
@@ -564,6 +563,7 @@ function editButtonUser(obj)
       var modal = document.getElementById('editGridSystemModalNewUser');
       $(document).ready(function(){
         $("#editGridSystemModalNewUser").modal('show');
+        window.location.reload();
       });
       } else {
         console.log("No such document!");
