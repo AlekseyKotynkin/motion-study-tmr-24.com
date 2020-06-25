@@ -1,2 +1,2 @@
-rootProject.name='MotionStudy'
 include ':app'
+rootProject.name = "TMR24"

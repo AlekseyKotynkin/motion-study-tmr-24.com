@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">MotionStudy</string>
+    <string name="app_name">TMR24</string>
+    <string name="todoLogo">TODO</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="to_come_in">To come in</string>
+    <string name="textview">TextView</string>
+    <string name="to_begin">To begin</string>
+    <string name="buttonExit">Exit</string>
 </resources>

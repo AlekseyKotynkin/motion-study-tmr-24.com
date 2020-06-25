@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "475611275877",
+    "firebase_url": "https://motion-study-tmr-24.firebaseio.com",
+    "project_id": "motion-study-tmr-24",
+    "storage_bucket": "motion-study-tmr-24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475611275877:android:23ef13108cecc3142edc8c",
+        "android_client_info": {
+          "package_name": "com.TMR24.MotionStudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTFmGcAE3dFOtnPxaYME69uynFl94SivI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

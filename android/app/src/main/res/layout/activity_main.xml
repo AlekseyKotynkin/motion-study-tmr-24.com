@@ -4,15 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="buttonToBegin"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="252dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="152dp"
+        android:contentDescription="@string/todoLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_logo_foreground" />
+
+    <EditText
+        android:id="@+id/editTextLogin"
+        android:layout_width="306dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/login"
+        android:inputType="textEmailAddress"
+        android:text="@string/login"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageLogo" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="306dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:text="@string/password"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
+
+    <Button
+        android:id="@+id/toComeIn"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="toComeIn"
+        android:text="@string/to_come_in"
+        android:textColor="@color/colorFone"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <Button
+        android:id="@+id/buttonToBegin"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/to_begin"
+        android:textColor="@color/colorFone"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHello" />
+
     <TextView
+        android:id="@+id/textHello"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="352dp"
+        android:text="@string/textview"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="32dp"
+        android:onClick="buttonExit"
+        android:text="@string/buttonExit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToBegin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
