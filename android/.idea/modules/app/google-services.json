@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "457992611827",
+    "firebase_url": "https://tmr24-d42a2.firebaseio.com",
+    "project_id": "tmr24-d42a2",
+    "storage_bucket": "tmr24-d42a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457992611827:android:6399725e1514c898ac9486",
+        "android_client_info": {
+          "package_name": "com.TMR24.MotionStudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457992611827-hufo7nmab3at0jbvjt4oimcn02vsedd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TMR24.MotionStudy",
+            "certificate_hash": "164f4a62fcda536eaffc32fbfac27fdd1223274c"
+          }
+        },
+        {
+          "client_id": "457992611827-5o6olf9jgc53uvom69led342c9vafgjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwiUSkLujQ_P1sQ8cDpG8scvUR6sxaQQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457992611827-5o6olf9jgc53uvom69led342c9vafgjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
