@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "475611275877-8mvj95r8r8877skpr1khvgmfch937bgm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TMR24.MotionStudy",
+            "certificate_hash": "8fb3b222922fcd83f3a28fa35d6c12036d55131b"
+          }
+        },
+        {
           "client_id": "475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com",
           "client_type": 3
         }

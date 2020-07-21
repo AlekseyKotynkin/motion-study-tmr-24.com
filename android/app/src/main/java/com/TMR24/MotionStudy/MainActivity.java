@@ -1,5 +1,8 @@
 package com.TMR24.MotionStudy;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,12 +20,26 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static android.view.View.VISIBLE;
 
-
 public class MainActivity extends AppCompatActivity {
-private EditText editTextLogin, editTextPassword;
-private FirebaseAuth mAuth;
-private Button buttonToBegin, toComeIn, buttonExit;
-private TextView textHello;
+    private EditText editTextLogin, editTextPassword;
+    private FirebaseAuth mAuth;
+    private Button buttonToBegin, buttonComeIn, buttonExit;
+    private TextView textHello;
+
+
+    private static final String TAG = "EmailPassword";
+ //   private ActivityEmailpasswordBinding mBinding;
+
+    // [START declare_auth]
+  //  private FirebaseAuth mAuth;
+
+      //   public MainActivity(ActivityEmailpasswordBinding mBinding) {
+      //      this.mBinding = mBinding;
+      //  }
+    // [END declare_auth]
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,39 +47,39 @@ private TextView textHello;
         setContentView(R.layout.activity_main);
         init();
     }
-    @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+         // Check if user is signed in (non-null) and update UI accordingly.
+         // Проверьте, вошел ли пользователь (не ноль) и обновите ли пользовательский интерфейс соответствующим образом.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null)
-        {
-            buttonToBegin.setVisibility(VISIBLE);
-            textHello.setVisibility(VISIBLE);
-            buttonExit.setVisibility(VISIBLE);
+       {
+          buttonToBegin.setVisibility(View.VISIBLE);
+           textHello.setVisibility(View.VISIBLE);
+            buttonExit.setVisibility(View.VISIBLE);
             editTextLogin.setVisibility(View.GONE);
             editTextPassword.setVisibility(View.GONE);
-            toComeIn.setVisibility(View.GONE);
+            buttonComeIn.setVisibility(View.GONE);
             String userName = "You are logged in as - "+ currentUser.getEmail();
             textHello.setText(userName);
 
 
             Toast.makeText(this, "User not null", Toast.LENGTH_SHORT).show();
-        }
-            else
-            {
-                buttonToBegin.setVisibility(View.GONE);
-                buttonExit.setVisibility(View.GONE);
-                textHello.setVisibility(View.GONE);
-                editTextLogin.setVisibility(VISIBLE);
-                editTextPassword.setVisibility(VISIBLE);
-                toComeIn.setVisibility(VISIBLE);
+       }
+        else
+        {
+            buttonToBegin.setVisibility(View.GONE);
+            buttonExit.setVisibility(View.GONE);
+            textHello.setVisibility(View.GONE);
+            editTextLogin.setVisibility(View.VISIBLE);
+            editTextPassword.setVisibility(View.VISIBLE);
+            buttonComeIn.setVisibility(View.VISIBLE);
 
 
 
-                Toast.makeText(this, "User null", Toast.LENGTH_SHORT).show();
-            };
-        }
+            Toast.makeText(this, "User null", Toast.LENGTH_SHORT).show();
+        };
+}
 
 
 
@@ -98,7 +112,7 @@ private TextView textHello;
 
     private void init()
     {
-        toComeIn = findViewById(R.id.toComeIn);
+        buttonComeIn = findViewById(R.id.buttonComeIn);
         textHello = findViewById(R.id.textHello);
         buttonExit = findViewById(R.id.buttonExit);
         buttonToBegin = findViewById(R.id.buttonToBegin);
@@ -122,6 +136,7 @@ private TextView textHello;
         textHello.setVisibility(View.GONE);
         editTextLogin.setVisibility(VISIBLE);
         editTextPassword.setVisibility(VISIBLE);
-        toComeIn.setVisibility(VISIBLE);
+        buttonComeIn.setVisibility(VISIBLE);
     }
+
 }

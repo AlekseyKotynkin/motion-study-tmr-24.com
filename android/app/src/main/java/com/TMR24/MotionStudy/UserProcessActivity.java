@@ -1,6 +1,7 @@
 package com.TMR24.MotionStudy;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 public class UserProcessActivity extends AppCompatActivity {
