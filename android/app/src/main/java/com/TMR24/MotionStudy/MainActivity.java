@@ -17,12 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.functions.FirebaseFunctions;
 
 import static android.view.View.VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editTextLogin, editTextPassword;
     private FirebaseAuth mAuth;
+    private FirebaseFunctions mFunctions;
     private Button buttonToBegin, buttonComeIn, buttonExit;
     private TextView textHello;
 
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextPassword = findViewById(R.id.editTextPassword);
         mAuth = FirebaseAuth.getInstance();
+        mFunctions = FirebaseFunctions.getInstance();
 
     }
 

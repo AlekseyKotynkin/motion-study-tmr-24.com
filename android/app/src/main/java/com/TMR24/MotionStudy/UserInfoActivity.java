@@ -9,6 +9,7 @@ package com.TMR24.MotionStudy;
         import android.widget.ListView;
         import android.widget.TextView;
 
+        import com.google.android.gms.tasks.Continuation;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.OnSuccessListener;
         import com.google.android.gms.tasks.Task;
@@ -18,11 +19,14 @@ package com.TMR24.MotionStudy;
         import com.google.firebase.firestore.FirebaseFirestore;
         import com.google.firebase.firestore.QueryDocumentSnapshot;
         import com.google.firebase.firestore.QuerySnapshot;
+        import com.google.firebase.functions.FirebaseFunctions;
+        import com.google.firebase.functions.HttpsCallableResult;
 
 
         import java.text.DateFormat;
         import java.util.ArrayList;
         import java.util.Calendar;
+        import java.util.HashMap;
         import java.util.List;
         import java.util.Map;
 
@@ -39,6 +43,7 @@ public class UserInfoActivity extends AppCompatActivity {
   //  public static ArrayList nameListPostsPos = new ArrayList<>();
 
     private FirebaseFirestore db;
+    private FirebaseFunctions mFunctions;
     private String TAG;
     public UserInfoActivity() {
     }
@@ -67,6 +72,7 @@ public class UserInfoActivity extends AppCompatActivity {
            listSessions.setAdapter(adapter);
 
            db = FirebaseFirestore.getInstance();
+           mFunctions = FirebaseFunctions.getInstance();
 
            nameListPosts = new ArrayList<>();
            nameListPostsOrg = new ArrayList<>();
@@ -280,5 +286,27 @@ public class UserInfoActivity extends AppCompatActivity {
      listDataPosts.add("А");
      adapterPosts.notifyDataSetChanged();
    }
+
+   private Task < String > addMessage(String text)
+   {
+   // Create the arguments to the callable function.
+   Map<String, Object> data = new HashMap<>();
+   data.put("text", text);
+   data.put("push", true);
+
+   return mFunctions
+           .getHttpsCallable("addMessage")
+           .call(data)
+           .continueWith(new Continuation<HttpsCallableResult, String>() {
+               @Override
+               public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                   // This continuation runs on either success or failure, but if the task
+                   // has failed then getResult() will throw an Exception which will be
+                   // propagated down.
+                   String result = (String) task.getResult().getData();
+                   return result;
+               }
+           });
+      }
 
 }
