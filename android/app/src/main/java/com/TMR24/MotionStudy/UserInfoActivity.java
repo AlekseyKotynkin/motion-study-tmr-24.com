@@ -57,7 +57,8 @@ public class UserInfoActivity extends AppCompatActivity {
         getCurrentDate();
         getDataFromDB();
       //  getDataPosts();
-        getDataPostsPrint();
+        //getDataPostsPrint();
+        addMessage("cay211076@gmail.com");
     }
     private void init()
     {
