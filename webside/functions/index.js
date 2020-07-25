@@ -21,7 +21,8 @@ admin.initializeApp();
 exports.addMessage = functions.https.onRequest(async (req, res) => {
   // Grab the text parameter.
   // Захватить текстовый параметр.
-  const original = req.query.text;
+  debugger;
+  // const original = req.query.text;
   // Получить переданный из Cloud Firestore
   const querySnapshot = await db.collectionGroup('PositionUser').where('UserEmail', '==', original).get();
   querySnapshot.forEach((doc) => {
@@ -37,28 +38,28 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
     let subdivisionDocId = element.idDocSubdivision ;
     let positionDocId = element.idDocPosition ;
     const docRefOrganization = db.collection('Organization').doc('organizationDocId');
-    const doc = await docRefOrganization.get();
-    if (!doc.exists) {
+    const docOrg = await docRefOrganization.get();
+    if (!docOrg.exists) {
     console.log('No such document!');
-    nameOrganization = doc.data().Organization;
+    nameOrganization = docOrg.data().Organization;
     } else {
-    console.log('Document data:', doc.data());
+    console.log('Document data:', docOrg.data());
     };
     const docRefSubdivision = docRefOrganization.collection('Subdivision').doc('subdivisionDocId');
-    const doc = await docRefSubdivision.get();
-    if (!doc.exists) {
+    const docSub = await docRefSubdivision.get();
+    if (!docSub.exists) {
     console.log('No such document!');
-    nameSubdivision = doc.data().Subdivision;
+    nameSubdivision = docSub.data().Subdivision;
     } else {
-    console.log('Document data:', doc.data());
+    console.log('Document data:', docSub.data());
     };
     const docRefPosition = docRefSubdivision.collection('Position').doc('positionDocId');
-    const doc = await docRefPosition.get();
-    if (!doc.exists) {
+    const docPos = await docRefPosition.get();
+    if (!docPos.exists) {
     console.log('No such document!');
-    namePosition = doc.data().Position;
+    namePosition = docPos.data().Position;
     } else {
-    console.log('Document data:', doc.data());
+    console.log('Document data:', docPos.data());
     };
 
 
