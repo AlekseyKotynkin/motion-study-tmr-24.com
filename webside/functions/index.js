@@ -1,85 +1,71 @@
-//const functions = require('firebase-functions');
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+//Test
+//2020 07 25 18 41
+const debug = require('@google-cloud/debug-agent').start({serviceContext: {enableCanary: true}});
+//require('@google-cloud/debug-agent').start({serviceContext: {enableCanary: true}});
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
-
+//const app = dialogflow ({debug: true});
 // The Firebase Admin SDK to access Cloud Firestore.
 const admin = require('firebase-admin');
-admin.initializeApp();
-
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
+});
+const db = admin.firestore();
 // Take the text parameter passed to this HTTP endpoint and insert it into
-// Взять текстовый параметр, переданный этой конечной точке HTTP, и вставить его в
 // Cloud Firestore under the path /messages/:documentId/original
-// Cloud Firestore по пути / messages /: documentId / original
 exports.addMessage = functions.https.onRequest(async (req, res) => {
+
+  var arrayListObject = [];
   // Grab the text parameter.
-  // Захватить текстовый параметр.
-  debugger;
-  // const original = req.query.text;
-  // Получить переданный из Cloud Firestore
+  const original = req.query.text;
   const querySnapshot = await db.collectionGroup('PositionUser').where('UserEmail', '==', original).get();
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach(async (doc) => {
     console.log(doc.id, ' => ', doc.data());
-    let parentHierarchyDoc = doc.ref.path;
-    let organizationDocId = parentHierarchyDoc.split("/")[1];
-    let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-    let positionDocId = parentHierarchyDoc.split("/")[5];
-    itemsUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-  });
-  itemsUserName.forEach(function(element){
-    let organizationDocId = element.idDocOrganization ;
-    let subdivisionDocId = element.idDocSubdivision ;
-    let positionDocId = element.idDocPosition ;
-    const docRefOrganization = db.collection('Organization').doc('organizationDocId');
+    //parentHierarchyDoc = doc.id;
+    // Add a new document with a generated id.
+    const parentHierarchyDoc = doc.ref.path;
+    const organizationDocId = parentHierarchyDoc.split("/")[1];
+    const subdivisionDocId = parentHierarchyDoc.split("/")[3];
+    const positionDocId = parentHierarchyDoc.split("/")[5];
+    var GodObj = {};
+    GodObj.idDoc = doc.id;
+    const docRefOrganization = db.collection('Organization').doc(organizationDocId);
     const docOrg = await docRefOrganization.get();
     if (!docOrg.exists) {
-    console.log('No such document!');
-    nameOrganization = docOrg.data().Organization;
+      console.log('No such document!');
     } else {
-    console.log('Document data:', docOrg.data());
-    };
-    const docRefSubdivision = docRefOrganization.collection('Subdivision').doc('subdivisionDocId');
+      console.log('Document data:', docOrg.data());
+      const nameOrganization = docOrg.data().Organization;
+      GodObj.nameOrganization = nameOrganization;
+    }
+    const docRefSubdivision = docRefOrganization.collection('Subdivision').doc(subdivisionDocId);
     const docSub = await docRefSubdivision.get();
     if (!docSub.exists) {
-    console.log('No such document!');
-    nameSubdivision = docSub.data().Subdivision;
+      console.log('No such document!');
     } else {
-    console.log('Document data:', docSub.data());
-    };
-    const docRefPosition = docRefSubdivision.collection('Position').doc('positionDocId');
+      console.log('Document data:', docSub.data());
+      const nameSubdivision = docSub.data().Subdivision;
+      GodObj.nameSubdivision = nameSubdivision;
+    }
+    const docRefPosition = docRefSubdivision.collection('Position').doc(positionDocId);
     const docPos = await docRefPosition.get();
     if (!docPos.exists) {
-    console.log('No such document!');
-    namePosition = docPos.data().Position;
+      console.log('No such document!');
     } else {
-    console.log('Document data:', docPos.data());
-    };
+      console.log('Document data:', docPos.data());
+      const namePosition = docPos.data().Position;
+      arrayListObject.push(GodObj.nameOrganization+'>'+GodObj.nameSubdivision+'>'+namePosition+'>'+GodObj.idDoc);
 
+      const cityRef = db.collection('messages').doc(writeResult.id);
+      const res = await cityRef.update({ gerDoc: arrayListObject});
 
-
-
-
-  }
-
-
-
-
+      }
+  });
   // Push the new message into Cloud Firestore using the Firebase Admin SDK.
-  // Вставить новое сообщение в Cloud Firestore, используя Firebase Admin SDK.
-  const writeResult = await admin.firestore().collection('messages').add({original: original});
+  const writeResult = await admin.firestore().collection('messages').add({original: original, gerDoc: arrayListObject});
   // Send back a message that we've succesfully written the message
-  // Отправить обратно сообщение, что мы успешно написали сообщение
   res.json({result: `Message with ID: ${writeResult.id} added.`});
 });
-
-
 // Listens for new messages added to /messages/:documentId/original and creates an
 // uppercase version of the message to /messages/:documentId/uppercase
 exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
