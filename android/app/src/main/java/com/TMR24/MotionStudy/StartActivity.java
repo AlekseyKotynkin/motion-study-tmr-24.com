@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class StartActivity extends AppCompatActivity {
+
     private Button buttonGo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,50 +1,51 @@
 package com.TMR24.MotionStudy;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.widget.ArrayAdapter;
-        import android.widget.ListView;
-        import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import com.google.android.gms.tasks.Continuation;
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.OnSuccessListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.firebase.firestore.CollectionReference;
-        import com.google.firebase.firestore.DocumentReference;
-        import com.google.firebase.firestore.DocumentSnapshot;
-        import com.google.firebase.firestore.FirebaseFirestore;
-        import com.google.firebase.firestore.QueryDocumentSnapshot;
-        import com.google.firebase.firestore.QuerySnapshot;
-        import com.google.firebase.functions.FirebaseFunctions;
-        import com.google.firebase.functions.HttpsCallableResult;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-        import java.text.DateFormat;
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.HashMap;
-        import java.util.List;
-        import java.util.Map;
 
 
 public class UserInfoActivity extends AppCompatActivity {
 
+
+
     private TextView textCurrentDate;
     private ListView listSessions, listPosts;
     private ArrayAdapter<String> adapter, adapterPosts;
-    private List<String> listData, listDataPosts, nameListPosts, nameListPostsOrg, nameListPostsSub, nameListPostsPos ;
-  //  public static ArrayList nameListPosts = new ArrayList<>();
-  //  public static ArrayList nameListPostsOrg = new ArrayList<>();
-  //  public static ArrayList nameListPostsSub = new ArrayList<>();
-  //  public static ArrayList nameListPostsPos = new ArrayList<>();
+    private List<String> listData, listDataPosts;
+
 
     private FirebaseFirestore db;
     private FirebaseFunctions mFunctions;
     private String TAG;
+    private String emailDoc;
+
     public UserInfoActivity() {
     }
 
@@ -53,12 +54,14 @@ public class UserInfoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
         init();
         getCurrentDate();
         getDataFromDB();
-      //  getDataPosts();
-        //getDataPostsPrint();
-        addMessage("cay211076@gmail.com");
+        emailDoc = "cay211076@gmail.com";
+        addMessage(emailDoc);
+
+
     }
     private void init()
     {
@@ -74,11 +77,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
            db = FirebaseFirestore.getInstance();
            mFunctions = FirebaseFunctions.getInstance();
-
-           nameListPosts = new ArrayList<>();
-           nameListPostsOrg = new ArrayList<>();
-           nameListPostsSub = new ArrayList<>();
-           nameListPostsPos = new ArrayList<>();
 
     }
     private void getCurrentDate()
@@ -118,196 +116,70 @@ public class UserInfoActivity extends AppCompatActivity {
                    });
 
     }
-    private void getDataPosts()
-    {
-        db.collectionGroup("PositionUser").whereEqualTo("UserEmail", "cay211076@gmail.com").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+    private Task<String> addMessage(String text) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("text", text);
+        data.put("push", true);
+
+        return mFunctions
+                .getHttpsCallable("addDocListPosts")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot documentGroup : queryDocumentSnapshots) {
-
-                            //Extracting Group name from each document
-                            CollectionReference parent = documentGroup.getReference().getParent();
-                            String parentHierarchyDoc = parent.getPath();
-                            String[] organizationDocArray = parentHierarchyDoc.split("/");
-                            String organizationDocId = organizationDocArray[1];
-                            String subdivisionDocId = organizationDocArray[3];
-                            String positionDocId = organizationDocArray[5];
-                            nameListPosts.add(new String("idDoc/"+documentGroup.getId()));
-
-                            DocumentReference docRefOrganization = db.collection("Organization").document(String.valueOf(organizationDocId));
-                            docRefOrganization.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot documentOrganization = task.getResult();
-                                        if (documentOrganization.exists()) {
-                                            Log.d(TAG, "DocumentSnapshot data: " + documentOrganization.getData());
-                                            Map<String, Object> docOrganization = documentOrganization.getData();
-                                            String nameOrganizationPosts = (String) docOrganization.get("Organization");
-                                            nameListPostsOrg.add(new String("nameOrg/"+nameOrganizationPosts));
-                                        } else {
-                                            Log.d(TAG, "No such document");
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        // Это продолжение выполняется при успехе или неудаче, но если задача
+                        // не удалось, тогда getResult () выдаст исключение, которое будет
+                        // распространились вниз.
+                        HashMap rezult = (HashMap) task.getResult().getData();
+                        String idDocPosts = (String) rezult.get("text");
+                        DocumentReference docRef = db.collection("messages").document(idDocPosts);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                        Map<String, Object> doc = document.getData();
+                                        ArrayList massivDocPosts = (ArrayList) doc.get("gerDoc");
+                                        for (int i = 0; i < massivDocPosts.size(); i++) {
+                                            String stringDocPosts = (String) massivDocPosts.get(i);
+                                            String stringSybvisio = stringDocPosts.substring(0, stringDocPosts.length() - 21);
+                                            listDataPosts.add(stringSybvisio);
+                                            adapterPosts.notifyDataSetChanged();
                                         }
+                                         db.collection("messages").document(idDocPosts)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener <Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error deleting document", e);
+                                                    }
+                                                });
                                     } else {
-                                        Log.d(TAG, "get failed with ", task.getException());
+                                        Log.d(TAG, "No such document");
                                     }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
                                 }
-                            });
-
-                            DocumentReference docRefSubdivision = docRefOrganization.collection("Subdivision").document(String.valueOf(subdivisionDocId));
-                            docRefSubdivision.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot documentSubdivision = task.getResult();
-                                        if (documentSubdivision.exists()) {
-                                            Log.d(TAG, "DocumentSnapshot data: " + documentSubdivision.getData());
-                                            Map<String, Object> docSubdivision = documentSubdivision.getData();
-                                            String nameSubdivisionPosts = (String) docSubdivision.get("Subdivision");
-                                            nameListPostsSub.add(new String("nameSub/"+nameSubdivisionPosts));
-                                        } else {
-                                            Log.d(TAG, "No such document");
-                                        }
-                                    } else {
-                                        Log.d(TAG, "get failed with ", task.getException());
-                                    }
-                                }
-                            });
-
-                            DocumentReference docRefPosition = docRefSubdivision.collection("Position").document(String.valueOf(positionDocId));
-                            docRefPosition.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot documentPosition = task.getResult();
-                                        if (documentPosition.exists()) {
-                                            Log.d(TAG, "DocumentSnapshot data: " + documentPosition.getData());
-                                            Map<String, Object> docPosition = documentPosition.getData();
-                                            String namePositionPosts = (String) docPosition.get("Position");
-                                            nameListPostsPos.add(new String("namePos/"+namePositionPosts));
-
-                                        } else {
-                                            Log.d(TAG, "No such document");
-                                        }
-                                    } else {
-                                        Log.d(TAG, "get failed with ", task.getException());
-                                    };
-                                }
-                            });
-                        }
+                            }
+                        });
+                        return idDocPosts;
                     }
-                });
-    };
-
-   private void getDataPostsPrint() {
-       getDataPosts();
-
-       if (nameListPosts.size() == 0)
-       {
-           db.collectionGroup("PositionUser").whereEqualTo("UserEmail", "cay211076@gmail.com").get()
-                   .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                       @Override
-                       public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                           for (QueryDocumentSnapshot documentGroup : queryDocumentSnapshots) {
-
-                               //Extracting Group name from each document
-                               CollectionReference parent = documentGroup.getReference().getParent();
-                               String parentHierarchyDoc = parent.getPath();
-                               String[] organizationDocArray = parentHierarchyDoc.split("/");
-                               String organizationDocId = organizationDocArray[1];
-                               String subdivisionDocId = organizationDocArray[3];
-                               String positionDocId = organizationDocArray[5];
-                               nameListPosts.add(new String("idDoc/"+documentGroup.getId()));
-                               nameListPostsOrg.add(new String("idDoc/"+organizationDocId));
-                               nameListPosts.add(new String("idDoc/"+subdivisionDocId));
-                               nameListPosts.add(new String("idDoc/"+positionDocId));
-                           }
-                       }
-                   });
-       };
-
-     for(int i = 0; i< nameListPosts.size(); i++) {
-            String organizationDocId = nameListPosts.get(i);
-
-         DocumentReference docRefOrganization = db.collection("Organization").document(String.valueOf(organizationDocId));
-         docRefOrganization.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-             @Override
-             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                 if (task.isSuccessful()) {
-                     DocumentSnapshot documentOrganization = task.getResult();
-                     if (documentOrganization.exists()) {
-                         Log.d(TAG, "DocumentSnapshot data: " + documentOrganization.getData());
-                         Map<String, Object> docOrganization = documentOrganization.getData();
-                         String nameOrganizationPosts = (String) docOrganization.get("Organization");
-                         nameListPostsOrg.add(new String("nameOrg/"+nameOrganizationPosts));
-                     } else {
-                         Log.d(TAG, "No such document");
-                     }
-                 } else {
-                     Log.d(TAG, "get failed with ", task.getException());
-                 }
-             }
-         });
-
-         for(int a = 0; a< nameListPostsOrg.size(); a++) {
-             String subdivisionDocId = nameListPostsOrg.get(a);
-
-             DocumentReference docRefSubdivision = docRefOrganization.collection("Subdivision").document(String.valueOf(subdivisionDocId));
-             docRefSubdivision.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                 @Override
-                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                     if (task.isSuccessful()) {
-                         DocumentSnapshot documentSubdivision = task.getResult();
-                         if (documentSubdivision.exists()) {
-                             Log.d(TAG, "DocumentSnapshot data: " + documentSubdivision.getData());
-                             Map<String, Object> docSubdivision = documentSubdivision.getData();
-                             String nameSubdivisionPosts = (String) docSubdivision.get("Subdivision");
-                             nameListPostsSub.add(new String("nameSub/"+nameSubdivisionPosts));
-                         } else {
-                             Log.d(TAG, "No such document");
-                         }
-                     } else {
-                         Log.d(TAG, "get failed with ", task.getException());
-                     }
-                 }
-             });
-
-         }
-
-     }
+              });
+    }
 
 
-
-
-       //     String organizationName = nameListPostsOrg.get(0);
-       //      String subdivisionName = nameListPostsSub.get(0);
-       //      String positionName = nameListPostsPos.get(0);
-       //   listDataPosts.add(organizationName+" > "+subdivisionName+" > "+positionName+" > "+docId);
-     listDataPosts.add("А");
-     adapterPosts.notifyDataSetChanged();
-   }
-
-   private Task < String > addMessage(String text)
-   {
-   // Create the arguments to the callable function.
-   Map<String, Object> data = new HashMap<>();
-   data.put("text", text);
-   data.put("push", true);
-
-   return mFunctions
-           .getHttpsCallable("addMessage")
-           .call(data)
-           .continueWith(new Continuation<HttpsCallableResult, String>() {
-               @Override
-               public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
-                   // This continuation runs on either success or failure, but if the task
-                   // has failed then getResult() will throw an Exception which will be
-                   // propagated down.
-                   String result = (String) task.getResult().getData();
-                   return result;
-               }
-           });
-      }
 
 }

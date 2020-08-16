@@ -2,7 +2,10 @@ package com.TMR24.MotionStudy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
+
+
 
 public class UserProcessActivity extends AppCompatActivity {
 
@@ -10,5 +13,7 @@ public class UserProcessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_process);
+
     }
 }
+

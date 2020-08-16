@@ -5,19 +5,39 @@ const debug = require('@google-cloud/debug-agent').start({serviceContext: {enabl
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
 //const app = dialogflow ({debug: true});
+//const sanitizer = require('sanitizer');
 // The Firebase Admin SDK to access Cloud Firestore.
 const admin = require('firebase-admin');
-admin.initializeApp({
-  credential: admin.credential.applicationDefault()
-});
+//const cors = require('cors')({ origin: true });
+admin.initializeApp();
 const db = admin.firestore();
-// Take the text parameter passed to this HTTP endpoint and insert it into
-// Cloud Firestore under the path /messages/:documentId/original
-exports.addMessage = functions.https.onRequest(async (req, res) => {
+
+// [START messageFunctionTrigger]
+// Saves a message to the Firebase Realtime Database but sanitizes the text by removing swearwords.
+exports.addDocListPosts = functions.https.onCall(async (data, context) => {
+  // [START_EXCLUDE]
+  // [START readMessageData]
+  // Message text passed from the client.
+  const text = data.text;
+  // [END readMessageData]
+  // [START messageHttpsErrors]
+  // Checking attribute.
+  if (!(typeof text === 'string') || text.length === 0) {
+    // Throwing an HttpsError so that the client gets the error details.
+    throw new functions.https.HttpsError('invalid-argument', 'The function must be called with ' +
+        'one arguments "text" containing the message text to add.');
+  }
+  // Checking that the user is authenticated.
+  if (!context.auth) {
+    // Throwing an HttpsError so that the client gets the error details.
+    throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
+        'while authenticated.');
+  }
+  // [END messageHttpsErrors]
 
   var arrayListObject = [];
   // Grab the text parameter.
-  const original = req.query.text;
+  const original = data.text;
   const querySnapshot = await db.collectionGroup('PositionUser').where('UserEmail', '==', original).get();
   querySnapshot.forEach(async (doc) => {
     console.log(doc.id, ' => ', doc.data());
@@ -64,22 +84,9 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   // Push the new message into Cloud Firestore using the Firebase Admin SDK.
   const writeResult = await admin.firestore().collection('messages').add({original: original, gerDoc: arrayListObject});
   // Send back a message that we've succesfully written the message
-  res.json({result: `Message with ID: ${writeResult.id} added.`});
+  // Отправляем обратно сообщение о том, что мы успешно написали сообщение
+  //data.json({result: `Message with ID: ${writeResult.id} added.`});
+
+  return { text: writeResult.id };
+
 });
-// Listens for new messages added to /messages/:documentId/original and creates an
-// uppercase version of the message to /messages/:documentId/uppercase
-exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
-    .onCreate((snap, context) => {
-      // Grab the current value of what was written to Cloud Firestore.
-      const original = snap.data().original;
-
-      // Access the parameter `{documentId}` with `context.params`
-      functions.logger.log('Uppercasing', context.params.documentId, original);
-
-      const uppercase = original.toUpperCase();
-
-      // You must return a Promise when performing asynchronous tasks inside a Functions such as
-      // writing to Cloud Firestore.
-      // Setting an 'uppercase' field in Cloud Firestore document returns a Promise.
-      return snap.ref.set({uppercase}, {merge: true});
-    });
