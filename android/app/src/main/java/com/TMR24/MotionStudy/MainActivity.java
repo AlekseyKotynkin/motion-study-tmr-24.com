@@ -28,20 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFunctions mFunctions;
     private Button buttonToBegin, buttonComeIn, buttonExit;
     private TextView textHello;
-
+    private String userNameEmail;
 
     private static final String TAG = "EmailPassword";
- //   private ActivityEmailpasswordBinding mBinding;
-
-    // [START declare_auth]
-  //  private FirebaseAuth mAuth;
-
-      //   public MainActivity(ActivityEmailpasswordBinding mBinding) {
-      //      this.mBinding = mBinding;
-      //  }
-    // [END declare_auth]
-
-
 
 
     @Override
@@ -63,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
             editTextLogin.setVisibility(View.GONE);
             editTextPassword.setVisibility(View.GONE);
             buttonComeIn.setVisibility(View.GONE);
-            String userName = "You are logged in as - "+ currentUser.getEmail();
-            textHello.setText(userName);
+            userNameEmail = currentUser.getEmail() ;
+            String userEmail = "You are logged in as - "+ currentUser.getEmail();
+            textHello.setText(userEmail);
 
 
             Toast.makeText(this, "User not null", Toast.LENGTH_SHORT).show();
@@ -129,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     public void buttonToBegin(View view)
     {
         Intent i = new Intent(MainActivity.this, UserInfoActivity.class);
+        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
         startActivity(i);
     }
 

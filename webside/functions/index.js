@@ -57,6 +57,7 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
       console.log('Document data:', docOrg.data());
       const nameOrganization = docOrg.data().Organization;
       GodObj.nameOrganization = nameOrganization;
+      GodObj.organizationDocId = organizationDocId;
     }
     const docRefSubdivision = docRefOrganization.collection('Subdivision').doc(subdivisionDocId);
     const docSub = await docRefSubdivision.get();
@@ -66,6 +67,7 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
       console.log('Document data:', docSub.data());
       const nameSubdivision = docSub.data().Subdivision;
       GodObj.nameSubdivision = nameSubdivision;
+      GodObj.subdivisionDocId = subdivisionDocId;
     }
     const docRefPosition = docRefSubdivision.collection('Position').doc(positionDocId);
     const docPos = await docRefPosition.get();
@@ -74,7 +76,7 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
     } else {
       console.log('Document data:', docPos.data());
       const namePosition = docPos.data().Position;
-      arrayListObject.push(GodObj.nameOrganization+'>'+GodObj.nameSubdivision+'>'+namePosition+'>'+GodObj.idDoc);
+      arrayListObject.push(GodObj.organizationDocId+'>'+GodObj.nameOrganization+'>'+GodObj.subdivisionDocId+'>'+GodObj.nameSubdivision+'>'+positionDocId+'>'+namePosition+'>'+GodObj.idDoc);
 
       const cityRef = db.collection('messages').doc(writeResult.id);
       const res = await cityRef.update({ gerDoc: arrayListObject});

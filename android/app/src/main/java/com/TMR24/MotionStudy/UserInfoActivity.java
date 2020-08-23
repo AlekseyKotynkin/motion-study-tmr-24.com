@@ -1,7 +1,10 @@
 package com.TMR24.MotionStudy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,22 +35,13 @@ import java.util.Map;
 
 
 public class UserInfoActivity extends AppCompatActivity {
-
-
-
     private TextView textCurrentDate;
     private ListView listSessions, listPosts;
     private ArrayAdapter<String> adapter, adapterPosts;
-    private List<String> listData, listDataPosts;
-
-
+    private List<String> listData, listDataItem, listDataPosts, listDataPostsItem;
     private FirebaseFirestore db;
     private FirebaseFunctions mFunctions;
-    private String TAG;
-    private String emailDoc;
-
-    public UserInfoActivity() {
-    }
+    private String TAG, userNameEmail, parentHierarchyPositionUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +50,13 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
 
         init();
+        getIntentMain();
         getCurrentDate();
         getDataFromDB();
-        emailDoc = "cay211076@gmail.com";
-        addMessage(emailDoc);
+        userNameEmail = "cay211076@gmail.com";
+        addMessage(userNameEmail);
+        setOnClickItemPosts ();
+        setOnClickItemSesions();
 
 
     }
@@ -67,11 +64,13 @@ public class UserInfoActivity extends AppCompatActivity {
     {
            listPosts = findViewById(R.id.listPosts);
            listDataPosts = new ArrayList<>();
+           listDataPostsItem = new ArrayList<>();
            adapterPosts = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listDataPosts);
            listPosts.setAdapter(adapterPosts);
 
            listSessions = findViewById(R.id.listSessions);
            listData = new ArrayList<>();
+           listDataItem = new ArrayList<>();
            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
            listSessions.setAdapter(adapter);
 
@@ -104,9 +103,14 @@ public class UserInfoActivity extends AppCompatActivity {
                                    Map<String, Object> doc = document.getData();
                                    Map<String, Object> docy = (Map<String, Object>) doc.get("ParentHierarchyPositionUser");
                                    String nameOrganization = (String) docy.get("NameOrganization");
+                                   String idOrganization = (String) docy.get("idDocOrganization");
                                    String nameSubdivision = (String) docy.get("NameSubdivision");
+                                   String idSubdivision = (String) docy.get("idDocSubdivision");
                                    String namePosition = (String) docy.get("NamePosition");
+                                   String idPosition = (String) docy.get("idDocPosition");
+                                   String activShiftDocId = "null";
                                    listData.add(nameOrganization+" > "+nameSubdivision+" > "+namePosition);
+                                   listDataItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
                                    adapter.notifyDataSetChanged();
                                }
                           } else {
@@ -137,6 +141,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         // распространились вниз.
                         HashMap rezult = (HashMap) task.getResult().getData();
                         String idDocPosts = (String) rezult.get("text");
+                        Thread.sleep(10000);
                         DocumentReference docRef = db.collection("messages").document(idDocPosts);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -149,9 +154,20 @@ public class UserInfoActivity extends AppCompatActivity {
                                         ArrayList massivDocPosts = (ArrayList) doc.get("gerDoc");
                                         for (int i = 0; i < massivDocPosts.size(); i++) {
                                             String stringDocPosts = (String) massivDocPosts.get(i);
-                                            String stringSybvisio = stringDocPosts.substring(0, stringDocPosts.length() - 21);
-                                            listDataPosts.add(stringSybvisio);
+                                            String delimeter = ">";
+                                            String idOrganization = stringDocPosts.split(delimeter)[0];
+                                            String nameOrganization = stringDocPosts.split(delimeter)[1];
+                                            String idSubdivision = stringDocPosts.split(delimeter)[2];
+                                            String nameSubdivision = stringDocPosts.split(delimeter)[3];
+                                            String idPosition = stringDocPosts.split(delimeter)[4];
+                                            String namePosition = stringDocPosts.split(delimeter)[5];
+                                            String activShiftDocId = stringDocPosts.split(delimeter)[6];
+                                            listDataPosts.add(nameOrganization+" > "+nameSubdivision+" > "+namePosition);
+                                            listDataPostsItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
                                             adapterPosts.notifyDataSetChanged();
+
+
+
                                         }
                                          db.collection("messages").document(idDocPosts)
                                                 .delete()
@@ -180,6 +196,41 @@ public class UserInfoActivity extends AppCompatActivity {
               });
     }
 
+    private void setOnClickItemPosts ()
+    {
+    listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView < ? > parent, View view, int position, long id) {
+            String parentHierarchyPositionUser = listDataPostsItem.get(position);
+            Intent i = new Intent(UserInfoActivity.this, UserProcessActivity.class);
+            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
+            i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
+            startActivity(i);
 
+        }
+    });
+    }
+    private void setOnClickItemSesions ()
+    {
+        listSessions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView < ? > parent, View view, int position, long id) {
+                String parentHierarchyPositionUser = listDataItem.get(position);
+                Intent i = new Intent(UserInfoActivity.this, UserProcessActivity.class);
+                i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
+                i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
+                startActivity(i);
 
+            }
+        });
+    }
+    private void getIntentMain()
+    {
+        Intent i = getIntent();
+        if (i != null)
+        {
+         String userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
+      //   System.out.println(userNameEmail);
+        }
+    }
 }
