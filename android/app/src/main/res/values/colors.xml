@@ -7,4 +7,5 @@
     <color name="colorBlack">#000000</color>
     <color name="colorMain" />
     <color name="colorBasic">#463683</color>
+    <color name="colorLightRed">#FD8D85</color>
 </resources>

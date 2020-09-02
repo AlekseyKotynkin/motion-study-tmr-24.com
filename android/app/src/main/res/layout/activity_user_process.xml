@@ -7,15 +7,19 @@
     tools:context=".UserProcessActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonAddShift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/button"
+        android:background="@color/colorLightRed"
+        android:hint="@string/buttonAddShift"
+        android:onClick="buttonAddShift"
+        android:text="@string/buttonAddShift"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="+add Shift" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button1"
@@ -153,12 +157,26 @@
         android:id="@+id/textActivPosition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="125dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:text="@string/textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCloseShift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/design_default_color_secondary"
+        android:hint="@string/buttonCloseShift"
+        android:onClick="buttonCloseShift"
+        android:text="@string/buttonCloseShift"
+        android:textColor="@color/design_default_color_secondary_variant"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

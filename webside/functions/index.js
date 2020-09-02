@@ -49,6 +49,8 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
     const positionDocId = parentHierarchyDoc.split("/")[5];
     var GodObj = {};
     GodObj.idDoc = doc.id;
+    const userDocComment = doc.data().UserСomment;
+    GodObj.userDocComment = userDocComment;
     const docRefOrganization = db.collection('Organization').doc(organizationDocId);
     const docOrg = await docRefOrganization.get();
     if (!docOrg.exists) {
@@ -76,7 +78,7 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
     } else {
       console.log('Document data:', docPos.data());
       const namePosition = docPos.data().Position;
-      arrayListObject.push(GodObj.organizationDocId+'>'+GodObj.nameOrganization+'>'+GodObj.subdivisionDocId+'>'+GodObj.nameSubdivision+'>'+positionDocId+'>'+namePosition+'>'+GodObj.idDoc);
+      arrayListObject.push(GodObj.organizationDocId+'>'+GodObj.nameOrganization+'>'+GodObj.subdivisionDocId+'>'+GodObj.nameSubdivision+'>'+positionDocId+'>'+namePosition+'>'+GodObj.idDoc+'>'+GodObj.userDocComment);
 
       const cityRef = db.collection('messages').doc(writeResult.id);
       const res = await cityRef.update({ gerDoc: arrayListObject});

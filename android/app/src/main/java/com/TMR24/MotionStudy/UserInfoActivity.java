@@ -109,8 +109,9 @@ public class UserInfoActivity extends AppCompatActivity {
                                    String namePosition = (String) docy.get("NamePosition");
                                    String idPosition = (String) docy.get("idDocPosition");
                                    String activShiftDocId = "null";
+                                   String userDocComment = "null";
                                    listData.add(nameOrganization+" > "+nameSubdivision+" > "+namePosition);
-                                   listDataItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
+                                   listDataItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId+">"+userDocComment);
                                    adapter.notifyDataSetChanged();
                                }
                           } else {
@@ -161,9 +162,10 @@ public class UserInfoActivity extends AppCompatActivity {
                                             String nameSubdivision = stringDocPosts.split(delimeter)[3];
                                             String idPosition = stringDocPosts.split(delimeter)[4];
                                             String namePosition = stringDocPosts.split(delimeter)[5];
-                                            String activShiftDocId = stringDocPosts.split(delimeter)[6];
+                                            String idDocPositionUser = stringDocPosts.split(delimeter)[6];
+                                            String userСomment = stringDocPosts.split(delimeter)[7];
                                             listDataPosts.add(nameOrganization+" > "+nameSubdivision+" > "+namePosition);
-                                            listDataPostsItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
+                                            listDataPostsItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+idDocPositionUser+">"+userСomment);
                                             adapterPosts.notifyDataSetChanged();
 
 
