@@ -11,5 +11,6 @@ public class Constant {
     public final static String NAME_DOC_SUBDIVISION = "subdivisionDocName";
     public final static String NAME_DOC_POSITION = "positionDocName";
     public final static String PARENT_HIERARCHY_POSITION_USER = "parentHierarchyPositionUser";
+    public final static String PARENT_HIERARCHY_SHIFT_USER = "parentHierarchyShiftUser";
 
 }

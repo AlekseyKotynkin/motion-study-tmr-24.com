@@ -79,7 +79,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     }
     private void getCurrentDate()
-    {
+    {      // Формируем надпись с датой
            Calendar calendar = Calendar.getInstance();
            String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
            TextView textViewDate = findViewById(R.id.textCurrentDate);
@@ -87,7 +87,7 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     private void getDataFromDB()
-    {
+    {             // Заполняем табличную часть с Активными сменами
                    db.collection("WorkShift")
                    .whereEqualTo("EmailPositionUser", "cay211076@gmail.com")
                            .whereEqualTo("WorkShiftEnd", "")
@@ -108,10 +108,9 @@ public class UserInfoActivity extends AppCompatActivity {
                                    String idSubdivision = (String) docy.get("idDocSubdivision");
                                    String namePosition = (String) docy.get("NamePosition");
                                    String idPosition = (String) docy.get("idDocPosition");
-                                   String activShiftDocId = "null";
-                                   String userDocComment = "null";
+                                   String activShiftDocId = document.getId();
                                    listData.add(nameOrganization+" > "+nameSubdivision+" > "+namePosition);
-                                   listDataItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId+">"+userDocComment);
+                                   listDataItem.add(idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
                                    adapter.notifyDataSetChanged();
                                }
                           } else {
@@ -122,7 +121,8 @@ public class UserInfoActivity extends AppCompatActivity {
 
     }
 
-    private Task<String> addMessage(String text) {
+    private Task<String> addMessage(String text)
+    {  //Отправляем и получаем обработанные данные с сервера списком в каких должностях принимает участие пользователь
 
         Map<String, Object> data = new HashMap<>();
         data.put("text", text);
@@ -199,28 +199,30 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     private void setOnClickItemPosts ()
-    {
-    listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    { //
+        listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener()
+           {
         @Override
         public void onItemClick(AdapterView < ? > parent, View view, int position, long id) {
             String parentHierarchyPositionUser = listDataPostsItem.get(position);
-            Intent i = new Intent(UserInfoActivity.this, UserProcessActivity.class);
+            Intent i = new Intent(UserInfoActivity.this, UserShiftActivity.class);
             i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
             i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
             startActivity(i);
 
-        }
+           }
     });
     }
     private void setOnClickItemSesions ()
     {
-        listSessions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listSessions.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
             @Override
             public void onItemClick(AdapterView < ? > parent, View view, int position, long id) {
-                String parentHierarchyPositionUser = listDataItem.get(position);
+                String parentHierarchyShiftUser = listDataItem.get(position);
                 Intent i = new Intent(UserInfoActivity.this, UserProcessActivity.class);
                 i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
-                i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
+                i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser);
                 startActivity(i);
 
             }

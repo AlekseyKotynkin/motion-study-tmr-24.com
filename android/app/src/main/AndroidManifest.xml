@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserProcessActivity"></activity>
+        <activity android:name=".UserShiftActivity"></activity>
+        <activity android:name=".UserProcessActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
