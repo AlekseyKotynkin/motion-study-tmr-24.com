@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class UserProcessActivity extends AppCompatActivity
     private FirebaseFirestore db;
     private FirebaseFunctions mFunctions;
     private String TAG, activShiftDocId, userNameEmail, parentHierarchyShiftUser, idPosition, activButtonId;
-    private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button;
+    private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button, activeButton;
     private Map parentHierarchyPositionUserMap;
     private List<PositionSettingObjectMap> PositionSettingsMap = new ArrayList();
 
@@ -68,6 +69,7 @@ public class UserProcessActivity extends AppCompatActivity
         buttonOther = findViewById(R.id.buttonOther);
         buttonOther.setOnClickListener(mCorkyListener);
         buttonGone = findViewById(R.id.buttonGone);
+        activeButton = (Button) buttonGone;
         buttonGone.setOnClickListener(mCorkyListener);
 
     }
@@ -229,34 +231,34 @@ public class UserProcessActivity extends AppCompatActivity
     }
     private View.OnClickListener mCorkyListener = new View.OnClickListener() {
         public void onClick(View v) {
-            // do something when the button is clicked
-            //делать что-нибудь, когда кнопка нажата
-            // Yes we will handle click here but which button clicked??? We don't know
-            //Да, мы будем обрабатывать щелчок здесь, но какая кнопка была нажата ??? Мы не знаем
 
-            // So we will make
-            //Итак, мы сделаем
-            //switch (v.getId () / * для получения идентификатора просмотра при клике ** /
-          //  switch (v.getId() /*to get clicked view id**/) {
-          //      case R.id.corky:
+
+            activeButton.setBackgroundColor(getResources().getColor(R.color.colorFonButton));
+
+            int id = v.getId();
+           // устанавливаем агресивный цвет фона активной кнопки
+            v.setBackgroundColor(getResources().getColor(R.color.colorFonActiviButton));
+            activeButton = (Button) v;
+              switch (v.getId()) {
+            //      case R.id.corky:
 
                     // do something when the corky is clicked
                     //сделай что-нибудь, когда corky нажата
 
-           //         break;
-          //      case R.id.corky2:
+            //         break;
+            //      case R.id.corky2:
 
                     // do something when the corky2 is clicked
 
-           //         break;
-           //     case R.id.corky3:
+            //         break;
+            //     case R.id.corky3:
 
                     // do something when the corky3 is clicked
 
-           //         break;
-           //     default:
-           //         break;
-           // }
+            //         break;
+            //     default:
+            //         break;
+             }
         }
     };
 }

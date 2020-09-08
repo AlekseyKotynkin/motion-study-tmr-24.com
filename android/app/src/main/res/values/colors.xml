@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorFon">#E7E2E2</color>
+    <color name="colorFonButton">#ffd6d7d7</color>
+    <color name="colorFonActiviButton">#aaaaaa</color>
     <color name="colorBlack">#000000</color>
     <color name="colorMain" />
     <color name="colorBasic">#463683</color>

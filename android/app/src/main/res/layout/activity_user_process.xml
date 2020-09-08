@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
+        android:background="@color/colorFonButton"
         android:text="@string/expect"
         app:layout_constraintBottom_toTopOf="@+id/buttonGone"
         app:layout_constraintStart_toStartOf="parent" />
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:background="@color/colorFonButton"
         android:text="@string/other"
         app:layout_constraintBottom_toTopOf="@+id/buttonGone"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -33,6 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
+        android:background="@color/colorFonButton"
         android:text="@string/gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
