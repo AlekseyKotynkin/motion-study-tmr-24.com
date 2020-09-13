@@ -15,5 +15,4 @@ public class PositionSettingObjectMap {
         this.idSettingsButton = idSettingsButton;
         this.dataSettingsButton = (Map < String, Object >) dataSettingsButton;
     }
-
 }

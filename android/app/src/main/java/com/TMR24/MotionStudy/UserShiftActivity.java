@@ -221,7 +221,32 @@ public class UserShiftActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                            //активизируем процесс Expect
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("EmailPositionUser", userNameEmail);
+                            data.put("IdDocPosition", idPosition);
+                            data.put("IdDocProcessButton", "buttonExpect");
+                            data.put("NameDocProcessButton", "Expect");
+                            data.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap);
+                            data.put("ProcessUserEnd", "");
+                            data.put("ProcessUserStartTime", FieldValue.serverTimestamp());
                             String activShiftDocId = documentReference.getId();
+                            DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
+                            docRef.collection("ProcessUser")
+                                    .add(data)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                           // idDocActivButtonUser = documentReference.getId();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error adding document", e);
+                                        }
+                                    });
                             parentHierarchyShiftUser = (idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
                             Intent i = new Intent(UserShiftActivity.this, UserProcessActivity.class);
                             i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
