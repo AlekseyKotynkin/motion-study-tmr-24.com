@@ -77,23 +77,7 @@ public class UserProcessActivity extends AppCompatActivity
         buttonCloseShift = findViewById(R.id.buttonCloseShift);
         linearLayoutButton = findViewById(R.id.linearLayoutButton);
 
-        buttonExpect = findViewById(R.id.buttonExpect);
-        idButtonExpect = 9;
-        buttonExpect.setId(idButtonExpect);
-        buttonExpect.setOnClickListener(mCorkyListener);
-        ButtonMap.add(buttonExpect);
 
-        buttonOther = findViewById(R.id.buttonOther);
-        idButtonOther = 10;
-        buttonOther.setId(idButtonOther);
-        buttonOther.setOnClickListener(mCorkyListener);
-        ButtonMap.add(buttonOther);
-
-        buttonGone = findViewById(R.id.buttonGone);
-        idButtonGone = 11;
-        buttonGone.setId(idButtonGone);
-        buttonGone.setOnClickListener(mCorkyListener);
-        ButtonMap.add(buttonGone);
 
     }
     public void onStart()
@@ -101,7 +85,29 @@ public class UserProcessActivity extends AppCompatActivity
       super.onStart();
       Intent i = getIntent();
       if (i != null)
-        { // получили строку данных с предидущего Активити
+        {   //очистили ArrayList
+            PositionSettingsMap.clear();
+            ButtonMap.clear();
+            linearLayoutButton.removeAllViews();
+            //
+            buttonExpect = findViewById(R.id.buttonExpect);
+            idButtonExpect = 9;
+            buttonExpect.setId(idButtonExpect);
+            buttonExpect.setOnClickListener(mCorkyListener);
+            ButtonMap.add(buttonExpect);
+
+            buttonOther = findViewById(R.id.buttonOther);
+            idButtonOther = 10;
+            buttonOther.setId(idButtonOther);
+            buttonOther.setOnClickListener(mCorkyListener);
+            ButtonMap.add(buttonOther);
+
+            buttonGone = findViewById(R.id.buttonGone);
+            idButtonGone = 11;
+            buttonGone.setId(idButtonGone);
+            buttonGone.setOnClickListener(mCorkyListener);
+            ButtonMap.add(buttonGone);
+            // получили строку данных с предидущего Активити
         userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
         parentHierarchyShiftUser = i.getStringExtra(Constant.PARENT_HIERARCHY_SHIFT_USER);
         String delimeter = ">";

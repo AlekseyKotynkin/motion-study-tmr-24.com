@@ -3,10 +3,14 @@ package com.TMR24.MotionStudy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -48,6 +52,7 @@ public class UserShiftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_shift);
         init();
+        setOnClickItemlistViewInfoButton();
 
     }
         private void init()
@@ -69,7 +74,10 @@ public class UserShiftActivity extends AppCompatActivity {
             super.onStart();
             Intent i = getIntent();
             if (i != null)
-            { // получили строку данных с предидущего Активити
+            {   //очистили ArrayList
+                listInfoButton.clear();
+                listInfoButtonItem.clear();
+                // получили строку данных с предидущего Активити
                 userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
                 parentHierarchyPositionUser = i.getStringExtra(Constant.PARENT_HIERARCHY_POSITION_USER);
                 String delimeter = ">";
@@ -125,53 +133,8 @@ public class UserShiftActivity extends AppCompatActivity {
             }
                  //получаем список процессов для данной должности
             DocumentReference docRefOrganization = db.collection("Organization").document(idOrganization);
-            docRefOrganization.get().addOnCompleteListener(new OnCompleteListener< DocumentSnapshot >() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        } else {
-                            Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
             DocumentReference docRefSubdivision = docRefOrganization.collection("Subdivision").document(idSubdivision);
-            docRefSubdivision.get().addOnCompleteListener(new OnCompleteListener< DocumentSnapshot >() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        } else {
-                            Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
             DocumentReference docRefPosition = docRefSubdivision.collection("Position").document(idPosition);
-            docRefPosition.get().addOnCompleteListener(new OnCompleteListener< DocumentSnapshot >() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        } else {
-                            Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
             docRefPosition.collection("PositionSettings")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -193,79 +156,115 @@ public class UserShiftActivity extends AppCompatActivity {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
                             }
                         }
-                    }); //показываем кнопку открыть смену
-        }
-
-        public void buttonAddShiftSession (View view)
-        {  //Сформировали массив с данными для истории и записи в документ Смены
-            parentHierarchyPositionUserMap = new HashMap<>();
-            parentHierarchyPositionUserMap.put("NameOrganization", nameOrganization);
-            parentHierarchyPositionUserMap.put("NameSubdivision", nameSubdivision);
-            parentHierarchyPositionUserMap.put("NamePosition", namePosition);
-            parentHierarchyPositionUserMap.put("UserEmail", userNameEmail);
-            parentHierarchyPositionUserMap.put("UserСomment", userСomment);
-            parentHierarchyPositionUserMap.put("idDocOrganization", idOrganization);
-            parentHierarchyPositionUserMap.put("idDocPosition", idPosition);
-            parentHierarchyPositionUserMap.put("idDocPositionUser", idDocPositionUser);
-            parentHierarchyPositionUserMap.put("idDocSubdivision", idSubdivision);
-            // Открываем новую смену при нажатии кнопки
-            Map<String, Object> data = new HashMap<>();
-            data.put("EmailPositionUser", userNameEmail);
-            data.put("IdDocPosition", idPosition);
-            data.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap);
-            data.put("WorkShiftEnd", "");
-            data.put("WorkShiftStartTime", FieldValue.serverTimestamp());
-            db.collection("WorkShift")
-                    .add(data)
-                    .addOnSuccessListener(new OnSuccessListener <DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                            //активизируем процесс Expect
-                            Map<String, Object> data = new HashMap<>();
-                            data.put("EmailPositionUser", userNameEmail);
-                            data.put("IdDocPosition", idPosition);
-                            data.put("IdDocProcessButton", "buttonExpect");
-                            data.put("NameDocProcessButton", "Expect");
-                            data.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap);
-                            data.put("ProcessUserEnd", "");
-                            data.put("ProcessUserStartTime", FieldValue.serverTimestamp());
-                            String activShiftDocId = documentReference.getId();
-                            DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
-                            docRef.collection("ProcessUser")
-                                    .add(data)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                                           // idDocActivButtonUser = documentReference.getId();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error adding document", e);
-                                        }
-                                    });
-                            parentHierarchyShiftUser = (idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
-                            Intent i = new Intent(UserShiftActivity.this, UserProcessActivity.class);
-                            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
-                            i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser);
-                            startActivity(i);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
-                        }
                     });
-
         }
+
+    public void buttonAddShiftSession (View view)
+    {  //Сформировали массив с данными для истории и записи в документ Смены
+        parentHierarchyPositionUserMap = new HashMap<>();
+        parentHierarchyPositionUserMap.put("NameOrganization", nameOrganization);
+        parentHierarchyPositionUserMap.put("NameSubdivision", nameSubdivision);
+        parentHierarchyPositionUserMap.put("NamePosition", namePosition);
+        parentHierarchyPositionUserMap.put("UserEmail", userNameEmail);
+        parentHierarchyPositionUserMap.put("UserСomment", userСomment);
+        parentHierarchyPositionUserMap.put("idDocOrganization", idOrganization);
+        parentHierarchyPositionUserMap.put("idDocPosition", idPosition);
+        parentHierarchyPositionUserMap.put("idDocPositionUser", idDocPositionUser);
+        parentHierarchyPositionUserMap.put("idDocSubdivision", idSubdivision);
+        // Открываем новую смену при нажатии кнопки
+        Map<String, Object> data = new HashMap<>();
+        data.put("EmailPositionUser", userNameEmail);
+        data.put("IdDocPosition", idPosition);
+        data.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap);
+        data.put("WorkShiftEnd", "");
+        data.put("WorkShiftStartTime", FieldValue.serverTimestamp());
+        db.collection("WorkShift")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener <DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        //активизируем процесс Expect
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("EmailPositionUser", userNameEmail);
+                        data.put("IdDocPosition", idPosition);
+                        data.put("IdDocProcessButton", "buttonExpect");
+                        data.put("NameDocProcessButton", "Expect");
+                        data.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap);
+                        data.put("ProcessUserEnd", "");
+                        data.put("ProcessUserStartTime", FieldValue.serverTimestamp());
+                        String activShiftDocId = documentReference.getId();
+                        DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
+                        docRef.collection("ProcessUser")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                        // idDocActivButtonUser = documentReference.getId();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
+                        parentHierarchyShiftUser = (idOrganization+">"+nameOrganization+">"+idSubdivision+">"+nameSubdivision+">"+idPosition+">"+namePosition+">"+activShiftDocId);
+                        Intent i = new Intent(UserShiftActivity.this, UserProcessActivity.class);
+                        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
+                        i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser);
+                        startActivity(i);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+
+    }
    public void buttonToReturnClik (View view)
-   {
+    {
     Intent i = new Intent(UserShiftActivity.this, UserInfoActivity.class);
     i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
     startActivity(i);
-   }
+    }
+    private void setOnClickItemlistViewInfoButton()
+    { //
+        listViewInfoButton.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView < ? > parent, View view, int position, long id)
+            {
+                String commentButtonItem = listInfoButtonItem.get(position);
+                String delimeter = ">";
+                String commentTitle = commentButtonItem.split(delimeter)[0];
+                String commentText = commentButtonItem.split(delimeter)[1];
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserShiftActivity.this);
+                builder.setTitle(commentTitle)
+                        .setMessage(commentText)
+                       // .setIcon(R.drawable.ic_android_cat)
+                        .setCancelable(false)
+                        .setNegativeButton("ОК",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+         //   }
+
+            }
+        });
+    }
+    @Override
+    public void onPause()
+    {
+        super.onPause();  // Always call the superclass method first
+       // yourListView.setListAdapter(null); //This clears the listview items
+       // listViewInfoButton.setAdapter(null);
+    }
 }

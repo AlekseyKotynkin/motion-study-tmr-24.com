@@ -203,15 +203,16 @@ public class UserInfoActivity extends AppCompatActivity {
         listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener()
            {
         @Override
-        public void onItemClick(AdapterView < ? > parent, View view, int position, long id) {
+        public void onItemClick(AdapterView < ? > parent, View view, int position, long id)
+                {
             String parentHierarchyPositionUser = listDataPostsItem.get(position);
             Intent i = new Intent(UserInfoActivity.this, UserShiftActivity.class);
             i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
             i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
             startActivity(i);
 
-           }
-    });
+                }
+           });
     }
     private void setOnClickItemSesions ()
     {
