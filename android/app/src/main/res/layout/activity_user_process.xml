@@ -75,6 +75,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
+        android:keepScreenOn="true"
         app:layout_constraintBottom_toTopOf="@+id/buttonOther"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

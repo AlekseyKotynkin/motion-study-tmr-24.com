@@ -2,19 +2,27 @@ package com.TMR24.MotionStudy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.os.PowerManager;
+import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +39,6 @@ import com.google.firebase.functions.FirebaseFunctions;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +65,9 @@ public class UserProcessActivity extends AppCompatActivity
     private List<PositionSettingObjectMap> PositionSettingsMap = new ArrayList();
     private List<Button> ButtonMap = new ArrayList();
     private LinearLayout linearLayoutButton;
-    private int idButtonExpect, idButtonOther,idButtonGone;
+    private Window window;
+    private TextView final_text;
+    final Context context = this;
 
 
     @Override
@@ -72,38 +81,38 @@ public class UserProcessActivity extends AppCompatActivity
     {
         db = FirebaseFirestore.getInstance();
         mFunctions = FirebaseFunctions.getInstance();
-
         textActivPosition = findViewById(R.id.textActivPosition);
         buttonCloseShift = findViewById(R.id.buttonCloseShift);
         linearLayoutButton = findViewById(R.id.linearLayoutButton);
-
-
+        buttonExpect = findViewById(R.id.buttonExpect);
+        buttonOther = findViewById(R.id.buttonOther);
+        buttonGone = findViewById(R.id.buttonGone);
+        window = getWindow();
 
     }
+    @SuppressLint("ResourceType")
     public void onStart()
     {
       super.onStart();
       Intent i = getIntent();
       if (i != null)
-        {   //очистили ArrayList
+        {   //window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            //очистили ArrayList
             PositionSettingsMap.clear();
             ButtonMap.clear();
             linearLayoutButton.removeAllViews();
             //
-            buttonExpect = findViewById(R.id.buttonExpect);
-            idButtonExpect = 9;
+            int idButtonExpect = 9;
             buttonExpect.setId(idButtonExpect);
             buttonExpect.setOnClickListener(mCorkyListener);
             ButtonMap.add(buttonExpect);
-
-            buttonOther = findViewById(R.id.buttonOther);
-            idButtonOther = 10;
+            //
+            int idButtonOther = 10;
             buttonOther.setId(idButtonOther);
             buttonOther.setOnClickListener(mCorkyListener);
             ButtonMap.add(buttonOther);
-
-            buttonGone = findViewById(R.id.buttonGone);
-            idButtonGone = 11;
+            //
+            int idButtonGone = 11;
             buttonGone.setId(idButtonGone);
             buttonGone.setOnClickListener(mCorkyListener);
             ButtonMap.add(buttonGone);
@@ -142,16 +151,30 @@ public class UserProcessActivity extends AppCompatActivity
             });
             // устанавливаем настройки кнопок buttonExpect, buttonOther, buttonGone в PositionSettingsMap
             String idSettingsButtonExpect = "buttonExpect";
-            String SettingsTitleExpect = "Expect";
+            String settingsTitleExpect = "Expect";
+            boolean settingsCommitDescription = false;
+            boolean settingsResultCapture = false;
+            boolean settingsActiveControl = false;
+            boolean settingsPassiveControl = false;
+            boolean settingsCommitDescriptionExpect = true;
             Map<String, Object> dataSettingsButtonExpect = new HashMap<>();
-            dataSettingsButtonExpect.put("SettingsTitle", SettingsTitleExpect);
+            dataSettingsButtonExpect.put("SettingsTitle", settingsTitleExpect);
+            dataSettingsButtonExpect.put("SettingsActiveControl", settingsActiveControl);
+            dataSettingsButtonExpect.put("SettingsPassiveControl", settingsPassiveControl);
+            dataSettingsButtonExpect.put("SettingsCommitDescription", settingsCommitDescriptionExpect);
+            dataSettingsButtonExpect.put("SettingsResultCapture", settingsResultCapture);
             PositionSettingObjectMap positionSettingsObjectExpect = new PositionSettingObjectMap(idButtonExpect,idSettingsButtonExpect,dataSettingsButtonExpect);
             PositionSettingsMap.add(positionSettingsObjectExpect);
             buttonExpect.setId(idButtonExpect);
             String idSettingsButtonOther = "buttonOther";
             String SettingsTitleOther = "Other";
+            boolean settingsCommitDescriptionOther = true;
             Map<String, Object> dataSettingsButtonOther = new HashMap<>();
             dataSettingsButtonOther.put("SettingsTitle", SettingsTitleOther);
+            dataSettingsButtonOther.put("SettingsActiveControl", settingsActiveControl);
+            dataSettingsButtonOther.put("SettingsPassiveControl", settingsPassiveControl);
+            dataSettingsButtonOther.put("SettingsCommitDescription", settingsCommitDescriptionOther);
+            dataSettingsButtonOther.put("SettingsResultCapture", settingsResultCapture);
             PositionSettingObjectMap positionSettingsObjectOther = new PositionSettingObjectMap(idButtonOther,idSettingsButtonOther,dataSettingsButtonOther);
             PositionSettingsMap.add(positionSettingsObjectOther);
             buttonOther.setId(idButtonOther);
@@ -159,6 +182,10 @@ public class UserProcessActivity extends AppCompatActivity
             String SettingsTitleGone = "Gone";
             Map<String, Object> dataSettingsButtonGone = new HashMap<>();
             dataSettingsButtonGone.put("SettingsTitle", SettingsTitleGone);
+            dataSettingsButtonGone.put("SettingsActiveControl", settingsActiveControl);
+            dataSettingsButtonGone.put("SettingsPassiveControl", settingsPassiveControl);
+            dataSettingsButtonGone.put("SettingsCommitDescription", settingsCommitDescription);
+            dataSettingsButtonGone.put("SettingsResultCapture", settingsResultCapture);
             PositionSettingObjectMap positionSettingsObjectGone = new PositionSettingObjectMap(idButtonGone,idSettingsButtonGone,dataSettingsButtonGone);
             PositionSettingsMap.add(positionSettingsObjectGone);
             buttonGone.setId(idButtonGone);
@@ -304,7 +331,113 @@ public class UserProcessActivity extends AppCompatActivity
     private View.OnClickListener mCorkyListener = new View.OnClickListener() {
         public void onClick(View v) {
             //получаем текущую активную кнопкуи закрываем активный докумен
+            String idDocActivButtonUserFinal = idDocActivButtonUser;
             activeButton.setBackgroundColor(getResources().getColor(R.color.colorFonButton));
+            for (PositionSettingObjectMap h:PositionSettingsMap) {
+                int idButton = h.idButton;
+                if (activButtonId == idButton) {
+                    String idSettingsButton = h.idSettingsButton;
+                    Map dataSettingsButton = h.dataSettingsButton;
+                    String NameDocProcessButton = (String) dataSettingsButton.get("SettingsTitle");
+                      boolean settingsActiveControl = (boolean) dataSettingsButton.get("SettingsActiveControl");
+                      if (settingsActiveControl == true)
+                      {
+                        //
+                      }
+                      boolean settingsPassiveControl = (boolean) dataSettingsButton.get("SettingsPassiveControl");
+                      if (settingsPassiveControl == true)
+                      {
+                        //
+                      }
+                      boolean settingsCommitDescription = (boolean) dataSettingsButton.get("SettingsCommitDescription");
+                      if (settingsCommitDescription == true)
+                      {// создаем всплывающее окно
+                          LayoutInflater li = LayoutInflater.from(context);
+                          View promptsView = li.inflate(R.layout.prompt, null);
+                          AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+                          builder.setView(promptsView);
+                          final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
+                                         builder.setTitle("Comment Result")
+                                                 .setCancelable(false)
+                                                 .setPositiveButton("OK",
+                                                         new DialogInterface.OnClickListener() {
+                                                             public void onClick(DialogInterface dialog,int id) {
+                                                                 //получаем текст комментария
+                                                                 String commitDescriptioText = userInput.getText().toString();
+                                                                 DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
+                                                                 DocumentReference washingtonRef = docRef.collection("ProcessUser").document(idDocActivButtonUserFinal);
+                                                                 // Set the "isCapital" field of the city 'DC'
+                                                                 washingtonRef
+                                                                         .update("CommitDescriptioText", commitDescriptioText)
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                             @Override
+                                                                             public void onSuccess(Void aVoid) {
+                                                                                 Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                                             }
+                                                                         })
+                                                                         .addOnFailureListener(new OnFailureListener() {
+                                                                             @Override
+                                                                             public void onFailure(@NonNull Exception e) {
+                                                                                 Log.w(TAG, "Error updating document", e);
+                                                                             }
+                                                                         });
+                                                             }
+                                                         })
+                                                 .setNegativeButton("Cansel",
+                                                         new DialogInterface.OnClickListener() {
+                                                             public void onClick(DialogInterface dialog,int id) {
+                                                                 dialog.cancel();
+                                                             }
+                                                         });
+                                         AlertDialog alert = builder.create();
+                                         alert.show();
+                      }
+                    boolean settingsResultCapture = (boolean) dataSettingsButton.get("SettingsResultCapture");
+                    if (settingsResultCapture == true)
+                    {  //фиксируем результат исполнения процесса из предложенного варианта
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+                        builder.setTitle("Select result");
+                        final List<String> settings_array = new ArrayList<>();
+                        String settingsResultControlOption1 = (String) dataSettingsButton.get("SettingsResultControlOption1");
+                        if (settingsResultControlOption1 != "")
+                        { settings_array.add(settingsResultControlOption1); }
+                        String settingsResultControlOption2 = (String) dataSettingsButton.get("SettingsResultControlOption2");
+                        if (settingsResultControlOption2 != "")
+                        { settings_array.add(settingsResultControlOption2); }
+                        String settingsResultControlOption3 = (String) dataSettingsButton.get("SettingsResultControlOption3");
+                        if (settingsResultControlOption3 != "")
+                        { settings_array.add(settingsResultControlOption3); }
+                        String settingsResultControlOption4 = (String) dataSettingsButton.get("SettingsResultControlOption4");
+                        if (settingsResultControlOption4 != "")
+                        { settings_array.add(settingsResultControlOption4); }
+                        String settingsResultControlOption5 = (String) dataSettingsButton.get("SettingsResultControlOption5");
+                        if (settingsResultControlOption5 != "")
+                        { settings_array.add(settingsResultControlOption5); }
+                        String settingsResultControlOption6 = (String) dataSettingsButton.get("SettingsResultControlOption6");
+                        if (settingsResultControlOption6 != "")
+                        { settings_array.add(settingsResultControlOption6); }
+                        String settingsResultControlOption7 = (String) dataSettingsButton.get("SettingsResultControlOption7");
+                        if (settingsResultControlOption7 != "")
+                        { settings_array.add(settingsResultControlOption7); }
+                        String settingsResultControlOption8 = (String) dataSettingsButton.get("SettingsResultControlOption8");
+                        if (settingsResultControlOption8 != "")
+                        { settings_array.add(settingsResultControlOption8); }
+                           if (settings_array.size() != 0) {
+                           ArrayAdapter < String > dataAdapter = new ArrayAdapter < String >(UserProcessActivity.this,
+                               android.R.layout.simple_dropdown_item_1line, settings_array);
+                           builder.setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                           Toast.makeText(UserProcessActivity.this, "You have selected " + settings_array.get(which), Toast.LENGTH_LONG).show();
+                               System.out.println("Hello world!");
+                            }
+                          });
+                               AlertDialog dialog = builder.create();
+                               dialog.show();
+                           }
+                    }
+                }
+            }
             // Закрываем документ активного процесса
             DocumentReference washingtonRef = db.collection("WorkShift").document(activShiftDocId);
             DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
@@ -323,18 +456,17 @@ public class UserProcessActivity extends AppCompatActivity
                             Log.w(TAG, "Error updating document", e);
                         }
                     });
-            DocumentReference docRefProcessUser = docRef.collection("ProcessUser").document(idDocActivButtonUser);
+               DocumentReference docRefProcessUser = docRef.collection("ProcessUser").document(idDocActivButtonUser);
+               Map<String,Object> updatesProcessUser = new HashMap<>();
+               updatesProcessUser.put("ProcessUserEndTime", FieldValue.serverTimestamp());
 
-            // Update the timestamp field with the value from the server
-            Map<String,Object> updatesProcessUser = new HashMap<>();
-            updatesProcessUser.put("ProcessUserEndTime", FieldValue.serverTimestamp());
-
-            docRefProcessUser.update(updatesProcessUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+               docRefProcessUser.update(updatesProcessUser).addOnCompleteListener(new OnCompleteListener<Void>()
+               {
                 // [START_EXCLUDE]
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {}
                 // [START_EXCLUDE]
-            });
+               });
            // устанавливаем агресивный цвет фона активной кнопки
             v.setBackgroundColor(getResources().getColor(R.color.colorFonActiviButton));
             activeButton = (Button) v;
