@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.TMR24.MotionStudy">
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -9,8 +17,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserShiftActivity"></activity>
-        <activity android:name=".UserProcessActivity" />
+        <receiver
+            android:name=".ReceiverActiveActivityControl"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <!-- The actions you wish to listen to, below is an example -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
@@ -20,6 +37,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserInfoActivity" />
+        <activity android:name=".UserShiftActivity" />
+        <activity android:name=".UserProcessActivity" />
     </application>
 
 </manifest>

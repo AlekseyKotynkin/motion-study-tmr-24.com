@@ -4,15 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.text.Editable;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,13 +36,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.TimeUnit;
 
 public class UserProcessActivity extends AppCompatActivity
 {
@@ -49,6 +52,7 @@ public class UserProcessActivity extends AppCompatActivity
     private TextView textActivPosition;
     private FirebaseFirestore db;
     private FirebaseFunctions mFunctions;
+    private StorageReference mStorageRef;
     // ID активного документа в данный момент в коллекции ProcessUser
     private String idDocActivButtonUser;
     // ID активной кнопки в данный момент времени
@@ -58,7 +62,6 @@ public class UserProcessActivity extends AppCompatActivity
     // ID активного документа смены в данный момент
     private String activShiftDocId;
 
-
     private String TAG, userNameEmail, parentHierarchyShiftUser, idPosition;
     private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button;
     private Map parentHierarchyPositionUserMap;
@@ -66,9 +69,8 @@ public class UserProcessActivity extends AppCompatActivity
     private List<Button> ButtonMap = new ArrayList();
     private LinearLayout linearLayoutButton;
     private Window window;
-    private TextView final_text;
+    private ReceiverActiveActivityControl alarm;
     final Context context = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class UserProcessActivity extends AppCompatActivity
     private void init()
     {
         db = FirebaseFirestore.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         mFunctions = FirebaseFunctions.getInstance();
         textActivPosition = findViewById(R.id.textActivPosition);
         buttonCloseShift = findViewById(R.id.buttonCloseShift);
@@ -88,7 +91,7 @@ public class UserProcessActivity extends AppCompatActivity
         buttonOther = findViewById(R.id.buttonOther);
         buttonGone = findViewById(R.id.buttonGone);
         window = getWindow();
-
+        alarm = new ReceiverActiveActivityControl();
     }
     @SuppressLint("ResourceType")
     public void onStart()
@@ -341,8 +344,15 @@ public class UserProcessActivity extends AppCompatActivity
                     String NameDocProcessButton = (String) dataSettingsButton.get("SettingsTitle");
                       boolean settingsActiveControl = (boolean) dataSettingsButton.get("SettingsActiveControl");
                       if (settingsActiveControl == true)
-                      {
-                        //
+                      {   //получаем настройки параметров активного контроля
+                        //  Context context= this.getApplicationContext();
+                          alarm.SetAlarm(context);
+                         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                              vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                          } else {
+                              vibrator.vibrate(500);
+                          }
                       }
                       boolean settingsPassiveControl = (boolean) dataSettingsButton.get("SettingsPassiveControl");
                       if (settingsPassiveControl == true)
@@ -429,7 +439,24 @@ public class UserProcessActivity extends AppCompatActivity
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
                            Toast.makeText(UserProcessActivity.this, "You have selected " + settings_array.get(which), Toast.LENGTH_LONG).show();
-                               System.out.println("Hello world!");
+                           String resultControlButton = settings_array.get(which);
+                               DocumentReference docRef = db.collection("WorkShift").document(activShiftDocId);
+                               DocumentReference washingtonRef = docRef.collection("ProcessUser").document(idDocActivButtonUserFinal);
+                               // Set the "isCapital" field of the city 'DC'
+                               washingtonRef
+                                       .update("ResultControlButton", resultControlButton)
+                                       .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                           @Override
+                                           public void onSuccess(Void aVoid) {
+                                               Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                           }
+                                       })
+                                       .addOnFailureListener(new OnFailureListener() {
+                                           @Override
+                                           public void onFailure(@NonNull Exception e) {
+                                               Log.w(TAG, "Error updating document", e);
+                                           }
+                                       });
                             }
                           });
                                AlertDialog dialog = builder.create();
@@ -506,28 +533,6 @@ public class UserProcessActivity extends AppCompatActivity
                             });
                 }
             }
-
-
-              switch (v.getId()) {
-            //      case R.id.corky:
-
-                    // do something when the corky is clicked
-                    //сделай что-нибудь, когда corky нажата
-
-            //         break;
-            //      case R.id.corky2:
-
-                    // do something when the corky2 is clicked
-
-            //         break;
-            //     case R.id.corky3:
-
-                    // do something when the corky3 is clicked
-
-            //         break;
-            //     default:
-            //         break;
-             }
         }
     };
 }
