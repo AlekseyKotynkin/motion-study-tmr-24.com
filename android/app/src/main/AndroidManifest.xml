@@ -17,17 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver
-            android:name=".ReceiverActiveActivityControl"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <!-- The actions you wish to listen to, below is an example -->
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
