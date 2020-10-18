@@ -53,7 +53,7 @@ public class UserInfoActivity extends AppCompatActivity {
         getIntentMain();
         getCurrentDate();
         getDataFromDB();
-        userNameEmail = "cay211076@gmail.com";
+      ///  userNameEmail = "cay211076@gmail.com";
         addMessage(userNameEmail);
         setOnClickItemPosts ();
         setOnClickItemSesions();
@@ -234,7 +234,7 @@ public class UserInfoActivity extends AppCompatActivity {
         Intent i = getIntent();
         if (i != null)
         {
-         String userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
+         userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
       //   System.out.println(userNameEmail);
         }
     }

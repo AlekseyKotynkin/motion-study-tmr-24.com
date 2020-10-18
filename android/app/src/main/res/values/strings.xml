@@ -28,4 +28,7 @@
     <string name="buttonCloseShift">- Close Shift</string>
     <string name="add_shift">+Add Shift</string>
     <string name="to_return">To return</string>
+    <string name="shift_history">Shift history</string>
+    <string name="back">Back</string>
+    <string name="textview">TextView</string>
 </resources>

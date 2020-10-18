@@ -36,7 +36,6 @@ import java.util.Map;
 
 public class UserShiftActivity extends AppCompatActivity {
 
-
         private TextView textActivPosition;
         private FirebaseFirestore db;
         private FirebaseFunctions mFunctions;
@@ -230,6 +229,13 @@ public class UserShiftActivity extends AppCompatActivity {
     Intent i = new Intent(UserShiftActivity.this, UserInfoActivity.class);
     i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
     startActivity(i);
+    }
+    public void buttonToHistoriClik (View view)
+    {
+        Intent i = new Intent(UserShiftActivity.this, UserShiftHistory.class);
+        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
+        i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser);
+        startActivity(i);
     }
     private void setOnClickItemlistViewInfoButton()
     { //
