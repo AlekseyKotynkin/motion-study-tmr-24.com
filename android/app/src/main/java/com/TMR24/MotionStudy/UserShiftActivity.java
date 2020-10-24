@@ -53,7 +53,7 @@ public class UserShiftActivity extends AppCompatActivity {
         init();
         setOnClickItemlistViewInfoButton();
 
-    }
+        }
         private void init()
         {
             db = FirebaseFirestore.getInstance();
@@ -234,7 +234,7 @@ public class UserShiftActivity extends AppCompatActivity {
     {
         Intent i = new Intent(UserShiftActivity.this, UserShiftHistory.class);
         i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail);
-        i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser);
+        i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser);
         startActivity(i);
     }
     private void setOnClickItemlistViewInfoButton()
