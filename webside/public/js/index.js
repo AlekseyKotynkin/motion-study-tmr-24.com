@@ -1,3 +1,8 @@
+//const firebase = require("firebase");
+//var firebaseui = require('firebaseui');
+        // Required for side-effects
+//require("firebase/firestore");
+
 var firebaseConfig = {
    apiKey: "AIzaSyBRd2yCJouL2GTNXQXuIiruefG40mixJeY",
    authDomain: "motion-study-tmr-24.firebaseapp.com",
