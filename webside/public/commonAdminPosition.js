@@ -15,7 +15,8 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
-
+ var db = firebase.firestore();
+ //
 let items=[];
 let itemsPositionUser=[];
 

@@ -15,7 +15,7 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
-
+var db = firebase.firestore();
 /**
  * @return {string} The reCAPTCHA rendering mode from the configuration.
  */
