@@ -2,7 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>TMR Systems</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
@@ -53,19 +59,19 @@
             provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
             signInMethod: getEmailSignInMethod()
           },
-          {
-            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-            recaptchaParameters: {
-              size: getRecaptchaMode()
-            }
-          },
-          {
-            provider: 'microsoft.com',
-            loginHintKey: 'login_hint'
-          },
-          {
-            provider: 'apple.com',
-          },
+        //  {
+        //    provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        //    recaptchaParameters: {
+        //      size: getRecaptchaMode()
+        //    }
+        //  },
+        //  {
+        //    provider: 'microsoft.com',
+        //    loginHintKey: 'login_hint'
+        //  },
+        //  {
+        //    provider: 'apple.com',
+        //  },
           // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
         ],
         // Terms of service url.
@@ -81,6 +87,10 @@
       // within the element corresponding to the selector specified.
       ui.start('#firebaseui-auth-container', uiConfig);
     </script>
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../images/iconka_business_512x512.png" />
   </head>
   <body>
     <div id="firebaseui-auth-container"></div>
