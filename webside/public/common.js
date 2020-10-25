@@ -90,7 +90,7 @@ function parseQueryString(queryString) {
      alert('Please enter a password.');
      return;
      }
-    if (termsConditions === false)
+    if (termsConditions == "on")
      {
      alert('Need to confirm consent all Terms & Conditions.');
      return;
