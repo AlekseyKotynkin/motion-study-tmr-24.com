@@ -79,7 +79,8 @@ function parseQueryString(queryString) {
      var email = document.getElementById("exampleInputEmail1").value;
      var password = document.getElementById("exampleInputPassword1").value;
        // sign up the Username
-     db.auth().createUserWithEmailAndPassword(email, password).catch(function(error)
+       // регистрируем имя пользователя
+     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error)
      {
        // Handle Errors here.
        var errorCode = error.code;
