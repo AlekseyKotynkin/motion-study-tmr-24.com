@@ -67,7 +67,7 @@ function parseQueryString(queryString) {
    */
    function SignoutAdmin() {
      localStorage.clear('firebaseui::rememberedAccounts');
-     window.location.replace("index.html")
+     window.location.replace("../../index.html")
    }
 
    /**
@@ -78,6 +78,23 @@ function parseQueryString(queryString) {
    {
      var email = document.getElementById("exampleInputEmail1").value;
      var password = document.getElementById("exampleInputPassword1").value;
+     var termsConditions = document.getElementById("exampleInputTermsConditions").value;
+
+     if (email.length < 4)
+     {
+      alert('Please enter an email address.');
+      return;
+     }
+    if (password.length < 4)
+     {
+     alert('Please enter a password.');
+     return;
+     }
+    if (termsConditions === false)
+     {
+     alert('Need to confirm consent all Terms & Conditions.');
+     return;
+     }
        // sign up the Username
        // регистрируем имя пользователя
      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error)
@@ -85,7 +102,15 @@ function parseQueryString(queryString) {
        // Handle Errors here.
        var errorCode = error.code;
        var errorMessage = error.message;
-       alert (errorCode,errorMessage);
-       window.location.replace("index.html")
+       // [START_EXCLUDE]
+       if (errorCode == 'auth/weak-password') {
+         alert('The password is too weak.');
+       } else {
+         alert(errorMessage);
+       }
+       console.log(error);
+      // window.location.replace()
      });
+     alert (" You are registered! ");
+     window.location.replace("../../widget.html")
    };
