@@ -16,6 +16,7 @@
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 var db = firebase.firestore();
+var database = firebase.database();
 /**
  * @return {string} The reCAPTCHA rendering mode from the configuration.
  */
@@ -78,8 +79,20 @@ function parseQueryString(queryString) {
    {
      var email = document.getElementById("exampleInputEmail1").value;
      var password = document.getElementById("exampleInputPassword1").value;
+     var name = document.getElementById("exampleInputUsername1").value;
+     var phone = document.getElementById("exampleInputPhone").value;
      var termsConditions = document.getElementById("exampleInputTermsConditions").value;
 
+     if (username.length < 2)
+     {
+      alert('Please enter an name.');
+      return;
+     }
+     if (phone.length < 10)
+     {
+      alert('Please enter your phone number.');
+      return;
+     }
      if (email.length < 4)
      {
       alert('Please enter an email address.');
@@ -111,6 +124,20 @@ function parseQueryString(queryString) {
        console.log(error);
       // window.location.replace()
      });
+     var userId = firebase.auth().currentUser.uid;
+     return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+     var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+      // ...
+     });
+  //  function writeUserData(userId, name, email, imageUrl) {
+     firebase.database().ref('users/' + userId).set
+     ({
+      username: name,
+      email: email,
+      phone: phone,
+      //profile_picture : imageUrl
+     });
+  //  }
      alert (" You are registered! ");
      window.location.replace("../../widget.html")
    };
@@ -149,6 +176,20 @@ function parseQueryString(queryString) {
       console.log(error);
       window.location.replace()
     });
-    alert (" You are registered! ");
+
+    var userId = firebase.auth().currentUser.uid;
+    return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    // ...
+
+    });
+    let itemsArray = [{
+      displayName: username,
+      email: email,
+      photoUrl: "TMR-24.com"
+    }];
+    localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
+
+    alert (" Welcome! ");
     window.location.replace("../../index.html")
   };
