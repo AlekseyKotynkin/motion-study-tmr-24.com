@@ -114,3 +114,41 @@ function parseQueryString(queryString) {
      alert (" You are registered! ");
      window.location.replace("../../widget.html")
    };
+
+
+     //  Вход пользователя через форму.
+
+  function signUp()
+  {
+    var email = document.getElementById("inputEmail1").value;
+    var password = document.getElementById("inputPassword1").value;
+
+
+    if (email.length < 4)
+    {
+     alert('Please enter an email address.');
+     return;
+    }
+   if (password.length < 4)
+    {
+    alert('Please enter a password.');
+    return;
+    }
+      // sign up the Username
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error)
+    {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // [START_EXCLUDE]
+      if (errorCode == 'auth/weak-password') {
+        alert('The password is too weak.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
+      window.location.replace()
+    });
+    alert (" You are registered! ");
+    window.location.replace("../../index.html")
+  };
