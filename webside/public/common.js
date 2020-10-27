@@ -67,6 +67,11 @@ function parseQueryString(queryString) {
    *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
    */
    function SignoutAdmin() {
+     firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+     }).catch(function(error) {
+        // An error happened.
+     });
      localStorage.clear('firebaseui::rememberedAccounts');
      window.location.replace("../../index.html")
    }
@@ -147,6 +152,11 @@ function parseQueryString(queryString) {
 
   function signUp()
   {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
     var email = document.getElementById("inputEmail1").value;
     var password = document.getElementById("inputPassword1").value;
 
@@ -192,4 +202,23 @@ function parseQueryString(queryString) {
 
     alert (" Welcome! ");
     window.location.replace("../../index.html")
+  };
+
+  function signInWathGoogle()
+  {
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+  }).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
   };
