@@ -95,7 +95,6 @@
       // An error happened.
      });
 
-  //  }
      alert (" You are registered! ");
      window.location.replace("../../widget.html")
    };
