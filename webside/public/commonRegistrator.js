@@ -60,7 +60,7 @@
        // sign up the Username
        // Set the tenant ID on Auth instance.
        // регистрируем имя пользователя
-     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result) {
+       firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result) {
        // result.user.tenantId should be ‘TENANT_PROJECT_ID’.
        alert (" You are registered! ");
        window.location.replace("../../widget.html")
