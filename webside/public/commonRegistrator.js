@@ -11,7 +11,7 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+  var storage = firebase.storage();
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -24,11 +24,12 @@
    function SignoutAdmin() {
      firebase.auth().signOut().then(function() {
         // Sign-out successful.
+        localStorage.clear();
+        window.location.replace("../../index.html")
      }).catch(function(error) {
         // An error happened.
+        alert ("An error happened!");
      });
-     localStorage.clear('firebaseui::rememberedAccounts');
-     window.location.replace("../../index.html")
    }
 
    /**
@@ -39,20 +40,8 @@
    {
      var email = document.getElementById("exampleInputEmail1").value;
      var password = document.getElementById("exampleInputPassword1").value;
-     var name = document.getElementById("exampleInputUsername1").value;
-     var phone = document.getElementById("exampleInputPhone").value;
-     var termsConditions = document.getElementById("exampleInputTermsConditions").value;
+     var termsConditions = document.getElementById("exampleInputTermsConditions").checked;
 
-     if (username.length < 2)
-     {
-      alert('Please enter an name.');
-      return;
-     }
-     if (phone.length < 10)
-     {
-      alert('Please enter your phone number.');
-      return;
-     }
      if (email.length < 4)
      {
       alert('Please enter an email address.');
@@ -63,14 +52,20 @@
      alert('Please enter a password.');
      return;
      }
-    if (termsConditions == "on")
+    if (termsConditions == false)
      {
      alert('Need to confirm consent all Terms & Conditions.');
      return;
      }
        // sign up the Username
+       // Set the tenant ID on Auth instance.
        // регистрируем имя пользователя
-     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error)
+     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result) {
+       // result.user.tenantId should be ‘TENANT_PROJECT_ID’.
+       alert (" You are registered! ");
+       window.location.replace("../../widget.html")
+
+     }).catch(function(error)
      {
        // Handle Errors here.
        var errorCode = error.code;
@@ -82,19 +77,5 @@
          alert(errorMessage);
        }
        console.log(error);
-      // window.location.replace()
-     });
-     var user = firebase.auth().currentUser;
-
-     user.updateProfile({
-      displayName: "Jane Q. User",
-      photoURL: "https://example.com/jane-q-user/profile.jpg"
-     }).then(function() {
-      // Update successful.
-     }).catch(function(error) {
-      // An error happened.
-     });
-
-     alert (" You are registered! ");
-     window.location.replace("../../widget.html")
-   };
+    })
+   }

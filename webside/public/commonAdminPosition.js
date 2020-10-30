@@ -124,8 +124,16 @@ if (doc.exists) {
  *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
  */
  function SignoutAdmin() {
-   localStorage.clear();
-   window.location.replace("index.html")
+   firebase.auth().signOut().then(function() {
+     // Sign-out successful.
+     // Выход выполнен успешно.
+     localStorage.clear();
+     window.location.replace("index.html")
+   }).catch(function(error) {
+     // An error happened.
+     // Произошла ошибка.
+     alert ("An error happened!");
+   });
  };
 
  /**
