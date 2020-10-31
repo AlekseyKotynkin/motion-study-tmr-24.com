@@ -33,17 +33,20 @@ var database = firebase.database();
       alert ("An error happened!");
     });
   };
-     //  Вход пользователя через форму.
+/**
+* @return {string}
+//  Вход пользователя через форму.
+ */
   function signUp()
   {
-    var emailInput = document.getElementById("inputEmail1").value;
-    var passwordInput = document.getElementById("inputPassword1").value;
-    if (emailInput.length < 4)
+    var email = document.getElementById("inputEmail1").value;
+    var password = document.getElementById("inputPassword1").value;
+    if (email.length < 4)
     {
      alert('Please enter an email address.');
      return;
     }
-    if (passwordInput.length < 4)
+    if (password.length < 4)
     {
     alert('Please enter a password.');
     return;
@@ -53,10 +56,10 @@ var database = firebase.database();
       // User is signed in.
       // Пользователь вошел в систему.
     //  var user = firebase.auth().currentUser;
-      var name, email, photoUrl, uid, emailVerified;
+      var name, emailData, photoUrl, uid, emailVerified;
        if (user != null) {
-       email = user.email;
-       if (email != emailInput)
+       emailData = user.email;
+       if (email != emailData)
        {
          firebase.auth().signOut().then(function() {
            // Sign-out successful.
@@ -73,32 +76,41 @@ var database = firebase.database();
        name = user.displayName;
        if (name === null)
        {
+         let itemsArray = [{
+           displayName: name,
+           email: email,
+           photoUrl: photoUrl
+         }];
+        localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
         window.location.replace("registerPersonalData.html");
+       }else{
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;
+          let itemsArray = [{
+          displayName: name,
+          email: email,
+          photoUrl: photoUrl
+         }];
+         localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
+         window.location.replace("index.html")
+        }
        }
-       photoUrl = user.photoURL;
-       emailVerified = user.emailVerified;
-       uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                        // this value to authenticate with your backend server, if
-                        // you have one. Use User.getToken() instead.
-
-                        let itemsArray = [{
-                          displayName: name,
-                          email: email,
-                          photoUrl: photoUrl
-                        }];
-                        localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-                      //  window.location.replace("index.html")
-       }
-
       } else {
       // No user is signed in.
       // Ни один пользователь не вошел в систему.
-      alert('No user is signed in.');
-
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function(result) {
+        // Sign-out successful.
+        // Выход выполнен успешно.
+        var user = result.user;
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        });
       }
     });
-
-
   };
 
 
@@ -112,18 +124,18 @@ var database = firebase.database();
       // The signed-in user info.
       // Информация о вошедшем в систему пользователе.
       var user = result.user;
-      // ...
+          var name = user.displayName;
+          var email = user.email;
+          var photoUrl = user.photoUrl;
 
           let itemsArray = [{
-            displayName: username,
+            displayName: name,
             email: email,
-            photoUrl: "TMR-24.com"
+            photoUrl: photoUrl
           }];
           localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-
           alert (" Welcome! ");
-          window.location.replace("../../index.html")
-
+          window.location.replace("index.html")
     }).catch(function(error) {
       // Handle Errors here.
       // Здесь обрабатываются ошибки.

@@ -11,11 +11,20 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-  var storage = firebase.storage();
+var storage = firebase.storage();
+  // Get the default bucket from a custom firebase.app.App
+
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
-
+ /**
+ * @return {string}
+ *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
+ */
+const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
+const EmailLocalStorage = (LocalStorageValueObject[0]).email;
+const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 /**
   /**
   * @return {string}
@@ -33,54 +42,122 @@
        alert ("An error happened!");
      });
    }
-
    /**
    * @return {string}
     *  Регистрация нового пользователя через форму.
     */
    function signUpRegisterPersonalData()
    {
+     var name = document.getElementById("exampleInputUsername1").value;
+     var phone = document.getElementById("exampleInputPhone").value;
+     var photoName = document.getElementById("exampleInputUpload1").value;
+     if (name.length < 1)
+     {
+      alert('Please enter an name.');
+      return;
+     }
+     if (phone.length < 11)
+     {
+     alert('Please enter a phone number.');
+     return;
+     }
+     if (photoName.length < 4)
+     {
+      alert('Please upload a photo file.');
+      return;
+     }
      firebase.auth().onAuthStateChanged(function(user) {
        if (user) {
        // User is signed in.
        // Пользователь вошел в систему.
-     //  var user = firebase.auth().currentUser;
-       var name, email, photoUrl, uid, emailVerified;
-        if (user != null) {
-        email = user.email;
-        alert('User is signed in. ' + email);
-        name = user.displayName;
-        photoUrl = user.photoURL;
-        emailVerified = user.emailVerified;
-        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                         // this value to authenticate with your backend server, if
-                         // you have one. Use User.getToken() instead.
-        }
-
+       var email, uid, emailVerified;
+        if (user != null)
+       { email = user.email;
+         if (email != EmailLocalStorage)
+         {  firebase.auth().signOut().then(function() {
+             // Sign-out successful.
+             // Выход выполнен успешно.
+             localStorage.clear();
+             window.location.replace()
+           }).catch(function(error) {
+             // An error happened.
+             // Произошла ошибка.
+             alert ("An error happened!");
+             window.location.replace()
+           });
+         }else
+         { emailVerified = user.emailVerified;
+           uid = user.uid;
+             var storageRef = firebase.storage().ref();
+             // File or Blob named mountains.jpg
+             var file = document.querySelector("#exampleInputUpload1").files[0];
+             // Create the file metadata
+             var metadata = {
+               contentType: 'image/jpeg'
+             };
+             // Upload file and metadata to the object 'images/mountains.jpg'
+             var uploadTask = storageRef.child('fotoUser/'+ uid +'_'+ file.name).put(file, metadata);
+             // Listen for state changes, errors, and completion of the upload.
+             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                 console.log('Upload is ' + progress + '% done');
+                 switch (snapshot.state) {
+                   case firebase.storage.TaskState.PAUSED: // or 'paused'
+                     console.log('Upload is paused');
+                     break;
+                   case firebase.storage.TaskState.RUNNING: // or 'running'
+                     console.log('Upload is running');
+                     break;
+                 }
+               }, function(error) {
+               // A full list of error codes is available at
+               // https://firebase.google.com/docs/storage/web/handle-errors
+               switch (error.code) {
+                 case 'storage/unauthorized':
+                   // User doesn't have permission to access the object
+                   break;
+                 case 'storage/canceled':
+                   // User canceled the upload
+                   break;
+                document.querySelector("#exampleInputUpload1").files[0];
+                 case 'storage/unknown':
+                   // Unknown error occurred, inspect error.serverResponse
+                   break;
+               }
+             }, function() {
+               // Upload completed successfully, now we can get the download URL
+               // Загрузка завершена успешно, теперь мы можем получить URL для загрузки
+               uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                 console.log('File available at', downloadURL);
+                 user.updateProfile({
+                   displayName: name,
+                   photoURL: downloadURL,
+                   PhoneNumber: phone
+                 }).then(function() {
+                   // Update successful.
+                   alert ("Update successful.");
+                   localStorage.clear();
+                   let itemsArray = [{
+                     displayName: name,
+                     email: email,
+                     photoUrl: downloadURL
+                   }];
+                  localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
+                  window.location.replace("index.html")
+                 }).catch(function(error) {
+                   // An error happened.
+                 });
+               });
+             });
+          }
+         }
        } else {
        // No user is signed in.
        // Ни один пользователь не вошел в систему.
        alert('No user is signed in.');
-
+       window.location.replace("widget.html")
        }
      });
-
-     var email = document.getElementById("inputEmail1").value;
-     var password = document.getElementById("inputPassword1").value;
-     if (email.length < 4)
-     {
-      alert('Please enter an email address.');
-      return;
-     }
-    if (password.length < 4)
-     {
-     alert('Please enter a password.');
-     return;
-     }
-       // sign up the Username
-
-
-
-     //alert (" Welcome! ");
-     //window.location.replace("../../index.html")
-   };
+  };
