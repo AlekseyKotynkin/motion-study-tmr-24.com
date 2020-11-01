@@ -87,8 +87,9 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
      // Произошла ошибка.
      alert ("An error happened!");
    });
- /**
- * @return {string}
+  }
+  /**
+  * @return {string}
   *  Обработка модального окна Регистрация Подразделения.
   */
 
@@ -102,7 +103,6 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     Subdivision: subdivisionTitle,
     NameOfDepartmentHead: nameOfDepartmentHead,
     HeadOfUnit: headOfUnit,
-
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
