@@ -202,12 +202,22 @@ parentHierarchy.get().then(function (querySnapshot) {
 
                  var nameOfYourManagerColumn = document.createElement('td');
                  //nameOfYourManagerColumn.innerHTML = item.WorkShiftEndTime;
-                 var ggg = item.WorkShiftEndTime;
-                 var hhh = ggg.Seconds;
-                 nameOfYourManagerColumn.innerHTML = new Date(hhh);
+                 var workShiftEndTime = item.WorkShiftEndTime;
+                 nameOfYourManagerColumn.innerHTML = new Date(workShiftEndTime.toDate()).toUTCString();
 
                  var statusUserColumn = document.createElement('td');
-                 statusUserColumn.innerHTML = item.WorkShiftStartTime;
+                 //statusUserColumn.innerHTML = item.WorkShiftStartTime;
+                 var workShiftStartTime = item.WorkShiftStartTime;
+                 statusUserColumn.innerHTML = new Date(workShiftStartTime.toDate()).toUTCString();
+
+                 var formattedColumn = document.createElement('td');
+                 var ggg = workShiftEndTime - workShiftStartTime;
+                 var timestamp = new Date(ggg).getTime();
+                 var hours = Math.floor(timestamp / 60 / 60);
+                 var minutes = Math.floor(timestamp / 60) - (hours * 60);
+                 var seconds = timestamp % 60;
+                 var formatted = hours + ':' + minutes + ':' + seconds;
+                 formattedColumn.innerHTML = formatted;
 
                  var toComeInUserName = document.createElement('button');
                  toComeInUserName.innerHTML = "To come in";
@@ -222,6 +232,7 @@ parentHierarchy.get().then(function (querySnapshot) {
 
                  tr.appendChild(statusUserColumn);
                  tr.appendChild(nameOfYourManagerColumn);
+                 tr.appendChild(formattedColumn);
                  tr.appendChild(positionColumn);
                  tr.appendChild(subdivisionColumn);
                  tr.appendChild(organizationColumn);
