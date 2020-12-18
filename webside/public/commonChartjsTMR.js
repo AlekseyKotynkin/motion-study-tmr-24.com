@@ -18,9 +18,8 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 //
-let items=[];
-let itemsUserName=[];
-let itemsActiveUserName=[];
+let items = [];
+let itemsUserName = [];
 let nameOrganization = "";
 let nameSubdivision = "";
 let namePosition = "";
@@ -44,8 +43,8 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
  */
 
 var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '==', EmailLocalStorage);
-parentHierarchy.get().then(function (querySnapshot) {
-  querySnapshot.forEach(function (doc) {
+    parentHierarchy.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
    let parentHierarchyDoc = doc.ref.path;
    let organizationDocId = parentHierarchyDoc.split("/")[1];
    let subdivisionDocId = parentHierarchyDoc.split("/")[3];
@@ -57,7 +56,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     let subdivisionDocId = element.idDocSubdivision ;
     let positionDocId = element.idDocPosition ;
     let docRefOrganization = db.collection("Organization").doc(organizationDocId);
-       docRefOrganization.get().then(function(doc) {
+        docRefOrganization.get().then(function(doc) {
         if (doc.exists) {
             nameOrganization = doc.data().Organization;
             element['NameOrganization'] = nameOrganization;
@@ -68,7 +67,7 @@ parentHierarchy.get().then(function (querySnapshot) {
         console.log("Error getting document:", error);
     });
     let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
-       docRefSubdivision.get().then(function(doc) {
+        docRefSubdivision.get().then(function(doc) {
         if (doc.exists) {
             nameSubdivision = doc.data().Subdivision;
             element['NameSubdivision'] = nameSubdivision;
@@ -79,7 +78,7 @@ parentHierarchy.get().then(function (querySnapshot) {
         console.log("Error getting document:", error);
     });
     let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
-       docRefPosition.get().then(function(doc) {
+        docRefPosition.get().then(function(doc) {
         if (doc.exists) {
             namePosition = doc.data().Position;
             element['NamePosition'] = namePosition;
@@ -113,7 +112,7 @@ parentHierarchy.get().then(function (querySnapshot) {
         toComeInUserName.className = 'badge badge-gradient-success';
         toComeInUserName.id = item.idDocPositionUser;
         toComeInUserName.item = item;
-        toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
+        toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
 
         var toComeInUserColumn = document.createElement('td');
         toComeInUserColumn.appendChild(toComeInUserName);
@@ -124,7 +123,6 @@ parentHierarchy.get().then(function (querySnapshot) {
         tr.appendChild(subdivisionColumn);
         tr.appendChild(organizationColumn);
         tr.appendChild(toComeInUserColumn);
-
 
         var container = document.getElementById("tableAvalableUser").getElementsByTagName("tbody")[0];
 
@@ -139,7 +137,24 @@ parentHierarchy.get().then(function (querySnapshot) {
  *  Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore..
  */
 
- db.collection("WorkShift").where('EmailPositionUser', '==', EmailLocalStorage).where("IdDocPosition","==","1xLXwssfBKxzbKHuroCy").where("WorkShiftEnd", "==", "false")
+ function toComeInButtonShift(obj) {
+   //обработка редактирования строки...
+     let objItem = obj.item;
+     let idDocPosition = objItem.idDocPosition;
+     let userEmail = objItem.UserEmail;
+     let itemsActiveUserName = [];
+
+     let table = document.getElementById("tableChangeUser");
+      for(var i = 1;i<table.rows.length;){
+            table.deleteRow(i);
+        };
+
+      let tableDuble = document.getElementById("tableDetailingShift");
+       for(var i = 1;i<tableDuble.rows.length;){
+             tableDuble.deleteRow(i);
+         };
+
+ db.collection("WorkShift").where('EmailPositionUser', '==', userEmail).where("IdDocPosition","==", idDocPosition).where("WorkShiftEnd", "==", "false")
      .get()
      .then(function(querySnapshot) {
          querySnapshot.forEach(function(doc) {
@@ -150,12 +165,13 @@ parentHierarchy.get().then(function (querySnapshot) {
             let positionDocId = parentHierarchyDoc.idDocPosition;
             itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
          });
-           itemsActiveUserName.forEach(function(element){
+             itemsActiveUserName = itemsActiveUserName.sort(( a, b ) => b.WorkShiftStartTime - a.WorkShiftStartTime);
+             itemsActiveUserName.forEach(function(element){
              let organizationDocId = element.idDocOrganization ;
              let subdivisionDocId = element.idDocSubdivision ;
              let positionDocId = element.idDocPosition ;
              let docRefOrganization = db.collection("Organization").doc(organizationDocId);
-                docRefOrganization.get().then(function(doc) {
+                 docRefOrganization.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserOrganization = doc.data().Organization;
                      element['NameOrganization'] = nameActiveUserOrganization;
@@ -166,7 +182,7 @@ parentHierarchy.get().then(function (querySnapshot) {
                  console.log("Error getting document:", error);
              });
              let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
-                docRefSubdivision.get().then(function(doc) {
+                 docRefSubdivision.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserSubdivision = doc.data().Subdivision;
                      element['NameSubdivision'] = nameActiveUserSubdivision;
@@ -177,7 +193,7 @@ parentHierarchy.get().then(function (querySnapshot) {
                  console.log("Error getting document:", error);
              });
              let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
-                docRefPosition.get().then(function(doc) {
+                 docRefPosition.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserPosition = doc.data().Position;
                      element['NamePosition'] = nameActiveUserPosition;
@@ -201,21 +217,28 @@ parentHierarchy.get().then(function (querySnapshot) {
                  positionColumn.innerHTML = item.NamePosition;
 
                  var nameOfYourManagerColumn = document.createElement('td');
-                 //nameOfYourManagerColumn.innerHTML = item.WorkShiftEndTime;
                  var workShiftEndTime = item.WorkShiftEndTime;
                  nameOfYourManagerColumn.innerHTML = new Date(workShiftEndTime.toDate()).toUTCString();
 
                  var statusUserColumn = document.createElement('td');
-                 //statusUserColumn.innerHTML = item.WorkShiftStartTime;
                  var workShiftStartTime = item.WorkShiftStartTime;
                  statusUserColumn.innerHTML = new Date(workShiftStartTime.toDate()).toUTCString();
 
                  var formattedColumn = document.createElement('td');
-                 var ggg = workShiftEndTime - workShiftStartTime;
-                 var timestamp = new Date(ggg).getTime();
+                 var workShiftFormattedTime = workShiftEndTime - workShiftStartTime;
+                 var timestamp = new Date(workShiftFormattedTime).getTime();
                  var hours = Math.floor(timestamp / 60 / 60);
+                 if (hours < 10) {
+                   hours = '0' + hours
+                 };
                  var minutes = Math.floor(timestamp / 60) - (hours * 60);
+                 if (minutes < 10) {
+                   minutes = '0' + minutes
+                 };
                  var seconds = timestamp % 60;
+                 if (seconds < 10) {
+                   seconds = '0' + seconds
+                 };
                  var formatted = hours + ':' + minutes + ':' + seconds;
                  formattedColumn.innerHTML = formatted;
 
@@ -224,11 +247,10 @@ parentHierarchy.get().then(function (querySnapshot) {
                  toComeInUserName.className = 'badge badge-gradient-success';
                  toComeInUserName.id = item.idDocPositionUser;
                  toComeInUserName.item = item;
-                 toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
+                 toComeInUserName.setAttribute('onclick', 'toComeInButtonEvent(this)');
 
                  var toComeInUserColumn = document.createElement('td');
                  toComeInUserColumn.appendChild(toComeInUserName);
-
 
                  tr.appendChild(statusUserColumn);
                  tr.appendChild(nameOfYourManagerColumn);
@@ -236,20 +258,99 @@ parentHierarchy.get().then(function (querySnapshot) {
                  tr.appendChild(positionColumn);
                  tr.appendChild(subdivisionColumn);
                  tr.appendChild(organizationColumn);
-
-
                  tr.appendChild(toComeInUserColumn);
 
                  var container = document.getElementById("tableChangeUser").getElementsByTagName("tbody")[0];
 
                  container.appendChild(tr);
               });
-              });
-              });
+           });
+        });
      })
      .catch(function(error) {
          console.log("Error getting documents: ", error);
      });
+   };
+
+     /**
+     * @return {string}
+      * Получение данных для таблицы Detailing Of The Selected Shift из firestore
+      */
+    function toComeInButtonEvent(objs) {
+        //обработка редактирования строки...
+          // let objItem = obj.item;
+      let itemsShiftDoc = [];
+      let nameDocShift = objs.id;
+      // let nameDocShift = nameDocShiftDoc.IdDocPosition;
+
+      let tableDuble = document.getElementById("tableDetailingShift");
+       for(var i = 1;i<tableDuble.rows.length;){
+             tableDuble.deleteRow(i);
+         };   
+
+     var docRefShift = db.collection("WorkShift").doc(nameDocShift);
+         docRefShift.collection("ProcessUser").get().then(function(querySnapshot) {
+         querySnapshot.forEach(function(doc) {
+           // doc.data() is never undefined for query doc snapshots
+           console.log(doc.id, " => ", doc.data());
+           itemsShiftDoc.push({...doc.data(),...{idDocShift: doc.id}});
+          });
+          itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
+          itemsShiftDoc.forEach(item =>
+          {
+             var tr = document.createElement("tr");
+
+             var timeStartShiftColumn = document.createElement('td');
+             var processUserStartTime = item.ProcessUserStartTime;
+             timeStartShiftColumn.innerHTML = new Date(processUserStartTime.toDate()).toUTCString();
+
+             var timeEndShiftColumn = document.createElement('td');
+             var processUserEndTime = item.ProcessUserEndTime;
+             timeEndShiftColumn.innerHTML = new Date(processUserEndTime.toDate()).toUTCString();
+
+             var nameShiftColumn = document.createElement('td');
+             nameShiftColumn.innerHTML = item.NameDocProcessButton;
+
+             var formattedColumn = document.createElement('td');
+             var processUserFormattedTime = processUserEndTime - processUserStartTime;
+             var timestamp = new Date(processUserFormattedTime).getTime();
+             var hours = Math.floor(timestamp / 60 / 60);
+             if (hours < 10) {
+               hours = '0' + hours
+             };
+             var minutes = Math.floor(timestamp / 60) - (hours * 60);
+             if (minutes < 10) {
+               minutes = '0' + minutes
+             };
+             var seconds = timestamp % 60;
+             if (seconds < 10) {
+               seconds = '0' + seconds
+             };
+             var formatted = hours + ':' + minutes + ':' + seconds;
+             formattedColumn.innerHTML = formatted;
+
+             var toComeInUserName = document.createElement('button');
+             toComeInUserName.innerHTML = "To come in";
+             toComeInUserName.className = 'badge badge-gradient-success';
+             toComeInUserName.id = item.idDocShift;
+             toComeInUserName.item = item;
+             toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
+
+             var toComeInUserColumn = document.createElement('td');
+             toComeInUserColumn.appendChild(toComeInUserName);
+
+             tr.appendChild(timeStartShiftColumn);
+             tr.appendChild(timeEndShiftColumn);
+             tr.appendChild(formattedColumn);
+             tr.appendChild(nameShiftColumn);
+             tr.appendChild(toComeInUserColumn);
+
+             var container = document.getElementById("tableDetailingShift").getElementsByTagName("tbody")[0];
+
+             container.appendChild(tr);
+          });
+         });
+       };
 
 /**
 * @return {string}
@@ -366,73 +467,8 @@ parentHierarchy.get().then(function (querySnapshot) {
 
     function createATableOfClientAdmin()
     {
-    db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
-    .get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        items.push({...doc.data(),...{idOrganization: doc.id}});
-      });
 
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        })
-        .finally(() => {items;
-        items.forEach(item => {
-          var tr = document.createElement("tr");
-
-          var organizationName = document.createElement('a');
-          organizationName.innerHTML = item.Organization;
-
-          var organizationColumn = document.createElement('td');
-          organizationColumn.appendChild(organizationName);
-
-          var subdivisionColumn = document.createElement('td');
-          subdivisionColumn.innerHTML = item.Subdivision;
-
-          var positionColumn = document.createElement('td');
-          positionColumn.innerHTML = item.Position;
-
-          var positionOfYourManagerColumn = document.createElement('td');
-          positionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
-
-          var nameOfYourManagerColumn = document.createElement('td');
-          nameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
-
-          var statusUserColumn = document.createElement('td');
-          statusUserColumn.innerHTML = item.StatusUser;
-
-          var toComeInUserName = document.createElement('button');
-          toComeInUserName.innerHTML = "To come in";
-          toComeInUserName.className = 'badge badge-gradient-success';
-          toComeInUserName.id = item.idOrganization;
-          toComeInUserName.setAttribute('onclick', 'toComeInButton(this)');
-
-          var toComeInUserColumn = document.createElement('td');
-          toComeInUserColumn.appendChild(toComeInUserName);
-
-          var quitName = document.createElement('button');
-          quitName.innerHTML = "Quit";
-          quitName.className = 'badge badge-gradient-danger';
-          quitName.id = item.idOrganization;
-          quitName.setAttribute('onclick', 'quitButton(this)');
-
-          var quitColumn = document.createElement('td');
-          quitColumn.appendChild(quitName);
-
-          tr.appendChild(organizationColumn);
-          tr.appendChild(subdivisionColumn);
-          tr.appendChild(positionColumn);
-          tr.appendChild(positionOfYourManagerColumn);
-          tr.appendChild(nameOfYourManagerColumn);
-          tr.appendChild(statusUserColumn);
-          tr.appendChild(toComeInUserColumn);
-          tr.appendChild(quitColumn);
-
-          container.appendChild(tr);
-        });
-      });
-  };
+    };
 
   /**
   * @return {string}
@@ -481,13 +517,13 @@ parentHierarchy.get().then(function (querySnapshot) {
 function toComeInButtonUser(obj) {
   //обработка редактирования строки...
     let objItem = obj.item;
-      let itemsArray = [{
-        OwnerEmail: EmailLocalStorage,
-        ProviderId: "TMR-24.com",
-        ParentHierarchy: objItem
-      }];
-    localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
-    window.location.replace("indexUser.html");
+    //   let itemsArray = [{
+    //     OwnerEmail: EmailLocalStorage,
+    //     ProviderId: "TMR-24.com",
+    //     ParentHierarchy: objItem
+    //   }];
+    // localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
+    // window.location.replace("indexUser.html");
   };
 
 
