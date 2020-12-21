@@ -286,7 +286,7 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
       let tableDuble = document.getElementById("tableDetailingShift");
        for(var i = 1;i<tableDuble.rows.length;){
              tableDuble.deleteRow(i);
-         };   
+         };
 
      var docRefShift = db.collection("WorkShift").doc(nameDocShift);
          docRefShift.collection("ProcessUser").get().then(function(querySnapshot) {
@@ -334,7 +334,7 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
              toComeInUserName.className = 'badge badge-gradient-success';
              toComeInUserName.id = item.idDocShift;
              toComeInUserName.item = item;
-             toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
+             toComeInUserName.setAttribute('onclick', 'gridSystemModalInfoEvent(this)');
 
              var toComeInUserColumn = document.createElement('td');
              toComeInUserColumn.appendChild(toComeInUserName);
@@ -371,92 +371,53 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
 
  /**
  * @return {string}
-  *  Обработка модального окна Регистрация Организации.
+  *  Обработка модального окна подробная информация по документу событие.
   */
 
-  function gridSystemModalNewOrganizationSubmit()
+  function gridSystemModalInfoEvent(objsi)
   {
-    //exampleInputUpload2
-    let Organization = document.getElementById("exampleInputNameOrganization").value;
-    let Position = document.getElementById("exampleInputPosition").value;
-    var iconOrganization = document.getElementById("exampleInputUpload2").value;
-    if (Organization.length < 1)
-    {
-     alert('Please enter the name of the organization.');
-     return;
+    let idEventDoc = objsi.id;
+    let idEventItem = objsi.item;
+    let processUserStartTime = idEventItem.ProcessUserStartTime;
+    let processUserEndTime = idEventItem.ProcessUserEndTime;
+    let timeStartShift = new Date(processUserStartTime.toDate()).toUTCString();
+    let timeEndShift = new Date(processUserEndTime.toDate()).toUTCString();
+    let processUserFormattedTime = processUserEndTime - processUserStartTime;
+    let timestamp = new Date(processUserFormattedTime).getTime();
+    let hours = Math.floor(timestamp / 60 / 60);
+    if (hours < 10) {
+      hours = '0' + hours
     };
-    if (Position.length < 1)
-    {
-     alert('Please enter the name of the position.');
-     return;
+    let minutes = Math.floor(timestamp / 60) - (hours * 60);
+    if (minutes < 10) {
+      minutes = '0' + minutes
     };
-   //  Add a new document with a generated id.
-  db.collection("Organization").add({
-    StatusUser: "StatusUser_Owner",
-    Organization: Organization,
-    Subdivision: "",
-    Position: Position,
-    OwnerEmail: EmailLocalStorage,
-    OwnerID: "",
-    PositionOfYourManager: "",
-    NameOfYourManager: "",
-  }).then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      if (iconOrganization !="")
-      {   // Загружаем логотип Организации!
-        var storageRef = firebase.storage().ref();
-        // File or Blob named mountains.jpg
-        var file = document.querySelector("#exampleInputUpload2").files[0];
-        // Create the file metadata
-        var metadata = {
-          contentType: 'image/jpeg'
-        };
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        var uploadTask = storageRef.child('IconOrganization/'+ docRef.id).put(file, metadata);
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-          function(snapshot) {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
-                break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
-                break;
-            }
-          }, function(error) {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
-            document.querySelector("#exampleInputUpload2").files[0];
-            case 'storage/unknown':
-              // Unknown error occurred, inspect error.serverResponse
-              break;
-          }
-        }, function() {
-          // Upload completed successfully, now we can get the download URL
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log('File available at', downloadURL);
-            $('#gridSystemModalNewOrganization').modal('toggle');
-            window.location.reload();
-          });
-        });
-      } else {
-        $('#gridSystemModalNewOrganization').modal('toggle');
-        window.location.reload();
-      }
-  }).catch(function(error) {
-      console.error("Error adding document: ", error);
-  });
+    let seconds = timestamp % 60;
+    if (seconds < 10) {
+      seconds = '0' + seconds
+    };
+    let formatted = hours + ':' + minutes + ':' + seconds;
+    let nameDocProcessButton = idEventItem.NameDocProcessButton;
+    let processUserEnd = idEventItem.ProcessUserEnd;
+    let commitDescriptioText = idEventItem.CommitDescriptioText;
+    if (commitDescriptioText === undefined) {
+      commitDescriptioText = 'no data'
+    };
+    let resultControlButton = idEventItem.ResultControlButton;
+    if (resultControlButton === undefined) {
+      resultControlButton = 'no data'
+    };
+
+    document.getElementById("nameEvent").innerHTML = "Name: "+ nameDocProcessButton;
+    document.getElementById("timeStartEvent").innerHTML = "Start time: "+ timeStartShift;
+    document.getElementById("timeEndEvent").innerHTML = "End time: "+ timeEndShift;
+    document.getElementById("eventDuration").innerHTML = "Duration: "+ formatted;
+    document.getElementById("commitDescriptioText").innerHTML = "Comment: "+ commitDescriptioText;
+    document.getElementById("resultControlButton").innerHTML = "Test case: "+ resultControlButton;
+
+    $(document).ready(function(){
+      $("#gridSystemModalInfoEventID").modal("show");
+    });
   }
 
 
@@ -479,13 +440,13 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
     //обработка редактирования строки...
       let objId = obj.id;
 
-        let itemsArray = [{
-          OrganizationId: objId,
-          OwnerEmail: EmailLocalStorage,
-          ProviderId: "TMR-24.com"
-        }];
-      localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
-      window.location.replace("indexAdminOrganization.html");
+      //   let itemsArray = [{
+      //     OrganizationId: objId,
+      //     OwnerEmail: EmailLocalStorage,
+      //     ProviderId: "TMR-24.com"
+      //   }];
+      // localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
+      // window.location.replace("indexAdminOrganization.html");
     };
 
 
@@ -496,13 +457,13 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
 
     function quitButton(obj) {
     let objId = obj.id;
-    alert('Document successfully deleted! '+ (objId));
-      db.collection("Organization").doc(objId).delete().then(function() {
-          console.log("Document successfully deleted!");
-          window.location.reload();
-      }).catch(function(error) {
-          console.error("Error removing document: ", error);
-      });
+    // alert('Document successfully deleted! '+ (objId));
+    //   db.collection("Organization").doc(objId).delete().then(function() {
+    //       console.log("Document successfully deleted!");
+    //       window.location.reload();
+    //   }).catch(function(error) {
+    //       console.error("Error removing document: ", error);
+    //   });
 
     };
 

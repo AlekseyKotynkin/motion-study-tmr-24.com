@@ -449,6 +449,51 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
+          <!-- Модальное окно параметров смены Event -->
+          <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Event information</h4>
+                          <p class="card-description">Detailed information on the event</p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <p><span id = nameEvent></span></p>
+                              <p><span id = timeStartEvent></span></p>
+                              <p><span id = timeEndEvent></span></p>
+                              <p><span id = eventDuration></span></p>
+                              <p><span id = commitDescriptioText></span></p>
+                              <p><span id = resultControlButton></span></p>
+                              <div class="table-responsive">
+                                <table id="tableInfoEvent"class="table">
+                                  <thead>
+                                    <tr>
+                                      <th> Position </th>
+                                      <th> Сomment </th>
+                                    </tr>
+                                  </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
