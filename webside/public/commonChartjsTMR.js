@@ -20,6 +20,7 @@ var storage = firebase.storage();
 //
 let items = [];
 let itemsUserName = [];
+let itemsOrganizationName = [];
 let nameOrganization = "";
 let nameSubdivision = "";
 let namePosition = "";
@@ -36,6 +37,117 @@ const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rem
 const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+
+/**
+* @return {string}
+ * Получение данных для таблицы List of own organizations из firestore
+ */
+
+
+   db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              // console.log(doc.id, " => ", doc.data());
+              let idDocOrganization = doc.id;
+              let nameOrganization = doc.data().Organization;
+              alert('Compiling a list of users of your organization '+nameOrganization+'.');
+              var groupPositionUser = db.collectionGroup('PositionUser').where('idDocOrganization', '==', idDocOrganization);
+              groupPositionUser.get().then(function (querySnapshot) {
+                  querySnapshot.forEach(function (doc) {
+                      // console.log(doc.id, ' => ', doc.data(), nameOrganization);
+                      let parentHierarchyDoc = doc.ref.path;
+                      let organizationDocId = parentHierarchyDoc.split("/")[1];
+                      let subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                      let positionDocId = parentHierarchyDoc.split("/")[5];
+                      itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+                     });
+                     itemsOrganizationName.forEach(function(element){
+                       let organizationDocId = element.idDocOrganization ;
+                       let subdivisionDocId = element.idDocSubdivision ;
+                       let positionDocId = element.idDocPosition ;
+                       let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                           docRefOrganization.get().then(function(doc) {
+                           if (doc.exists) {
+                               nameOrganization = doc.data().Organization;
+                               element['NameOrganization'] = nameOrganization;
+                           } else {
+                               console.log("No such document!");
+                           }
+                       }).catch(function(error) {
+                           console.log("Error getting document:", error);
+                       });
+                       let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                           docRefSubdivision.get().then(function(doc) {
+                           if (doc.exists) {
+                               nameSubdivision = doc.data().Subdivision;
+                               element['NameSubdivision'] = nameSubdivision;
+                           } else {
+                               console.log("No such document!");
+                           }
+                       }).catch(function(error) {
+                           console.log("Error getting document:", error);
+                       });
+                       let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                           docRefPosition.get().then(function(doc) {
+                           if (doc.exists) {
+                               namePosition = doc.data().Position;
+                               element['NamePosition'] = namePosition;
+                           } else {
+                               console.log("No such document!");
+                           }
+                       }).catch(function(error) {
+                           console.log("Error getting document:", error);
+                       }).finally(() => {
+                         [element].forEach(item =>
+                       {
+                           var tr = document.createElement("tr");
+
+                           var nameOfYourManagerColumn = document.createElement('td');
+                           nameOfYourManagerColumn.innerHTML = item.UserСomment;
+
+                           var statusUserColumn = document.createElement('td');
+                           statusUserColumn.innerHTML = item.UserEmail;
+
+                           var positionColumn = document.createElement('td');
+                           positionColumn.innerHTML = item.NamePosition;
+
+                           var subdivisionColumn = document.createElement('td');
+                           subdivisionColumn.innerHTML = item.NameSubdivision;
+
+                           var organizationColumn = document.createElement('td');
+                           organizationColumn.innerHTML = item.NameOrganization;
+
+                           var toComeInUserName = document.createElement('button');
+                           toComeInUserName.innerHTML = "To come in";
+                           toComeInUserName.className = 'badge badge-gradient-success';
+                           toComeInUserName.id = item.idDocPositionUser;
+                           toComeInUserName.item = item;
+                           toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
+
+                           var toComeInUserColumn = document.createElement('td');
+                           toComeInUserColumn.appendChild(toComeInUserName);
+
+                           tr.appendChild(statusUserColumn);
+                           tr.appendChild(nameOfYourManagerColumn);
+                           tr.appendChild(positionColumn);
+                           tr.appendChild(subdivisionColumn);
+                           tr.appendChild(organizationColumn);
+                           tr.appendChild(toComeInUserColumn);
+
+                           var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
+
+                           container.appendChild(tr);
+                        });
+                       });
+                  });
+              });
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
 
 /**
 * @return {string}

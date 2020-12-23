@@ -465,6 +465,9 @@ function gridSystemModalNewUserSubmit()
   docRefPosition.collection("PositionUser").add({
   UserEmail: userTitle,
   UserСomment: userСomment,
+  idDocPosition: LocalStoragePosition,
+  idDocSubdivision: LocalStorageSubdivision,
+  idDocOrganization: LocalStorageOrganizationId,
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       $('#gridSystemModalNewUser').modal('toggle');
