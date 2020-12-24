@@ -234,6 +234,7 @@ docRefPosition.collection("PositionSettings")
       editSettings.innerHTML = "Edit";
       editSettings.className = 'badge badge-gradient-success';
       editSettings.id = item.idPositionSettings;
+      editSettings.SettingsTitle = item.SettingsTitle;
       editSettings.setAttribute('onclick', 'editButtonSettings(this)');
 
       var editSettingsColumn = document.createElement('td');
@@ -591,11 +592,31 @@ function editButtonUser(obj)
   */
  function editButtonSettings(obj)
  {
+   let settingsTitleOBJ = obj.SettingsTitle;
+
+   var articleDiv = document.getElementById("exampleInputModalSettingsActiveTransition").innerHTML;
+   // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+   var articleDivOn = '<option>No button</option>';
+   document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
+
+     docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          let settingsTitle = doc.data().SettingsTitle;
+          if (settingsTitle != settingsTitleOBJ){
+            let liLast = document.createElement('option');
+            liLast.innerHTML = settingsTitle;
+            exampleInputModalSettingsActiveTransition.prepend(liLast);
+          }
+      });
+    });
    objIdDocSettings = obj.id;
    var washingtonRef = docRefPosition.collection("PositionSettings").doc(objIdDocSettings);
    washingtonRef.get().then(function(doc) {
      if (doc.exists)
-   {   let settingsTitle = doc.data().SettingsTitle;
+   {
+       let settingsTitle = doc.data().SettingsTitle;
        let settingsСomment = doc.data().SettingsСomment;
        let settingsActiveControl = doc.data().SettingsActiveControl;
        let settingsActiveIntervalMinutes = doc.data().SettingsActiveIntervalMinutes;
@@ -646,6 +667,7 @@ function editButtonUser(obj)
        var modal = document.getElementById('gridSystemModalEditSettings');
        $(document).ready(function(){
          $("#gridSystemModalEditSettings").modal('show');
+         // window.location.reload();
        });
        } else {
          console.log("No such document!");
