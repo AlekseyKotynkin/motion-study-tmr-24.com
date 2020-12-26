@@ -53,7 +53,6 @@ public class UserInfoActivity extends AppCompatActivity {
         getIntentMain();
         getCurrentDate();
         getDataFromDB();
-      ///  userNameEmail = "cay211076@gmail.com";
         addMessage(userNameEmail);
         setOnClickItemPosts ();
         setOnClickItemSesions();
@@ -89,7 +88,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private void getDataFromDB()
     {             // Заполняем табличную часть с Активными сменами
                    db.collection("WorkShift")
-                   .whereEqualTo("EmailPositionUser", "cay211076@gmail.com")
+                   .whereEqualTo("EmailPositionUser", userNameEmail)
                            .whereEqualTo("WorkShiftEnd", "")
                    .get()
                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
@@ -235,7 +234,7 @@ public class UserInfoActivity extends AppCompatActivity {
         if (i != null)
         {
          userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL);
-      //   System.out.println(userNameEmail);
+         System.out.println(userNameEmail);
         }
     }
 }

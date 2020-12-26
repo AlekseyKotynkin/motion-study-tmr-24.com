@@ -350,10 +350,20 @@ public class UserProcessActivity extends AppCompatActivity
                         String settingsActiveDurationSeconds = (String) dataSettingsButton.get("SettingsActiveDurationSeconds");
                         String delimeter = " ";
                         String settingsActiveDurationSecondsFigure = settingsActiveDurationSeconds.split(delimeter)[0];
+                        String settingsActiveDurationSecondsFigureTime = settingsActiveDurationSeconds.split(delimeter)[1];
+                        if (settingsActiveDurationSecondsFigureTime == "minutes")
+                        {
+
+                        };
                         long settingsActiveDurationSecondsLong = Long.parseLong(settingsActiveDurationSecondsFigure);
                         long settingsActiveDurationSecondsLong1000 = settingsActiveDurationSecondsLong*1000;
                         String settingsActiveIntervalMinutes = (String) dataSettingsButton.get("SettingsActiveIntervalMinutes");
                         String settingsActiveIntervalMinutesFigure = settingsActiveIntervalMinutes.split(delimeter)[0];
+                        String settingsActiveIntervalMinutesFigureTime = settingsActiveIntervalMinutes.split(delimeter)[1];
+                        if (settingsActiveIntervalMinutesFigureTime == "seconds")
+                        {
+
+                        };
                         boolean settingsActiveSignal = (boolean) dataSettingsButton.get("SettingsActiveSignal");
 
                                // SettingsActiveTransition

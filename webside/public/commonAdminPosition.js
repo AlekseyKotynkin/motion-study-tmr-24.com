@@ -462,7 +462,17 @@ docRefPosition.collection("PositionSettings")
 function gridSystemModalNewUserSubmit()
 {
   var userTitle = document.getElementById("exampleInputModalUserTitle").value;
+  if (userTitle.length < 1)
+  {
+   alert('Please enter an user name.');
+   return;
+  }
   var userСomment = document.getElementById("exampleInputModalUserСomment").value;
+  if (userСomment.length < 1)
+  {
+   alert('Please enter an comments.');
+   return;
+  }
   docRefPosition.collection("PositionUser").add({
   UserEmail: userTitle,
   UserСomment: userСomment,

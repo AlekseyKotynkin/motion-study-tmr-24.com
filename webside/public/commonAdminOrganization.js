@@ -96,6 +96,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
   function gridSystemModalNewSubdivisionSubmit()
   {
     var subdivisionTitle = document.getElementById("exampleInputModalSubdivisionTitle").value;
+    if (subdivisionTitle.length < 1)
+    {
+     alert('Please enter an subdivision name.');
+     return;
+    }
     var nameOfDepartmentHead = document.getElementById("exampleInputModalSubdivisionNameOfDepartamentHead").value;
     var headOfUnit = document.getElementById("exampleInputModalSubdivisionHeadOfUnit").value;
     // Добавляем в коллекциию организации Подразделения и данные руководителя.
@@ -325,7 +330,17 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
      function gridSystemModalNewPositionSubmit()
      {
        var position_Title = document.getElementById("exampleInputModalPositionTitle").value;
+       if (position_Title.length < 1)
+       {
+        alert('Please enter an position name.');
+        return;
+       }
        var position_Comment = document.getElementById("exampleInputModalPositionСomment").value;
+       if (position_Comment.length < 1)
+       {
+        alert('Please enter an comments.');
+        return;
+       }
        // Добавляем в документ Подразделения должность.
        docRefFull.collection("Position").add({
        Position: position_Title,
