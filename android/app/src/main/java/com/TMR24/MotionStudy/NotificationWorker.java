@@ -27,7 +27,7 @@ public class NotificationWorker extends Worker {
             try {
                 String settingsActiveIntervalMinutes = getInputData().getString("SettingsActiveIntervalMinutes");
                 long settingsActiveIntervalMinutesLong = Long.parseLong(settingsActiveIntervalMinutes);
-                TimeUnit.MINUTES.sleep(settingsActiveIntervalMinutesLong);
+                TimeUnit.SECONDS.sleep(settingsActiveIntervalMinutesLong);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

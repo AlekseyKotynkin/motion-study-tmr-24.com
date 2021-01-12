@@ -7,9 +7,6 @@ public class PositionSettingObjectMap {
     public String idSettingsButton;
     public Map <String, Object> dataSettingsButton;
 
-    public PositionSettingObjectMap() {
-    }
-
     public PositionSettingObjectMap(int idButton, String idSettingsButton, Object dataSettingsButton) {
         this.idButton = idButton;
         this.idSettingsButton = idSettingsButton;
