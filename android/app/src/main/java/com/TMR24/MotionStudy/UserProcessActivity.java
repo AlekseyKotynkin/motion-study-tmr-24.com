@@ -2,6 +2,7 @@ package com.TMR24.MotionStudy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Presentation;
 import android.content.Context;
@@ -39,8 +40,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -55,6 +58,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.common.api.internal.LifecycleActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Continuation;
@@ -89,6 +93,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -101,9 +108,6 @@ import static androidx.lifecycle.Lifecycle.Event.ON_START;
 import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 public class UserProcessActivity extends AppCompatActivity implements LifecycleOwner {
-    //
-    private LifecycleRegistry lifecycleRegistry;
-
     //
     public static final String MESSAGE_STATUS = "message_status";
     private TextView textActivPosition;
@@ -145,25 +149,28 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     private boolean permissionToRecordAccepted = false;
     private String[] permissions = {Manifest.permission.RECORD_AUDIO};
     //переменные для Фото фиксации CameraX
-
     private Presentation view;
-    private Lifecycle lifecycleOwner;
-
+    private LifecycleOwner lifecycleOwner;
+    private Lifecycle lifecycle;
+    private UserProcessActivityObserver locationListener;
+    private ImageAnalysis imageAnalysis;
     private ImageCapture imageCapture;
-    //private ProcessCameraProvider cameraProvider;
-
+    private PreviewView previewView;
+    private ProcessCameraProvider cameraProvider;
+    private Preview preview;
+    private CameraSelector cameraSelector;
+    private ListenableFuture cameraProviderFuture;
     //private Camera camera;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private String currentPhotoPath;
     private String settingsPassivePhotoIntervalSecondsFigure;
     private OneTimeWorkRequest mRequestPassivePhotoInterval;
-
     //переменные для геолокации
     private FusedLocationProviderClient fusedLocationClient;
     private OneTimeWorkRequest mRequestPassiveGeolocationInterval;
     private String settingsPassiveGeolocationIntervalSecondsFigure;
     private GeoPoint locationCoordinates;
-
+    ////
     private String TAG, userNameEmail, parentHierarchyShiftUser, idPosition;
     private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button;
     private Map parentHierarchyPositionUserMap;
@@ -174,21 +181,17 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     final Context context = this;
     //переменные для передачи файлов в Firebase Storage
 
-
     @Override
     //@OnLifecycleEvent(ON_CREATE)
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_process);
-
+        locationListener = new UserProcessActivityObserver(UserProcessActivity.this, UserProcessActivity.this.getLifecycle());
         init();
-
-        GGG();
     }
 
     private void init() {
-        lifecycleOwner = new LifecycleOwner (this);
-        lifecycleOwner.setCurrentState(Lifecycle.State.CREATED);
+
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
@@ -206,7 +209,57 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         soundId = soundPool.load(UserProcessActivity.this, R.raw.return_tone, 1);
         amg = (AudioManager) getSystemService(AUDIO_SERVICE);
-        //переменная для геолокации
+        //переменная для CameraX
+        previewView = findViewById(R.id.previewView);
+        activateTheCamera();
+    }
+    private void activateTheCamera()
+    {   cameraProviderFuture = null;
+        cameraProvider = null;
+        preview = null;
+        imageCapture = null;
+        cameraSelector = null;
+        imageAnalysis = null;
+        cameraProviderFuture = ProcessCameraProvider.getInstance(UserProcessActivity.this);
+        imageAnalysis = new
+                ImageAnalysis.Builder()
+                        .setTargetResolution(new Size(1280, 720))
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build();
+        cameraProviderFuture.addListener(() -> {
+                    try {
+                        // Camera provider is now guaranteed to be available
+                        // Поставщик камеры теперь гарантированно доступен
+                        cameraProvider = (ProcessCameraProvider) cameraProviderFuture.get();
+                        // Set up the view finder use case to display camera preview
+                        // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
+                        preview = new Preview.Builder().build();
+                        // Set up the capture use case to allow users to take photos
+                        // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
+                        imageCapture = new ImageCapture.Builder()
+                                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                                .build();
+                        // Choose the camera by requiring a lens facing
+                        // Выбираем камеру, требуя, чтобы объектив смотрел
+                        cameraSelector = new CameraSelector.Builder()
+                                .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
+                                .build();
+                        // Connect the preview use case to the previewView
+                        // Подключите вариант использования предварительного просмотра к previewView
+                        preview.setSurfaceProvider(previewView.getSurfaceProvider());
+                        ////
+                        cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
+                    } catch (InterruptedException | ExecutionException e) {
+                        // Currently no exceptions thrown. cameraProviderFuture.get()
+                        // shouldn't block since the listener is being called, so no need to
+                        // handle InterruptedException.
+                        // В настоящее время исключений нет. cameraProviderFuture.get ()
+                        // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
+                        // обрабатываем InterruptedException.
+                    }
+                },
+                ContextCompat.getMainExecutor(UserProcessActivity.this));
+        /////////////////
 
     }
     @Override
@@ -214,8 +267,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     //@OnLifecycleEvent(ON_START)
     public void onStart() {
         super.onStart();
-        ((LifecycleRegistry) lifecycleOwner).setCurrentState(Lifecycle.State.STARTED);
-
+        UserProcessActivityObserver.connect();
         Intent i = getIntent();
         if (i != null) {   //window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             //очистили ArrayList
@@ -371,13 +423,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         }
 
     }
-    //@OnLifecycleEvent(ON_RESUME)
-    public void doOnResume() {
-    }
-
-
-
-
 
     //---Операция закрытия рабочей смены и крайнего сдокумента событие смены.---
     public void buttonCloseShift(View view) { //Закрываем рабочую смену
@@ -724,20 +769,27 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             if (settingsPassivePhotoIntervalFigureTime.equals("minutes")) {
                                 long settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60;
                                 settingsPassivePhotoIntervalSecondsFigure = Long.toString(settingsPassivePhotoIntervalMinutesLong);
-                                if (settingsPassivePhotoSmartphoneCamera == true) {
-                                    //запускае первую фото фиксацию камеры со смарфона
-                                    //dispatchTakePictureIntentSmartphoneCamera();
-                                    //запускаем интервал фиксации местоположения
-                                    String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
-                                    WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-                                }else {
-                                    //запускае первую фото фиксацию с камеры IP
-                                    dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
-                                    //запускаем интервал фиксации местоположения
-                                    String requiredСamera = "SettingsPassivePhotoCameraIP";
-                                    WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-
+                            }
+                            boolean settingsPassivePhotoCaptureEventOnClick = (boolean) dataSettingsButton.get("SettingsPassivePhotoCaptureEventOnClick");
+                            if (settingsPassivePhotoSmartphoneCamera == true) {
+                                //запускае первую фото фиксацию камеры со смарфона
+                                if(settingsPassivePhotoCaptureEventOnClick == true)
+                                {
+                                    dispatchTakePictureIntentSmartphoneCamera();
                                 }
+                                //запускаем интервал фиксации местоположения
+                                String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
+                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
+                                /////
+                            }else {
+                                //запускае первую фото фиксацию с камеры IP
+                                if(settingsPassivePhotoCaptureEventOnClick == true)
+                                {
+                                    dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
+                                }
+                                //запускаем интервал фиксации местоположения
+                                String requiredСamera = "SettingsPassivePhotoCameraIP";
+                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
 
                             }
                         }
@@ -757,11 +809,15 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             if (settingsPassiveGeolocationIntervalFigureTime.equals("minutes")) {
                                 long settingsPassiveGeolocationIntervalMinutesLong = settingsPassiveGeolocationIntervalSecondsLong * 60;
                                 settingsPassiveGeolocationIntervalSecondsFigure = Long.toString(settingsPassiveGeolocationIntervalMinutesLong);
-                                //запускае первую фиксацию местоположения
+                            }
+                            //запускае первую фиксацию местоположения
+                            boolean settingsPassiveGeolocationCaptureEventOnClick = (boolean) dataSettingsButton.get("SettingsPassiveGeolocationCaptureEventOnClick");
+                            if(settingsPassiveGeolocationCaptureEventOnClick == true)
+                            {
                                 getCurrentLocationGEO();
-                                //запускаем интервал фиксации местоположения
-                                WaitingForTheQuestionOfPassiveGeolocationInterval();
-                            };
+                            }
+                            //запускаем интервал фиксации местоположения
+                            WaitingForTheQuestionOfPassiveGeolocationInterval();
                         }
                     }
                 }
@@ -773,7 +829,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     private void WaitingForTheQuestionOfActiveControl() {
         //метод ожидания времени запуска
         Data myData = new Data.Builder()
-                .putString("SettingsActiveIntervalMinutes", settingsActiveIntervalMinutesFigure)
+                .putString("Interval_SECONDS", settingsActiveIntervalMinutesFigure)
                 .build();
         mRequest = new OneTimeWorkRequest.Builder(NotificationWorker.class).setInputData(myData).build();
         WorkManager.getInstance().enqueue(mRequest);
@@ -783,7 +839,8 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
             public void onChanged(@Nullable WorkInfo workInfo) {
                 if (workInfo != null) {
                     WorkInfo.State state = workInfo.getState();
-                    if (state == SUCCEEDED) {
+                    if (state == SUCCEEDED)
+                    {
                         //подаем звуковой сигнал
                         if (settingsActiveSignal == true) {
                             int mPlay = soundPool.play(soundId, 1, 1, 1, 0, 1);
@@ -797,8 +854,10 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                                 // .setIcon(R.drawable.ic_android_cat)
                                 .setCancelable(false)
                                 .setNegativeButton("ОК",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
+                                        new DialogInterface.OnClickListener()
+                                        {
+                                            public void onClick(DialogInterface dialog, int id)
+                                            {
                                                 System.out.println("нажали ОК");
                                                 WaitingForTheQuestionOfActiveControl();
                                                 settingsActiveTransitionControl = "forward";
@@ -809,10 +868,12 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         alert.show();
 
                         //закрытие диалогового окна по таймеру
-                        new CountDownTimer(settingsActiveDurationSecondsLong1000, 1000) {
+                        new CountDownTimer(settingsActiveDurationSecondsLong1000, 1000)
+                        {
 
                             @Override
-                            public void onTick(long millisUntilFinished) {
+                            public void onTick(long millisUntilFinished)
+                            {
                                 // TODO Auto-generated method stub
                                 //  mTimer.setText("Осталось: "
                                 //          + millisUntilFinished / 1000);
@@ -820,10 +881,12 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             }
 
                             @Override
-                            public void onFinish() {
+                            public void onFinish()
+                            {
                                 // TODO Auto-generated method stub
                                 // проверяем необходимость запуска нужной кнопки
-                                if (settingsActiveTransitionControl != "forward") {
+                                if (settingsActiveTransitionControl != "forward")
+                                {
                                     ButtonActivationByBackgroundTask(settingsActiveTransition);
                                 }
 
@@ -1043,19 +1106,27 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         if (settingsPassivePhotoIntervalFigureTime.equals("minutes")) {
                             long settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60;
                             settingsPassivePhotoIntervalSecondsFigure = Long.toString(settingsPassivePhotoIntervalMinutesLong);
-                            if (settingsPassivePhotoSmartphoneCamera == true) {
-                                //запускае первую фото фиксацию камеры со смарфона
-                                //dispatchTakePictureIntentSmartphoneCamera();
-                                //запускаем интервал фиксации местоположения
-                                String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
-                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-                               } else {
-                                //запускае первую фото фиксацию с камеры IP
-                                dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
-                                //запускаем интервал фиксации местоположения
-                                String requiredСamera = "SettingsPassivePhotoCameraIP";
-                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
+                        }
+                        boolean settingsPassivePhotoCaptureEventOnClick = (boolean) dataSettingsButtonFor.get("SettingsPassivePhotoCaptureEventOnClick");
+                        if (settingsPassivePhotoSmartphoneCamera == true) {
+                            //запускае первую фото фиксацию камеры со смарфона
+                            if(settingsPassivePhotoCaptureEventOnClick == true)
+                            {
+                                dispatchTakePictureIntentSmartphoneCamera();
                             }
+                            //запускаем интервал фиксации местоположения
+                            String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
+                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
+                            /////
+                        }else {
+                            //запускае первую фото фиксацию с камеры IP
+                            if(settingsPassivePhotoCaptureEventOnClick == true)
+                            {
+                                dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
+                            }
+                            //запускаем интервал фиксации местоположения
+                            String requiredСamera = "SettingsPassivePhotoCameraIP";
+                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
                         }
                     }
                     boolean settingsPassiveVideo = (boolean) dataSettingsButtonFor.get("SettingsPassiveVideo");
@@ -1074,11 +1145,15 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         if (settingsPassiveGeolocationIntervalFigureTime.equals("minutes")) {
                            long settingsPassiveGeolocationIntervalMinutesLong = settingsPassiveGeolocationIntervalSecondsLong * 60;
                             settingsPassiveGeolocationIntervalSecondsFigure = Long.toString(settingsPassiveGeolocationIntervalMinutesLong);
-                            //запускае первую фиксацию местоположения
+                        }
+                        //запускае первую фиксацию местоположения SettingsPassiveGeolocationCaptureEventOnClick
+                        boolean settingsPassiveGeolocationCaptureEventOnClick = (boolean) dataSettingsButtonFor.get("SettingsPassiveGeolocationCaptureEventOnClick");
+                        if(settingsPassiveGeolocationCaptureEventOnClick == true)
+                        {
                             getCurrentLocationGEO();
-                            //запускаем интервал фиксации местоположения
-                            WaitingForTheQuestionOfPassiveGeolocationInterval();
-                        };
+                        }
+                        //запускаем интервал фиксации местоположения
+                        WaitingForTheQuestionOfPassiveGeolocationInterval();
                     }
                 }
             }
@@ -1148,6 +1223,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
             fileName = getExternalCacheDir().getAbsolutePath() + "/audiorecord_" + idDocActivButtonUser + ".m4a";
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setOutputFile(fileName);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC_ELD);
@@ -1221,7 +1297,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     private void WaitingForTheQuestionOfPassiveGeolocationInterval() {
         //метод ожидания времени запуска
         Data myDataGeolocationInterval = new Data.Builder()
-                .putString("SettingsPassiveGeolocationInterval", settingsPassiveGeolocationIntervalSecondsFigure)
+                .putString("Interval_SECONDS", settingsPassiveGeolocationIntervalSecondsFigure)
                 .build();
         mRequestPassiveGeolocationInterval = new OneTimeWorkRequest.Builder(NotificationWorker.class).setInputData(myDataGeolocationInterval).build();
         WorkManager.getInstance().enqueue(mRequestPassiveGeolocationInterval);
@@ -1294,7 +1370,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         // Create an image file name
         // Создаем имя файла изображения
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_"+idDocActivButtonUser+"_" + timeStamp + "_";
+        String imageFileName = "Foto_"+idDocActivButtonUser+"_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         //File storageDir = getExternalCacheDir();
         File image = File.createTempFile(
@@ -1302,18 +1378,13 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         // Сохраняем файл: путь для использования с намерениями ACTION_VIEW
-        currentPhotoPath = image.getAbsolutePath();
+     //   currentPhotoPath = image.getAbsolutePath();
         return image;
     }
     //
     private void dispatchTakePictureIntentSmartphoneCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        // Убедитесь, что есть активность камеры для обработки намерения
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             // Создаем файл, в котором должно быть фото
             File photoFile = null;
@@ -1327,31 +1398,75 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
             // Continue only if the File was successfully created
             // Продолжаем, только если файл был успешно создан
             if (photoFile != null) {
-                Uri photoURI = getUriForFile(UserProcessActivity.this,
-                        "com.TMR24.MotionStudy.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
-                ///////
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                File f = new File(currentPhotoPath);
-
-
-                Uri contentUri = Uri.fromFile(f);
-                mediaScanIntent.setData(contentUri);
-                this.sendBroadcast(mediaScanIntent);
-                System.out.println("Photo file database");
-
+                System.out.println("Photo file add!");
+                startFoto(photoFile);
             }
         }
+    ////////////////////////////
+  public void startFoto (File photoFile){
+        // делаем фото
+        //cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
+        //сохраняем фото в файл
+        ImageCapture.OutputFileOptions.Builder outputFileOptionsBuilder =
+                new ImageCapture.OutputFileOptions.Builder(photoFile);
+            imageCapture.takePicture(outputFileOptionsBuilder.build(), Runnable::run, new ImageCapture.OnImageSavedCallback() {
+            @Override
+            public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                //ggg();
+                Bundle params = new Bundle();
+                params.putString("FILE_PATH", photoFile.getPath());
+                // подготовка к удалению файла
+                Uri file = Uri.fromFile(new File(String.valueOf(photoFile)));
+                // Create the file metadata
+                // Создаем метаданные файла
+                StorageMetadata metadata = new StorageMetadata.Builder()
+                        .setContentType("foto/.jpg")
+                        .build();
+                // Upload file and metadata to the path 'images/mountains.jpg'
+                // Загрузить файл и метаданные по пути images / mountains.jpg'
+                UploadTask uploadTask = storageRef.child("FotoOfEvents/" + file.getLastPathSegment()).putFile(file, metadata);
+                // Listen for state changes, errors, and completion of the upload.
+                // Слушаем изменения состояния, ошибки и завершение загрузки
+                uploadTask.addOnProgressListener(new OnProgressListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = ( 100.0 * taskSnapshot.getBytesTransferred() ) / taskSnapshot.getTotalByteCount();
+                        Log.d(TAG, "Upload is " + progress + "% done");
+                    }
+                }).addOnPausedListener(new OnPausedListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d(TAG, "Upload is paused");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Handle successful uploads on complete
+                        // Обработка успешных загрузок по завершении
+                        File fileDelete = new File(String.valueOf(photoFile));
+                        if (fileDelete.delete()) {
+                            System.out.println("File deleted!");
+                        } else System.out.println("File not found!");
+                    }
+                });
+            }
+            @Override
+            public void onError(@NonNull ImageCaptureException exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
  // ----запуск ожидания PassivePhotoInterval-----
     private void WaitingForTheQuestionOfPassivePhotoInterval(String requiredСamera) {
         //метод ожидания времени запуска
         Data myDataPassivePhotoInterval = new Data.Builder()
-                .putString("SettingsPassivePhotoInterval", settingsPassivePhotoIntervalSecondsFigure)
+                .putString("Interval_SECONDS", settingsPassivePhotoIntervalSecondsFigure)
                 .build();
         mRequestPassivePhotoInterval = new OneTimeWorkRequest.Builder(NotificationWorker.class).setInputData(myDataPassivePhotoInterval).build();
         WorkManager.getInstance().enqueue(mRequestPassivePhotoInterval);
@@ -1415,109 +1530,17 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
        });
     }
 
-////////////////////////////////////////////////
-    public void GGG(){
-
-
-
-
-        //cameraSelector
-        //CameraSelector cameraSelector = new CameraSelector.Builder()
-        //        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-        //        .build();
-
-        //imageAnalysis
-        ImageAnalysis imageAnalysis =
-                new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(1280, 720))
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .build();
-
-        //preview
-        //Preview preview = new Preview.Builder().build();
-
-        //imageCapture
-
-        //ImageCapture imageCapture =
-         //       new ImageCapture.Builder()
-        //                .setTargetRotation(view.getDisplay().getRotation())
-        //                .build();
-
-        //lifecycleOwner
-
-        ListenableFuture cameraProviderFuture =
-                ProcessCameraProvider.getInstance(UserProcessActivity.this);
-
-        cameraProviderFuture.addListener(() -> {
-            try {
-                // Camera provider is now guaranteed to be available
-                // Поставщик камеры теперь гарантированно доступен
-                ProcessCameraProvider cameraProvider = (ProcessCameraProvider) cameraProviderFuture.get();
-
-                // Set up the view finder use case to display camera preview
-                // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
-                Preview preview = new Preview.Builder().build();
-
-                // Set up the capture use case to allow users to take photos
-                // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
-
-                imageCapture = new ImageCapture.Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                        .build();
-
-                // Choose the camera by requiring a lens facing
-                // Выбираем камеру, требуя, чтобы объектив смотрел
-                CameraSelector cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                        .build();
-
-                // Attach use cases to the camera with the same lifecycle owner
-                // Прикрепляем к камере варианты использования с тем же владельцем жизненного цикла
-
-               // lifecycleOwner.addObserver((LifecycleObserver) UserProcessActivity.this);
-                System.out.println("Foto Lifecycle Observe");
-
-                Camera camera = (Camera) cameraProvider.bindToLifecycle((LifecycleOwner) lifecycleOwner, cameraSelector, preview, imageCapture);
-                System.out.println("Foto Test GOOD");
-
-                //
-                //Object lifecycleOwner = Lifecycle.addObserver(LifecycleOwner);
-                //LifecycleOwner lifecycleOwner = getLifecycle().addObserver(new Observer());
-
-                // Connect the preview use case to the previewView
-                // Подключаем вариант использования предварительного просмотра к previewView
-
-                //cameraProvider.bindToLifecycle((LifecycleOwner) lifecycleRegistry, cameraSelector, imageCapture, imageAnalysis, preview);
-
-                //preview.setSurfaceProvider(
-                //        previewView.getSurfaceProvider());
-            } catch (InterruptedException | ExecutionException e) {
-                // Currently no exceptions thrown. cameraProviderFuture.get()
-                // shouldn't block since the listener is being called, so no need to
-                // handle InterruptedException.
-                // В настоящее время исключений нет. cameraProviderFuture.get ()
-                // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
-                // обрабатываем InterruptedException.
-
-                System.out.println("Foto Test Catch");
-
-            }
-        }, ContextCompat.getMainExecutor(UserProcessActivity.this));
-
-        System.out.println("Foto Test");
+// инициализируем настройки для совместной работы с камерой
+    public void initConcurrentUseCases() {
 
     }
 
-
-
-    // @NonNull
-   // @Override
-   // public Lifecycle getLifecycle() {
-   //     return lifecycleRegistry;
-   // }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        UserProcessActivityObserver.disconnect();
+    }
 
 }
-
-
 
 

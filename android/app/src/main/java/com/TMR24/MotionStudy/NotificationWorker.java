@@ -25,7 +25,7 @@ public class NotificationWorker extends Worker {
             //запускает
 
             try {
-                String settingsActiveIntervalMinutes = getInputData().getString("SettingsActiveIntervalMinutes");
+                String settingsActiveIntervalMinutes = getInputData().getString("Interval_SECONDS");
                 long settingsActiveIntervalMinutesLong = Long.parseLong(settingsActiveIntervalMinutes);
                 TimeUnit.SECONDS.sleep(settingsActiveIntervalMinutesLong);
             } catch (InterruptedException e) {
