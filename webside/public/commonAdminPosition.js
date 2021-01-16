@@ -510,8 +510,14 @@ function gridSystemModalNewSettingsSubmit()
   SettingsPassiveDurationSeconds:"0",
   SettingsPassiveAudio: "false",
   SettingsPassivePhoto: "false",
+  SettingsPassivePhotoInterval:"0",
+  SettingsPassivePhotoCaptureEventOnClick:"false",
+  SettingsPassivePhotoSmartphoneCamera: "false",
+  SettingsPassivePhotoCameraIP: "false",
   SettingsPassiveVideo: "false",
   SettingsPassiveGeolocation: "false",
+  SettingsPassiveGeolocationInterval:"0",
+  SettingsPassiveGeolocationCaptureEventOnClick: "false",
   SettingsCommitDescription: "false",
   SettingsResultCapture: "false",
   SettingsResultControlOption1: "",
@@ -638,8 +644,14 @@ function editButtonUser(obj)
        let settingsPassiveDurationSeconds = doc.data().SettingsPassiveDurationSeconds;
        let settingsPassiveAudio = doc.data().SettingsPassiveAudio;
        let settingsPassivePhoto = doc.data().SettingsPassivePhoto;
+       let settingsPassivePhotoSmartphoneCamera = doc.data().SettingsPassivePhotoSmartphoneCamera;
+       let settingsPassivePhotoCameraIP = doc.data().SettingsPassivePhotoCameraIP;
+       let settingsPassivePhotoInterval = doc.data().SettingsPassivePhotoInterval;
+       let settingsPassivePhotoCaptureEventOnClick = doc.data().SettingsPassivePhotoCaptureEventOnClick;
        let settingsPassiveVideo = doc.data().SettingsPassiveVideo;
        let settingsPassiveGeolocation = doc.data().SettingsPassiveGeolocation;
+       let settingsPassiveGeolocationInterval = doc.data().SettingsPassiveGeolocationInterval;
+       let settingsPassiveGeolocationCaptureEventOnClick = doc.data().SettingsPassiveGeolocationCaptureEventOnClick;
        let settingsCommitDescription = doc.data().SettingsCommitDescription;
        let settingsResultCapture = doc.data().SettingsResultCapture;
        let settingsResultControlOption1 = doc.data().SettingsResultControlOption1;
@@ -662,8 +674,14 @@ function editButtonUser(obj)
        document.getElementById('exampleInputModalSettingsPassiveDuration').value = settingsPassiveDurationSeconds;
        document.getElementById('exampleInputModalSettingsPassiveAudio').checked = settingsPassiveAudio;
        document.getElementById('exampleInputModalSettingsPassivePhoto').checked = settingsPassivePhoto;
+       document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked = settingsPassivePhotoSmartphoneCamera;
+       document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked = settingsPassivePhotoCameraIP;
+       document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value = settingsPassivePhotoInterval;
+       document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked = settingsPassivePhotoCaptureEventOnClick;
        document.getElementById('exampleInputModalSettingsPassiveVideo').checked = settingsPassiveVideo;
        document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked = settingsPassiveGeolocation;
+       document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value = settingsPassiveGeolocationInterval;
+       document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked = settingsPassiveGeolocationCaptureEventOnClick;
        document.getElementById('exampleInputModalSettingsCommitDescription').checked = settingsCommitDescription;
        document.getElementById('exampleInputModalSettingsResultControl').checked = settingsResultCapture;
        document.getElementById('exampleInputModalSettingsResultControlOption1').value = settingsResultControlOption1;
@@ -705,8 +723,14 @@ function editButtonUser(obj)
   let settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
   let settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
   let settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
+  let settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
+  let settingsPassivePhotoCameraIP = document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked;
+  let settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
+  let settingsPassivePhotoCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked;
   let settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
   let settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
+  let settingsPassiveGeolocationInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
+  let settingsPassiveGeolocationCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked;
   let settingsCommitDescription = document.getElementById('exampleInputModalSettingsCommitDescription').checked;
   let settingsResultCapture = document.getElementById('exampleInputModalSettingsResultControl').checked;
   let settingsResultControlOption1 = document.getElementById('exampleInputModalSettingsResultControlOption1').value;
@@ -731,8 +755,14 @@ function editButtonUser(obj)
     SettingsPassiveDurationSeconds: settingsPassiveDurationSeconds,
     SettingsPassiveAudio: settingsPassiveAudio,
     SettingsPassivePhoto: settingsPassivePhoto,
+    SettingsPassivePhotoSmartphoneCamera: settingsPassivePhotoSmartphoneCamera,
+    SettingsPassivePhotoCameraIP: settingsPassivePhotoCameraIP,
+    SettingsPassivePhotoInterval: settingsPassivePhotoInterval,
+    SettingsPassivePhotoCaptureEventOnClick: settingsPassivePhotoCaptureEventOnClick,
     SettingsPassiveVideo: settingsPassiveVideo,
     SettingsPassiveGeolocation: settingsPassiveGeolocation,
+    SettingsPassiveGeolocationInterval: settingsPassiveGeolocationInterval,
+    SettingsPassiveGeolocationCaptureEventOnClick: settingsPassiveGeolocationCaptureEventOnClick,
     SettingsCommitDescription: settingsCommitDescription,
     SettingsResultCapture: settingsResultCapture,
     SettingsResultControlOption1: settingsResultControlOption1,

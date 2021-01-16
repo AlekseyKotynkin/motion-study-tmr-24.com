@@ -264,7 +264,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     }
     @Override
     @SuppressLint("ResourceType")
-    //@OnLifecycleEvent(ON_START)
     public void onStart() {
         super.onStart();
         UserProcessActivityObserver.connect();
@@ -761,7 +760,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         if (settingsPassivePhoto == true) {
                             //получаем настройки параметров интервала Фото фиксации
                             String settingsPassivePhotoInterval = (String) dataSettingsButton.get("SettingsPassivePhotoInterval");
-                            boolean settingsPassivePhotoSmartphoneCamera = (boolean) dataSettingsButton.get("SettingsPassivePhotoSmartphoneCamera");
                             String delimeter = " ";
                             settingsPassivePhotoIntervalSecondsFigure = settingsPassivePhotoInterval.split(delimeter)[0];
                             String settingsPassivePhotoIntervalFigureTime = settingsPassivePhotoInterval.split(delimeter)[1];
@@ -770,28 +768,22 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                                 long settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60;
                                 settingsPassivePhotoIntervalSecondsFigure = Long.toString(settingsPassivePhotoIntervalMinutesLong);
                             }
+                            boolean settingsPassivePhotoSmartphoneCamera = (boolean) dataSettingsButton.get("SettingsPassivePhotoSmartphoneCamera");
+                            boolean settingsPassivePhotoCameraIP = (boolean) dataSettingsButton.get("SettingsPassivePhotoCameraIP");
                             boolean settingsPassivePhotoCaptureEventOnClick = (boolean) dataSettingsButton.get("SettingsPassivePhotoCaptureEventOnClick");
-                            if (settingsPassivePhotoSmartphoneCamera == true) {
+                            if (settingsPassivePhotoCaptureEventOnClick == true) {
                                 //запускае первую фото фиксацию камеры со смарфона
-                                if(settingsPassivePhotoCaptureEventOnClick == true)
-                                {
+                                if (settingsPassivePhotoSmartphoneCamera == true) {
+                                    //запускаем фото фиксацию камеры со смарфона
                                     dispatchTakePictureIntentSmartphoneCamera();
                                 }
-                                //запускаем интервал фиксации местоположения
-                                String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
-                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-                                /////
-                            }else {
-                                //запускае первую фото фиксацию с камеры IP
-                                if(settingsPassivePhotoCaptureEventOnClick == true)
-                                {
+                                if(settingsPassivePhotoCameraIP == true){
+                                    //запускае первую фото фиксацию с камеры IP
                                     dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
                                 }
-                                //запускаем интервал фиксации местоположения
-                                String requiredСamera = "SettingsPassivePhotoCameraIP";
-                                WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-
                             }
+                            //запускаем интервал фиксации местоположения
+                            WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera,settingsPassivePhotoCameraIP);
                         }
                         boolean settingsPassiveVideo = (boolean) dataSettingsButton.get("SettingsPassiveVideo");
                         if (settingsPassiveVideo == true) {
@@ -1098,7 +1090,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                     if (settingsPassivePhoto == true) {
                         //получаем настройки параметров интервала Фото фиксации
                         String settingsPassivePhotoInterval = (String) dataSettingsButtonFor.get("SettingsPassivePhotoInterval");
-                        boolean settingsPassivePhotoSmartphoneCamera = (boolean) dataSettingsButtonFor.get("SettingsPassivePhotoSmartphoneCamera");
                         String delimeter = " ";
                         settingsPassivePhotoIntervalSecondsFigure = settingsPassivePhotoInterval.split(delimeter)[0];
                         String settingsPassivePhotoIntervalFigureTime = settingsPassivePhotoInterval.split(delimeter)[1];
@@ -1107,27 +1098,30 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             long settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60;
                             settingsPassivePhotoIntervalSecondsFigure = Long.toString(settingsPassivePhotoIntervalMinutesLong);
                         }
+                        boolean settingsPassivePhotoSmartphoneCamera = (boolean) dataSettingsButtonFor.get("SettingsPassivePhotoSmartphoneCamera");
+                        boolean settingsPassivePhotoCameraIP = (boolean) dataSettingsButtonFor.get("SettingsPassivePhotoCameraIP");
                         boolean settingsPassivePhotoCaptureEventOnClick = (boolean) dataSettingsButtonFor.get("SettingsPassivePhotoCaptureEventOnClick");
-                        if (settingsPassivePhotoSmartphoneCamera == true) {
+                        if (settingsPassivePhotoCaptureEventOnClick == true) {
                             //запускае первую фото фиксацию камеры со смарфона
-                            if(settingsPassivePhotoCaptureEventOnClick == true)
-                            {
-                                dispatchTakePictureIntentSmartphoneCamera();
-                            }
-                            //запускаем интервал фиксации местоположения
-                            String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
-                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-                            /////
-                        }else {
-                            //запускае первую фото фиксацию с камеры IP
-                            if(settingsPassivePhotoCaptureEventOnClick == true)
-                            {
-                                dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
-                            }
-                            //запускаем интервал фиксации местоположения
-                            String requiredСamera = "SettingsPassivePhotoCameraIP";
-                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
+                                if (settingsPassivePhotoSmartphoneCamera == true) {
+                                    //запускаем фото фиксацию камеры со смарфона
+                                    dispatchTakePictureIntentSmartphoneCamera();
+                                }
+                                if(settingsPassivePhotoCameraIP == true){
+                                    //запускае первую фото фиксацию с камеры IP
+                                    dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
+                                }
                         }
+                        //запускаем интервал фиксации местоположения
+                        WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera,settingsPassivePhotoCameraIP);
+                       // if (settingsPassivePhotoSmartphoneCamera == true) {
+                            //запускаем фото фиксацию камеры со смарфона
+                       //    dispatchTakePictureIntentSmartphoneCamera();
+                       // }
+                       // if(settingsPassivePhotoCameraIP == true){
+                            //запускае первую фото фиксацию с камеры IP
+                       //     dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
+                       // }
                     }
                     boolean settingsPassiveVideo = (boolean) dataSettingsButtonFor.get("SettingsPassiveVideo");
                     if (settingsPassiveVideo == true) {
@@ -1463,7 +1457,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     }
 
  // ----запуск ожидания PassivePhotoInterval-----
-    private void WaitingForTheQuestionOfPassivePhotoInterval(String requiredСamera) {
+    private void WaitingForTheQuestionOfPassivePhotoInterval(boolean settingsPassivePhotoSmartphoneCamera,boolean settingsPassivePhotoCameraIP) {
         //метод ожидания времени запуска
         Data myDataPassivePhotoInterval = new Data.Builder()
                 .putString("Interval_SECONDS", settingsPassivePhotoIntervalSecondsFigure)
@@ -1477,18 +1471,15 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                 if (workInfo != null) {
                     WorkInfo.State state = workInfo.getState();
                     if (state == SUCCEEDED) {
-                        if (requiredСamera == "SettingsPassivePhotoSmartphoneCamera") {
-                            //запускае первую фото фиксацию камеры со смарфона
+                        //запускаем интервал фиксации местоположения
+                        WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera, settingsPassivePhotoCameraIP);
+                        if (settingsPassivePhotoSmartphoneCamera == true) {
+                            //запускаем фото фиксацию камеры со смарфона
                             dispatchTakePictureIntentSmartphoneCamera();
-                            //запускаем интервал фиксации местоположения
-                            String requiredСamera = "SettingsPassivePhotoSmartphoneCamera";
-                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
-                        } else {
+                        }
+                        if(settingsPassivePhotoCameraIP == true){
                             //запускае первую фото фиксацию с камеры IP
                             dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
-                            //запускаем интервал фиксации местоположения
-                            String requiredСamera = "SettingsPassivePhotoCameraIP";
-                            WaitingForTheQuestionOfPassivePhotoInterval(requiredСamera);
                         }
 
                     }
