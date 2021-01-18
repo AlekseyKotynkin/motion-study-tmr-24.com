@@ -214,51 +214,62 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         activateTheCamera();
     }
     private void activateTheCamera()
-    {   cameraProviderFuture = null;
-        cameraProvider = null;
-        preview = null;
-        imageCapture = null;
-        cameraSelector = null;
-        imageAnalysis = null;
-        cameraProviderFuture = ProcessCameraProvider.getInstance(UserProcessActivity.this);
-        imageAnalysis = new
-                ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(1280, 720))
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .build();
-        cameraProviderFuture.addListener(() -> {
-                    try {
-                        // Camera provider is now guaranteed to be available
-                        // Поставщик камеры теперь гарантированно доступен
-                        cameraProvider = (ProcessCameraProvider) cameraProviderFuture.get();
-                        // Set up the view finder use case to display camera preview
-                        // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
-                        preview = new Preview.Builder().build();
-                        // Set up the capture use case to allow users to take photos
-                        // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
-                        imageCapture = new ImageCapture.Builder()
-                                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                                .build();
-                        // Choose the camera by requiring a lens facing
-                        // Выбираем камеру, требуя, чтобы объектив смотрел
-                        cameraSelector = new CameraSelector.Builder()
-                                .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
-                                .build();
-                        // Connect the preview use case to the previewView
-                        // Подключите вариант использования предварительного просмотра к previewView
-                        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-                        ////
-                        cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
-                    } catch (InterruptedException | ExecutionException e) {
-                        // Currently no exceptions thrown. cameraProviderFuture.get()
-                        // shouldn't block since the listener is being called, so no need to
-                        // handle InterruptedException.
-                        // В настоящее время исключений нет. cameraProviderFuture.get ()
-                        // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
-                        // обрабатываем InterruptedException.
-                    }
-                },
-                ContextCompat.getMainExecutor(UserProcessActivity.this));
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cameraProviderFuture = null;
+            cameraProvider = null;
+            preview = null;
+            imageCapture = null;
+            cameraSelector = null;
+            imageAnalysis = null;
+            cameraProviderFuture = ProcessCameraProvider.getInstance(UserProcessActivity.this);
+            imageAnalysis = new
+                    ImageAnalysis.Builder()
+                            .setTargetResolution(new Size(1280, 720))
+                            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                            .build();
+            cameraProviderFuture.addListener(() -> {
+                        try {
+                            // Camera provider is now guaranteed to be available
+                            // Поставщик камеры теперь гарантированно доступен
+                            cameraProvider = (ProcessCameraProvider) cameraProviderFuture.get();
+                            // Set up the view finder use case to display camera preview
+                            // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
+                            preview = new Preview.Builder().build();
+                            // Set up the capture use case to allow users to take photos
+                            // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
+                            imageCapture = new ImageCapture.Builder()
+                                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                                    .build();
+                            // Choose the camera by requiring a lens facing
+                            // Выбираем камеру, требуя, чтобы объектив смотрел
+                            cameraSelector = new CameraSelector.Builder()
+                                    .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
+                                    .build();
+                            // Connect the preview use case to the previewView
+                            // Подключите вариант использования предварительного просмотра к previewView
+                            preview.setSurfaceProvider(previewView.getSurfaceProvider());
+                            ////
+                            cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
+                        } catch (InterruptedException | ExecutionException e) {
+                            // Currently no exceptions thrown. cameraProviderFuture.get()
+                            // shouldn't block since the listener is being called, so no need to
+                            // handle InterruptedException.
+                            // В настоящее время исключений нет. cameraProviderFuture.get ()
+                            // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
+                            // обрабатываем InterruptedException.
+                        }
+                    },
+                    ContextCompat.getMainExecutor(UserProcessActivity.this));
+
+        }else{
+            // Use Camera1
+            Toast.makeText(UserProcessActivity.this, "This device does not support CameraX operation.", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
         /////////////////
 
     }

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.TMR24.MotionStudy">
     <uses-sdk android:targetSdkVersion="29"
-              android:minSdkVersion="21" />
-
+              android:minSdkVersion="17"
+              tools:overrideLibrary="androidx.camera.view, androidx.camera.camera2, androidx.camera.lifecycle, androidx.camera.core, androidx.camera.extensions" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
