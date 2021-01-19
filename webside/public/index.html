@@ -43,7 +43,15 @@
     <script type="text/javascript">
      if (localStorage.length > 0)
      {
-     window.location.replace("indexAdmin.html");
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'firebaseui::rememberedAccounts')
+            {
+              window.location.replace("indexAdmin.html");
+            }
+          }
      }
     </script>
     <!-- Plugin css for this page -->
