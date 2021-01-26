@@ -2,14 +2,12 @@ package com.TMR24.MotionStudy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Presentation;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.location.Location;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
@@ -21,15 +19,18 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Size;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,19 +47,14 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.OnLifecycleEvent;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.common.api.internal.LifecycleActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Continuation;
@@ -93,18 +89,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.RECORD_AUDIO;
-import static androidx.core.content.FileProvider.getUriForFile;
-import static androidx.lifecycle.Lifecycle.Event.ON_CREATE;
-import static androidx.lifecycle.Lifecycle.Event.ON_RESUME;
-import static androidx.lifecycle.Lifecycle.Event.ON_START;
 import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 public class UserProcessActivity extends AppCompatActivity implements LifecycleOwner {
@@ -172,14 +160,18 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
     private GeoPoint locationCoordinates;
     ////
     private String TAG, userNameEmail, parentHierarchyShiftUser, idPosition;
-    private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button;
+    private Button buttonCloseShift, buttonExpect, buttonOther, buttonGone, button, buttonFoto, buttonFotoCansel;
     private Map parentHierarchyPositionUserMap;
     private List < PositionSettingObjectMap > PositionSettingsMap = new ArrayList();
     private List < Button > ButtonMap = new ArrayList();
     private LinearLayout linearLayoutButton;
+    private FrameLayout containerPreviewView;
     private Window window;
     final Context context = this;
-    //переменные для передачи файлов в Firebase Storage
+    //переменные для списка заметок List
+    private Map < String, Object > PositionSettingsNoteListMap = new HashMap <>();
+    private Map < String, Object > PositionSettingsNoteTrafficMap = new HashMap <>();
+
 
     @Override
     //@OnLifecycleEvent(ON_CREATE)
@@ -188,6 +180,13 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         setContentView(R.layout.activity_user_process);
         locationListener = new UserProcessActivityObserver(UserProcessActivity.this, UserProcessActivity.this.getLifecycle());
         init();
+    }
+    //menu верхней правой части экрана
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_user_process_activity, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void init() {
@@ -202,6 +201,9 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         buttonExpect = findViewById(R.id.buttonExpect);
         buttonOther = findViewById(R.id.buttonOther);
         buttonGone = findViewById(R.id.buttonGone);
+        buttonFoto = findViewById(R.id.buttonFoto);
+        buttonFotoCansel = findViewById(R.id.buttonFotoCansel);
+        containerPreviewView =findViewById(R.id.container);
         window = getWindow();
         // переменная для фоновых задач
         mWorkManager = WorkManager.getInstance();
@@ -244,7 +246,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             // Choose the camera by requiring a lens facing
                             // Выбираем камеру, требуя, чтобы объектив смотрел
                             cameraSelector = new CameraSelector.Builder()
-                                    .requireLensFacing(CameraSelector.LENS_FACING_FRONT)
+                                    .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                                     .build();
                             // Connect the preview use case to the previewView
                             // Подключите вариант использования предварительного просмотра к previewView
@@ -402,6 +404,40 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                                     PositionSettingsMap.add(positionSettingsObject);
                                     //публикуем
                                     linearLayoutButton.addView(button);
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            //получаем настройки заметок List для текущей должности PositionSettingsNoteList
+            docRefPosition.collection("PositionSettingsNoteList")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener < QuerySnapshot >() {
+                        @Override
+                        public void onComplete(@NonNull Task < QuerySnapshot > task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    //достаем название и настройки
+                                    PositionSettingsNoteListMap = document.getData();
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            //получаем настройки заметок Traffic для текущей должности PositionSettingsNoteTrafficMap
+            docRefPosition.collection("PositionSettingsNoteTrafic")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener < QuerySnapshot >() {
+                        @Override
+                        public void onComplete(@NonNull Task < QuerySnapshot > task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    //достаем название и настройки
+                                    PositionSettingsNoteTrafficMap = document.getData();
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
@@ -957,7 +993,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             }
                         }
                         boolean settingsPassiveVideo = (boolean) dataSettingsButton.get("SettingsPassiveVideo");
-                        if (settingsPassiveAudio == true) {
+                        if (settingsPassiveVideo == true) {
                             //
                         }
                         boolean settingsPassiveGeolocation = (boolean) dataSettingsButton.get("SettingsPassiveGeolocation");
@@ -1026,7 +1062,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         activeButton = (Button) s;
                     }
                 }
-                // Map dataSettingsButton = h.dataSettingsButton;
                 NameDocProcessButton = (String) dataSettingsButtonFor.get("SettingsTitle");
                 //активизируем процесс по нажатию кнопки
                 if (activeButtonControl != null) {
@@ -1364,14 +1399,9 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         } else {
             requestPermission();
         }
-
-
-
     }
-
     //создаем адрес и название файла фото фиксации c камеры смартфона
-
-    private File createImageFile() throws IOException {
+  private File createImageFile() throws IOException {
         // Create an image file name
         // Создаем имя файла изображения
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -1389,7 +1419,7 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
         return image;
     }
     //
-    private void dispatchTakePictureIntentSmartphoneCamera() {
+  private void dispatchTakePictureIntentSmartphoneCamera() {
             // Create the File where the photo should go
             // Создаем файл, в котором должно быть фото
             File photoFile = null;
@@ -1466,7 +1496,6 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
             }
         });
     }
-
  // ----запуск ожидания PassivePhotoInterval-----
     private void WaitingForTheQuestionOfPassivePhotoInterval(boolean settingsPassivePhotoSmartphoneCamera,boolean settingsPassivePhotoCameraIP) {
         //метод ожидания времени запуска
@@ -1492,23 +1521,17 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                             //запускае первую фото фиксацию с камеры IP
                             dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
                         }
-
                     }
-
                 }
             }
         });
     }
-
     //создаем адрес и название файла фото фиксации c камеры IP
-
     private Task<String> dispatchTakePictureIntentCameraIP(String text)
     {  //Отправляем и получаем обработанные данные с сервера списком в каких должностях принимает участие пользователь
-
        Map<String, Object> data = new HashMap<>();
        data.put("text", text);
        data.put("push", true);
-
        return mFunctions
           .getHttpsCallable("addDispatchTakePictureIntentCameraIP")
           .call(data)
@@ -1525,16 +1548,538 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
               String functionResult = (String) rezult.get("text");
               //задержка
               Thread.sleep(10000);
-
-
               return functionResult;
           }
        });
     }
+    //обработка выбора в верхнем меню
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Операции для выбранного пункта меню
+        switch (item.getItemId())
+        {
+            case R.id.note_traffic:
+                noteTraffic();
+                return true;
+            case R.id.note_text:
+                noteText();
+                return true;
+            case R.id.note_list:
+                noteList();
+                return true;
+            case R.id.note_foto:
+                noteFoto();
+                return true;
+        //    case R.id.note_video:
+        //        noteVideo();
+        //        return true;
+            case R.id.note_audio:
+                noteAudio();
+                return true;
+            case R.id.note_geo:
+                noteGEO();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-// инициализируем настройки для совместной работы с камерой
-    public void initConcurrentUseCases() {
+    public void noteTraffic()
+    {
+        if ( PositionSettingsNoteTrafficMap != null)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+            builder.setTitle("Select traffic source");
+            final List < String > settings_array_note_traffic = new ArrayList <>();
+            String settingsNoteTrafficOption1 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption1");
+            if (settingsNoteTrafficOption1 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption1);
+            }
+            String settingsNoteTrafficOption2 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption2");
+            if (settingsNoteTrafficOption2 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption2);
+            }
+            String settingsNoteTrafficOption3 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption3");
+            if (settingsNoteTrafficOption3 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption3);
+            }
+            String settingsNoteTrafficOption4 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption4");
+            if (settingsNoteTrafficOption4 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption4);
+            }
+            String settingsNoteTrafficOption5 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption5");
+            if (settingsNoteTrafficOption5 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption5);
+            }
+            String settingsNoteTrafficOption6 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption6");
+            if (settingsNoteTrafficOption6 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption6);
+            }
+            String settingsNoteTrafficOption7 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption7");
+            if (settingsNoteTrafficOption7 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption7);
+            }
+            String settingsNoteTrafficOption8 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption8");
+            if (settingsNoteTrafficOption8 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption8);
+            }
+            String settingsNoteTrafficOption9 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption9");
+            if (settingsNoteTrafficOption9 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption9);
+            }
+            String settingsNoteTrafficOption10 = (String) PositionSettingsNoteTrafficMap.get("SettingsNoteTrafficOption10");
+            if (settingsNoteTrafficOption10 != "") {
+                settings_array_note_traffic.add(settingsNoteTrafficOption10);
+            }
+            if (settings_array_note_traffic.size() != 0) {
+                ArrayAdapter < String > dataAdapter = new ArrayAdapter < String >(UserProcessActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, settings_array_note_traffic);
+                builder.setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(UserProcessActivity.this, "You have selected " + settings_array_note_traffic.get(which), Toast.LENGTH_LONG).show();
+                        String resultControlButton = settings_array_note_traffic.get(which);
+                        //добавляем документ
+                        // Add a new document with a generated id.
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("NoteSource", "note_traffic");
+                        data.put("NoteParent", idDocActivButtonUser);
+                        data.put("NoteTime", FieldValue.serverTimestamp());
+                        data.put("NoteText", resultControlButton);
+                        data.put("NoteUser", userNameEmail);
+                        data.put("NoteStatus", "false");
+                        data.put("NoteComment", "");
+                        db.collection("Note")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
+    }
+    //диалоговое окно для текстовой заметки
+    public void noteText()
+    {  //открываем окно для заметки
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.prompt, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+        builder.setView(promptsView);
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
+        builder.setTitle("Write a note")
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //получаем текст комментария
+                                String noteText = userInput.getText().toString();
+                                //создаем документ
+                                // Add a new document with a generated id.
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("NoteSource", "note_text");
+                                data.put("NoteParent", idDocActivButtonUser);
+                                data.put("NoteTime", FieldValue.serverTimestamp());
+                                data.put("NoteText", noteText);
+                                data.put("NoteUser", userNameEmail);
+                                data.put("NoteStatus", "");
+                                data.put("NoteComment", "");
+                                db.collection("Note")
+                                        .add(data)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error adding document", e);
+                                            }
+                                        });
+                            }
+                        })
+                .setNegativeButton("Cansel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
+    public void noteList()
+    {
+        if ( PositionSettingsNoteListMap != null)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+            builder.setTitle("Select note");
+            final List < String > settings_array_note_list = new ArrayList <>();
+            String settingsNoteListOption1 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption1");
+            if (settingsNoteListOption1 != "") {
+                settings_array_note_list.add(settingsNoteListOption1);
+            }
+            String settingsNoteListOption2 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption2");
+            if (settingsNoteListOption2 != "") {
+                settings_array_note_list.add(settingsNoteListOption2);
+            }
+            String settingsNoteListOption3 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption3");
+            if (settingsNoteListOption3 != "") {
+                settings_array_note_list.add(settingsNoteListOption3);
+            }
+            String settingsNoteListOption4 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption4");
+            if (settingsNoteListOption4 != "") {
+                settings_array_note_list.add(settingsNoteListOption4);
+            }
+            String settingsNoteListOption5 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption5");
+            if (settingsNoteListOption5 != "") {
+                settings_array_note_list.add(settingsNoteListOption5);
+            }
+            String settingsNoteListOption6 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption6");
+            if (settingsNoteListOption6 != "") {
+                settings_array_note_list.add(settingsNoteListOption6);
+            }
+            String settingsNoteListOption7 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption7");
+            if (settingsNoteListOption7 != "") {
+                settings_array_note_list.add(settingsNoteListOption7);
+            }
+            String settingsNoteListOption8 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption8");
+            if (settingsNoteListOption8 != "") {
+                settings_array_note_list.add(settingsNoteListOption8);
+            }
+            String settingsNoteListOption9 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption9");
+            if (settingsNoteListOption9 != "") {
+                settings_array_note_list.add(settingsNoteListOption9);
+            }
+            String settingsNoteListOption10 = (String) PositionSettingsNoteListMap.get("SettingsNoteListOption10");
+            if (settingsNoteListOption10 != "") {
+                settings_array_note_list.add(settingsNoteListOption10);
+            }
+            if (settings_array_note_list.size() != 0) {
+                ArrayAdapter < String > dataAdapter = new ArrayAdapter < String >(UserProcessActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, settings_array_note_list);
+                builder.setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(UserProcessActivity.this, "You have selected " + settings_array_note_list.get(which), Toast.LENGTH_LONG).show();
+                        String resultControlButton = settings_array_note_list.get(which);
+                        //добавляем документ
+                        //создаем документ
+                        // Add a new document with a generated id.
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("NoteSource", "note_list");
+                        data.put("NoteParent", idDocActivButtonUser);
+                        data.put("NoteTime", FieldValue.serverTimestamp());
+                        data.put("NoteText", resultControlButton);
+                        data.put("NoteUser", userNameEmail);
+                        data.put("NoteStatus", "");
+                        data.put("NoteComment", "");
+
+                        db.collection("Note")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
+    }
+    //открываем экран для трансляции камеры
+    public void noteFoto()
+    {  // скрываем кнопки основного экрана и показываем для камеры
+        linearLayoutButton.setVisibility(View.GONE);
+        buttonExpect.setVisibility(View.GONE);
+        buttonOther.setVisibility(View.GONE);
+        buttonGone.setVisibility(View.GONE);
+        containerPreviewView.setVisibility(View.VISIBLE);
+        buttonFoto.setVisibility(View.VISIBLE);
+        buttonFotoCansel.setVisibility(View.VISIBLE);
+    }
+    //делаем Фото заметку
+    public void buttonFotoOpen(View view)
+    {
+        // Создаем файл, в котором должно быть фото
+        File photoFile = null;
+        try {
+            photoFile = createFotoNoteImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            // Ошибка при создании файла
+            System.out.println("Photo file not created!");
+        }
+        // Continue only if the File was successfully created
+        // Продолжаем, только если файл был успешно создан
+        if (photoFile != null) {
+            System.out.println("Photo file add!");
+            startFotoNote(photoFile);
+        }
+        // скрываем кнопки основного экрана и показываем для камеры
+        containerPreviewView.setVisibility(View.GONE);
+        buttonFoto.setVisibility(View.GONE);
+        buttonFotoCansel.setVisibility(View.GONE);
+        linearLayoutButton.setVisibility(View.VISIBLE);
+        buttonExpect.setVisibility(View.VISIBLE);
+        buttonOther.setVisibility(View.VISIBLE);
+        buttonGone.setVisibility(View.VISIBLE);
+
+    }
+    //создаем адрес и название файла фото фиксации c камеры смартфона
+    private File createFotoNoteImageFile() throws IOException {
+        // Create an image file name
+        // Создаем имя файла изображения
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "FotoNote_"+idDocActivButtonUser+"_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        //File storageDir = getExternalCacheDir();
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        // Сохраняем файл: путь для использования с намерениями ACTION_VIEW
+        //   currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+    ////////////////////////////
+    public void startFotoNote (File photoFile){
+        // делаем фото
+        //cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
+        //сохраняем фото в файл
+        ImageCapture.OutputFileOptions.Builder outputFileOptionsBuilder =
+                new ImageCapture.OutputFileOptions.Builder(photoFile);
+        imageCapture.takePicture(outputFileOptionsBuilder.build(), Runnable::run, new ImageCapture.OnImageSavedCallback() {
+            @Override
+            public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                //ggg();
+                Bundle params = new Bundle();
+                params.putString("FILE_PATH", photoFile.getPath());
+                // подготовка к удалению файла
+                Uri file = Uri.fromFile(new File(String.valueOf(photoFile)));
+                // Create the file metadata
+                // Создаем метаданные файла
+                StorageMetadata metadata = new StorageMetadata.Builder()
+                        .setContentType("foto/.jpg")
+                        .build();
+                // Upload file and metadata to the path 'images/mountains.jpg'
+                // Загрузить файл и метаданные по пути images / mountains.jpg'
+                UploadTask uploadTask = storageRef.child("FotoOfNote/" + file.getLastPathSegment()).putFile(file, metadata);
+                // Listen for state changes, errors, and completion of the upload.
+                // Слушаем изменения состояния, ошибки и завершение загрузки
+                uploadTask.addOnProgressListener(new OnProgressListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = ( 100.0 * taskSnapshot.getBytesTransferred() ) / taskSnapshot.getTotalByteCount();
+                        Log.d(TAG, "Upload is " + progress + "% done");
+                    }
+                }).addOnPausedListener(new OnPausedListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d(TAG, "Upload is paused");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener < UploadTask.TaskSnapshot >() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Handle successful uploads on complete
+                        // Обработка успешных загрузок по завершении
+                        File fileDelete = new File(String.valueOf(photoFile));
+                        if (fileDelete.delete()) {
+                            System.out.println("File deleted!");
+                        } else System.out.println("File not found!");
+                    }
+                });
+            }
+            @Override
+            public void onError(@NonNull ImageCaptureException exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+    //отмена экрана вывода фото заметки
+    public void buttonFotoCansel(View view)
+    { // скрываем кнопки основного экрана и показываем для камеры
+        containerPreviewView.setVisibility(View.GONE);
+        buttonFoto.setVisibility(View.GONE);
+        buttonFotoCansel.setVisibility(View.GONE);
+        linearLayoutButton.setVisibility(View.VISIBLE);
+        buttonExpect.setVisibility(View.VISIBLE);
+        buttonOther.setVisibility(View.VISIBLE);
+        buttonGone.setVisibility(View.VISIBLE);
+    }
+ //   public void noteVideo()
+ //   {
+        // edtext.setText("Выбран пункт Справка");
+ //   }
+    //запускаем запись аудио заметки
+    public void noteAudio() {
+        if (recorder == null) {
+            if (checkPermission()) {
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String fileNameNote = getExternalCacheDir().getAbsolutePath() + "/audioNote_" + idDocActivButtonUser + "_" + timeStamp + "_" + ".m4a";
+                recorder = new MediaRecorder();
+                recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+                recorder.setOutputFile(fileNameNote);
+                recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC_ELD);
+                try {
+                    recorder.prepare();
+                    recorder.start();
+                } catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                Toast.makeText(UserProcessActivity.this, "Recording started",
+                        Toast.LENGTH_LONG).show();
+                        noteAudioStop(fileNameNote);
+            } else {
+                requestPermission();
+            }
+        }
+        Toast.makeText(UserProcessActivity.this, "Recording active",
+                Toast.LENGTH_LONG).show();
+    }
+    //открываем диалоговое окно для остановки записи аудио заметки
+    public void noteAudioStop(String fileNameNote)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProcessActivity.this);
+        builder.setTitle("Recording an audio note!");
+    //    builder.setMessage(content);
+        builder.setPositiveButton("Stop",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        recorder.stop();
+                        recorder.reset();
+                        recorder.release();
+                        recorder = null;
+                        Toast.makeText(UserProcessActivity.this, "Recording stop",
+                                Toast.LENGTH_LONG).show();
+                        // File or Blob
+                        // Файл или Blob
+                        Uri file = Uri.fromFile(new File(fileNameNote));
+                        // Create the file metadata
+                        // Создаем метаданные файла
+                        StorageMetadata metadata = new StorageMetadata.Builder()
+                                .setContentType("audio/.mp4")
+                                .build();
+                        // Upload file and metadata to the path 'images/mountains.jpg'
+                        // Загрузить файл и метаданные по пути images / mountains.jpg'
+                        UploadTask uploadTask = storageRef.child("AudioRecordingOfNote/" + file.getLastPathSegment()).putFile(file, metadata);
+                        // Listen for state changes, errors, and completion of the upload.
+                        // Слушаем изменения состояния, ошибки и завершение загрузки
+                        uploadTask.addOnProgressListener(new OnProgressListener < UploadTask.TaskSnapshot >() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = ( 100.0 * taskSnapshot.getBytesTransferred() ) / taskSnapshot.getTotalByteCount();
+                                Log.d(TAG, "Upload is " + progress + "% done");
+                            }
+                        }).addOnPausedListener(new OnPausedListener < UploadTask.TaskSnapshot >() {
+                            @Override
+                            public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                                Log.d(TAG, "Upload is paused");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener < UploadTask.TaskSnapshot >() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Handle successful uploads on complete
+                                // Обработка успешных загрузок по завершении
+                                // ...
+                                File fileDelete = new File(fileNameNote);
+                                if (fileDelete.delete()) {
+                                    System.out.println("File deleted!");
+                                } else System.out.println("File not found!");
+                            }
+                        });
+                    }
+                });
+        // устанавливаем кнопку, которая отвечает за выбранный нами ответ
+        // в данном случаем мы просто хотим всплывающее окно с отменой
+        builder.show();
+    }
+    public void noteGEO()
+    {
+        if (checkPermission()) {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(UserProcessActivity.this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(UserProcessActivity.this, new OnSuccessListener < Location >() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                GeoPoint locationCoordinates = new GeoPoint(latitude,longitude);
+                                //создаем документ
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("NoteSource", "note_geo");
+                                data.put("NoteParent", idDocActivButtonUser);
+                                data.put("NoteTime", FieldValue.serverTimestamp());
+                                data.put("NoteText", locationCoordinates);
+                                data.put("NoteUser", userNameEmail);
+                                data.put("NoteStatus", "false");
+                                data.put("NoteComment", "");
+
+                                db.collection("Note")
+                                        .add(data)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error adding document", e);
+                                            }
+                                        });
+                            }
+                        }
+                    });
+            return;
+        } else {
+            requestPermission();
+        }
     }
 
     @Override

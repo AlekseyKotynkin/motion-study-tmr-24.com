@@ -31,4 +31,14 @@
     <string name="shift_history">Shift history</string>
     <string name="back">Back</string>
     <string name="shift_histories">Shift histories</string>
+    <string name="note_traffic">Note "Traffic"</string>
+    <string name="note_text">Note "Text"</string>
+    <string name="note_list">Note "List"</string>
+    <string name="note_foto">Note "Foto"</string>
+    <string name="note_video">Note "Video"</string>
+    <string name="note_audio">Note "Audio"</string>
+    <string name="note_geo">Note "GEO"</string>
+    <string name="foto">Foto</string>
+    <string name="cansel">Cansel</string>
+
 </resources>
