@@ -319,6 +319,7 @@
                </div>
              </div>
            </div>
+           <!-- Таблица Активный контроль активности. -->
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
@@ -445,9 +446,9 @@
               <div class="card">
                 <div id='headerTablePositionNote' class="card-body">
                   <h4 class="card-title">List of notes: </h4>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote">
+                    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote">
                       + Add a list of note positions
-                    </button>
+                    </button> -->
                     <!-- Окно выбора Подразделения. -->
                   <div class="table-responsive">
                      <script type="text/javascript">createATableOfPositionNote()</script>
@@ -482,9 +483,9 @@
               <div class="card">
                 <div id='headerTablePositionTraffic' class="card-body">
                   <h4 class="card-title">List of traffic channels: </h4>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic">
+                    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic">
                       + Add a list of traffic positions
-                    </button>
+                    </button> -->
                     <!-- Окно выбора Подразделения. -->
                   <div class="table-responsive">
                      <script type="text/javascript">createATableOfPositionTraffic()</script>
@@ -513,545 +514,687 @@
               </div>
             </div>
           </div>
+
+
         </div>
-          <!-- content-wrapper ends -->
-          <!-- Модальное окно регистрации Пользователя данной должности User. -->
-          <div id="gridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">+ Add User</h4>
-                          <p class="card-description"> Create a new user account </p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalUserTitle">User</label>
-                              <input type="text" class="form-control" id="exampleInputModalUserTitle" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserСomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="сomment">
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewUserSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно добавить кнопку Должности. -->
-          <div id="gridSystemModalNewSettings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">+ Add Settings</h4>
-                          <p class="card-description">Add settings account </p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalSettingsTitle">Name</label>
-                              <input type="text" class="form-control" id="exampleInputModalNewSettingsTitle" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalSettingsСomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalNewSettingsСomment" placeholder="Сomment">
-                            </div>
-                            <div>
-                              <br>
-                              <br>
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSettingsSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно изменение и настройка кнопок Должности. -->
-          <div id="gridSystemModalEditSettings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">Edit Settings</h4>
-                          <p class="card-description">Edit settings account </p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalSettingsTitle">Name</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsTitle" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalSettingsСomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
-                            </div>
-                            <div class="card-body">
-                              <h4 class="card-description">Active Activity Control</h4>
-                            <!-- </div>
-                            <div class="form-check"> -->
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description">Interval</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveInterval">
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>25 seconds</option>
-                                <option>30 seconds</option>
-                                <option>35 seconds</option>
-                                <option>40 seconds</option>
-                                <option>45 seconds</option>
-                                <option>50 seconds</option>
-                                <option>55 seconds</option>
-                                <option>1 minutes</option>
-                                <option>3 minutes</option>
-                                <option>5 minutes</option>
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description">Duration</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveDuration">
-                               <option>1 seconds</option>
-                               <option>2 seconds</option>
-                               <option>3 seconds</option>
-                               <option>5 seconds</option>
-                               <option>10 seconds</option>
-                               <option>15 seconds</option>
-                               <option>20 seconds</option>
-                               <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description">Transition</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveTransition">
-                               <option>No button</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label>
-                            </div>
-                            <div class="card-body">
-                              <h4 class="card-description">Passive Activity Control</h4>
-                            <!-- </div>
-                            <div class="form-check"> -->
-                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
-                            </div>
-                            <!-- <div class="form-check">
-                             <p class="card-description" >Interval</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>25 seconds</option>
-                                <option>30 seconds</option>
-                                <option>35 seconds</option>
-                                <option>40 seconds</option>
-                                <option>45 seconds</option>
-                                <option>50 seconds</option>
-                                <option>55 seconds</option>
-                                <option>1 minutes</option>
-                                <option>3 minutes</option>
-                                <option>5 minutes</option>
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description" >Duration</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
-                                <option>1 seconds</option>
-                                <option>2 seconds</option>
-                                <option>3 seconds</option>
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>0</option>
-                              </select>
-                            </div> -->
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Audio</label>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Photo</label>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description" >The interval between photo events</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalFoto">
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>25 seconds</option>
-                                <option>30 seconds</option>
-                                <option>35 seconds</option>
-                                <option>40 seconds</option>
-                                <option>45 seconds</option>
-                                <option>50 seconds</option>
-                                <option>55 seconds</option>
-                                <option>1 minutes</option>
-                                <option>3 minutes</option>
-                                <option>5 minutes</option>
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Smartphone camera</label>
-                              </div>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">External IP camera</label>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveVideo">Video</label>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description" >Interval</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>25 seconds</option>
-                                <option>30 seconds</option>
-                                <option>35 seconds</option>
-                                <option>40 seconds</option>
-                                <option>45 seconds</option>
-                                <option>50 seconds</option>
-                                <option>55 seconds</option>
-                                <option>1 minutes</option>
-                                <option>3 minutes</option>
-                                <option>5 minutes</option>
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description" >Duration</p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
-                                <option>1 seconds</option>
-                                <option>2 seconds</option>
-                                <option>3 seconds</option>
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocation">Geolocation</label>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Capture event on click</label>
-                            </div>
-                            <div class="form-check">
-                             <p class="card-description" >The interval between GEO events </p>
-                              <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalGEO">
-                                <option>5 seconds</option>
-                                <option>10 seconds</option>
-                                <option>15 seconds</option>
-                                <option>20 seconds</option>
-                                <option>25 seconds</option>
-                                <option>30 seconds</option>
-                                <option>35 seconds</option>
-                                <option>40 seconds</option>
-                                <option>45 seconds</option>
-                                <option>50 seconds</option>
-                                <option>55 seconds</option>
-                                <option>1 minutes</option>
-                                <option>3 minutes</option>
-                                <option>5 minutes</option>
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>0</option>
-                              </select>
-                            </div>
-                            <div class="card-body">
-                              <h4 class="card-description">Result Capture</h4>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsCommitDescription">Commit Description</label>
-                            </div>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsResultControl">Result Control</label>
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption1">Option 1</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption1" placeholder="Name 1">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption2">Option 2</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption2" placeholder="Name 2">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption3">Option 3</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption3" placeholder="Name 3">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption4">Option 4</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption4" placeholder="Name 4">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption5">Option 5</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption5" placeholder="Name 5">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption6">Option 6</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption6" placeholder="Name 6">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption7">Option 7</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption7" placeholder="Name 7">
-                            </div>
-                            <div>
-                              <label for="exampleInputModalSettingsOption8">Option 8</label>
-                              <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption8" placeholder="Name 8">
-                            </div>
-                            <div>
-                              <br>
-                              <br>
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalEditSettingsSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно изменения Пользователя данной должности User. -->
-          <div id="editGridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">Edit User</h4>
-                          <p class="card-description">Edit user account</p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalUserTitle">User</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserTitle" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserСomment">Сomment</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserСomment" placeholder="сomment">
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  <!-- Модальное окно изменения списка Заметок данной должности User. -->
-          <div id="editGridSystemModalNewPositionNote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">List of notes</h4>
-                          <p class="card-description">List of notes</p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote1">Note 1</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote1" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote2">Note 2</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote2" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote3">Note 3</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote3" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote4">Note 4</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote4" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote5">Note 5</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote5" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote6">Note 6</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote6" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote7">Note 7</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote7" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote8">Note 8</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote8" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote9">Note 9</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote9" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalUserNote10">Note 10</label>
-                              <input type="text" class="form-control" id="editExampleInputModalUserNote10" placeholder="Name">
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserNoteSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  <!-- Модальное окно изменения списка источников Трафика данной должности . -->
-          <div id="editGridSystemModalNewPositionTraffic" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">List of traffic channels</h4>
-                          <p class="card-description">Traffic channel</p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic1">Channel 1</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic1" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic2">Channel 2</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic2" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic3">Channel 3</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic3" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic4">Channel 4</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic4" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic5">Channel 5</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic5" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic6">Channel 6</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic6" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic7">Channel 7</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic7" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic8">Channel 8</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic8" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic9">Channel 9</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic9" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionTraffic10">Channel 10</label>
-                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic10" placeholder="Name">
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewPositionTrafficSubmit()">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-    <!-- partial:partials/_footer.html -->
+
+          <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span> -->
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2021 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>. All rights reserved.</span>
+              <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center">Sharing experience in
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/VK.png" onclick="location.href='https://vk.com/tmr24'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Telegram.png" onclick="location.href='https://t.me/TMR24_admin'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/WhatsApp.png" onclick="location.href='https://wa.me/79623722014?text=Привет!%20Настроим%20приложение.'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/YouTube.png" onclick="location.href='https://www.youtube.com/channel/UC2Jw3DZT-1vxz4vSIgBbZHg'"></input>
+              </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">To perfection together <i class="mdi mdi-responsive"></i> </span>
             </div>
           </footer>
-          <!-- partial -->
+          <!-- partial ends -->
         </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+
+    <!-- Модальное окно регистрации Пользователя данной должности User. -->
+    <div id="gridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">+ Add User</h4>
+                    <p class="card-description"> Create a new user account </p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalUserTitle">User</label>
+                        <input type="text" class="form-control" id="exampleInputModalUserTitle" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserСomment">Сomment</label>
+                        <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="сomment">
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewUserSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Модальное окно добавить кнопку Должности. -->
+    <div id="gridSystemModalNewSettings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">+ Add Settings</h4>
+                    <p class="card-description">Add settings account </p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalSettingsTitle">Name</label>
+                        <input type="text" class="form-control" id="exampleInputModalNewSettingsTitle" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalSettingsСomment">Сomment</label>
+                        <input type="text" class="form-control" id="exampleInputModalNewSettingsСomment" placeholder="Сomment">
+                      </div>
+                      <div>
+                        <br>
+                        <br>
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSettingsSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Модальное окно изменение и настройка кнопок Должности. -->
+    <div id="gridSystemModalEditSettings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Edit Settings</h4>
+                    <p class="card-description">Edit settings account </p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalSettingsTitle">Name</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsTitle" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalSettingsСomment">Сomment</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-description">Active Activity Control</h4>
+                      <!-- </div>
+                      <div class="form-check"> -->
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description">Interval</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveInterval">
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>25 seconds</option>
+                          <option>30 seconds</option>
+                          <option>35 seconds</option>
+                          <option>40 seconds</option>
+                          <option>45 seconds</option>
+                          <option>50 seconds</option>
+                          <option>55 seconds</option>
+                          <option>1 minutes</option>
+                          <option>3 minutes</option>
+                          <option>5 minutes</option>
+                          <option>10 minutes</option>
+                          <option>15 minutes</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description">Duration</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveDuration">
+                         <option>1 seconds</option>
+                         <option>2 seconds</option>
+                         <option>3 seconds</option>
+                         <option>5 seconds</option>
+                         <option>10 seconds</option>
+                         <option>15 seconds</option>
+                         <option>20 seconds</option>
+                         <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description">Transition</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveTransition">
+                         <option>No button</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label>
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-description">Passive Activity Control</h4>
+                      <!-- </div>
+                      <div class="form-check"> -->
+                         <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
+                      </div>
+                      <!-- <div class="form-check">
+                       <p class="card-description" >Interval</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>25 seconds</option>
+                          <option>30 seconds</option>
+                          <option>35 seconds</option>
+                          <option>40 seconds</option>
+                          <option>45 seconds</option>
+                          <option>50 seconds</option>
+                          <option>55 seconds</option>
+                          <option>1 minutes</option>
+                          <option>3 minutes</option>
+                          <option>5 minutes</option>
+                          <option>10 minutes</option>
+                          <option>15 minutes</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description" >Duration</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
+                          <option>1 seconds</option>
+                          <option>2 seconds</option>
+                          <option>3 seconds</option>
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>0</option>
+                        </select>
+                      </div> -->
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Audio</label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Photo</label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description" >The interval between photo events</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalFoto">
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>25 seconds</option>
+                          <option>30 seconds</option>
+                          <option>35 seconds</option>
+                          <option>40 seconds</option>
+                          <option>45 seconds</option>
+                          <option>50 seconds</option>
+                          <option>55 seconds</option>
+                          <option>1 minutes</option>
+                          <option>3 minutes</option>
+                          <option>5 minutes</option>
+                          <option>10 minutes</option>
+                          <option>15 minutes</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Smartphone camera</label>
+                        </div>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">External IP camera</label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveVideo">Video</label>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description" >Interval</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>25 seconds</option>
+                          <option>30 seconds</option>
+                          <option>35 seconds</option>
+                          <option>40 seconds</option>
+                          <option>45 seconds</option>
+                          <option>50 seconds</option>
+                          <option>55 seconds</option>
+                          <option>1 minutes</option>
+                          <option>3 minutes</option>
+                          <option>5 minutes</option>
+                          <option>10 minutes</option>
+                          <option>15 minutes</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description" >Duration</p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
+                          <option>1 seconds</option>
+                          <option>2 seconds</option>
+                          <option>3 seconds</option>
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocation">Geolocation</label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Capture event on click</label>
+                      </div>
+                      <div class="form-check">
+                       <p class="card-description" >The interval between GEO events </p>
+                        <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalGEO">
+                          <option>5 seconds</option>
+                          <option>10 seconds</option>
+                          <option>15 seconds</option>
+                          <option>20 seconds</option>
+                          <option>25 seconds</option>
+                          <option>30 seconds</option>
+                          <option>35 seconds</option>
+                          <option>40 seconds</option>
+                          <option>45 seconds</option>
+                          <option>50 seconds</option>
+                          <option>55 seconds</option>
+                          <option>1 minutes</option>
+                          <option>3 minutes</option>
+                          <option>5 minutes</option>
+                          <option>10 minutes</option>
+                          <option>15 minutes</option>
+                          <option>0</option>
+                        </select>
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-description">Result Capture</h4>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsCommitDescription">Commit Description</label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsResultControl">Result Control</label>
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption1">Option 1</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption1" placeholder="Name 1">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption2">Option 2</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption2" placeholder="Name 2">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption3">Option 3</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption3" placeholder="Name 3">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption4">Option 4</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption4" placeholder="Name 4">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption5">Option 5</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption5" placeholder="Name 5">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption6">Option 6</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption6" placeholder="Name 6">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption7">Option 7</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption7" placeholder="Name 7">
+                      </div>
+                      <div>
+                        <label for="exampleInputModalSettingsOption8">Option 8</label>
+                        <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption8" placeholder="Name 8">
+                      </div>
+                      <div>
+                        <br>
+                        <br>
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalEditSettingsSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Модальное окно изменения Пользователя данной должности User. -->
+    <div id="editGridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Edit User</h4>
+                    <p class="card-description">Edit user account</p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalUserTitle">User</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserTitle" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserСomment">Сomment</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserСomment" placeholder="сomment">
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Модальное окно изменения списка Заметок данной должности User. -->
+    <div id="editGridSystemModalNewPositionNote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">List of notes</h4>
+                    <p class="card-description">List of notes</p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote1">Note 1</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote1" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote2">Note 2</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote2" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote3">Note 3</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote3" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote4">Note 4</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote4" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote5">Note 5</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote5" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote6">Note 6</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote6" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote7">Note 7</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote7" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote8">Note 8</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote8" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote9">Note 9</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote9" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalUserNote10">Note 10</label>
+                        <input type="text" class="form-control" id="editExampleInputModalUserNote10" placeholder="Name">
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserNoteSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Модальное окно изменения списка источников Трафика данной должности . -->
+    <div id="editGridSystemModalNewPositionTraffic" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid bd-example-row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">List of traffic channels</h4>
+                    <p class="card-description">Traffic channel</p>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic1">Channel 1</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic1" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic2">Channel 2</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic2" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic3">Channel 3</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic3" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic4">Channel 4</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic4" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic5">Channel 5</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic5" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic6">Channel 6</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic6" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic7">Channel 7</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic7" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic8">Channel 8</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic8" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic9">Channel 9</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic9" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputModalPositionTraffic10">Channel 10</label>
+                        <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic10" placeholder="Name">
+                      </div>
+                      <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewPositionTrafficSubmit()">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Модальное окно обновленией для списка Заметок данной должности User. -->
+        <div id="updateGridSystemModalNewPositionNote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid bd-example-row">
+                  <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">List of notes</h4>
+                        <p class="card-description">List of notes</p>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote1">Note 1</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote1" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote2">Note 2</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote2" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote3">Note 3</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote3" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote4">Note 4</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote4" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote5">Note 5</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote5" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote6">Note 6</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote6" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote7">Note 7</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote7" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote8">Note 8</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote8" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote9">Note 9</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote9" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalUserNote10">Note 10</label>
+                            <input type="text" class="form-control" id="updateExampleInputModalUserNote10" placeholder="Name">
+                          </div>
+                          <button type="button" class="btn btn-gradient-primary mr-2" onclick="updateGridSystemModalNewUserNoteSubmit()">Submit</button>
+                          <button class="btn btn-light">Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <!-- Модальное окно обновлений для списка источников Трафика данной должности . -->
+        <div id="updateGridSystemModalNewPositionTraffic" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid bd-example-row">
+                  <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">List of traffic channels</h4>
+                        <p class="card-description">Traffic channel</p>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic1">Channel 1</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic1" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic2">Channel 2</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic2" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic3">Channel 3</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic3" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic4">Channel 4</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic4" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic5">Channel 5</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic5" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic6">Channel 6</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic6" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic7">Channel 7</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic7" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic8">Channel 8</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic8" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic9">Channel 9</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic9" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="updateInputModalPositionTraffic10">Channel 10</label>
+                            <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic10" placeholder="Name">
+                          </div>
+                          <button type="button" class="btn btn-gradient-primary mr-2" onclick="updateGridSystemModalNewPositionTrafficSubmit()">Submit</button>
+                          <button class="btn btn-light">Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>

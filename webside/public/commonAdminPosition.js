@@ -62,6 +62,7 @@ let documentDataPosition=[];
 
 let objIdDocUser ="";
 let objIdDocSettings ="";
+let objActiveModal = "";
 
 /**
 * @return {string}
@@ -611,14 +612,11 @@ function editButtonUser(obj)
    let settingsTitleOBJ = obj.SettingsTitle;
 
    var articleDiv = document.getElementById("exampleInputModalSettingsActiveTransition").innerHTML;
-   // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
    var articleDivOn = '<option>No button</option>';
    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
 
      docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           let settingsTitle = doc.data().SettingsTitle;
           if (settingsTitle != settingsTitleOBJ){
             let liLast = document.createElement('option');
@@ -888,7 +886,7 @@ function editGridSystemModalNewUserNoteSubmit()
   */
 function createATableOfPositionTraffic()
 {
-  let itemPositionTraffic = [];
+ let itemPositionTraffic = [];
  docRefPosition.collection("PositionSettingsNoteTrafic")
  .get()
  .then(function(querySnapshot) {
@@ -938,7 +936,7 @@ function createATableOfPositionTraffic()
        editUserName.innerHTML = "Edit";
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionSettingsTrafic;
-       editUserName.setAttribute('onclick', 'editButtonUser(this)');
+       editUserName.setAttribute('onclick', 'editButtonNoteTraffic(this)');
 
        var editUserNameColumn = document.createElement('td');
        editUserNameColumn.appendChild(editUserName);
@@ -947,7 +945,7 @@ function createATableOfPositionTraffic()
        toDismissName.innerHTML = "To dismiss";
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionSettingsTrafic;
-       toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
+       toDismissName.setAttribute('onclick', 'toDismissButtonNoteTraffic(this)');
 
        var toDismissColumn = document.createElement('td');
        toDismissColumn.appendChild(toDismissName);
@@ -966,19 +964,25 @@ function createATableOfPositionTraffic()
        tr.appendChild(editUserNameColumn);
        tr.appendChild(toDismissColumn);
 
+       var container = document.getElementById("tablePositionTraffic").getElementsByTagName("tbody")[0];
        container.appendChild(tr);
      });
+     if(itemPositionTraffic.length === 0)
+       {
+         my_div_User = document.getElementById("headerTablePositionTraffic");
+         const ul_User = my_div_User.querySelector("h4");
+         let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic"> + Add a list of traffic positions </button>';
+         ul_User.insertAdjacentHTML("afterend", li);
+       }
    });
 };
-
-
  /**
  * @return {string}
   *  Получение данных для таблицы список Заметок .
   */
 function createATableOfPositionNote()
 {
-  let itemPositionNote = [];
+ let itemPositionNote = [];
  docRefPosition.collection("PositionSettingsNoteList")
  .get()
  .then(function(querySnapshot) {
@@ -1028,7 +1032,7 @@ function createATableOfPositionNote()
        editUserName.innerHTML = "Edit";
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionNoteList;
-       editUserName.setAttribute('onclick', 'editButtonUser(this)');
+       editUserName.setAttribute('onclick', 'editButtonNoteListr(this)');
 
        var editUserNameColumn = document.createElement('td');
        editUserNameColumn.appendChild(editUserName);
@@ -1037,7 +1041,7 @@ function createATableOfPositionNote()
        toDismissName.innerHTML = "To dismiss";
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionNoteList;
-       toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
+       toDismissName.setAttribute('onclick', 'toDismissButtonNoteList(this)');
 
        var toDismissColumn = document.createElement('td');
        toDismissColumn.appendChild(toDismissName);
@@ -1056,7 +1060,224 @@ function createATableOfPositionNote()
        tr.appendChild(editUserNameColumn);
        tr.appendChild(toDismissColumn);
 
+       var container = document.getElementById("tablePositionNote").getElementsByTagName("tbody")[0];
        container.appendChild(tr);
      });
+       if(itemPositionNote.length === 0)
+         {
+           my_div_User = document.getElementById("headerTablePositionNote");
+           const ul_User = my_div_User.querySelector("h4");
+           let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote"> + Add a list of note positions </button>';
+           ul_User.insertAdjacentHTML("afterend", li);
+         }
    });
 };
+
+/**
+* @return {string}
+*  Обработчик кнопки editButtonNoteListr из таблицы Пользователи.
+*/
+function editButtonNoteListr(obj)
+{
+  objActiveModal = obj.id;
+  var washingtonRef = docRefPosition.collection("PositionSettingsNoteList").doc(objActiveModal);
+  washingtonRef.get().then(function(doc) {
+    if (doc.exists)
+  {
+      let updateExampleInputModalUserNote1 = doc.data().SettingsNoteListOption1;
+      let updateExampleInputModalUserNote2 = doc.data().SettingsNoteListOption2;
+      let updateExampleInputModalUserNote3 = doc.data().SettingsNoteListOption3;
+      let updateExampleInputModalUserNote4 = doc.data().SettingsNoteListOption4;
+      let updateExampleInputModalUserNote5 = doc.data().SettingsNoteListOption5;
+      let updateExampleInputModalUserNote6 = doc.data().SettingsNoteListOption6;
+      let updateExampleInputModalUserNote7 = doc.data().SettingsNoteListOption7;
+      let updateExampleInputModalUserNote8 = doc.data().SettingsNoteListOption8;
+      let updateExampleInputModalUserNote9 = doc.data().SettingsNoteListOption9;
+      let updateExampleInputModalUserNote10 = doc.data().SettingsNoteListOption10;
+      document.getElementById('updateExampleInputModalUserNote1').value = updateExampleInputModalUserNote1;
+      document.getElementById('updateExampleInputModalUserNote2').value = updateExampleInputModalUserNote2;
+      document.getElementById('updateExampleInputModalUserNote3').value = updateExampleInputModalUserNote3;
+      document.getElementById('updateExampleInputModalUserNote4').value = updateExampleInputModalUserNote4;
+      document.getElementById('updateExampleInputModalUserNote5').value = updateExampleInputModalUserNote5;
+      document.getElementById('updateExampleInputModalUserNote6').value = updateExampleInputModalUserNote6;
+      document.getElementById('updateExampleInputModalUserNote7').value = updateExampleInputModalUserNote7;
+      document.getElementById('updateExampleInputModalUserNote8').value = updateExampleInputModalUserNote8;
+      document.getElementById('updateExampleInputModalUserNote9').value = updateExampleInputModalUserNote9;
+      document.getElementById('updateExampleInputModalUserNote10').value = updateExampleInputModalUserNote10;
+      var modal = document.getElementById('updateGridSystemModalNewPositionNote');
+      $(document).ready(function(){
+        $("#updateGridSystemModalNewPositionNote").modal('show');
+      //  window.location.reload();
+      });
+      } else {
+        console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+}
+
+/**
+* @return {string}
+*  Обработчик кнопки editButtonNoteTraffic из таблицы Трафик.
+*/
+function editButtonNoteTraffic(obj)
+{
+  objActiveModal = obj.id;
+  var washingtonRef = docRefPosition.collection("PositionSettingsNoteTrafic").doc(objActiveModal);
+  washingtonRef.get().then(function(doc) {
+    if (doc.exists)
+  {
+    let updateGridSystemModalNewPositionTraffic1 = doc.data().SettingsNoteTrafficOption1;
+    let updateGridSystemModalNewPositionTraffic2 = doc.data().SettingsNoteTrafficOption2;
+    let updateGridSystemModalNewPositionTraffic3 = doc.data().SettingsNoteTrafficOption3;
+    let updateGridSystemModalNewPositionTraffic4 = doc.data().SettingsNoteTrafficOption4;
+    let updateGridSystemModalNewPositionTraffic5 = doc.data().SettingsNoteTrafficOption5;
+    let updateGridSystemModalNewPositionTraffic6 = doc.data().SettingsNoteTrafficOption6;
+    let updateGridSystemModalNewPositionTraffic7 = doc.data().SettingsNoteTrafficOption7;
+    let updateGridSystemModalNewPositionTraffic8 = doc.data().SettingsNoteTrafficOption8;
+    let updateGridSystemModalNewPositionTraffic9 = doc.data().SettingsNoteTrafficOption9;
+    let updateGridSystemModalNewPositionTraffic10 = doc.data().SettingsNoteTrafficOption10;
+    document.getElementById('updateGridSystemModalNewPositionTraffic1').value = updateGridSystemModalNewPositionTraffic1;
+    document.getElementById('updateGridSystemModalNewPositionTraffic2').value = updateGridSystemModalNewPositionTraffic2;
+    document.getElementById('updateGridSystemModalNewPositionTraffic3').value = updateGridSystemModalNewPositionTraffic3;
+    document.getElementById('updateGridSystemModalNewPositionTraffic4').value = updateGridSystemModalNewPositionTraffic4;
+    document.getElementById('updateGridSystemModalNewPositionTraffic5').value = updateGridSystemModalNewPositionTraffic5;
+    document.getElementById('updateGridSystemModalNewPositionTraffic6').value = updateGridSystemModalNewPositionTraffic6;
+    document.getElementById('updateGridSystemModalNewPositionTraffic7').value = updateGridSystemModalNewPositionTraffic7;
+    document.getElementById('updateGridSystemModalNewPositionTraffic8').value = updateGridSystemModalNewPositionTraffic8;
+    document.getElementById('updateGridSystemModalNewPositionTraffic9').value = updateGridSystemModalNewPositionTraffic9;
+    document.getElementById('updateGridSystemModalNewPositionTraffic10').value = updateGridSystemModalNewPositionTraffic10;
+      var modal = document.getElementById('updateGridSystemModalNewPositionTraffic');
+      $(document).ready(function(){
+        $("#updateGridSystemModalNewPositionTraffic").modal('show');
+      //  window.location.reload();
+      });
+      } else {
+        console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+}
+
+
+/**
+* @return {string}
+*  Обработчик кнопки toDismiss из таблицы заметки.
+*/
+function toDismissButtonNoteList(obj)
+{
+  let objId = obj.id;
+  alert('Document successfully deleted! '+ (objId));
+  docRefPosition.collection("PositionSettingsNoteList").doc(objId).delete().then(function()
+  {
+      console.log("Document successfully deleted!");
+      window.location.reload();
+  }).catch(function(error)
+  {
+      console.error("Error removing document: ", error);
+  });
+}
+
+/**
+* @return {string}
+*  Обработчик кнопки toDismiss из таблицы Трафик.
+*/
+function toDismissButtonNoteTraffic(obj)
+{
+  let objId = obj.id;
+  alert('Document successfully deleted! '+ (objId));
+  docRefPosition.collection("PositionSettingsNoteTrafic").doc(objId).delete().then(function()
+  {
+      console.log("Document successfully deleted!");
+      window.location.reload();
+  }).catch(function(error)
+  {
+      console.error("Error removing document: ", error);
+  });
+}
+
+/**
+* @return {string}
+*  Обработчик кнопки сохранить изменение из таблицы Трафик.
+*/
+function updateGridSystemModalNewPositionTrafficSubmit()
+{
+  var updateGridSystemModalNewPositionTraffic1 = document.getElementById("updateGridSystemModalNewPositionTraffic1").value;
+  var updateGridSystemModalNewPositionTraffic2 = document.getElementById("updateGridSystemModalNewPositionTraffic2").value;
+  var updateGridSystemModalNewPositionTraffic3 = document.getElementById("updateGridSystemModalNewPositionTraffic3").value;
+  var updateGridSystemModalNewPositionTraffic4 = document.getElementById("updateGridSystemModalNewPositionTraffic4").value;
+  var updateGridSystemModalNewPositionTraffic5 = document.getElementById("updateGridSystemModalNewPositionTraffic5").value;
+  var updateGridSystemModalNewPositionTraffic6 = document.getElementById("updateGridSystemModalNewPositionTraffic6").value;
+  var updateGridSystemModalNewPositionTraffic7 = document.getElementById("updateGridSystemModalNewPositionTraffic7").value;
+  var updateGridSystemModalNewPositionTraffic8 = document.getElementById("updateGridSystemModalNewPositionTraffic8").value;
+  var updateGridSystemModalNewPositionTraffic9 = document.getElementById("updateGridSystemModalNewPositionTraffic9").value;
+  var updateGridSystemModalNewPositionTraffic10 = document.getElementById("updateGridSystemModalNewPositionTraffic10").value;
+  var washingtonRef = docRefPosition.collection("PositionSettingsNoteTrafic").doc(objActiveModal);
+        // Set the "capital" field of the city 'DC'
+        return washingtonRef.update({
+          SettingsNoteTrafficOption1: updateGridSystemModalNewPositionTraffic1,
+          SettingsNoteTrafficOption2: updateGridSystemModalNewPositionTraffic2,
+          SettingsNoteTrafficOption3: updateGridSystemModalNewPositionTraffic3,
+          SettingsNoteTrafficOption4: updateGridSystemModalNewPositionTraffic4,
+          SettingsNoteTrafficOption5: updateGridSystemModalNewPositionTraffic5,
+          SettingsNoteTrafficOption6: updateGridSystemModalNewPositionTraffic6,
+          SettingsNoteTrafficOption7: updateGridSystemModalNewPositionTraffic7,
+          SettingsNoteTrafficOption8: updateGridSystemModalNewPositionTraffic8,
+          SettingsNoteTrafficOption9: updateGridSystemModalNewPositionTraffic9,
+          SettingsNoteTrafficOption10: updateGridSystemModalNewPositionTraffic10,
+        })
+        .then(function() {
+            console.log("Document successfully updated!");
+            window.location.reload();
+
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+   objActiveModal = "";
+}
+
+/**
+* @return {string}
+*  Обработчик кнопки сохранить изменение из таблицы заметки.
+*/
+function updateGridSystemModalNewUserNoteSubmit()
+{
+  var updateExampleInputModalUserNote1 = document.getElementById("updateExampleInputModalUserNote1").value;
+  var updateExampleInputModalUserNote2 = document.getElementById("updateExampleInputModalUserNote2").value;
+  var updateExampleInputModalUserNote3 = document.getElementById("updateExampleInputModalUserNote3").value;
+  var updateExampleInputModalUserNote4 = document.getElementById("updateExampleInputModalUserNote4").value;
+  var updateExampleInputModalUserNote5 = document.getElementById("updateExampleInputModalUserNote5").value;
+  var updateExampleInputModalUserNote6 = document.getElementById("updateExampleInputModalUserNote6").value;
+  var updateExampleInputModalUserNote7 = document.getElementById("updateExampleInputModalUserNote7").value;
+  var updateExampleInputModalUserNote8 = document.getElementById("updateExampleInputModalUserNote8").value;
+  var updateExampleInputModalUserNote9 = document.getElementById("updateExampleInputModalUserNote9").value;
+  var updateExampleInputModalUserNote10 = document.getElementById("updateExampleInputModalUserNote10").value;
+  var washingtonRef = docRefPosition.collection("PositionSettingsNoteList").doc(objActiveModal);
+        // Set the "capital" field of the city 'DC'
+        return washingtonRef.update({
+          SettingsNoteListOption1: updateExampleInputModalUserNote1,
+          SettingsNoteListOption2: updateExampleInputModalUserNote2,
+          SettingsNoteListOption3: updateExampleInputModalUserNote3,
+          SettingsNoteListOption4: updateExampleInputModalUserNote4,
+          SettingsNoteListOption5: updateExampleInputModalUserNote5,
+          SettingsNoteListOption6: updateExampleInputModalUserNote6,
+          SettingsNoteListOption7: updateExampleInputModalUserNote7,
+          SettingsNoteListOption8: updateExampleInputModalUserNote8,
+          SettingsNoteListOption9: updateExampleInputModalUserNote9,
+          SettingsNoteListOption10: updateExampleInputModalUserNote10,
+        })
+        .then(function() {
+            console.log("Document successfully updated!");
+            window.location.reload();
+
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+   objActiveModal = "";
+}
