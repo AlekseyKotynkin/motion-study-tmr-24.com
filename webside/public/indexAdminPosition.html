@@ -439,7 +439,81 @@
                 </div>
               </div>
             </div>
+          <!-- Окно список Заметок. -->
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div id='headerTablePositionNote' class="card-body">
+                  <h4 class="card-title">List of notes: </h4>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote">
+                      + Add a list of note positions
+                    </button>
+                    <!-- Окно выбора Подразделения. -->
+                  <div class="table-responsive">
+                     <script type="text/javascript">createATableOfPositionNote()</script>
+                      <table id="tablePositionNote"class="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- Окно список Трафика. -->
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div id='headerTablePositionTraffic' class="card-body">
+                  <h4 class="card-title">List of traffic channels: </h4>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic">
+                      + Add a list of traffic positions
+                    </button>
+                    <!-- Окно выбора Подразделения. -->
+                  <div class="table-responsive">
+                     <script type="text/javascript">createATableOfPositionTraffic()</script>
+                      <table id="tablePositionTraffic"class="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
           <!-- content-wrapper ends -->
           <!-- Модальное окно регистрации Пользователя данной должности User. -->
           <div id="gridSystemModalNewUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
@@ -833,7 +907,139 @@
               </div>
             </div>
           </div>
-          <!-- partial:partials/_footer.html -->
+  <!-- Модальное окно изменения списка Заметок данной должности User. -->
+          <div id="editGridSystemModalNewPositionNote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">List of notes</h4>
+                          <p class="card-description">List of notes</p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote1">Note 1</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote1" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote2">Note 2</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote2" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote3">Note 3</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote3" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote4">Note 4</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote4" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote5">Note 5</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote5" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote6">Note 6</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote6" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote7">Note 7</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote7" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote8">Note 8</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote8" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote9">Note 9</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote9" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalUserNote10">Note 10</label>
+                              <input type="text" class="form-control" id="editExampleInputModalUserNote10" placeholder="Name">
+                            </div>
+                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserNoteSubmit()">Submit</button>
+                            <button class="btn btn-light">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  <!-- Модальное окно изменения списка источников Трафика данной должности . -->
+          <div id="editGridSystemModalNewPositionTraffic" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">List of traffic channels</h4>
+                          <p class="card-description">Traffic channel</p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic1">Channel 1</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic1" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic2">Channel 2</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic2" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic3">Channel 3</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic3" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic4">Channel 4</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic4" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic5">Channel 5</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic5" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic6">Channel 6</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic6" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic7">Channel 7</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic7" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic8">Channel 8</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic8" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic9">Channel 9</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic9" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionTraffic10">Channel 10</label>
+                              <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic10" placeholder="Name">
+                            </div>
+                            <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewPositionTrafficSubmit()">Submit</button>
+                            <button class="btn btn-light">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>

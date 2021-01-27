@@ -804,3 +804,79 @@ function  editGridSystemModalNewUserSubmit()
       console.error("Error writing document: ", error);
   });
 }
+
+/**
+* @return {string}
+*  Обработка модального окна Список источников Трафика.
+*/
+function editGridSystemModalNewPositionTrafficSubmit()
+{
+  var editGridSystemModalNewPositionTraffic1 = document.getElementById("editGridSystemModalNewPositionTraffic1").value;
+  var editGridSystemModalNewPositionTraffic2 = document.getElementById("editGridSystemModalNewPositionTraffic2").value;
+  var editGridSystemModalNewPositionTraffic3 = document.getElementById("editGridSystemModalNewPositionTraffic3").value;
+  var editGridSystemModalNewPositionTraffic4 = document.getElementById("editGridSystemModalNewPositionTraffic4").value;
+  var editGridSystemModalNewPositionTraffic5 = document.getElementById("editGridSystemModalNewPositionTraffic5").value;
+  var editGridSystemModalNewPositionTraffic6 = document.getElementById("editGridSystemModalNewPositionTraffic6").value;
+  var editGridSystemModalNewPositionTraffic7 = document.getElementById("editGridSystemModalNewPositionTraffic7").value;
+  var editGridSystemModalNewPositionTraffic8 = document.getElementById("editGridSystemModalNewPositionTraffic8").value;
+  var editGridSystemModalNewPositionTraffic9 = document.getElementById("editGridSystemModalNewPositionTraffic9").value;
+  var editGridSystemModalNewPositionTraffic10 = document.getElementById("editGridSystemModalNewPositionTraffic10").value;
+  docRefPosition.collection("PositionSettingsNoteTrafic").add({
+  SettingsNoteTrafficOption1: editGridSystemModalNewPositionTraffic1,
+  SettingsNoteTrafficOption2: editGridSystemModalNewPositionTraffic2,
+  SettingsNoteTrafficOption3: editGridSystemModalNewPositionTraffic3,
+  SettingsNoteTrafficOption4: editGridSystemModalNewPositionTraffic4,
+  SettingsNoteTrafficOption5: editGridSystemModalNewPositionTraffic5,
+  SettingsNoteTrafficOption6: editGridSystemModalNewPositionTraffic6,
+  SettingsNoteTrafficOption7: editGridSystemModalNewPositionTraffic7,
+  SettingsNoteTrafficOption8: editGridSystemModalNewPositionTraffic8,
+  SettingsNoteTrafficOption9: editGridSystemModalNewPositionTraffic9,
+  SettingsNoteTrafficOption10: editGridSystemModalNewPositionTraffic10,
+
+  }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      $('#editGridSystemModalNewPositionTraffic').modal('toggle');
+      window.location.reload();
+  }).catch(function(error) {
+      console.error("Error adding document: ", error);
+      alert("Error adding document: ", error);
+  });
+};
+
+/**
+* @return {string}
+*  Обработка модального окна Список Заметок.
+*/
+function editGridSystemModalNewUserNoteSubmit()
+{
+  var editExampleInputModalUserNote1 = document.getElementById("editExampleInputModalUserNote1").value;
+  var editExampleInputModalUserNote2 = document.getElementById("editExampleInputModalUserNote2").value;
+  var editExampleInputModalUserNote3 = document.getElementById("editExampleInputModalUserNote3").value;
+  var editExampleInputModalUserNote4 = document.getElementById("editExampleInputModalUserNote4").value;
+  var editExampleInputModalUserNote5 = document.getElementById("editExampleInputModalUserNote5").value;
+  var editExampleInputModalUserNote6 = document.getElementById("editExampleInputModalUserNote6").value;
+  var editExampleInputModalUserNote7 = document.getElementById("editExampleInputModalUserNote7").value;
+  var editExampleInputModalUserNote8 = document.getElementById("editExampleInputModalUserNote8").value;
+  var editExampleInputModalUserNote9 = document.getElementById("editExampleInputModalUserNote9").value;
+  var editExampleInputModalUserNote10 = document.getElementById("editExampleInputModalUserNote10").value;
+  docRefPosition.collection("PositionSettingsNoteList").add({
+  SettingsNoteListOption1: editExampleInputModalUserNote1,
+  SettingsNoteListOption2: editExampleInputModalUserNote2,
+  SettingsNoteListOption3: editExampleInputModalUserNote3,
+  SettingsNoteListOption4: editExampleInputModalUserNote4,
+  SettingsNoteListOption5: editExampleInputModalUserNote5,
+  SettingsNoteListOption6: editExampleInputModalUserNote6,
+  SettingsNoteListOption7: editExampleInputModalUserNote7,
+  SettingsNoteListOption8: editExampleInputModalUserNote8,
+  SettingsNoteListOption9: editExampleInputModalUserNote9,
+  SettingsNoteListOption10: editExampleInputModalUserNote10,
+
+  }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      $('#editGridSystemModalNewPositionNote').modal('toggle');
+      window.location.reload();
+  }).catch(function(error) {
+      console.error("Error adding document: ", error);
+      alert("Error adding document: ", error);
+  });
+};
