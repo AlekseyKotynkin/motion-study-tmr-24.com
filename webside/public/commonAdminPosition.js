@@ -880,3 +880,183 @@ function editGridSystemModalNewUserNoteSubmit()
       alert("Error adding document: ", error);
   });
 };
+
+
+ /**
+ * @return {string}
+  *  Получение данных для таблицы список источников Трафика .
+  */
+function createATableOfPositionTraffic()
+{
+  let itemPositionTraffic = [];
+ docRefPosition.collection("PositionSettingsNoteTrafic")
+ .get()
+ .then(function(querySnapshot) {
+   querySnapshot.forEach(function(doc) {
+     itemPositionTraffic.push({...doc.data(),...{idPositionSettingsTrafic: doc.id}})
+   });
+
+     })
+     .catch(function(error) {
+         console.log("Error getting documents: ", error);
+     })
+       .finally(() => {itemPositionTraffic;
+       itemPositionTraffic.forEach(item => {
+       var tr = document.createElement("tr");
+
+       var settingsNoteTrafficOption1 = document.createElement('td');
+       settingsNoteTrafficOption1.innerHTML = item.SettingsNoteTrafficOption1;
+
+       var settingsNoteTrafficOption2 = document.createElement('td');
+       settingsNoteTrafficOption2.innerHTML = item.SettingsNoteTrafficOption2;
+
+       var settingsNoteTrafficOption3 = document.createElement('td');
+       settingsNoteTrafficOption3.innerHTML = item.SettingsNoteTrafficOption3;
+
+       var settingsNoteTrafficOption4 = document.createElement('td');
+       settingsNoteTrafficOption4.innerHTML = item.SettingsNoteTrafficOption4;
+
+       var settingsNoteTrafficOption5 = document.createElement('td');
+       settingsNoteTrafficOption5.innerHTML = item.SettingsNoteTrafficOption5;
+
+       var settingsNoteTrafficOption6 = document.createElement('td');
+       settingsNoteTrafficOption6.innerHTML = item.SettingsNoteTrafficOption6;
+
+       var settingsNoteTrafficOption7 = document.createElement('td');
+       settingsNoteTrafficOption7.innerHTML = item.SettingsNoteTrafficOption7;
+
+       var settingsNoteTrafficOption8 = document.createElement('td');
+       settingsNoteTrafficOption8.innerHTML = item.SettingsNoteTrafficOption8;
+
+       var settingsNoteTrafficOption9 = document.createElement('td');
+       settingsNoteTrafficOption9.innerHTML = item.SettingsNoteTrafficOption9;
+
+       var settingsNoteTrafficOption10 = document.createElement('td');
+       settingsNoteTrafficOption10.innerHTML = item.SettingsNoteTrafficOption10;
+
+       var editUserName = document.createElement('button');
+       editUserName.innerHTML = "Edit";
+       editUserName.className = 'badge badge-gradient-success';
+       editUserName.id = item.idPositionSettingsTrafic;
+       editUserName.setAttribute('onclick', 'editButtonUser(this)');
+
+       var editUserNameColumn = document.createElement('td');
+       editUserNameColumn.appendChild(editUserName);
+
+       var toDismissName = document.createElement('button');
+       toDismissName.innerHTML = "To dismiss";
+       toDismissName.className = 'badge badge-gradient-danger';
+       toDismissName.id = item.idPositionSettingsTrafic;
+       toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
+
+       var toDismissColumn = document.createElement('td');
+       toDismissColumn.appendChild(toDismissName);
+
+       tr.appendChild(settingsNoteTrafficOption1);
+       tr.appendChild(settingsNoteTrafficOption2);
+       tr.appendChild(settingsNoteTrafficOption3);
+       tr.appendChild(settingsNoteTrafficOption4);
+       tr.appendChild(settingsNoteTrafficOption5);
+       tr.appendChild(settingsNoteTrafficOption6);
+       tr.appendChild(settingsNoteTrafficOption7);
+       tr.appendChild(settingsNoteTrafficOption8);
+       tr.appendChild(settingsNoteTrafficOption9);
+       tr.appendChild(settingsNoteTrafficOption10);
+
+       tr.appendChild(editUserNameColumn);
+       tr.appendChild(toDismissColumn);
+
+       container.appendChild(tr);
+     });
+   });
+};
+
+
+ /**
+ * @return {string}
+  *  Получение данных для таблицы список Заметок .
+  */
+function createATableOfPositionNote()
+{
+  let itemPositionNote = [];
+ docRefPosition.collection("PositionSettingsNoteList")
+ .get()
+ .then(function(querySnapshot) {
+   querySnapshot.forEach(function(doc) {
+     itemPositionNote.push({...doc.data(),...{idPositionNoteList: doc.id}});
+   });
+
+     })
+     .catch(function(error) {
+         console.log("Error getting documents: ", error);
+     })
+       .finally(() => {itemPositionNote;
+       itemPositionNote.forEach(item => {
+       var tr = document.createElement("tr");
+
+       var settingsNoteListOption1 = document.createElement('td');
+       settingsNoteListOption1.innerHTML = item.SettingsNoteListOption1;
+
+       var settingsNoteListOption2 = document.createElement('td');
+       settingsNoteListOption2.innerHTML = item.SettingsNoteListOption2;
+
+       var settingsNoteListOption3 = document.createElement('td');
+       settingsNoteListOption3.innerHTML = item.SettingsNoteListOption3;
+
+       var settingsNoteListOption4 = document.createElement('td');
+       settingsNoteListOption4.innerHTML = item.SettingsNoteListOption4;
+
+       var settingsNoteListOption5 = document.createElement('td');
+       settingsNoteListOption5.innerHTML = item.SettingsNoteListOption5;
+
+       var settingsNoteListOption6 = document.createElement('td');
+       settingsNoteListOption6.innerHTML = item.SettingsNoteListOption6;
+
+       var settingsNoteListOption7 = document.createElement('td');
+       settingsNoteListOption7.innerHTML = item.SettingsNoteListOption7;
+
+       var settingsNoteListOption8 = document.createElement('td');
+       settingsNoteListOption8.innerHTML = item.SettingsNoteListOption8;
+
+       var settingsNoteListOption9 = document.createElement('td');
+       settingsNoteListOption9.innerHTML = item.SettingsNoteListOption9;
+
+       var settingsNoteListOption10 = document.createElement('td');
+       settingsNoteListOption10.innerHTML = item.SettingsNoteListOption10;
+
+       var editUserName = document.createElement('button');
+       editUserName.innerHTML = "Edit";
+       editUserName.className = 'badge badge-gradient-success';
+       editUserName.id = item.idPositionNoteList;
+       editUserName.setAttribute('onclick', 'editButtonUser(this)');
+
+       var editUserNameColumn = document.createElement('td');
+       editUserNameColumn.appendChild(editUserName);
+
+       var toDismissName = document.createElement('button');
+       toDismissName.innerHTML = "To dismiss";
+       toDismissName.className = 'badge badge-gradient-danger';
+       toDismissName.id = item.idPositionNoteList;
+       toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
+
+       var toDismissColumn = document.createElement('td');
+       toDismissColumn.appendChild(toDismissName);
+
+       tr.appendChild(settingsNoteListOption1);
+       tr.appendChild(settingsNoteListOption2);
+       tr.appendChild(settingsNoteListOption3);
+       tr.appendChild(settingsNoteListOption4);
+       tr.appendChild(settingsNoteListOption5);
+       tr.appendChild(settingsNoteListOption6);
+       tr.appendChild(settingsNoteListOption7);
+       tr.appendChild(settingsNoteListOption8);
+       tr.appendChild(settingsNoteListOption9);
+       tr.appendChild(settingsNoteListOption10);
+
+       tr.appendChild(editUserNameColumn);
+       tr.appendChild(toDismissColumn);
+
+       container.appendChild(tr);
+     });
+   });
+};
