@@ -136,7 +136,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                            tr.appendChild(organizationColumn);
                            tr.appendChild(toComeInUserColumn);
 
-                           var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
+                           var container = document.getElementById("tableAvalablePositionsList").getElementsByTagName("tbody")[0];
 
                            container.appendChild(tr);
                         });
