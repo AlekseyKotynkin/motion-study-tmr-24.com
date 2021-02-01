@@ -103,11 +103,14 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     }
     var nameOfDepartmentHead = document.getElementById("exampleInputModalSubdivisionNameOfDepartamentHead").value;
     var headOfUnit = document.getElementById("exampleInputModalSubdivisionHeadOfUnit").value;
+    var subdivisionOfYourManager = document.getElementById("exampleInputModalSubdivisionSubdivisionOfYourManager").value;
+
     // Добавляем в коллекциию организации Подразделения и данные руководителя.
     docRef.collection("Subdivision").add({
     Subdivision: subdivisionTitle,
     NameOfDepartmentHead: nameOfDepartmentHead,
     HeadOfUnit: headOfUnit,
+    SubdivisionOfYourManager: subdivisionOfYourManager,
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
@@ -341,11 +344,14 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
         alert('Please enter an comments.');
         return;
        }
+       var positionOfManager = document.getElementById("exampleInputModalPositionOfManager").value;
+       var positionOfManagerName = document.getElementById("exampleInputModalPositionOfManagerName").value;
        // Добавляем в документ Подразделения должность.
        docRefFull.collection("Position").add({
        Position: position_Title,
        PositionComment: position_Comment,
-
+       PositionOfManager: positionOfManager,
+       PositionOfManagerName: positionOfManagerName,
        })
        .then(function(docRefFull) {
            console.log("Document written with ID: ", docRefFull.id);

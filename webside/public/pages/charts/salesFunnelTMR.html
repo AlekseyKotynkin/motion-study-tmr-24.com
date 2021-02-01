@@ -230,6 +230,18 @@
         <!-- main-panel -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <!-- Необходимые даты для Воронки Продаж. -->
+            <div class="row" id="proBanner">
+              <div class="col-12">
+                <span class="d-flex align-items-center purchase-popup">
+                  <p>Select a source of management positions.</p>
+                  <button onclick="gridDisplayOrganizationOwner()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw" >Organization owner</button>
+                  <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Organization</button>
+                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Subdivision</button>
+                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Position</button>
+                </span>
+              </div>
+            </div>
   <!-- отображаем список доступных по правам должностей. -->
             <div class="row">
               <div class="col-12 grid-margin">
@@ -261,7 +273,7 @@
                   <div class="card-body">
                     <h4 class="card-title">List of employees with the selected position</h4>
                     <div class="table-responsive">
-                      <table id="tableAvalablePositionsList"class="table">
+                      <table id="tableAvalablePositionsListUser"class="table">
                         <thead>
                           <tr>
                             <th> # </th>
@@ -285,94 +297,17 @@
                   <div class="card-body">
                     <h4 class="card-title"> Settings for displaying "Sales funnels" </h4>
                     <div class="table-responsive">
-                      <table class="table table-bordered">
+                      <table id="tableAvalablePositionsListSettings" class="table table-bordered">
                         <thead>
                           <tr>
-                            <th> # </th>
-                            <th> First name </th>
-                            <th> Progress </th>
-                            <th> Amount </th>
-                            <th> Deadline </th>
+                            <th> Button name </th>
+                            <th> Button comments </th>
+                            <th> Sales funnel stage </th>
+                            <th> Employee availability </th>
+                            <th> Result button </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td> 1 </td>
-                            <td> Herman Beck </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td> May 15, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 2 </td>
-                            <td> Messsy Adam </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $245.30 </td>
-                            <td> July 1, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 3 </td>
-                            <td> John Richards </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $138.00 </td>
-                            <td> Apr 12, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 4 </td>
-                            <td> Peter Meggik </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td> May 15, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 5 </td>
-                            <td> Edward </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 160.25 </td>
-                            <td> May 03, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 6 </td>
-                            <td> John Doe </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 123.21 </td>
-                            <td> April 05, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td> 7 </td>
-                            <td> Henry Tom </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 150.00 </td>
-                            <td> June 16, 2015 </td>
-                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -393,7 +328,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label"> Start date </label>
                               <div class="col-sm-6">
-                                <input class="form-control" placeholder="dd/mm/yyyy" />
+                                <input class="form-control" id="exampleInputAnalysisStartDate" placeholder="dd/mm/yyyy" />
                               </div>
                             </div>
                           </div>
@@ -401,7 +336,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label"> Expiration date </label>
                               <div class="col-sm-6">
-                                <input class="form-control" placeholder="dd/mm/yyyy" />
+                                <input class="form-control" id="exampleInputAnalysisExpirationDate" placeholder="dd/mm/yyyy" />
                               </div>
                             </div>
                           </div>
@@ -412,7 +347,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label"> Start date </label>
                               <div class="col-sm-6">
-                                <input class="form-control" placeholder="dd/mm/yyyy" />
+                                <input class="form-control" id="exampleInputComparisonStartDate" placeholder="dd/mm/yyyy" />
                               </div>
                             </div>
                           </div>
@@ -420,7 +355,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label"> Expiration date </label>
                               <div class="col-sm-6">
-                                <input class="form-control" placeholder="dd/mm/yyyy" />
+                                <input class="form-control" id="exampleInputComparisonExpirationDate" placeholder="dd/mm/yyyy" />
                               </div>
                             </div>
                           </div>
@@ -429,7 +364,7 @@
                           <div class="col-md-6">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input"> Use comparison </label>
+                                <input type="checkbox" class="form-check-input" id="exampleInputComparisonCheckbox"> Use comparison </label>
                             </div>
                           </div>
                           <div class="col-md-6">
