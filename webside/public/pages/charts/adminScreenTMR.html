@@ -21,7 +21,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="../../js/index.js"></script>
-    <script src="../../commonChartjsTMR.js"></script>
+    <script src="../../commonAdminScreenTMR.js"></script>
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
@@ -209,23 +209,8 @@
       </nav>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <!-- <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
-                <div class="nav-profile-image">
-                  <img src="../../assets/images/faces/face1.jpg" alt="profile">
-                  <span class="login-status online"></span>
-
-                </div>
-                <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Project Manager</span>
-                </div>
-                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-              </a>
-            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="../../index.html">
                 <span class="menu-title">Home page</span>
@@ -257,82 +242,35 @@
               <a class="nav-link" href="../../indexKnowledgeBase.html">
                 <span class="menu-title">Knowledge base</span>
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
-                <!-- <i class="mdi mdi-account-plus menu-icon"></i> -->
               </a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="../../pages/icons/mdi.html">
-                <span class="menu-title">Icons</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
-              </a>
-            </li> -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="../../pages/forms/basic_elements.html">
-                <span class="menu-title">Forms</span>
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-              </a>
-            </li> -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="../../pages/charts/chartjs.html">
-                <span class="menu-title">Charts</span>
-                <i class="mdi mdi-chart-bar menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../../pages/tables/basic-table.html">
-                <span class="menu-title">Tables</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
-              </a>
-            </li> -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                <span class="menu-title">Sample Pages</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-medical-bag menu-icon"></i>
-              </a>
-              <div class="collapse" id="general-pages">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
-                </ul>
-              </div>
-            </li> -->
-            <!-- <li class="nav-item sidebar-actions">
-              <span class="nav-link">
-                <div class="border-bottom">
-                  <h6 class="font-weight-normal mb-3">Projects</h6>
-                </div>
-                <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
-                <div class="mt-4">
-                  <div class="border-bottom">
-                    <p class="text-secondary">Categories</p>
-                  </div>
-                  <ul class="gradient-bullet-list mt-4">
-                    <li>Free</li>
-                    <li>Pro</li>
-                  </ul>
-                </div>
-              </span>
-            </li> -->
           </ul>
         </nav>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <!-- Окно выбора Организации. -->
+            <!-- Необходимые даты для Воронки Продаж. -->
+            <div class="row" id="proBanner">
+              <div class="col-12">
+                <span class="d-flex align-items-center purchase-popup">
+                  <p>Select a source of management positions.</p>
+                  <button onclick="gridDisplayOrganizationOwner()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw" >Organization owner</button>
+                  <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Organization</button>
+                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Subdivision</button>
+                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Position</button>
+                </span>
+              </div>
+            </div>
+  <!-- отображаем список доступных по правам должностей. -->
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of own organizations</h4>
+                    <h4 class="card-title">List of available positions</h4>
                     <div class="table-responsive">
-                      <table id="tableAvalableOrganizations"class="table">
+                      <table id="tableAvalablePositionsList"class="table">
                         <thead>
                           <tr>
-                            <th> Email </th>
-                            <th> Сomment </th>
                             <th> Position </th>
                             <th> Subdivision </th>
                             <th> Organization </th>
@@ -347,8 +285,37 @@
                 </div>
               </div>
             </div>
-            <!-- Окно выбора пользователя. -->
+            <!--отображает список смен данной должности. -->
             <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div id ="addButtonShiftPosition" class="card-body">
+                    <h4 class="card-title"> List of work shifts by position </h4>
+                    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">
+                      + Add Position Shift
+                    </button> -->
+                    <div class="table-responsive">
+                      <table id="tablePositionShift" class="table">
+                        <thead>
+                          <tr>
+                            <th> Start date and time </th>
+                            <th> End date and time </th>
+                            <th> Shift number </th>
+                            <th> Employees per shift </th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                          <tbody>
+                          </tbody>
+                       </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Окно выбора пользователя. -->
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -372,9 +339,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно выбора смены. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -399,9 +366,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно детализация дня в таблице. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -424,9 +391,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно детализация дня в графике. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -443,7 +410,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="row">
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
@@ -476,7 +443,7 @@
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- Модальное окно параметров смены Event -->
-          <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div id = "gridSystemModalShiftPosition" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -487,17 +454,65 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">Event information</h4>
-                          <p class="card-description">Detailed information on the event</p>
+                          <h4 class="card-title"> Shift position </h4>
+                          <p class="card-description">Working interval of job changet</p>
                           <form class="forms-sample">
-                            <div class="form-group">
-                              <p><span id = nameEvent></span></p>
-                              <p><span id = timeStartEvent></span></p>
-                              <p><span id = timeEndEvent></span></p>
-                              <p><span id = eventDuration></span></p>
-                              <p><span id = commitDescriptioText></span></p>
-                              <p><span id = resultControlButton></span></p>
-                            </div>
+                            <form class="forms-sample">
+                              <div class="form-check">
+                               <p class="col-sm col-form-label" >Shift number </p>
+                                <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputShiftNumber">
+                                  <option>1 shift</option>
+                                  <option>2 shift</option>
+                                  <option>3 shift</option>
+                                  <option>without borders</option>
+                                </select>
+                              </div>
+                              <div class="row">
+                                <div class="col-md">
+                                  <div class="form-group row">
+                                    <div class="col-sm">
+                                      <label class="col-sm col-form-label"> Start date </label>
+                                      <input class="form-control" id="exampleInputShiftStartDate" placeholder="dd/mm/yyyy" />
+                                      <input class="form-control" id="exampleInputShiftStartTime" placeholder="00/00" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md">
+                                  <div class="form-group row">
+                                    <div class="col-sm">
+                                      <label class="col-sm col-form-label"> Expiration date </label>
+                                      <input class="form-control" id="exampleInputShiftExpirationDate" placeholder="dd/mm/yyyy" />
+                                      <input class="form-control" id="exampleInputShiftExpirationTime" placeholder="23/59" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- Выводим список доступных пользователей данной должности. -->
+                              <div class="row">
+                                <div class="col-12 grid-margin">
+                                  <div class="card">
+                                      <p class="col-sm col-form-label">List user position</p>
+                                      <div class="table-responsive">
+                                        <table id="tableShiftPositionsListUser"class="table">
+                                          <thead>
+                                            <tr>
+                                              <th> # </th>
+                                              <th> User </th>
+                                              <th> Comments </th>
+                                            </tr>
+                                          </thead>
+                                            <tbody>
+                                            </tbody>
+                                         </table>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalShiftPositionsListSubmit()">Submit</button>
+                              <button class="btn btn-light">Cancel</button>
+                            </form>
                           </form>
                         </div>
                       </div>
