@@ -491,8 +491,9 @@ function gridDisplayManagerPosition() {
   $('#tablePositionShift tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
-
-  /**
+  //убрать кнопку из таблицыц
+   var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+   document.body.innerHTML = document.body.innerHTML.replace(regex, '');  /**
   * @return {string}
   * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер должности
   */
@@ -672,27 +673,46 @@ function gridDisplayManagerPosition() {
   function fillTablePositionShift() {
     $('#tablePositionShift tbody').empty();
     let itemsPositionShift = [];
-    var docRef = db.collection("Organization").doc(idDocOrganization);
-    var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
-    var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+    let docRef = db.collection("Organization").doc(idDocOrganization);
+    let docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
+    let docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
     docRefPosition.collection("PositionShift")
     .get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        itemsPositionShift.push({...doc.data(),...{idPositionUser: doc.id}});
-        let ggg = doc.data();
-        let fff = ggg.WorkShiftPositionStart;
-        let sss = fff.seconds;
-      //  let kkk = fff.toLocaleString("ru", options)
-        console.log(sss);
-        console.log(fff.toString()); // Mon Apr 15 2019 18:43:59 GMT+1000 (Владивосток, стандартное время)
-    //    console.log(fff.toDateString()); // Mon Apr 15 2019
-    //    console.log(fff.toTimeString()); // 18:43:59 GMT+1000 (Владивосток, стандартное время)
-        console.log(fff.toLocaleString()); // 15.04.2019, 18:43:59
-        console.log(fff.toLocaleDateString()); // 15.04.2019
-        console.log(fff.toLocaleTimeString()); // 18:43:59
-        console.log(fff.toUTCString()); // Mon, 15 Apr 2019 08:43:59 GMT
-        console.log(fff.toISOString()); // 2019-04-15T08:43:59.000Z
+        ///
+        let documents = doc.data();
+        let workShiftPositionStart = documents.WorkShiftPositionStart;
+        let secondsStart = workShiftPositionStart.seconds*1000;
+        let dataStart = new Date(secondsStart);
+        let l = dataStart.toString();
+        let getDay = l.split(" ")[0];
+        let getMonth = l.split(" ")[1];
+        let getDate = l.split(" ")[2];
+        let getFullYear = l.split(" ")[3];
+        let getTime = l.split(" ")[4];
+        let getHours = getTime.split(":")[0];
+        let getMinutes = getTime.split(":")[1];
+        let workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth)+" "+(getFullYear)+" _ "+(getHours)+":"+(getMinutes);
+        ///
+        let workShiftPositionExpiration = documents.WorkShiftPositionExpiration;
+        let secondsExpiration = workShiftPositionExpiration.seconds*1000;
+        let dataExpiration = new Date(secondsExpiration);
+        let lE = dataExpiration.toString();
+        let getDayExpiration = lE.split(" ")[0];
+        let getMonthExpiration = lE.split(" ")[1];
+        let getDateExpiration = lE.split(" ")[2];
+        let getFullYearExpiration = lE.split(" ")[3];
+        let getTimeExpiration = lE.split(" ")[4];
+        let getHoursExpiration = getTimeExpiration.split(":")[0];
+        let getMinutesExpiration = getTimeExpiration.split(":")[1];
+        let workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _ "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
+        ///
+        let listPositionUser = documents.ListPositionUser;
+        let numberUsers = listPositionUser.length;
+        ///
+        itemsPositionShift.push({...doc.data(),...{idPositionShift: doc.id},...{WorkShiftPositionStartString: workShiftPositionStartString},...{WorkShiftPositionExpirationString: workShiftPositionExpirationString},...{NumberUsers: numberUsers}});
+
       });
         })
         .catch(function(error) {
@@ -703,18 +723,21 @@ function gridDisplayManagerPosition() {
           var tr = document.createElement("tr");
 
           var workShiftPositionStartColumn = document.createElement('td');
-          workShiftPositionStartColumn.innerHTML = item.WorkShiftPositionStart;
+          workShiftPositionStartColumn.innerHTML = item.WorkShiftPositionStartString;
 
           var workShiftPositionExpirationColumn = document.createElement('td');
-          workShiftPositionExpirationColumn.innerHTML = item.WorkShiftPositionExpiration;
+          workShiftPositionExpirationColumn.innerHTML = item.WorkShiftPositionExpirationString;
 
           var shiftNumberColumn = document.createElement('td');
           shiftNumberColumn.innerHTML = item.ShiftNumber;
 
+          var numberUsersColumn = document.createElement('td');
+          numberUsersColumn.innerHTML = item.NumberUsers;
+
           var changeShiftData = document.createElement('button');
           changeShiftData.innerHTML = "To come in";
           changeShiftData.className = 'badge badge-gradient-success';
-          changeShiftData.id = item.idDocPositionUser;
+          changeShiftData.id = item.idPositionShift;
           changeShiftData.item = item;
           changeShiftData.setAttribute('onclick', 'changeShiftDataButton(this)');
 
@@ -724,7 +747,7 @@ function gridDisplayManagerPosition() {
           var deleteShiftData = document.createElement('button');
           deleteShiftData.innerHTML = "Delete";
           deleteShiftData.className = 'badge badge-gradient-danger';
-          deleteShiftData.id = item.idDocPositionUser;
+          deleteShiftData.id = item.idPositionShift;
           deleteShiftData.item = item;
           deleteShiftData.setAttribute('onclick', 'deleteShiftDataButton(this)');
 
@@ -734,6 +757,7 @@ function gridDisplayManagerPosition() {
           tr.appendChild(workShiftPositionStartColumn);
           tr.appendChild(workShiftPositionExpirationColumn);
           tr.appendChild(shiftNumberColumn);
+          tr.appendChild(numberUsersColumn);
           tr.appendChild(changeShiftDataColumn);
           tr.appendChild(deleteShiftDataColumn);
 
