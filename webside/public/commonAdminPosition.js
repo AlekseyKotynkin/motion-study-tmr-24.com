@@ -64,6 +64,9 @@ let objIdDocUser ="";
 let objIdDocSettings ="";
 let objActiveModal = "";
 
+let itemsPositionSalesFunnel = [];
+
+
 /**
 * @return {string}
 *  Заполняем шапки табличных частей Пользователи и Процессы (название кнопок).
@@ -969,10 +972,10 @@ function createATableOfPositionTraffic()
      });
      if(itemPositionTraffic.length === 0)
        {
-         my_div_User = document.getElementById("headerTablePositionTraffic");
-         const ul_User = my_div_User.querySelector("h4");
+         my_div_UserPositionTraffic = document.getElementById("headerTablePositionTraffic");
+         const ul_UserPositionTraffic = my_div_UserPositionTraffic.querySelector("h4");
          let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic"> + Add a list of traffic positions </button>';
-         ul_User.insertAdjacentHTML("afterend", li);
+         ul_UserPositionTraffic.insertAdjacentHTML("afterend", li);
        }
    });
 };
@@ -1280,4 +1283,137 @@ function updateGridSystemModalNewUserNoteSubmit()
             console.error("Error updating document: ", error);
         });
    objActiveModal = "";
+}
+
+/**
+* @return {string}
+*  заполняем таблицу список настроек tableAvalablePositionsListSettings
+*/
+function createSaveSettingsShiftPosition()
+{
+//заполняем таблицу список настроек tableAvalablePositionsListSettings
+itemsPositionSalesFunnel = [];
+////добавляем настройки базовых кнопок
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"}});
+
+
+
+docRefPosition.collection("PositionSettings")
+.get()
+.then(function(querySnapshot) {
+  querySnapshot.forEach(function(doc) {
+    itemsPositionSalesFunnel.push({...doc.data(),...{idPositionSettings: doc.id}});
+  });
+
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    })
+      .finally(() => {itemsPositionSalesFunnel;
+      itemsPositionSalesFunnel.forEach(item => {
+      var tr = document.createElement("tr");
+
+      var settingsTitleColumn = document.createElement('td');
+      settingsTitleColumn.innerHTML = item.SettingsTitle;
+
+      var settingsСommentColumn = document.createElement('td');
+      settingsСommentColumn.innerHTML = item.SettingsСomment;
+
+      var editSettings = document.createElement('select');
+      editSettings.options[0] = new Option("does not participate", "str0");
+      editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
+      editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
+      editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
+      editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
+      editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+      editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+
+      var editSettingsColumn = document.createElement('td');
+      editSettingsColumn.appendChild(editSettings);
+
+      var deleteSettings = document.createElement('select');
+      deleteSettings.options[0] = new Option("Not available red", "str0");
+      deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
+      deleteSettings.options[2] = new Option("Available green", "str2");
+      deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+
+      var deleteSettingsColumn = document.createElement('td');
+      deleteSettingsColumn.appendChild(deleteSettings);
+
+      var resultButton = document.createElement('select');
+      resultButton.options[0] = new Option("Ignore", "str0");
+      resultButton.options[1] = new Option("Take account of", "str1");
+      resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
+
+      var resultButtonColumn = document.createElement('td');
+      resultButtonColumn.appendChild(resultButton);
+
+      tr.appendChild(settingsTitleColumn);
+      tr.appendChild(settingsСommentColumn);
+      tr.appendChild(editSettingsColumn);
+      tr.appendChild(deleteSettingsColumn);
+      tr.appendChild(resultButtonColumn);
+
+      var container = document.getElementById("tableAvalablePositionsListSettings").getElementsByTagName("tbody")[0];
+
+      container.appendChild(tr);
+    });
+  });
+  //добавляем кнопку сохранения измененых настроек
+  my_div_UserSaveSettingsShiftPosition = document.getElementById("titleSaveSettingsShiftPosition");
+  const ul_UserSaveSettingsShiftPosition = my_div_UserSaveSettingsShiftPosition.querySelector("h4");
+  let li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemSaveSettingsShiftPosition()">Save settings</button>';
+  ul_UserSaveSettingsShiftPosition.insertAdjacentHTML("afterend", li);
+}
+
+
+/**
+* @return {string}
+*  получаем данные с таблицы tableAvalablePositionsListSettings и обновляем настройки в документах
+*/
+function gridSystemSaveSettingsShiftPosition()
+{
+  //читаем данные с таблицы
+  var tablePositionsListSettings = document.getElementById('tableAvalablePositionsListSettings');
+  //удалил шапку таблицы
+  let itemPositionsListSettings =[];
+  tablePositionsListSettings.deleteRow(0);
+  var rowLength = tablePositionsListSettings.rows.length;
+  for (i = 0; i < rowLength; i++){
+     var cells = tablePositionsListSettings.rows.item(i).cells;
+     var cellVal_0 = cells.item(0).innerHTML;
+     var cellVal_1 = cells.item(1).innerHTML;
+     var l = cells.item(2).lastChild.options.selectedIndex;
+     var cellVal_2 = cells.item(2).lastChild.options[l].innerHTML;
+     var l2 = cells.item(3).lastChild.options.selectedIndex;
+     var cellVal_3 = cells.item(3).lastChild.options[l2].innerHTML;
+     var l3 = cells.item(4).lastChild.options.selectedIndex;
+     var cellVal_4 = cells.item(4).lastChild.options[l3].innerHTML;
+     itemPositionsListSettings.push({...{idPositionSettings1: cellVal_0},...{idPositionSettings2: cellVal_2},...{idPositionSettings3: cellVal_3},...{idPositionSettings4: cellVal_4}});
+   }
+ // удаляем 3 настройки базовых кнопок
+  itemPositionsListSettings.splice(0, 3);
+  // itemsPositionSalesFunnel
+  // разбираем данные для изменение документов
+  itemPositionsListSettings.forEach(function(item, i, arr) {
+  let p = itemPositionsListSettings[i].idPositionSettings1;
+
+  itemsPositionSalesFunnel.forEach(function(item, l, arr) {
+  let t = itemsPositionSalesFunnel[l].SettingsTitle;
+  if (p == t)
+    {
+      let k = itemsPositionSalesFunnel[l].idPositionSettings;
+      console.log(k);
+    }
+  });
+});
+
+
+
+
 }

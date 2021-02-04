@@ -33,8 +33,13 @@ const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
-
 let itemsOrganizationName = [];
+//переменные для диаграммы на страницы
+let LABELS = [];
+let dataNotAvailable = [];
+let dataPerhaps = [];
+let dataAvailable = [];
+
 
 
 
@@ -583,19 +588,11 @@ function gridDisplayManagerPosition() {
    */
 
   function toComeInButtonPositionsListUser(obj) {
-
     let itemsPositionUser = [];
-
     //очищаю таблицу tableAvalablePositionsList
     $('#tableAvalablePositionsListUser tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
     $('#tableAvalablePositionsListSettings tbody').empty();
-
-    // var table1 = document.getElementById("tableAvalablePositionsListSettings");
-    // var rowCount1 = table1.rows.length;
-    // for (var i=rowCount1-1; i >=0; i--) {
-    //     table1.deleteRow(i);
-    // }
     //обработка редактирования строки...
       let objId = obj.id;
       let objItem = obj.item;
@@ -643,10 +640,7 @@ function gridDisplayManagerPosition() {
             container.appendChild(tr);
           });
         });
-        //заполняем таблицу список настроек tableAvalablePositionsListSettings
-
-
-
+        
         //заполняем таблицу список настроек tableAvalablePositionsListSettings
         let items = [];
         items.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"}});
@@ -712,7 +706,6 @@ function gridDisplayManagerPosition() {
               tr.appendChild(editSettingsColumn);
               tr.appendChild(deleteSettingsColumn);
               tr.appendChild(resultButtonColumn);
-
 
               var container = document.getElementById("tableAvalablePositionsListSettings").getElementsByTagName("tbody")[0];
 
@@ -891,20 +884,167 @@ function gridDisplay()
       alert('Please fill in the date according to the template!');
       return;
     }
+    //собираем формат времени
+    var dateComparisonStart = +new Date(yearComparisonStartDate, monthComparisonStartDate-1, dayComparisonStartDate, 0, 0, 0);
+    var dateComparisonExpiration = +new Date(yearComparisonExpirationDate, monthComparisonExpirationDate-1, dayComparisonExpirationDate, 23, 59, 59);
   }
-// сменный график работы подразделения
+  //собираем формат времени
+  var dateAnalysisStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  var dateAnalysisExpiration = +new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
+  // сменный график работы подразделения
 
 
-
-
-
-
-
-
-
+  // переменные для диаграммы
+  LABELS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG' , 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'];
+  dataNotAvailable = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
+  dataPerhaps = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
+  dataAvailable = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
+  goo();
 
 
 
 
 
 }
+function goo()
+{
+// получаем переменные для диаграммы
+
+//////////////////////////////////
+(function($) {
+  'use strict';
+  $(function() {
+
+    // Remove pro banner on close
+    // document.querySelector('#bannerClose').addEventListener('click',function() {
+    //   document.querySelector('#proBanner').classList.add('d-none');
+    // });
+
+    Chart.defaults.global.legend.labels.usePointStyle = true;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if ($("#visit-sale-chart").length) {
+  Chart.defaults.global.legend.labels.usePointStyle = true;
+  var ctx = document.getElementById('visit-sale-chart').getContext("2d");
+
+  var gradientStrokeViolet = ctx.createLinearGradient(0, 0, 0, 181);
+  gradientStrokeViolet.addColorStop(0, 'rgba(254, 124, 150, 1)');
+  gradientStrokeViolet.addColorStop(1, 'rgba(254, 124, 150, 1)');
+  var gradientLegendViolet = 'linear-gradient(to right, rgba(254, 124, 150, 1), rgba(254, 124, 150, 1))';
+
+  var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 360);
+  gradientStrokeBlue.addColorStop(0, 'rgba(27, 207, 180, 1)');
+  gradientStrokeBlue.addColorStop(1, 'rgba(27, 207, 180, 1)');
+  var gradientLegendBlue = 'linear-gradient(to right, rgba(27, 207, 180, 1), rgba(27, 207, 180, 1))';
+
+  var gradientStrokeRed = ctx.createLinearGradient(0, 0, 0, 300);
+  gradientStrokeRed.addColorStop(0, 'rgba(254, 215, 19, 1)');
+  gradientStrokeRed.addColorStop(1, 'rgba(254, 215, 19, 1)');
+  var gradientLegendRed = 'linear-gradient(to right, rgba(254, 215, 19, 1), rgba(254, 215, 19, 1))';
+
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: LABELS,
+        datasets: [
+          {
+            label: "Not available ",
+            borderColor: gradientStrokeViolet,
+            backgroundColor: gradientStrokeViolet,
+            hoverBackgroundColor: gradientStrokeViolet,
+            legendColor: gradientLegendViolet,
+            pointRadius: 0,
+            fill: false,
+            borderWidth: 1,
+            fill: 'origin',
+            data: dataNotAvailable,
+          },
+          {
+            label: "Perhaps",
+            borderColor: gradientStrokeRed,
+            backgroundColor: gradientStrokeRed,
+            hoverBackgroundColor: gradientStrokeRed,
+            legendColor: gradientLegendRed,
+            pointRadius: 0,
+            fill: false,
+            borderWidth: 1,
+            fill: 'origin',
+            data: dataPerhaps,
+          },
+          {
+            label: "Available",
+            borderColor: gradientStrokeBlue,
+            backgroundColor: gradientStrokeBlue,
+            hoverBackgroundColor: gradientStrokeBlue,
+            legendColor: gradientLegendBlue,
+            pointRadius: 0,
+            fill: false,
+            borderWidth: 1,
+            fill: 'origin',
+            data: dataAvailable,
+          }
+      ]
+    },
+    options: {
+      responsive: true,
+      legend: false,
+      legendCallback: function(chart) {
+        var text = [];
+        text.push('<ul>');
+        for (var i = 0; i < chart.data.datasets.length; i++) {
+            text.push('<li><span class="legend-dots" style="background:' +
+                       chart.data.datasets[i].legendColor +
+                       '"></span>');
+            if (chart.data.datasets[i].label) {
+                text.push(chart.data.datasets[i].label);
+            }
+            text.push('</li>');
+        }
+        text.push('</ul>');
+        return text.join('');
+      },
+      scales: {
+          yAxes: [{
+              ticks: {
+                  display: false,
+                  min: 0,
+                  stepSize: 20,
+                  max: 80
+              },
+              gridLines: {
+                drawBorder: false,
+                color: 'rgba(235,237,242,1)',
+                zeroLineColor: 'rgba(235,237,242,1)'
+              }
+          }],
+          xAxes: [{
+              gridLines: {
+                display:false,
+                drawBorder: false,
+                color: 'rgba(0,0,0,1)',
+                zeroLineColor: 'rgba(235,237,242,1)'
+              },
+              ticks: {
+                  padding: 20,
+                  fontColor: "#9c9fa6",
+                  autoSkip: true,
+              },
+              categoryPercentage: 0.5,
+              barPercentage: 0.5
+          }]
+        }
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      }
+  })
+  $("#visit-sale-chart-legend").html(myChart.generateLegend());
+}
+});
+})(jQuery);
+}
+///////////////////////////////////////////////////////////////////////

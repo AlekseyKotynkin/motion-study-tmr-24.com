@@ -706,7 +706,7 @@ function gridDisplayManagerPosition() {
         let getTimeExpiration = lE.split(" ")[4];
         let getHoursExpiration = getTimeExpiration.split(":")[0];
         let getMinutesExpiration = getTimeExpiration.split(":")[1];
-        let workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _ "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
+        let workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _  "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
         ///
         let listPositionUser = documents.ListPositionUser;
         let numberUsers = listPositionUser.length;
