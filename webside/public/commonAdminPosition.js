@@ -532,6 +532,9 @@ function gridSystemModalNewSettingsSubmit()
   SettingsResultControlOption6: "",
   SettingsResultControlOption7: "",
   SettingsResultControlOption8: "",
+  SettingsSalesFunnel_Availability: "",
+  SettingsSalesFunnel_Stage: "",
+  SettingsSalesFunnel_Result: "",
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       $('#gridSystemModalNewSettings').modal('toggle');
@@ -1294,11 +1297,9 @@ function createSaveSettingsShiftPosition()
 //заполняем таблицу список настроек tableAvalablePositionsListSettings
 itemsPositionSalesFunnel = [];
 ////добавляем настройки базовых кнопок
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"}});
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"}});
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"}});
-
-
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
 
 docRefPosition.collection("PositionSettings")
 .get()
@@ -1329,16 +1330,33 @@ docRefPosition.collection("PositionSettings")
       editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
       editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      let x = item.SettingsSalesFunnel_Availability;
+      for (i = 0; i < 6; i++){
+         var cells = editSettings.options[i].innerHTML;
+         editSettings.options[i].selected=false;
+         if (x==cells){
+         editSettings.options[i].selected=true;
+         }
+      }
       editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
 
       var editSettingsColumn = document.createElement('td');
       editSettingsColumn.appendChild(editSettings);
+
 
       var deleteSettings = document.createElement('select');
       deleteSettings.options[0] = new Option("Not available red", "str0");
       deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
       deleteSettings.options[2] = new Option("Available green", "str2");
       deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      let y = item.SettingsSalesFunnel_Stage;
+      for (l = 0; l < 3; l++){
+         var cells1 = deleteSettings.options[l].innerHTML;
+         deleteSettings.options[l].selected=false;
+         if (y==cells1){
+         deleteSettings.options[l].selected=true;
+         }
+      }
       deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
 
       var deleteSettingsColumn = document.createElement('td');
@@ -1348,6 +1366,14 @@ docRefPosition.collection("PositionSettings")
       resultButton.options[0] = new Option("Ignore", "str0");
       resultButton.options[1] = new Option("Take account of", "str1");
       resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+      let z = item.SettingsSalesFunnel_Result;
+      for (k = 0; k < 2; k++){
+         var cells2 = resultButton.options[k].innerHTML;
+         resultButton.options[k].selected=false;
+         if (z==cells2){
+         resultButton.options[k].selected=true;
+         }
+      }
       resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
 
       var resultButtonColumn = document.createElement('td');
@@ -1394,26 +1420,30 @@ function gridSystemSaveSettingsShiftPosition()
      var cellVal_3 = cells.item(3).lastChild.options[l2].innerHTML;
      var l3 = cells.item(4).lastChild.options.selectedIndex;
      var cellVal_4 = cells.item(4).lastChild.options[l3].innerHTML;
-     itemPositionsListSettings.push({...{idPositionSettings1: cellVal_0},...{idPositionSettings2: cellVal_2},...{idPositionSettings3: cellVal_3},...{idPositionSettings4: cellVal_4}});
+     itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability: cellVal_2},...{SettingsSalesFunnel_Stage: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
    }
- // удаляем 3 настройки базовых кнопок
+  // удаляем 3 настройки базовых кнопок
   itemPositionsListSettings.splice(0, 3);
-  // itemsPositionSalesFunnel
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
-  let p = itemPositionsListSettings[i].idPositionSettings1;
-
+  let namePosition = itemPositionsListSettings[i].namePosition;
+  let settingsSalesFunnel_Availability = itemPositionsListSettings[i].SettingsSalesFunnel_Availability;
+  let settingsSalesFunnel_Stage = itemPositionsListSettings[i].SettingsSalesFunnel_Stage;
+  let settingsSalesFunnel_Result = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
-  let t = itemsPositionSalesFunnel[l].SettingsTitle;
-  if (p == t)
+  let settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
+  let idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
+  if (namePosition == settingsTitle)
     {
-      let k = itemsPositionSalesFunnel[l].idPositionSettings;
-      console.log(k);
+      docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
+        SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability,
+        SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage,
+        SettingsSalesFunnel_Result: settingsSalesFunnel_Result,
+      }).then(function() {
+        console.log("Frank food updated");
+      });
     }
   });
 });
-
-
-
 
 }

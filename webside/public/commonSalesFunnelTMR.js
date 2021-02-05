@@ -640,12 +640,12 @@ function gridDisplayManagerPosition() {
             container.appendChild(tr);
           });
         });
-        
+
         //заполняем таблицу список настроек tableAvalablePositionsListSettings
         let items = [];
-        items.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"}});
-        items.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"}});
-        items.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"}});
+        items.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        items.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        items.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
 
 
         docRefPosition.collection("PositionSettings")
@@ -669,37 +669,46 @@ function gridDisplayManagerPosition() {
               var settingsСommentColumn = document.createElement('td');
               settingsСommentColumn.innerHTML = item.SettingsСomment;
 
-              var editSettings = document.createElement('select');
-              editSettings.options[0] = new Option("does not participate", "str0");
-              editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
-              editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
-              editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
-              editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
-              editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
-              editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-              editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+              // var editSettings = document.createElement('select');
+              // editSettings.options[0] = new Option("does not participate", "str0");
+              // editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
+              // editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
+              // editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
+              // editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
+              // editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+              // editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+              // editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+              //
+              // var editSettingsColumn = document.createElement('td');
+              // editSettingsColumn.appendChild(editSettings);
 
               var editSettingsColumn = document.createElement('td');
-              editSettingsColumn.appendChild(editSettings);
+              editSettingsColumn.innerHTML = item.SettingsSalesFunnel_Availability;
 
-              var deleteSettings = document.createElement('select');
-              deleteSettings.options[0] = new Option("Not available red", "str0");
-              deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
-              deleteSettings.options[2] = new Option("Available green", "str2");
-              deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-              deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+              // var deleteSettings = document.createElement('select');
+              // deleteSettings.options[0] = new Option("Not available red", "str0");
+              // deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
+              // deleteSettings.options[2] = new Option("Available green", "str2");
+              // deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+              // deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+              //
+              // var deleteSettingsColumn = document.createElement('td');
+              // deleteSettingsColumn.appendChild(deleteSettings);
 
               var deleteSettingsColumn = document.createElement('td');
-              deleteSettingsColumn.appendChild(deleteSettings);
+              deleteSettingsColumn.innerHTML = item.SettingsSalesFunnel_Stage;
 
-              var resultButton = document.createElement('select');
-              resultButton.options[0] = new Option("Ignore", "str0");
-              resultButton.options[1] = new Option("Take account of", "str1");
-              resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-              resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
+              // var resultButton = document.createElement('select');
+              // resultButton.options[0] = new Option("Ignore", "str0");
+              // resultButton.options[1] = new Option("Take account of", "str1");
+              // resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+              // resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
+              //
+              // var resultButtonColumn = document.createElement('td');
+              // resultButtonColumn.appendChild(resultButton);
 
               var resultButtonColumn = document.createElement('td');
-              resultButtonColumn.appendChild(resultButton);
+              resultButtonColumn.innerHTML = item.SettingsSalesFunnel_Result;
 
               tr.appendChild(settingsTitleColumn);
               tr.appendChild(settingsСommentColumn);
