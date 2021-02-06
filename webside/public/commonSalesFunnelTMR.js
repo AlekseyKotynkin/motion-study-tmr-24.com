@@ -32,6 +32,8 @@ const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rem
 const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+////
+var docRefPosition = "";
 
 let itemsOrganizationName = [];
 //переменные для диаграммы на страницы
@@ -52,7 +54,8 @@ function gridDisplayOrganizationOwner() {
   $('#tableAvalablePositionsListUser tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tableAvalablePositionsListSettings tbody').empty();
-
+  //очищаем     docRefPosition = "";
+   docRefPosition = "";
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром собственник организации
@@ -63,7 +66,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             let idDocOrganization = doc.id;
             let nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
@@ -71,23 +74,23 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
             var docRef = db.collection("Organization").doc(idDocOrganization);
             docRef.get().then(function(doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
+                    // console.log("Document data:", doc.data());
                     // начало* получаем коллекции которые относятся к Организации найденых по запросу выше
                     docRef.collection("Subdivision").get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
-                            console.log(doc.id, " => ", doc.data());
+                            // console.log(doc.id, " => ", doc.data());
                             let idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
                                 if (doc.exists) {
-                                    console.log("Document data:", doc.data());
+                                    // console.log("Document data:", doc.data());
                                     // начало* получаем id документов Position найденых по запросу выше
                                     docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                                        querySnapshot.forEach(function(doc) {
                                            // doc.data() is never undefined for query doc snapshots
-                                           console.log(doc.id, " => ", doc.data());
+                                           // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              let parentHierarchyDoc = doc.ref.path;
                                              let organizationDocId = parentHierarchyDoc.split("/")[1];
@@ -95,7 +98,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                              let positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                                             console.log("1.1 => ",itemsOrganizationName);
+                                             // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
                                                let organizationDocId = element.idDocOrganization ;
@@ -107,10 +110,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                        nameOrganization = doc.data().Organization;
                                                        element['NameOrganization'] = nameOrganization;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                });
                                                let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
@@ -118,10 +121,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                        nameSubdivision = doc.data().Subdivision;
                                                        element['NameSubdivision'] = nameSubdivision;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                });
                                                let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
@@ -129,10 +132,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                        namePosition = doc.data().Position;
                                                        element['NamePosition'] = namePosition;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                }).finally(() => {
                                                  [element].forEach(item =>
                                                {
@@ -175,10 +178,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                     // начало* получаем id документов Position найденых по запросу выше
                                 } else {
                                     // doc.data() will be undefined in this case
-                                    console.log("No such document!");
+                                    // console.log("No such document!");
                                 }
                             }).catch(function(error) {
-                                console.log("Error getting document:", error);
+                                // console.log("Error getting document:", error);
                             });
                             // окончание* получаем id документов Subdivision найденых по запросу выше
                         });
@@ -186,16 +189,16 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                     // окончание* получаем коллекции которые относятся к Организации найденых по запросу выше
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    // console.log("No such document!");
                 }
             }).catch(function(error) {
-                console.log("Error getting document:", error);
+                // console.log("Error getting document:", error);
             });
             // * окончание получаем коллекции которые относятся к Организации найденых по запросу выше
         });
     })
     .catch(function(error) {
-        console.log("Error getting documents: ", error);
+        // console.log("Error getting documents: ", error);
     });
 
 }
@@ -207,7 +210,8 @@ function gridDisplayManagerOrganization() {
   $('#tableAvalablePositionsListUser tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tableAvalablePositionsListSettings tbody').empty();
-
+  //очищаем     docRefPosition = "";
+   docRefPosition = "";
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер организации
@@ -217,7 +221,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             let idDocOrganization = doc.id;
             let nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
@@ -225,23 +229,23 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
             var docRef = db.collection("Organization").doc(idDocOrganization);
             docRef.get().then(function(doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
+                    // console.log("Document data:", doc.data());
                     // начало* получаем коллекции которые относятся к Организации найденых по запросу выше
                     docRef.collection("Subdivision").get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
-                            console.log(doc.id, " => ", doc.data());
+                            // console.log(doc.id, " => ", doc.data());
                             let idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
                                 if (doc.exists) {
-                                    console.log("Document data:", doc.data());
+                                    // console.log("Document data:", doc.data());
                                     // начало* получаем id документов Position найденых по запросу выше
                                     docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                                        querySnapshot.forEach(function(doc) {
                                            // doc.data() is never undefined for query doc snapshots
-                                           console.log(doc.id, " => ", doc.data());
+                                           // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              let parentHierarchyDoc = doc.ref.path;
                                              let organizationDocId = parentHierarchyDoc.split("/")[1];
@@ -249,7 +253,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                              let positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                                             console.log("1.1 => ",itemsOrganizationName);
+                                             // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
                                                let organizationDocId = element.idDocOrganization ;
@@ -261,10 +265,10 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                        nameOrganization = doc.data().Organization;
                                                        element['NameOrganization'] = nameOrganization;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                });
                                                let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
@@ -272,10 +276,10 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                        nameSubdivision = doc.data().Subdivision;
                                                        element['NameSubdivision'] = nameSubdivision;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                });
                                                let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
@@ -283,10 +287,10 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                        namePosition = doc.data().Position;
                                                        element['NamePosition'] = namePosition;
                                                    } else {
-                                                       console.log("No such document!");
+                                                       // console.log("No such document!");
                                                    }
                                                }).catch(function(error) {
-                                                   console.log("Error getting document:", error);
+                                                   // console.log("Error getting document:", error);
                                                }).finally(() => {
                                                  [element].forEach(item =>
                                                {
@@ -329,10 +333,10 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                     // начало* получаем id документов Position найденых по запросу выше
                                 } else {
                                     // doc.data() will be undefined in this case
-                                    console.log("No such document!");
+                                    // console.log("No such document!");
                                 }
                             }).catch(function(error) {
-                                console.log("Error getting document:", error);
+                                // console.log("Error getting document:", error);
                             });
                             // окончание* получаем id документов Subdivision найденых по запросу выше
                         });
@@ -340,16 +344,16 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                     // окончание* получаем коллекции которые относятся к Организации найденых по запросу выше
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    // console.log("No such document!");
                 }
             }).catch(function(error) {
-                console.log("Error getting document:", error);
+                // console.log("Error getting document:", error);
             });
             // * окончание получаем коллекции которые относятся к Организации найденых по запросу выше
         });
     })
     .catch(function(error) {
-        console.log("Error getting documents: ", error);
+        // console.log("Error getting documents: ", error);
     });
 
 }
@@ -361,7 +365,8 @@ function gridDisplayManagerSubdivision() {
   $('#tableAvalablePositionsListUser tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tableAvalablePositionsListSettings tbody').empty();
-
+  //очищаем     docRefPosition = "";
+   docRefPosition = "";
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер подразделения
@@ -371,18 +376,18 @@ function gridDisplayManagerSubdivision() {
   parentHierarchy.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          // console.log(doc.id, " => ", doc.data());
           let idDocSubdivision = doc.id;
           // начало* получаем id документов Subdivision найденых по запросу выше
           var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
           docRefSubdivision.get().then(function(doc) {
               if (doc.exists) {
-                  console.log("Document data:", doc.data());
+                  // console.log("Document data:", doc.data());
                   // начало* получаем id документов Position найденых по запросу выше
                   docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                      querySnapshot.forEach(function(doc) {
                          // doc.data() is never undefined for query doc snapshots
-                         console.log(doc.id, " => ", doc.data());
+                         // console.log(doc.id, " => ", doc.data());
                          // начало* получаем документы Position найденых по запросу выше
                            let parentHierarchyDoc = doc.ref.path;
                            let organizationDocId = parentHierarchyDoc.split("/")[1];
@@ -390,7 +395,7 @@ function gridDisplayManagerSubdivision() {
                            let positionDocId = parentHierarchyDoc.split("/")[5];
                            itemsOrganizationName = [];
                            itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                           console.log("1.1 => ",itemsOrganizationName);
+                           // console.log("1.1 => ",itemsOrganizationName);
 
                            itemsOrganizationName.forEach(function(element){
                              let organizationDocId = element.idDocOrganization ;
@@ -402,10 +407,10 @@ function gridDisplayManagerSubdivision() {
                                      nameOrganization = doc.data().Organization;
                                      element['NameOrganization'] = nameOrganization;
                                  } else {
-                                     console.log("No such document!");
+                                     // console.log("No such document!");
                                  }
                              }).catch(function(error) {
-                                 console.log("Error getting document:", error);
+                                 // console.log("Error getting document:", error);
                              });
                              let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                  docRefSubdivision.get().then(function(doc) {
@@ -413,10 +418,10 @@ function gridDisplayManagerSubdivision() {
                                      nameSubdivision = doc.data().Subdivision;
                                      element['NameSubdivision'] = nameSubdivision;
                                  } else {
-                                     console.log("No such document!");
+                                     // console.log("No such document!");
                                  }
                              }).catch(function(error) {
-                                 console.log("Error getting document:", error);
+                                 // console.log("Error getting document:", error);
                              });
                              let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                  docRefPosition.get().then(function(doc) {
@@ -424,10 +429,10 @@ function gridDisplayManagerSubdivision() {
                                      namePosition = doc.data().Position;
                                      element['NamePosition'] = namePosition;
                                  } else {
-                                     console.log("No such document!");
+                                     // console.log("No such document!");
                                  }
                              }).catch(function(error) {
-                                 console.log("Error getting document:", error);
+                                 // console.log("Error getting document:", error);
                              }).finally(() => {
                                [element].forEach(item =>
                              {
@@ -470,10 +475,10 @@ function gridDisplayManagerSubdivision() {
                   // начало* получаем id документов Position найденых по запросу выше
               } else {
                   // doc.data() will be undefined in this case
-                  console.log("No such document!");
+                  // console.log("No such document!");
               }
           }).catch(function(error) {
-              console.log("Error getting document:", error);
+              // console.log("Error getting document:", error);
           });
           // окончание* получаем id документов Subdivision найденых по запросу выше
       });
@@ -488,7 +493,8 @@ function gridDisplayManagerPosition() {
   $('#tableAvalablePositionsListUser tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tableAvalablePositionsListSettings tbody').empty();
-
+  //очищаем     docRefPosition = "";
+   docRefPosition = "";
   /**
   * @return {string}
   * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер должности
@@ -514,10 +520,10 @@ function gridDisplayManagerPosition() {
               nameOrganization = doc.data().Organization;
               element['NameOrganization'] = nameOrganization;
           } else {
-              console.log("No such document!");
+              // console.log("No such document!");
           }
       }).catch(function(error) {
-          console.log("Error getting document:", error);
+          // console.log("Error getting document:", error);
       });
       let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
          docRefSubdivision.get().then(function(doc) {
@@ -525,10 +531,10 @@ function gridDisplayManagerPosition() {
               nameSubdivision = doc.data().Subdivision;
               element['NameSubdivision'] = nameSubdivision;
           } else {
-              console.log("No such document!");
+              // console.log("No such document!");
           }
       }).catch(function(error) {
-          console.log("Error getting document:", error);
+          // console.log("Error getting document:", error);
       });
       let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
          docRefPosition.get().then(function(doc) {
@@ -536,10 +542,10 @@ function gridDisplayManagerPosition() {
               namePosition = doc.data().Position;
               element['NamePosition'] = namePosition;
           } else {
-              console.log("No such document!");
+              // console.log("No such document!");
           }
       }).catch(function(error) {
-          console.log("Error getting document:", error);
+          // console.log("Error getting document:", error);
       }).finally(() => {
         [element].forEach(item =>
       {
@@ -593,6 +599,8 @@ function gridDisplayManagerPosition() {
     $('#tableAvalablePositionsListUser tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
     $('#tableAvalablePositionsListSettings tbody').empty();
+    //очищаем     docRefPosition = "";
+     docRefPosition = "";
     //обработка редактирования строки...
       let objId = obj.id;
       let objItem = obj.item;
@@ -601,7 +609,7 @@ function gridDisplayManagerPosition() {
     //заполняем таблицу список пользователей tableAvalablePositionsListUser
       var docRef = db.collection("Organization").doc(idDocOrganization);
       var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
-      var docRefPosition = docRefSubdivision.collection("Position").doc(objId);
+      docRefPosition = docRefSubdivision.collection("Position").doc(objId);
       docRefPosition.collection("PositionUser")
       .get()
       .then(function(querySnapshot) {
@@ -610,7 +618,7 @@ function gridDisplayManagerPosition() {
         });
           })
           .catch(function(error) {
-              console.log("Error getting documents: ", error);
+              // console.log("Error getting documents: ", error);
           })
             .finally(() => {itemsPositionUser;
             itemsPositionUser.forEach(item => {
@@ -657,7 +665,7 @@ function gridDisplayManagerPosition() {
 
             })
             .catch(function(error) {
-                console.log("Error getting documents: ", error);
+                // console.log("Error getting documents: ", error);
             })
               .finally(() => {items;
               items.forEach(item => {
@@ -898,9 +906,100 @@ function gridDisplay()
     var dateComparisonExpiration = +new Date(yearComparisonExpirationDate, monthComparisonExpirationDate-1, dayComparisonExpirationDate, 23, 59, 59);
   }
   //собираем формат времени
-  var dateAnalysisStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-  var dateAnalysisExpiration = +new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
-  // сменный график работы подразделения
+  var dateAnalysisStartMiliseconds = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  var dateAnalysisStart = new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  var dateAnalysisExpirationMilisecond = +new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
+  var dateAnalysisExpiration = new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
+  //получаем данные таблицы и формируем список пользователей
+  //читаем данные с таблицы
+  var tablePositionsListUser = document.getElementById('tableAvalablePositionsListUser');
+  //удалил шапку таблицы
+  let itemPositionsListUser =[];
+  // tablePositionsListUser.deleteRow(0);
+  var rowLength = tablePositionsListUser.rows.length;
+  for (i = 0; i < rowLength; i++){
+     var cells = tablePositionsListUser.rows.item(i).cells;
+     var cellVal_0 = cells.item(0).lastChild.checked;
+     if(cellVal_0 == true)
+     {
+       var cellVal_1 = cells.item(1).innerHTML;
+       var cellVal_2 = cells.item(2).innerHTML;
+       itemPositionsListUser.push(cellVal_1)
+     }
+  }
+  // console.log(itemPositionsListUser);
+  // получаем документы смен подходящие данному отбору
+  let itemShiftInterval = [];
+  let itemUserShiftList = [];
+  docRefPosition.collection("PositionShift").where("WorkShiftPositionExpiration", "<", dateAnalysisExpiration)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            let docShift = doc.data();
+            let workShiftPositionStart = docShift.WorkShiftPositionStart;
+            let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+            if(workShiftPositionStartMiliseconds > dateAnalysisStartMiliseconds)
+            {
+              itemShiftInterval.push({...doc.data(),...{idDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds}});
+              itemShiftInterval.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
+            }
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    }).finally(() => {
+        itemShiftInterval.forEach(function(item, i, arr) {
+          let massListPositionUser = item.ListPositionUser;
+          let idDocPosition = item.IdDocPosition;
+          let workShiftPositionStart = item.WorkShiftPositionStart;
+          let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+          let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+          let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+          // начало проверки пользователь входящих  ListPositionUser
+          massListPositionUser.forEach(function(item, l, arr) {
+            let userPositionUser = massListPositionUser[l];
+            // начало проверки пользователя со списком List Of Employees With The Selected Position
+            let resuitUserList = itemPositionsListUser.includes(userPositionUser);
+              if (resuitUserList == true)
+              {
+                 itemUserShiftList.push(userPositionUser);
+                  // начало выбираем документы по сотруднику
+                  console.log(itemUserShiftList);
+
+                  var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
+                                                                  .where("IdDocPosition", "==", idDocPosition)
+                                                                  .where("ProcessUserEnd", "==", "false")
+                                                                  .where("ProcessUserEndTime", ">=", workShiftPositionStart);
+
+;
+                  museums.get().then((querySnapshot) => {
+                      querySnapshot.forEach((doc) => {
+                          let k = doc.data();
+                          let l = k.ProcessUserStartTime;
+                          let s = l.seconds*1000;
+                          if(s <= workShiftPositionExpirationMiliseconds);
+                          console.log(doc.id, '1001 => ', doc.data());
+
+                      });
+                  });
+
+
+
+
+                 // окончание выбираем документы по сотруднику
+              }
+            // окончание проверки пользователя со списком List Of Employees With The Selected Position
+          });
+          // окончание проверки пользователь входящих  ListPositionUser
+      });
+    });
+
+
+
+
+
+
 
 
   // переменные для диаграммы

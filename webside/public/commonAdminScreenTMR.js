@@ -711,8 +711,8 @@ function gridDisplayManagerPosition() {
         let listPositionUser = documents.ListPositionUser;
         let numberUsers = listPositionUser.length;
         ///
-        itemsPositionShift.push({...doc.data(),...{idPositionShift: doc.id},...{WorkShiftPositionStartString: workShiftPositionStartString},...{WorkShiftPositionExpirationString: workShiftPositionExpirationString},...{NumberUsers: numberUsers}});
-
+        itemsPositionShift.push({...doc.data(),...{idPositionShift: doc.id},...{WorkShiftPositionStartString: workShiftPositionStartString},...{WorkShiftPositionExpirationString: workShiftPositionExpirationString},...{NumberUsers: numberUsers},...{NumberPositionTable: secondsStart}});
+        itemsPositionShift.sort(( a, b ) => b.NumberPositionTable - a.NumberPositionTable);
       });
         })
         .catch(function(error) {
