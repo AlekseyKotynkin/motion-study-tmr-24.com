@@ -930,67 +930,97 @@ function gridDisplay()
   // console.log(itemPositionsListUser);
   // получаем документы смен подходящие данному отбору
   let itemShiftInterval = [];
-  let itemUserShiftList = [];
-  docRefPosition.collection("PositionShift").where("WorkShiftPositionExpiration", "<", dateAnalysisExpiration)
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            let docShift = doc.data();
-            let workShiftPositionStart = docShift.WorkShiftPositionStart;
-            let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
-            if(workShiftPositionStartMiliseconds > dateAnalysisStartMiliseconds)
-            {
-              itemShiftInterval.push({...doc.data(),...{idDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds}});
-              itemShiftInterval.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
-            }
-        });
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    }).finally(() => {
+  let itemDocShiftList = [];
+
+  docRefPosition.collection("PositionShift").where("WorkShiftPositionStart", ">", dateAnalysisStart)
+      .get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              console.log(doc.id, " => ", doc.data());
+              let docShift = doc.data();
+              let massListPositionUser = docShift.ListPositionUser;
+              let idDocPosition = docShift.IdDocPosition;
+              let workShiftPositionExpiration = docShift.WorkShiftPositionExpiration;
+              let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+              let workShiftPositionStart = docShift.WorkShiftPositionStart;
+              let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+              let idDocShiftPosition = doc.id;
+
+              //начало проверяем совпадения интервала в шапки документа
+              if(workShiftPositionExpirationMiliseconds < dateAnalysisExpirationMilisecond)
+              {
+                //начало проверяем список сотрудников по смене со списком сотрудников включенных в отчет
+                massListPositionUser.forEach(function(item, i, arr) {
+                  // alert( i + ": " + item + " (массив:" + arr + ")" );
+                  let userPositionUser = massListPositionUser[i];
+                  let resuitUserList = itemPositionsListUser.includes(userPositionUser);
+                    if (resuitUserList == true)
+                    {
+                      //начало отбора документов по сменам должности с привязкой к сотруднику
+                      var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
+                                                                      .where("IdDocPosition", "==", idDocPosition)
+                                                                      .where("ProcessUserEnd", "==", "false")
+                                                                      .where("ProcessUserEndTime", ">=", workShiftPositionStart);
+                      museums.get().then((querySnapshot) => {
+                          querySnapshot.forEach((doc) => {
+                              let docShiftUser = doc.data();
+                              let processUserStartTime = docShiftUser.ProcessUserStartTime;
+                              let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
+                              let processUserEndTime = docShiftUser.ProcessUserEndTime;
+                              let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
+                              if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
+                              {
+                              // console.log(doc.id, '1001 => ', doc.data());
+                                if (processUserStartTimeMiliseconds < workShiftPositionStartMiliseconds)
+                                {
+                                  console.log(doc.id, '1002 => ', doc.data());
+                                  processUserStartTime = workShiftPositionStart;
+                                }
+                                if (processUserEndTimeMiliseconds > workShiftPositionExpirationMiliseconds)
+                                {
+                                  console.log(doc.id, '1003 => ', doc.data());
+                                  processUserEndTime = workShiftPositionExpiration;
+                                }
+                              itemDocShiftList.push({...doc.data(),...{idDocShiftUser: doc.id},...{numerDocShiftUser: processUserStartTimeMiliseconds},...{userActiveShift: userPositionUser},...{idDocShiftPosition: idDocPosition},...{WorkShiftPositionStart: workShiftPositionStart},...{WorkShiftPositionExpiration: workShiftPositionExpiration}});
+                              itemDocShiftList.sort(( a, b ) => a.numerDocShiftUser - b.numerDocShiftUser);
+                              }// console.log(itemDocShiftList);
+                          });
+                       }).finally(() => {
+                         console.log(itemDocShiftList);
+                         itemDocShiftList.forEach(function(item, i, arr) {
+                        // начало проверки пользователь входящих  ListPositionUser
+
+
+
+                        // окончание проверки пользователь входящих  ListPositionUser
+                        });
+                      });
+                      //окончание отбора документов по сменам должности с привязкой к сотруднику
+                      itemShiftInterval.push({...doc.data(),...{idDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds},...{userActiveShift: userPositionUser}});
+                      itemShiftInterval.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
+                      // alert( i + ": " + item + " (массив:" + arr + ")" );
+                      console.log(itemShiftInterval);
+
+                    }
+                });
+                //окончание проверяем список сотрудников по смене со списком сотрудников включенных в отчет
+              }
+              //окончание проверяем совпадения интервала в шапки документа
+          });
+      })
+      .catch((error) => {
+          console.log("Error getting documents: ", error);
+      }).finally(() => {
         itemShiftInterval.forEach(function(item, i, arr) {
-          let massListPositionUser = item.ListPositionUser;
+          let userPositionUserOb = item.userActiveShift;
           let idDocPosition = item.IdDocPosition;
           let workShiftPositionStart = item.WorkShiftPositionStart;
           let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
           let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
           let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
           // начало проверки пользователь входящих  ListPositionUser
-          massListPositionUser.forEach(function(item, l, arr) {
-            let userPositionUser = massListPositionUser[l];
-            // начало проверки пользователя со списком List Of Employees With The Selected Position
-            let resuitUserList = itemPositionsListUser.includes(userPositionUser);
-              if (resuitUserList == true)
-              {
-                 itemUserShiftList.push(userPositionUser);
-                  // начало выбираем документы по сотруднику
-                  console.log(itemUserShiftList);
 
-                  var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
-                                                                  .where("IdDocPosition", "==", idDocPosition)
-                                                                  .where("ProcessUserEnd", "==", "false")
-                                                                  .where("ProcessUserEndTime", ">=", workShiftPositionStart);
-
-;
-                  museums.get().then((querySnapshot) => {
-                      querySnapshot.forEach((doc) => {
-                          let k = doc.data();
-                          let l = k.ProcessUserStartTime;
-                          let s = l.seconds*1000;
-                          if(s <= workShiftPositionExpirationMiliseconds);
-                          console.log(doc.id, '1001 => ', doc.data());
-
-                      });
-                  });
-
-
-
-
-                 // окончание выбираем документы по сотруднику
-              }
-            // окончание проверки пользователя со списком List Of Employees With The Selected Position
-          });
           // окончание проверки пользователь входящих  ListPositionUser
       });
     });
