@@ -34,6 +34,8 @@ const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 ////
 var docRefPosition = "";
+//массив с настройками кнопок
+let itemSettingsButton = [];
 
 let itemsOrganizationName = [];
 //переменные для диаграммы на страницы
@@ -56,6 +58,8 @@ function gridDisplayOrganizationOwner() {
   $('#tableAvalablePositionsListSettings tbody').empty();
   //очищаем     docRefPosition = "";
    docRefPosition = "";
+   // очистим таблицу настроек кнопок
+   itemSettingsButton = [];
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром собственник организации
@@ -212,6 +216,8 @@ function gridDisplayManagerOrganization() {
   $('#tableAvalablePositionsListSettings tbody').empty();
   //очищаем     docRefPosition = "";
    docRefPosition = "";
+   // очистим таблицу настроек кнопок
+   itemSettingsButton = [];
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер организации
@@ -367,6 +373,8 @@ function gridDisplayManagerSubdivision() {
   $('#tableAvalablePositionsListSettings tbody').empty();
   //очищаем     docRefPosition = "";
    docRefPosition = "";
+   // очистим таблицу настроек кнопок
+   itemSettingsButton = [];
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер подразделения
@@ -495,6 +503,8 @@ function gridDisplayManagerPosition() {
   $('#tableAvalablePositionsListSettings tbody').empty();
   //очищаем     docRefPosition = "";
    docRefPosition = "";
+   // очистим таблицу настроек кнопок
+   itemSettingsButton = [];
   /**
   * @return {string}
   * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер должности
@@ -601,6 +611,8 @@ function gridDisplayManagerPosition() {
     $('#tableAvalablePositionsListSettings tbody').empty();
     //очищаем     docRefPosition = "";
      docRefPosition = "";
+     // очистим таблицу настроек кнопок
+     itemSettingsButton = [];
     //обработка редактирования строки...
       let objId = obj.id;
       let objItem = obj.item;
@@ -650,25 +662,24 @@ function gridDisplayManagerPosition() {
         });
 
         //заполняем таблицу список настроек tableAvalablePositionsListSettings
-        let items = [];
-        items.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
-        items.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
-        items.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        itemSettingsButton.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        itemSettingsButton.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        itemSettingsButton.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
 
 
         docRefPosition.collection("PositionSettings")
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-            items.push({...doc.data(),...{idPositionSettings: doc.id}});
+            itemSettingsButton.push({...doc.data(),...{idPositionSettings: doc.id}});
           });
 
             })
             .catch(function(error) {
                 // console.log("Error getting documents: ", error);
             })
-              .finally(() => {items;
-              items.forEach(item => {
+              .finally(() => {itemSettingsButton;
+              itemSettingsButton.forEach(item => {
               var tr = document.createElement("tr");
 
               var settingsTitleColumn = document.createElement('td');
@@ -910,12 +921,12 @@ function gridDisplay()
   var dateAnalysisStart = new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
   var dateAnalysisExpirationMilisecond = +new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
   var dateAnalysisExpiration = new Date(yearAnalysisExpirationDate, monthAnalysisExpirationDate-1, dayAnalysisExpirationDate, 23, 59, 59);
+  /// создаем массив дат входящих в интервал
   //получаем данные таблицы и формируем список пользователей
   //читаем данные с таблицы
   var tablePositionsListUser = document.getElementById('tableAvalablePositionsListUser');
   //удалил шапку таблицы
   let itemPositionsListUser =[];
-  // tablePositionsListUser.deleteRow(0);
   var rowLength = tablePositionsListUser.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListUser.rows.item(i).cells;
@@ -927,29 +938,37 @@ function gridDisplay()
        itemPositionsListUser.push(cellVal_1)
      }
   }
-  // console.log(itemPositionsListUser);
+  //переменные для запуска команды формирования отчета
+  let length_itemShiftInterval = "";
+  let length_itemShiftInterval_1 = 0;
+
+
   // получаем документы смен подходящие данному отбору
   let itemShiftInterval = [];
   let itemDocShiftList = [];
+  let itemShiftInterval_baza = [];
 
   docRefPosition.collection("PositionShift").where("WorkShiftPositionStart", ">", dateAnalysisStart)
+                                            .where("WorkShiftPositionStart", "<", dateAnalysisExpiration)
       .get()
       .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
               let docShift = doc.data();
               let massListPositionUser = docShift.ListPositionUser;
               let idDocPosition = docShift.IdDocPosition;
               let workShiftPositionExpiration = docShift.WorkShiftPositionExpiration;
               let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+              let k = workShiftPositionExpirationMiliseconds+43200000;
+              //для увеличения обхвата на 12 часов при поиске документов интервала смены
+              let workShiftPositionExpirationGetProcessUser = new Date (k);
               let workShiftPositionStart = docShift.WorkShiftPositionStart;
               let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
               let idDocShiftPosition = doc.id;
-
               //начало проверяем совпадения интервала в шапки документа
               if(workShiftPositionExpirationMiliseconds < dateAnalysisExpirationMilisecond)
               {
+                //записываем базовый массив
+                itemShiftInterval_baza.push({...doc.data(),...{IdDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds}});
                 //начало проверяем список сотрудников по смене со списком сотрудников включенных в отчет
                 massListPositionUser.forEach(function(item, i, arr) {
                   // alert( i + ": " + item + " (массив:" + arr + ")" );
@@ -957,51 +976,126 @@ function gridDisplay()
                   let resuitUserList = itemPositionsListUser.includes(userPositionUser);
                     if (resuitUserList == true)
                     {
-                      //начало отбора документов по сменам должности с привязкой к сотруднику
-                      var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
-                                                                      .where("IdDocPosition", "==", idDocPosition)
-                                                                      .where("ProcessUserEnd", "==", "false")
-                                                                      .where("ProcessUserEndTime", ">=", workShiftPositionStart);
-                      museums.get().then((querySnapshot) => {
-                          querySnapshot.forEach((doc) => {
-                              let docShiftUser = doc.data();
-                              let processUserStartTime = docShiftUser.ProcessUserStartTime;
-                              let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
-                              let processUserEndTime = docShiftUser.ProcessUserEndTime;
-                              let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
-                              if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
-                              {
-                              // console.log(doc.id, '1001 => ', doc.data());
-                                if (processUserStartTimeMiliseconds < workShiftPositionStartMiliseconds)
-                                {
-                                  console.log(doc.id, '1002 => ', doc.data());
-                                  processUserStartTime = workShiftPositionStart;
-                                }
-                                if (processUserEndTimeMiliseconds > workShiftPositionExpirationMiliseconds)
-                                {
-                                  console.log(doc.id, '1003 => ', doc.data());
-                                  processUserEndTime = workShiftPositionExpiration;
-                                }
-                              itemDocShiftList.push({...doc.data(),...{idDocShiftUser: doc.id},...{numerDocShiftUser: processUserStartTimeMiliseconds},...{userActiveShift: userPositionUser},...{idDocShiftPosition: idDocPosition},...{WorkShiftPositionStart: workShiftPositionStart},...{WorkShiftPositionExpiration: workShiftPositionExpiration}});
-                              itemDocShiftList.sort(( a, b ) => a.numerDocShiftUser - b.numerDocShiftUser);
-                              }// console.log(itemDocShiftList);
-                          });
-                       }).finally(() => {
-                         console.log(itemDocShiftList);
-                         itemDocShiftList.forEach(function(item, i, arr) {
-                        // начало проверки пользователь входящих  ListPositionUser
-
-
-
-                        // окончание проверки пользователь входящих  ListPositionUser
-                        });
-                      });
-                      //окончание отбора документов по сменам должности с привязкой к сотруднику
-                      itemShiftInterval.push({...doc.data(),...{idDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds},...{userActiveShift: userPositionUser}});
+                      // //начало отбора документов по сменам должности с привязкой к сотруднику
+                      // var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
+                      //                                                 .where("IdDocPosition", "==", idDocPosition)
+                      //                                                 .where("ProcessUserEnd", "==", "false")
+                      //                                                 .where("ProcessUserEndTime", ">=", workShiftPositionStart)
+                      //                                                 .where("ProcessUserEndTime", "<", workShiftPositionExpirationGetProcessUser);
+                      // museums.get().then((querySnapshot) => {
+                      //     querySnapshot.forEach((doc) => {
+                      //         let docShiftUser = doc.data();
+                      //         let processUserStartTime = docShiftUser.ProcessUserStartTime;
+                      //         let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
+                      //         let processUserEndTime = docShiftUser.ProcessUserEndTime;
+                      //         let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
+                      //         if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
+                      //         {
+                      //         // начало обрезаем документы чьи показатели заходят за рамки смены только для отчета
+                      //           if (processUserStartTimeMiliseconds < workShiftPositionStartMiliseconds)
+                      //           {
+                      //             processUserStartTimeMiliseconds = workShiftPositionStartMiliseconds;
+                      //           }
+                      //           if (processUserEndTimeMiliseconds > workShiftPositionExpirationMiliseconds)
+                      //           {
+                      //             processUserEndTimeMiliseconds = workShiftPositionExpirationMiliseconds;
+                      //           }
+                      //           // окончание обрезаем документы чьи показатели заходят за рамки смены только для отчета
+                      //         // начало получение статуса кнопки
+                      //         let nameDocProcessButton = docShiftUser.NameDocProcessButton;
+                      //         itemSettingsButton.forEach(function(item, i, arr) {
+                      //           let settingsTitle = item.SettingsTitle;
+                      //           if (settingsTitle == nameDocProcessButton)
+                      //           {
+                      //             let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+                      //             let processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
+                      //             itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
+                      //             itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+                      //           }
+                      //         });
+                      //         // окончание получение статуса кнопки
+                      //         }
+                      //     });
+                      //  }).finally(() => {
+                      //
+                      //    itemShiftInterval.forEach(function(item, i, arr) {
+                      //       // начало заполняес интервалы смен недоступностью
+                      //       let idDocShiftPosition = item.IdDocShiftPosition;
+                      //       let userActiveShift = item.userActiveShift;
+                      //       let workShiftPositionStart = item.WorkShiftPositionStart;
+                      //       let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
+                      //       let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+                      //       let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
+                      //       let itemDocShiftList_idDocShiftPosition = [];
+                      //       itemDocShiftList.forEach(function(item, i, arr) {
+                      //         let idDocShiftPosition_1 = item.IdDocShiftPosition;
+                      //         if (idDocShiftPosition_1 == idDocShiftPosition)
+                      //         {
+                      //           itemDocShiftList_idDocShiftPosition.push(item);
+                      //         }
+                      //       });
+                      //       let itemDocShiftList_idDocShiftPosition_User = [];
+                      //       itemDocShiftList_idDocShiftPosition.forEach(function(item, i, arr) {
+                      //         let emailPositionUser_1 = item.EmailPositionUser;
+                      //         if (emailPositionUser_1 == userActiveShift)
+                      //         {
+                      //           itemDocShiftList_idDocShiftPosition_User.push(item);
+                      //         }
+                      //       });
+                      //       itemDocShiftList_idDocShiftPosition_User.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+                      //       let length_itemDocShiftList_idDocShiftPosition_User =itemDocShiftList_idDocShiftPosition_User.length;
+                      //       if (length_itemDocShiftList_idDocShiftPosition_User == 0)
+                      //       {
+                      //         let processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
+                      //         let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
+                      //         itemDocShiftList.unshift(object);
+                      //       } else {
+                      //         //начало прорабатываем и дополняем массив
+                      //          //добавляю документ в начало
+                      //          let itemDocShiftList_idDocShiftPosition_User_0 = itemDocShiftList_idDocShiftPosition_User[0];
+                      //          let processUserStartTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_0.ProcessUserStartTimeMiliseconds;
+                      //          if (processUserStartTimeMiliseconds > workShiftPositionStartMiliseconds)
+                      //          {
+                      //            // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
+                      //            let processDurationMiliseconds_1 = workShiftPositionStartMiliseconds - processUserStartTimeMiliseconds;
+                      //            let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
+                      //            itemDocShiftList.unshift(object);
+                      //          };
+                      //          //добавляю документ в конец
+                      //          let length = itemDocShiftList_idDocShiftPosition_User.length;
+                      //          let length_finall_0 = length - 1;
+                      //          let itemDocShiftList_idDocShiftPosition_User_finall_0 = itemDocShiftList_idDocShiftPosition_User[length_finall_0];
+                      //          let processUserEndTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_finall_0.ProcessUserEndTimeMiliseconds;
+                      //          if (processUserEndTimeMiliseconds < workShiftPositionExpirationMiliseconds)
+                      //          {
+                      //            let processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
+                      //            let object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
+                      //            itemDocShiftList.push(object_1);
+                      //          };
+                      //          //проверяем интервалы между документами
+                      //          let processUserEndTimeMiliseconds_3 = "";
+                      //          itemDocShiftList_idDocShiftPosition_User.forEach(function(item, index, array) {
+                      //            if (index != 0)
+                      //            {
+                      //              let processUserStartTimeMiliseconds_3 = item.ProcessUserStartTimeMiliseconds;
+                      //                if (processUserStartTimeMiliseconds_3 > processUserEndTimeMiliseconds_3)
+                      //                {
+                      //                  let processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
+                      //                  let object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
+                      //                  itemDocShiftList.push(object_2);
+                      //                }
+                      //            }
+                      //            processUserEndTimeMiliseconds_3 = item.ProcessUserEndTimeMiliseconds;
+                      //           });
+                      //         //окончание прорабатываем и дополняем массив
+                      //       }
+                      //       // окончание проверки пользователь входящих  ListPositionUser
+                      //   });
+                      // });
+                      // //окончание отбора документов по сменам должности с привязкой к сотруднику
+                      itemShiftInterval.push({...doc.data(),...{IdDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds},...{userActiveShift: userPositionUser}});
                       itemShiftInterval.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
-                      // alert( i + ": " + item + " (массив:" + arr + ")" );
-                      console.log(itemShiftInterval);
-
+                      // console.log(itemShiftInterval);
                     }
                 });
                 //окончание проверяем список сотрудников по смене со списком сотрудников включенных в отчет
@@ -1012,31 +1106,217 @@ function gridDisplay()
       .catch((error) => {
           console.log("Error getting documents: ", error);
       }).finally(() => {
-        itemShiftInterval.forEach(function(item, i, arr) {
-          let userPositionUserOb = item.userActiveShift;
-          let idDocPosition = item.IdDocPosition;
-          let workShiftPositionStart = item.WorkShiftPositionStart;
-          let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
-          let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
-          let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
-          // начало проверки пользователь входящих  ListPositionUser
-
-          // окончание проверки пользователь входящих  ListPositionUser
+         length_itemShiftInterval = itemShiftInterval.length;
+goo1()
       });
-    });
+
+      //
+
+function goo1()
+{
+  // length_itemShiftInterval_1 = length_itemShiftInterval_1 + 1;
+  // console.log(length_itemShiftInterval_1);
+
+  itemShiftInterval.forEach(function(item, i, arr) {
+
+  let userPositionUser = item.userActiveShift;
+  let idDocPosition = item.IdDocPosition;
+  let idDocShiftPosition = item.idDocShiftPosition;
+  let workShiftPositionStart = item.WorkShiftPositionStart;
+  let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+  let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+  let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+  let k = workShiftPositionExpirationMiliseconds+43200000;
+  //для увеличения обхвата на 12 часов при поиске документов интервала смены
+  let workShiftPositionExpirationGetProcessUser = new Date (k);
+    //начало отбора документов по сменам должности с привязкой к сотруднику
+    var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
+                                                    .where("IdDocPosition", "==", idDocPosition)
+                                                    .where("ProcessUserEnd", "==", "false")
+                                                    .where("ProcessUserEndTime", ">=", workShiftPositionStart)
+                                                    .where("ProcessUserEndTime", "<", workShiftPositionExpirationGetProcessUser);
+    museums.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            let docShiftUser = doc.data();
+            let processUserStartTime = docShiftUser.ProcessUserStartTime;
+            let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
+            let processUserEndTime = docShiftUser.ProcessUserEndTime;
+            let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
+            if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
+            {
+            // начало обрезаем документы чьи показатели заходят за рамки смены только для отчета
+              if (processUserStartTimeMiliseconds < workShiftPositionStartMiliseconds)
+              {
+                processUserStartTimeMiliseconds = workShiftPositionStartMiliseconds;
+              }
+              if (processUserEndTimeMiliseconds > workShiftPositionExpirationMiliseconds)
+              {
+                processUserEndTimeMiliseconds = workShiftPositionExpirationMiliseconds;
+              }
+              // окончание обрезаем документы чьи показатели заходят за рамки смены только для отчета
+            // начало получение статуса кнопки
+            let nameDocProcessButton = docShiftUser.NameDocProcessButton;
+            itemSettingsButton.forEach(function(item, i, arr) {
+              let settingsTitle = item.SettingsTitle;
+              if (settingsTitle == nameDocProcessButton)
+              {
+                let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+                let processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
+                itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
+                itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+              }
+            });
+            // окончание получение статуса кнопки
+            }
+        });
+     }).finally(() => {
+        length_itemShiftInterval_1 = length_itemShiftInterval_1 + 1;
+        if (length_itemShiftInterval == length_itemShiftInterval_1)
+        {
+          goo2();
+        }
+     });
+    //окончание отбора документов по сменам должности с привязкой к сотруднику
+  });
+}
+
+function goo2()
+{
+
+   itemShiftInterval.forEach(function(item, i, arr) {
+      // начало заполняес интервалы смен недоступностью
+      let idDocShiftPosition = item.IdDocShiftPosition;
+      let userActiveShift = item.userActiveShift;
+      let workShiftPositionStart = item.WorkShiftPositionStart;
+      let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
+      let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+      let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
+      let itemDocShiftList_idDocShiftPosition = [];
+      itemDocShiftList.forEach(function(item, i, arr) {
+        let idDocShiftPosition_1 = item.IdDocShiftPosition;
+        if (idDocShiftPosition_1 == idDocShiftPosition)
+        {
+          itemDocShiftList_idDocShiftPosition.push(item);
+        }
+      });
+      let itemDocShiftList_idDocShiftPosition_User = [];
+      itemDocShiftList_idDocShiftPosition.forEach(function(item, i, arr) {
+        let emailPositionUser_1 = item.EmailPositionUser;
+        if (emailPositionUser_1 == userActiveShift)
+        {
+          itemDocShiftList_idDocShiftPosition_User.push(item);
+        }
+      });
+      itemDocShiftList_idDocShiftPosition_User.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+      let length_itemDocShiftList_idDocShiftPosition_User =itemDocShiftList_idDocShiftPosition_User.length;
+      if (length_itemDocShiftList_idDocShiftPosition_User == 0)
+      {
+        let processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
+        let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
+        itemDocShiftList.unshift(object);
+      } else {
+        //начало прорабатываем и дополняем массив
+         //добавляю документ в начало
+         let itemDocShiftList_idDocShiftPosition_User_0 = itemDocShiftList_idDocShiftPosition_User[0];
+         let processUserStartTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_0.ProcessUserStartTimeMiliseconds;
+         if (processUserStartTimeMiliseconds > workShiftPositionStartMiliseconds)
+         {
+           // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
+           let processDurationMiliseconds_1 = workShiftPositionStartMiliseconds - processUserStartTimeMiliseconds;
+           let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
+           itemDocShiftList.unshift(object);
+         };
+         //добавляю документ в конец
+         let length = itemDocShiftList_idDocShiftPosition_User.length;
+         let length_finall_0 = length - 1;
+         let itemDocShiftList_idDocShiftPosition_User_finall_0 = itemDocShiftList_idDocShiftPosition_User[length_finall_0];
+         let processUserEndTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_finall_0.ProcessUserEndTimeMiliseconds;
+         if (processUserEndTimeMiliseconds < workShiftPositionExpirationMiliseconds)
+         {
+           let processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
+           let object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
+           itemDocShiftList.push(object_1);
+         };
+         //проверяем интервалы между документами
+         let processUserEndTimeMiliseconds_3 = "";
+         itemDocShiftList_idDocShiftPosition_User.forEach(function(item, index, array) {
+           if (index != 0)
+           {
+             let processUserStartTimeMiliseconds_3 = item.ProcessUserStartTimeMiliseconds;
+               if (processUserStartTimeMiliseconds_3 > processUserEndTimeMiliseconds_3)
+               {
+                 let processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
+                 let object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
+                 itemDocShiftList.push(object_2);
+               }
+           }
+           processUserEndTimeMiliseconds_3 = item.ProcessUserEndTimeMiliseconds;
+          });
+        //окончание прорабатываем и дополняем массив
+      }
+      // окончание проверки пользователь входящих  ListPositionUser
+  });
+//обрабатываем массив для диограммы
+console.log(itemShiftInterval);
+console.log(itemShiftInterval_baza);
+console.log(itemDocShiftList);
+let listDataDiogramma = [];
+itemShiftInterval_baza.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
+itemShiftInterval_baza.forEach(function(item, i, arr) {
+  let idDocShiftPosition_Baza = item.IdDocShiftPosition;
+  let listPositionUser = item.ListPositionUser;
+  let listPositionUser_length = listPositionUser.length;
+  let settingsSalesFunnel_Stage_Green = 0;
+  let settingsSalesFunnel_Stage_Yellow = 0;
+  let settingsSalesFunnel_Stage_Red = 0;
+  let itemDocShiftList_length = itemDocShiftList.length - 1;
+  itemDocShiftList.forEach(function(item, l, arr) {
+    let idDocShiftPosition = item.IdDocShiftPosition;
+    let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+    let processDurationMiliseconds = item.ProcessDurationMiliseconds;
+    if (idDocShiftPosition_Baza == idDocShiftPosition)
+    {
+      if (settingsSalesFunnel_Stage == "Available green")
+      {
+        settingsSalesFunnel_Stage_Green = settingsSalesFunnel_Stage_Green + processDurationMiliseconds;
+      }
+      if (settingsSalesFunnel_Stage == "Perhaps yellow")
+      {
+        settingsSalesFunnel_Stage_Yellow = settingsSalesFunnel_Stage_Yellow + processDurationMiliseconds;
+      }
+      if (settingsSalesFunnel_Stage == "Not available red")
+      {
+        settingsSalesFunnel_Stage_Red = settingsSalesFunnel_Stage_Red + processDurationMiliseconds;
+      }
+      if (itemDocShiftList_length == l)
+      {
+
+
+
+         let object = {LABELS: userActiveShift, DataNotAvailable: settingsSalesFunnel_Stage_Red, DataPerhaps: settingsSalesFunnel_Stage_Yellow, DataAvailable: settingsSalesFunnel_Stage_Green};
+         listDataDiogramma.unshift(object);
+
+      }
+
+    }
+
+
+});
 
 
 
 
 
+});
 
 
+}
 
   // переменные для диаграммы
   LABELS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG' , 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'];
-  dataNotAvailable = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
+  dataNotAvailable = [10, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
   dataPerhaps = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
-  dataAvailable = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
+  dataAvailable = [30, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
   goo();
 
 
@@ -1044,6 +1324,8 @@ function gridDisplay()
 
 
 }
+
+
 function goo()
 {
 // получаем переменные для диаграммы
