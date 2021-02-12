@@ -39,6 +39,7 @@ let itemsOrganizationName = [];
 let idDocPosition = "";
 let idDocOrganization = "";
 let idDocSubdivision = "";
+let positionShift = "";
 
 
 
@@ -49,6 +50,8 @@ function gridDisplayOrganizationOwner() {
   $('#tableAvalablePositionsList tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
+  // обнуляем позицию
+  let positionShift = "";
   //убрать кнопку из таблицыц
    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
@@ -62,7 +65,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             let idDocOrganization = doc.id;
             let nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
@@ -70,23 +73,23 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
             var docRef = db.collection("Organization").doc(idDocOrganization);
             docRef.get().then(function(doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
+                    // console.log("Document data:", doc.data());
                     // начало* получаем коллекции которые относятся к Организации найденых по запросу выше
                     docRef.collection("Subdivision").get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
-                            console.log(doc.id, " => ", doc.data());
+                            // console.log(doc.id, " => ", doc.data());
                             let idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
                                 if (doc.exists) {
-                                    console.log("Document data:", doc.data());
+                                    // console.log("Document data:", doc.data());
                                     // начало* получаем id документов Position найденых по запросу выше
                                     docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                                        querySnapshot.forEach(function(doc) {
                                            // doc.data() is never undefined for query doc snapshots
-                                           console.log(doc.id, " => ", doc.data());
+                                           // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              let parentHierarchyDoc = doc.ref.path;
                                              let organizationDocId = parentHierarchyDoc.split("/")[1];
@@ -94,7 +97,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                              let positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                                             console.log("1.1 => ",itemsOrganizationName);
+                                             // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
                                                let organizationDocId = element.idDocOrganization ;
@@ -204,6 +207,8 @@ function gridDisplayManagerOrganization() {
   $('#tableAvalablePositionsList tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
+  // обнуляем позицию
+  let positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -218,7 +223,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             let idDocOrganization = doc.id;
             let nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
@@ -226,23 +231,23 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
             var docRef = db.collection("Organization").doc(idDocOrganization);
             docRef.get().then(function(doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
+                    // console.log("Document data:", doc.data());
                     // начало* получаем коллекции которые относятся к Организации найденых по запросу выше
                     docRef.collection("Subdivision").get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
-                            console.log(doc.id, " => ", doc.data());
+                            // console.log(doc.id, " => ", doc.data());
                             let idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
                                 if (doc.exists) {
-                                    console.log("Document data:", doc.data());
+                                    // console.log("Document data:", doc.data());
                                     // начало* получаем id документов Position найденых по запросу выше
                                     docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                                        querySnapshot.forEach(function(doc) {
                                            // doc.data() is never undefined for query doc snapshots
-                                           console.log(doc.id, " => ", doc.data());
+                                           // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              let parentHierarchyDoc = doc.ref.path;
                                              let organizationDocId = parentHierarchyDoc.split("/")[1];
@@ -250,7 +255,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                              let positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                                             console.log("1.1 => ",itemsOrganizationName);
+                                             // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
                                                let organizationDocId = element.idDocOrganization ;
@@ -360,6 +365,8 @@ function gridDisplayManagerSubdivision() {
   $('#tableAvalablePositionsList tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
+  // обнуляем позицию
+  let positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -374,13 +381,13 @@ function gridDisplayManagerSubdivision() {
   parentHierarchy.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          // console.log(doc.id, " => ", doc.data());
           let idDocSubdivision = doc.id;
           // начало* получаем id документов Subdivision найденых по запросу выше
           var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
           docRefSubdivision.get().then(function(doc) {
               if (doc.exists) {
-                  console.log("Document data:", doc.data());
+                  // console.log("Document data:", doc.data());
                   // начало* получаем id документов Position найденых по запросу выше
                   docRefSubdivision.collection("Position").get().then(function(querySnapshot) {
                      querySnapshot.forEach(function(doc) {
@@ -393,7 +400,7 @@ function gridDisplayManagerSubdivision() {
                            let positionDocId = parentHierarchyDoc.split("/")[5];
                            itemsOrganizationName = [];
                            itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
-                           console.log("1.1 => ",itemsOrganizationName);
+                           // console.log("1.1 => ",itemsOrganizationName);
 
                            itemsOrganizationName.forEach(function(element){
                              let organizationDocId = element.idDocOrganization ;
@@ -489,6 +496,8 @@ function gridDisplayManagerPosition() {
   $('#tableAvalablePositionsList tbody').empty();
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
+  // обнуляем позицию
+  let positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -594,13 +603,14 @@ function gridDisplayManagerPosition() {
   function toComeInButtonPositionsListUser(obj) {
 
     let itemsPositionUser = [];
-
     //очищаю таблицу tableAvalablePositionsList
     $('#tablePositionShift tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
     $('#tableShiftPositionsListUser tbody').empty();
-
-
+    //очищаю таблицу tableAvalablePositionsList
+    $('#tableShiftPositionsListUser_Edit tbody').empty();
+    // обнуляем позицию
+    let positionShift = "";
     //обработка редактирования строки...
       idDocPosition = obj.id;
       let objItem = obj.item;
@@ -644,6 +654,7 @@ function gridDisplayManagerPosition() {
             tr.appendChild(userСommentColumn);
 
             var container = document.getElementById("tableShiftPositionsListUser").getElementsByTagName("tbody")[0];
+            // var container = document.getElementById("tableShiftPositionsListUser_Edit").getElementsByTagName("tbody")[0];
 
             container.appendChild(tr);
           });
@@ -744,6 +755,16 @@ function gridDisplayManagerPosition() {
           var changeShiftDataColumn = document.createElement('td');
           changeShiftDataColumn.appendChild(changeShiftData);
 
+          var editShiftData = document.createElement('button');
+          editShiftData.innerHTML = "Edit";
+          editShiftData.className = 'badge badge-gradient-warning';
+          editShiftData.id = item.idPositionShift;
+          editShiftData.item = item;
+          editShiftData.setAttribute('onclick', 'editShiftDataButton(this)');
+
+          var editShiftDataColumn = document.createElement('td');
+          editShiftDataColumn.appendChild(editShiftData);
+
           var deleteShiftData = document.createElement('button');
           deleteShiftData.innerHTML = "Delete";
           deleteShiftData.className = 'badge badge-gradient-danger';
@@ -759,6 +780,7 @@ function gridDisplayManagerPosition() {
           tr.appendChild(shiftNumberColumn);
           tr.appendChild(numberUsersColumn);
           tr.appendChild(changeShiftDataColumn);
+          tr.appendChild(editShiftDataColumn);
           tr.appendChild(deleteShiftDataColumn);
 
           var container = document.getElementById("tablePositionShift").getElementsByTagName("tbody")[0];
@@ -766,15 +788,6 @@ function gridDisplayManagerPosition() {
           container.appendChild(tr);
         });
       });
-
-//        WorkShiftPositionStart: dateShiftStart,
-//        WorkShiftPositionExpiration: dateShiftExpiration,
-//        ShiftNumber: getShiftNumber,
-//        ListPositionUser: itemShiftPositions,
-//        DateTimeDocumentCreation: dateTimeDocumentCreation,
-//        IdDocPosition: idDocPosition,
-
-
 };
 
 
@@ -968,4 +981,162 @@ function gridDisplayManagerPosition() {
      fillTablePositionShift();
     //закрываем модальное документов
     $("#gridSystemModalShiftPosition").modal('hide');
+}
+/////////////////////////////////////////////////////////////////////////////////////////
+  /**
+  * @return {string}
+   *  Обработчик кнопки Submit модального окна gridSystemModalShiftPosition.
+   */
+   function deleteShiftDataButton (obj)
+   {
+     let objId = obj.id;
+     var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+     var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+     var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+     docRefPosition.collection("PositionShift").doc(objId).delete().then(() => {
+          console.log("Document successfully deleted!");
+          fillTablePositionShift();
+      }).catch((error) => {
+          console.error("Error removing document: ", error);
+      });
+   }
+   /////////////////////////////////////////////////////////////////////////////////////////
+/**
+* @return {string}
+*  Обработчик кнопки Submit модального окна gridSystemModalShiftPosition.
+*/
+function editShiftDataButton (obj)
+{
+  // обнуляем позицию
+  positionShift = obj.id;
+  let listPositionUser = [];
+  let itemsPositionUser_Edit =[];
+  var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+  var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+  var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+  var docRef = docRefPosition.collection("PositionShift").doc(positionShift);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            let docyment = doc.data();
+            listPositionUser = docyment.ListPositionUser;
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+
+    //заполняем таблицу список пользователей tableAvalablePositionsListUser
+      var docRef = db.collection("Organization").doc(idDocOrganization);
+      var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
+      var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+      docRefPosition.collection("PositionUser")
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          let docyment_Item = doc.data();
+          let userEmail = docyment_Item.UserEmail;
+          let checkedStatus = false;
+          let resuitUserList = listPositionUser.includes(userEmail);
+            if (resuitUserList == true)
+            {
+              checkedStatus = true;
+            }
+          itemsPositionUser_Edit.push({...doc.data(),...{idPositionUser: doc.id},...{CheckedStatus: checkedStatus}});
+        });
+          })
+          .catch(function(error) {
+              console.log("Error getting documents: ", error);
+          }).finally(() => {itemsPositionUser_Edit;
+            let length_itemsPositionUser_Edit = itemsPositionUser_Edit.length - 1;
+            itemsPositionUser_Edit.forEach(function(item, i, arr){
+            var tr = document.createElement("tr");
+
+            var toDismissColumn1 = document.createElement('input');
+            toDismissColumn1.type = "checkbox";
+            var checkedStatus = item.CheckedStatus;
+            toDismissColumn1.checked = checkedStatus;
+            toDismissColumn1.className = 'form-check';
+            toDismissColumn1.addEventListener("click", function(e) {console.log("checkbox");  });
+
+            var toDismissColumn = document.createElement('td');
+            toDismissColumn.appendChild(toDismissColumn1);
+
+            var userEmailColumn = document.createElement('td');
+            userEmailColumn.innerHTML = item.UserEmail;
+
+            var userСommentColumn = document.createElement('td');
+            userСommentColumn.innerHTML = item.UserСomment;
+
+            tr.appendChild(toDismissColumn);
+            tr.appendChild(userEmailColumn);
+            tr.appendChild(userСommentColumn);
+
+            var container = document.getElementById("tableShiftPositionsListUser_Edit").getElementsByTagName("tbody")[0];
+            container.appendChild(tr);
+            if (length_itemsPositionUser_Edit === i)
+            {
+              $('#gridSystemModalShiftPosition_Edit').modal('show');
+            }
+          });
+        });
+ }
+ /////////////////////////////////////////////////////////////////////////////////////////
+ /**
+ * @return {string}
+ *  Обработчик кнопки Submit модального окна gridSystemModalShiftPosition.
+ */
+ function gridSystemModalShiftPositionsListSubmit_Edit()
+ {
+   //читаем данные с таблицы
+   let tableShiftPositions_Edit = document.getElementById('tableShiftPositionsListUser_Edit');
+   //удалил шапку таблицы
+   let itemShiftPositions_Edit =[];
+   tableShiftPositions_Edit.deleteRow(0);
+   let rowLength_Edit = tableShiftPositions_Edit.rows.length;
+   for (i = 0; i < rowLength_Edit; i++){
+      let cells = tableShiftPositions_Edit.rows.item(i).cells;
+      let cellVal_0 = cells.item(0).lastChild.checked;
+      if (cellVal_0 == true)
+      {
+        let cellVal_1 = cells.item(1).innerHTML;
+        let cellVal_2 = cells.item(2).innerHTML;
+        itemShiftPositions_Edit.push(cellVal_1)
+      }
+   }
+   let docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+   let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+   let docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+   var washingtonRef = docRefPosition.collection("PositionShift").doc(positionShift);
+   // Set the "capital" field of the city 'DC'
+   return washingtonRef.update({
+       ListPositionUser: itemShiftPositions_Edit
+   })
+   .then(() => {
+       console.log("Document successfully updated!");
+       // перезаполнить таблицу
+        fillTablePositionShift();
+        //закрываем модальное документов
+        $("#gridSystemModalShiftPosition_Edit").modal('hide');
+   })
+   .catch((error) => {
+       // The document probably doesn't exist.
+       console.error("Error updating document: ", error);
+   });
+ }
+/////////////////////////////////////////////////////////////////////////////////////////
+/**
+* @return {string}
+*  Обработчик кнопки Submit модального окна gridSystemModalShiftPosition.
+*/
+function changeShiftDataButton (obj)
+{
+  let objId = obj.id;
+
+
+
+
 }
