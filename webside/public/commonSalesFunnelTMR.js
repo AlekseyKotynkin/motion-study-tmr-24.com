@@ -43,10 +43,9 @@ let LABELS = [];
 let dataNotAvailable = [];
 let dataPerhaps = [];
 let dataAvailable = [];
-
-
-
-
+//переменные для диаграммы на страницы
+ let labels_FS = [];
+ let data_FS = [];
 
 //////////////////////////////////////////////////////////////////////////////////
 function gridDisplayOrganizationOwner() {
@@ -60,6 +59,20 @@ function gridDisplayOrganizationOwner() {
    docRefPosition = "";
    // очистим таблицу настроек кнопок
    itemSettingsButton = [];
+   // очищаем массивы для таблицы
+   LABELS = [];
+   dataNotAvailable = [];
+   dataPerhaps = [];
+   dataAvailable = [];
+   display_Chart()
+   labels_FS = [];
+   data_FS = [];
+   start_salesFunnel()
+   $('#tableTrafficSourcesAnalytics tbody').empty();
+   $('#tableResultTable tbody').empty();
+
+
+
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром собственник организации
@@ -218,6 +231,16 @@ function gridDisplayManagerOrganization() {
    docRefPosition = "";
    // очистим таблицу настроек кнопок
    itemSettingsButton = [];
+   LABELS = [];
+   dataNotAvailable = [];
+   dataPerhaps = [];
+   dataAvailable = [];
+   display_Chart()
+   labels_FS = [];
+   data_FS = [];
+   start_salesFunnel()
+   $('#tableTrafficSourcesAnalytics tbody').empty();
+   $('#tableResultTable tbody').empty();
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер организации
@@ -375,6 +398,16 @@ function gridDisplayManagerSubdivision() {
    docRefPosition = "";
    // очистим таблицу настроек кнопок
    itemSettingsButton = [];
+   LABELS = [];
+   dataNotAvailable = [];
+   dataPerhaps = [];
+   dataAvailable = [];
+   display_Chart()
+   labels_FS = [];
+   data_FS = [];
+   start_salesFunnel()
+   $('#tableTrafficSourcesAnalytics tbody').empty();
+   $('#tableResultTable tbody').empty();
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер подразделения
@@ -505,6 +538,17 @@ function gridDisplayManagerPosition() {
    docRefPosition = "";
    // очистим таблицу настроек кнопок
    itemSettingsButton = [];
+   LABELS = [];
+   dataNotAvailable = [];
+   dataPerhaps = [];
+   dataAvailable = [];
+   display_Chart()
+   labels_FS = [];
+   data_FS = [];
+   start_salesFunnel()
+   $('#tableTrafficSourcesAnalytics tbody').empty();
+   $('#tableResultTable tbody').empty();
+
   /**
   * @return {string}
   * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер должности
@@ -605,6 +649,8 @@ function gridDisplayManagerPosition() {
 
   function toComeInButtonPositionsListUser(obj) {
     let itemsPositionUser = [];
+    //перменная для активации кнопки в конце кода
+    let button_Control = "";
     //очищаю таблицу tableAvalablePositionsList
     $('#tableAvalablePositionsListUser tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
@@ -612,6 +658,16 @@ function gridDisplayManagerPosition() {
     //очищаем     docRefPosition = "";
      docRefPosition = "";
      // очистим таблицу настроек кнопок
+     LABELS = [];
+     dataNotAvailable = [];
+     dataPerhaps = [];
+     dataAvailable = [];
+     display_Chart()
+     labels_FS = [];
+     data_FS = [];
+     start_salesFunnel()
+     $('#tableTrafficSourcesAnalytics tbody').empty();
+     $('#tableResultTable tbody').empty();
      itemSettingsButton = [];
     //обработка редактирования строки...
       let objId = obj.id;
@@ -740,7 +796,15 @@ function gridDisplayManagerPosition() {
               container.appendChild(tr);
             });
           });
-
+// добавляем кнопку по адресу headerGridDisplay
+      if (button_Control !== "activ")
+      {
+        my_div_User = document.getElementById("headerGridDisplay");
+        // const ul_User = my_div_User.querySelector("h4");
+        let li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Display </button>';
+        my_div_User.insertAdjacentHTML("afterbegin", li);
+        button_Control = "activ";
+      }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -752,6 +816,17 @@ function gridDisplayManagerPosition() {
 
 function gridDisplay()
 {
+   // очистим таблицу настроек кнопок
+   LABELS = [];
+   dataNotAvailable = [];
+   dataPerhaps = [];
+   dataAvailable = [];
+   display_Chart()
+   labels_FS = [];
+   data_FS = [];
+   start_salesFunnel()
+   $('#tableTrafficSourcesAnalytics tbody').empty();
+   $('#tableResultTable tbody').empty();
   //получаем и проверяем заполненость ячеек из формы
   var getAnalysisStartDate = document.getElementById("exampleInputAnalysisStartDate").value;
   if (getAnalysisStartDate.length < 1)
@@ -926,28 +1001,29 @@ function gridDisplay()
   //читаем данные с таблицы
   var tablePositionsListUser = document.getElementById('tableAvalablePositionsListUser');
   //удалил шапку таблицы
+  // для Analytics "Free Sales Consultant"
   let itemPositionsListUser =[];
+  let itemPositionsListUser_ResultTable =[];
   var rowLength = tablePositionsListUser.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListUser.rows.item(i).cells;
      var cellVal_0 = cells.item(0).lastChild.checked;
+     var cellVal_1 = cells.item(1).innerHTML;
+     var cellVal_2 = cells.item(2).innerHTML;
      if(cellVal_0 == true)
      {
-       var cellVal_1 = cells.item(1).innerHTML;
-       var cellVal_2 = cells.item(2).innerHTML;
        itemPositionsListUser.push(cellVal_1)
      }
   }
+
   //переменные для запуска команды формирования отчета
   let length_itemShiftInterval = "";
   let length_itemShiftInterval_1 = 0;
-
-
   // получаем документы смен подходящие данному отбору
   let itemShiftInterval = [];
   let itemDocShiftList = [];
+  let itemDocShiftList_PK = [];
   let itemShiftInterval_baza = [];
-
   docRefPosition.collection("PositionShift").where("WorkShiftPositionStart", ">", dateAnalysisStart)
                                             .where("WorkShiftPositionStart", "<", dateAnalysisExpiration)
       .get()
@@ -971,131 +1047,13 @@ function gridDisplay()
                 itemShiftInterval_baza.push({...doc.data(),...{IdDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds}});
                 //начало проверяем список сотрудников по смене со списком сотрудников включенных в отчет
                 massListPositionUser.forEach(function(item, i, arr) {
-                  // alert( i + ": " + item + " (массив:" + arr + ")" );
                   let userPositionUser = massListPositionUser[i];
                   let resuitUserList = itemPositionsListUser.includes(userPositionUser);
                     if (resuitUserList == true)
                     {
-                      // //начало отбора документов по сменам должности с привязкой к сотруднику
-                      // var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
-                      //                                                 .where("IdDocPosition", "==", idDocPosition)
-                      //                                                 .where("ProcessUserEnd", "==", "false")
-                      //                                                 .where("ProcessUserEndTime", ">=", workShiftPositionStart)
-                      //                                                 .where("ProcessUserEndTime", "<", workShiftPositionExpirationGetProcessUser);
-                      // museums.get().then((querySnapshot) => {
-                      //     querySnapshot.forEach((doc) => {
-                      //         let docShiftUser = doc.data();
-                      //         let processUserStartTime = docShiftUser.ProcessUserStartTime;
-                      //         let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
-                      //         let processUserEndTime = docShiftUser.ProcessUserEndTime;
-                      //         let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
-                      //         if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
-                      //         {
-                      //         // начало обрезаем документы чьи показатели заходят за рамки смены только для отчета
-                      //           if (processUserStartTimeMiliseconds < workShiftPositionStartMiliseconds)
-                      //           {
-                      //             processUserStartTimeMiliseconds = workShiftPositionStartMiliseconds;
-                      //           }
-                      //           if (processUserEndTimeMiliseconds > workShiftPositionExpirationMiliseconds)
-                      //           {
-                      //             processUserEndTimeMiliseconds = workShiftPositionExpirationMiliseconds;
-                      //           }
-                      //           // окончание обрезаем документы чьи показатели заходят за рамки смены только для отчета
-                      //         // начало получение статуса кнопки
-                      //         let nameDocProcessButton = docShiftUser.NameDocProcessButton;
-                      //         itemSettingsButton.forEach(function(item, i, arr) {
-                      //           let settingsTitle = item.SettingsTitle;
-                      //           if (settingsTitle == nameDocProcessButton)
-                      //           {
-                      //             let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
-                      //             let processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
-                      //             itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
-                      //             itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
-                      //           }
-                      //         });
-                      //         // окончание получение статуса кнопки
-                      //         }
-                      //     });
-                      //  }).finally(() => {
-                      //
-                      //    itemShiftInterval.forEach(function(item, i, arr) {
-                      //       // начало заполняес интервалы смен недоступностью
-                      //       let idDocShiftPosition = item.IdDocShiftPosition;
-                      //       let userActiveShift = item.userActiveShift;
-                      //       let workShiftPositionStart = item.WorkShiftPositionStart;
-                      //       let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
-                      //       let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
-                      //       let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
-                      //       let itemDocShiftList_idDocShiftPosition = [];
-                      //       itemDocShiftList.forEach(function(item, i, arr) {
-                      //         let idDocShiftPosition_1 = item.IdDocShiftPosition;
-                      //         if (idDocShiftPosition_1 == idDocShiftPosition)
-                      //         {
-                      //           itemDocShiftList_idDocShiftPosition.push(item);
-                      //         }
-                      //       });
-                      //       let itemDocShiftList_idDocShiftPosition_User = [];
-                      //       itemDocShiftList_idDocShiftPosition.forEach(function(item, i, arr) {
-                      //         let emailPositionUser_1 = item.EmailPositionUser;
-                      //         if (emailPositionUser_1 == userActiveShift)
-                      //         {
-                      //           itemDocShiftList_idDocShiftPosition_User.push(item);
-                      //         }
-                      //       });
-                      //       itemDocShiftList_idDocShiftPosition_User.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
-                      //       let length_itemDocShiftList_idDocShiftPosition_User =itemDocShiftList_idDocShiftPosition_User.length;
-                      //       if (length_itemDocShiftList_idDocShiftPosition_User == 0)
-                      //       {
-                      //         let processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
-                      //         let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
-                      //         itemDocShiftList.unshift(object);
-                      //       } else {
-                      //         //начало прорабатываем и дополняем массив
-                      //          //добавляю документ в начало
-                      //          let itemDocShiftList_idDocShiftPosition_User_0 = itemDocShiftList_idDocShiftPosition_User[0];
-                      //          let processUserStartTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_0.ProcessUserStartTimeMiliseconds;
-                      //          if (processUserStartTimeMiliseconds > workShiftPositionStartMiliseconds)
-                      //          {
-                      //            // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
-                      //            let processDurationMiliseconds_1 = workShiftPositionStartMiliseconds - processUserStartTimeMiliseconds;
-                      //            let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
-                      //            itemDocShiftList.unshift(object);
-                      //          };
-                      //          //добавляю документ в конец
-                      //          let length = itemDocShiftList_idDocShiftPosition_User.length;
-                      //          let length_finall_0 = length - 1;
-                      //          let itemDocShiftList_idDocShiftPosition_User_finall_0 = itemDocShiftList_idDocShiftPosition_User[length_finall_0];
-                      //          let processUserEndTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_finall_0.ProcessUserEndTimeMiliseconds;
-                      //          if (processUserEndTimeMiliseconds < workShiftPositionExpirationMiliseconds)
-                      //          {
-                      //            let processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
-                      //            let object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
-                      //            itemDocShiftList.push(object_1);
-                      //          };
-                      //          //проверяем интервалы между документами
-                      //          let processUserEndTimeMiliseconds_3 = "";
-                      //          itemDocShiftList_idDocShiftPosition_User.forEach(function(item, index, array) {
-                      //            if (index != 0)
-                      //            {
-                      //              let processUserStartTimeMiliseconds_3 = item.ProcessUserStartTimeMiliseconds;
-                      //                if (processUserStartTimeMiliseconds_3 > processUserEndTimeMiliseconds_3)
-                      //                {
-                      //                  let processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
-                      //                  let object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
-                      //                  itemDocShiftList.push(object_2);
-                      //                }
-                      //            }
-                      //            processUserEndTimeMiliseconds_3 = item.ProcessUserEndTimeMiliseconds;
-                      //           });
-                      //         //окончание прорабатываем и дополняем массив
-                      //       }
-                      //       // окончание проверки пользователь входящих  ListPositionUser
-                      //   });
-                      // });
                       // //окончание отбора документов по сменам должности с привязкой к сотруднику
                       itemShiftInterval.push({...doc.data(),...{IdDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds},...{userActiveShift: userPositionUser}});
                       itemShiftInterval.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
-                      // console.log(itemShiftInterval);
                     }
                 });
                 //окончание проверяем список сотрудников по смене со списком сотрудников включенных в отчет
@@ -1107,21 +1065,17 @@ function gridDisplay()
           console.log("Error getting documents: ", error);
       }).finally(() => {
          length_itemShiftInterval = itemShiftInterval.length;
-goo1()
+         processArray_itemDocShiftList()
       });
 
       //
 
-function goo1()
+function processArray_itemDocShiftList()
 {
-  // length_itemShiftInterval_1 = length_itemShiftInterval_1 + 1;
-  // console.log(length_itemShiftInterval_1);
-
   itemShiftInterval.forEach(function(item, i, arr) {
-
   let userPositionUser = item.userActiveShift;
   let idDocPosition = item.IdDocPosition;
-  let idDocShiftPosition = item.idDocShiftPosition;
+  let idDocShiftPosition = item.IdDocShiftPosition;
   let workShiftPositionStart = item.WorkShiftPositionStart;
   let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
   let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
@@ -1163,7 +1117,10 @@ function goo1()
                 let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
                 let processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
                 itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
+                itemDocShiftList_PK.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
                 itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+                itemDocShiftList_PK.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
+
               }
             });
             // окончание получение статуса кнопки
@@ -1173,14 +1130,14 @@ function goo1()
         length_itemShiftInterval_1 = length_itemShiftInterval_1 + 1;
         if (length_itemShiftInterval == length_itemShiftInterval_1)
         {
-          goo2();
+          processArray_itemShiftInterval();
         }
      });
     //окончание отбора документов по сменам должности с привязкой к сотруднику
   });
 }
 
-function goo2()
+function processArray_itemShiftInterval()
 {
 
    itemShiftInterval.forEach(function(item, i, arr) {
@@ -1191,20 +1148,16 @@ function goo2()
       let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
       let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
       let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
-      let itemDocShiftList_idDocShiftPosition = [];
-      itemDocShiftList.forEach(function(item, i, arr) {
+      let itemDocShiftList_idDocShiftPosition_User = [];
+      itemDocShiftList_PK.forEach(function(item, i, arr) {
         let idDocShiftPosition_1 = item.IdDocShiftPosition;
         if (idDocShiftPosition_1 == idDocShiftPosition)
         {
-          itemDocShiftList_idDocShiftPosition.push(item);
-        }
-      });
-      let itemDocShiftList_idDocShiftPosition_User = [];
-      itemDocShiftList_idDocShiftPosition.forEach(function(item, i, arr) {
-        let emailPositionUser_1 = item.EmailPositionUser;
-        if (emailPositionUser_1 == userActiveShift)
-        {
-          itemDocShiftList_idDocShiftPosition_User.push(item);
+          let emailPositionUser_1 = item.EmailPositionUser;
+          if (emailPositionUser_1 == userActiveShift)
+          {
+            itemDocShiftList_idDocShiftPosition_User.push(item);
+          }
         }
       });
       itemDocShiftList_idDocShiftPosition_User.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
@@ -1213,7 +1166,7 @@ function goo2()
       {
         let processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
         let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
-        itemDocShiftList.unshift(object);
+        itemDocShiftList_PK.unshift(object);
       } else {
         //начало прорабатываем и дополняем массив
          //добавляю документ в начало
@@ -1222,9 +1175,9 @@ function goo2()
          if (processUserStartTimeMiliseconds > workShiftPositionStartMiliseconds)
          {
            // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
-           let processDurationMiliseconds_1 = workShiftPositionStartMiliseconds - processUserStartTimeMiliseconds;
+           let processDurationMiliseconds_1 = processUserStartTimeMiliseconds - workShiftPositionStartMiliseconds;
            let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
-           itemDocShiftList.unshift(object);
+           itemDocShiftList_PK.unshift(object);
          };
          //добавляю документ в конец
          let length = itemDocShiftList_idDocShiftPosition_User.length;
@@ -1235,7 +1188,7 @@ function goo2()
          {
            let processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
            let object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
-           itemDocShiftList.push(object_1);
+           itemDocShiftList_PK.push(object_1);
          };
          //проверяем интервалы между документами
          let processUserEndTimeMiliseconds_3 = "";
@@ -1247,7 +1200,7 @@ function goo2()
                {
                  let processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
                  let object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
-                 itemDocShiftList.push(object_2);
+                 itemDocShiftList_PK.push(object_2);
                }
            }
            processUserEndTimeMiliseconds_3 = item.ProcessUserEndTimeMiliseconds;
@@ -1257,92 +1210,435 @@ function goo2()
       // окончание проверки пользователь входящих  ListPositionUser
   });
 //обрабатываем массив для диограммы
-console.log(itemShiftInterval);
-console.log(itemShiftInterval_baza);
-console.log(itemDocShiftList);
 let listDataDiogramma = [];
 itemShiftInterval_baza.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
 itemShiftInterval_baza.forEach(function(item, i, arr) {
   let idDocShiftPosition_Baza = item.IdDocShiftPosition;
   let listPositionUser = item.ListPositionUser;
+  let workShiftPositionStart = item.WorkShiftPositionStart;
+  let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
   let listPositionUser_length = listPositionUser.length;
   let settingsSalesFunnel_Stage_Green = 0;
   let settingsSalesFunnel_Stage_Yellow = 0;
   let settingsSalesFunnel_Stage_Red = 0;
-  let itemDocShiftList_length = itemDocShiftList.length - 1;
-  itemDocShiftList.forEach(function(item, l, arr) {
+  let itemDocShiftList_length = itemDocShiftList_PK.length - 1;
+  itemDocShiftList_PK.forEach(function(item, l, arr) {
     let idDocShiftPosition = item.IdDocShiftPosition;
     let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
     let processDurationMiliseconds = item.ProcessDurationMiliseconds;
     if (idDocShiftPosition_Baza == idDocShiftPosition)
     {
-      if (settingsSalesFunnel_Stage == "Available green")
+      if (settingsSalesFunnel_Stage === "Available green")
       {
         settingsSalesFunnel_Stage_Green = settingsSalesFunnel_Stage_Green + processDurationMiliseconds;
       }
-      if (settingsSalesFunnel_Stage == "Perhaps yellow")
+      if (settingsSalesFunnel_Stage === "Perhaps yellow")
       {
         settingsSalesFunnel_Stage_Yellow = settingsSalesFunnel_Stage_Yellow + processDurationMiliseconds;
       }
-      if (settingsSalesFunnel_Stage == "Not available red")
+      if (settingsSalesFunnel_Stage === "Not available red")
       {
         settingsSalesFunnel_Stage_Red = settingsSalesFunnel_Stage_Red + processDurationMiliseconds;
       }
-      if (itemDocShiftList_length == l)
-      {
+    }
+    if (itemDocShiftList_length === l)
+    {
+        let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
+        let dataStart = new Date(workShiftPositionStartMiliseconds);
+        let date_Pos = dataStart.toString();
+        let getDay = date_Pos.split(" ")[0];
+        let getMonth = date_Pos.split(" ")[1];
+        let getDate = date_Pos.split(" ")[2];
+        let workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth);
+        let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
+        let processShiftDurationMiliseconds = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
+        let processShiftDurationMilisecondsSum = processShiftDurationMiliseconds*listPositionUser_length;
+        let settingsSalesFunnel_Stage_Green_T = (settingsSalesFunnel_Stage_Green*100)/processShiftDurationMilisecondsSum;
+        let settingsSalesFunnel_Stage_Yellow_T = (settingsSalesFunnel_Stage_Yellow*100)/processShiftDurationMilisecondsSum;
+        let settingsSalesFunnel_Stage_Red_T = (settingsSalesFunnel_Stage_Red*100)/processShiftDurationMilisecondsSum;
+        let settingsSalesFunnel_Stage_Green_Percent = settingsSalesFunnel_Stage_Green_T.toFixed(1);
+        let settingsSalesFunnel_Stage_Yellow_Percent = settingsSalesFunnel_Stage_Yellow_T.toFixed(1);
+        let settingsSalesFunnel_Stage_Red_Percent = settingsSalesFunnel_Stage_Red_T.toFixed(1);
+        let object = {LABELS: workShiftPositionStartString, DataNotAvailable: settingsSalesFunnel_Stage_Red_Percent, DataPerhaps: settingsSalesFunnel_Stage_Yellow_Percent, DataAvailable: settingsSalesFunnel_Stage_Green_Percent};
+        listDataDiogramma.push(object);
+    }
+  });
+});
+listDataDiogramma.forEach(function(item, i, arr) {
+  let labels_l = item.LABELS;
+  let dataNotAvailable_l = item.DataNotAvailable;
+  let dataPerhaps_l = item.DataPerhaps;
+  let dataAvailable_1 = item.DataAvailable;
+  LABELS.push(labels_l);
+  dataNotAvailable.push(dataNotAvailable_l);
+  dataPerhaps.push(dataPerhaps_l);
+  dataAvailable.push(dataAvailable_1);
+  display_Chart();
+ });
+ // получаем документы за данный период зафиксированные по сменам пользователями участвующих в смене и отборе itemShiftInterval
+ let itemDocNoteTraffic = [];
+ let length_G = itemShiftInterval.length - 1;
+ itemShiftInterval.forEach(function(item, k, arr) {
+ let userActiveShift = item.userActiveShift;
+ let idDocPosition = item.IdDocPosition;
+ let idDocShiftPosition = item.IdDocShiftPosition;
+ let workShiftPositionStart = item.WorkShiftPositionStart;
+ let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+ db.collection("Note") .where("NoteSource", "==", "note_traffic")
+                       .where("NoteIdDocPosition", "==", idDocPosition)
+                       .where("NoteUser", "==", userActiveShift)
+                       .where("NoteTime", ">=", workShiftPositionStart)
+                       .where("NoteTime", "<=", workShiftPositionExpiration)
+     .get()
+     .then((querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+             // doc.data() is never undefined for query doc snapshots
+             itemDocNoteTraffic.push({...doc.data(),...{IdDocNote: doc.id},...{IdDocShiftPosition: idDocShiftPosition}});
+         });
+     })
+     .catch((error) => {
+         console.log("Error getting documents: ", error);
+     }).finally(() => {
+       if (length_G === k)
+       {
+         //начало заполняем таблицу Traffic Sources Analytics
+         let listNoteTraffic_Table = [];
+         let numer_Array = 0;
+         listNoteTrsffic.forEach(function(item, i, arr) {
+           let name_Traffic = item.SettingsNoteTrafficOption;
+           let numer = 0;
+           let length_itemDocNoteTraffic = itemDocNoteTraffic.length - 1;
+           itemDocNoteTraffic.forEach(function(item, v, arr) {
+             let l = item.NoteText;
+             if (name_Traffic === l)
+             {
+               numer = numer + 1;
+               numer_Array = numer_Array + 1;
 
+             }
+             if (length_itemDocNoteTraffic == v)
+             {
+               listNoteTraffic_Table.push({Name:name_Traffic, Sum: numer})
+             }
+           });
+          });
+          // расчитать процентные соотношения listNoteTraffic_Table
+          let listNoteTraffic_Table_Percent = [];
+          listNoteTraffic_Table.forEach(function(item, i, arr) {
+            let element_Sum = item.Sum;
+            let element_Name = item.Name;
+            let element_Sum_Percent = (element_Sum*100)/numer_Array;
+            let element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
+            listNoteTraffic_Table_Percent.push({Name:element_Name, Sum: element_Sum, SumPercent: element_Sum_Percent_Okr});
+          });
 
+          //вывожу в таблицу
+          listNoteTraffic_Table_Percent.forEach(function(item, i, arr) {
+            // listNoteTraffic_Table.forEach(item => {
+             var tr = document.createElement("tr");
 
-         let object = {LABELS: userActiveShift, DataNotAvailable: settingsSalesFunnel_Stage_Red, DataPerhaps: settingsSalesFunnel_Stage_Yellow, DataAvailable: settingsSalesFunnel_Stage_Green};
-         listDataDiogramma.unshift(object);
+             var sum_Column = document.createElement('td');
+             sum_Column.innerHTML = item.Sum;
 
-      }
+             var numer_Column = document.createElement('td');
+             numer_Column.innerHTML = i + 1;
 
+             var name_Column = document.createElement('td');
+             name_Column.innerHTML = item.Name;
+
+             var deleteSettings = document.createElement('div');
+             deleteSettings.className = 'progress';
+             var sum_Percent = item.SumPercent;
+             var style_element = 'width: '+sum_Percent+'%';
+             var text = document.createElement('div');
+             var className_element = ["progress-bar bg-success", "progress-bar bg-danger", "progress-bar bg-warning", "progress-bar bg-primary", "progress-bar bg-danger", "progress-bar bg-info", "progress-bar bg-warning", "progress-bar bg-success", "progress-bar bg-danger", "progress-bar bg-warning"];
+             text.className = className_element[i];
+             text.setAttribute("role", "progressbar");
+             text.setAttribute("aria-valuenow", sum_Percent);
+             text.setAttribute("aria-valuemin", "0");
+             text.setAttribute("aria-valuemax", "100");
+             text.style = style_element;
+             deleteSettings.appendChild( text );
+             deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+
+             var sum_Percent_Column = document.createElement('td');
+             sum_Percent_Column.appendChild(deleteSettings);
+
+             tr.appendChild(numer_Column);
+             tr.appendChild(name_Column);
+             tr.appendChild(sum_Column);
+             tr.appendChild(sum_Percent_Column);
+
+             var container = document.getElementById("tableTrafficSourcesAnalytics").getElementsByTagName("tbody")[0];
+
+             container.appendChild(tr);
+          });
+         //окончание заполняем таблицу Traffic Sources Analytics
+       }
+     });
+ });
+ // окончание заполняем таблицу Traffic Sources Analytics
+ // начало подготавливаем данные для таблицы Result Table
+
+let item_ResultTable = [];
+itemSettingsButton.forEach(function(item, i, arr) {
+let settingsSalesFunnel_Result = item.SettingsSalesFunnel_Result;
+if (settingsSalesFunnel_Result === "Take account of" )
+{
+  let settingsTitle = item.SettingsTitle;
+  let object = [];
+  let settingsResultControlOption1 = item.SettingsResultControlOption1;
+  if (settingsResultControlOption1 !== "")
+  {
+    object.push(settingsResultControlOption1);
+  }
+  let settingsResultControlOption2 = item.SettingsResultControlOption2;
+  if (settingsResultControlOption2 !== "")
+  {
+    object.push(settingsResultControlOption2);
+  }
+  let settingsResultControlOption3 = item.SettingsResultControlOption3;
+  if (settingsResultControlOption3 !== "")
+  {
+    object.push(settingsResultControlOption3);
+  }
+  let settingsResultControlOption4 = item.SettingsResultControlOption4;
+  if (settingsResultControlOption4 !== "")
+  {
+    object.push(settingsResultControlOption4);
+  }
+  let settingsResultControlOption5 = item.SettingsResultControlOption5;
+  if (settingsResultControlOption5 !== "")
+  {
+    object.push(settingsResultControlOption5);
+  }
+  let settingsResultControlOption6 = item.SettingsResultControlOption6;
+  if (settingsResultControlOption6 !== "")
+  {
+    object.push(settingsResultControlOption6);
+  }
+  let settingsResultControlOption7 = item.SettingsResultControlOption7;
+  if (settingsResultControlOption7 !== "")
+  {
+    object.push(settingsResultControlOption7);
+  }
+  let settingsResultControlOption8 = item.SettingsResultControlOption8;
+  if (settingsResultControlOption8 !== "")
+  {
+    object.push(settingsResultControlOption8);
+  }
+  item_ResultTable.push({SettingsTitle: settingsTitle, SettingsResultControlOption: object});
+ }
+});
+let item_ResultTable_Play = [];
+item_ResultTable.forEach(function(item, i, arr) {
+let settingsTitle = item.SettingsTitle;
+let settingsResultControlOption = item.SettingsResultControlOption;
+  settingsResultControlOption.forEach(function(item, i, arr) {
+     let settingsResultControlOption_Result = settingsResultControlOption[i];
+     let length_itemDocShiftList = itemDocShiftList.length - 1;
+     let numerElement = 0;
+     itemDocShiftList.forEach(function(item, l, arr) {
+       let nameDocProcessButton = item.NameDocProcessButton;
+       let resultControlButton = item.ResultControlButton;
+       if (settingsTitle === nameDocProcessButton && settingsResultControlOption_Result === resultControlButton)
+       {
+         numerElement = numerElement + 1;
+       }
+       if (length_itemDocShiftList == l)
+       {
+         item_ResultTable_Play.push({SettingsTitle: settingsTitle, SettingsResultControlOption: settingsResultControlOption_Result, SumElement: numerElement});
+       }
+      });
+    });
+  });
+// расчитываем процент Result Table
+  let sumElement = 0;
+  item_ResultTable_Play.forEach(function(item, i, arr) {
+    let element_Sum = item.SumElement;
+    sumElement = sumElement + element_Sum;
+  });
+  //вывожу в таблицу
+  item_ResultTable_Play.forEach(function(item, i, arr) {
+      let element_Sum = item.SumElement;
+      let element_Sum_Percent = (element_Sum*100)/sumElement;
+      let element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
+
+     var tr = document.createElement("tr");
+
+     var numer_Column = document.createElement('td');
+     numer_Column.innerHTML = i + 1;
+
+     var name_Column = document.createElement('td');
+     name_Column.innerHTML = item.SettingsTitle;
+
+     var nameResult_Column = document.createElement('td');
+     nameResult_Column.innerHTML = item.SettingsResultControlOption;
+
+     var sum_Column = document.createElement('td');
+     sum_Column.innerHTML = item.SumElement;
+
+     var deleteSettings = document.createElement('div');
+     deleteSettings.className = 'progress';
+     // var sum_Percent = item.SumPercent;
+     var style_element = 'width: '+element_Sum_Percent_Okr+'%';
+     var text = document.createElement('div');
+     var className_element = ["progress-bar bg-success", "progress-bar bg-danger", "progress-bar bg-warning", "progress-bar bg-primary", "progress-bar bg-danger", "progress-bar bg-info", "progress-bar bg-warning", "progress-bar bg-success", "progress-bar bg-danger", "progress-bar bg-warning"];
+     text.className = className_element[i];
+     text.setAttribute("role", "progressbar");
+     text.setAttribute("aria-valuenow", element_Sum_Percent_Okr);
+     text.setAttribute("aria-valuemin", "0");
+     text.setAttribute("aria-valuemax", "100");
+     text.style = style_element;
+     deleteSettings.appendChild( text );
+     deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+
+     var sum_Percent_Column = document.createElement('td');
+     sum_Percent_Column.appendChild(deleteSettings);
+
+     tr.appendChild(numer_Column);
+     tr.appendChild(name_Column);
+     tr.appendChild(nameResult_Column);
+     tr.appendChild(sum_Column);
+     tr.appendChild(sum_Percent_Column);
+
+     var container = document.getElementById("tableResultTable").getElementsByTagName("tbody")[0];
+
+     container.appendChild(tr);
+  });
+ // окончание подготавливаем данные для таблицы Result Table
+ // начало подготавливаем данные для Sales Funnel
+ let item_SalesFunnel = [];
+ let item_SalesFunnel_SF = [];
+ let item_SalesFunnel_SF_Sum = [];
+ itemSettingsButton.forEach(function(item, i, arr) {
+ let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+ if (settingsSalesFunnel_Availability === "Stage 1 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 2 of the sales funnel"  || settingsSalesFunnel_Availability === "Stage 3 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 4 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 5 of the sales funnel")
+ {
+   let settingsTitle = item.SettingsTitle;
+     item_SalesFunnel.push({SettingsTitle: settingsTitle, SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability});
+     item_SalesFunnel.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
+  }
+ });
+ item_SalesFunnel.forEach(function(item, i, arr) {
+ let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+ let settingsTitle = item.SettingsTitle;
+ let sum_item_SalesFunnel_Element = 0;
+ let length_itemDocShiftList = itemDocShiftList.length - 1;
+   itemDocShiftList.forEach(function(item, l, arr) {
+     let settingsTitle_Doc = item.NameDocProcessButton;
+     if (settingsTitle === settingsTitle_Doc)
+     {
+       sum_item_SalesFunnel_Element = sum_item_SalesFunnel_Element + 1;
+     }
+     if (length_itemDocShiftList === l)
+     {
+       item_SalesFunnel_SF.push({SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability, SumElementFS: sum_item_SalesFunnel_Element});
+     }
+   });
+ });
+ let settingsSalesFunnel_Availability_List = ["Stage 1 of the sales funnel", "Stage 2 of the sales funnel", "Stage 3 of the sales funnel", "Stage 4 of the sales funnel", "Stage 5 of the sales funnel"];
+   settingsSalesFunnel_Availability_List.forEach(function(item, i, arr) {
+   let settingsSalesFunnel_Availability_Element = settingsSalesFunnel_Availability_List[i];
+   let length_item_SalesFunnel_SF = item_SalesFunnel_SF.length - 1;
+   let sum_SalesFunnel_SF = 0;
+   item_SalesFunnel_SF.forEach(function(item, l, arr) {
+     let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+     if (settingsSalesFunnel_Availability_Element === settingsSalesFunnel_Availability)
+     {
+       let sumElementFS = item.SumElementFS;
+       sum_SalesFunnel_SF = sum_SalesFunnel_SF + sumElementFS;
+     }
+     if (length_item_SalesFunnel_SF === l)
+     {
+       item_SalesFunnel_SF_Sum.push({SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability_Element, SumElementFS: sum_SalesFunnel_SF});
+     }
+    });
+  });
+  item_SalesFunnel_SF_Sum.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
+  // let length_item_SalesFunnel_SF_Sum = item_SalesFunnel_SF_Sum.length - 1;
+    item_SalesFunnel_SF_Sum.forEach(function(item, i, arr) {
+    let settingsSalesFunnel_Availability_Element = item.SettingsSalesFunnel_Availability;
+    let settingsSalesFunnel_Availability = settingsSalesFunnel_Availability_Element.substring(7, -7);
+    let sumElementFS = item.SumElementFS;
+    if (sumElementFS > 0)
+    {
+      labels_FS.push(settingsSalesFunnel_Availability);
+      data_FS.push(sumElementFS);
     }
 
+    });
+    start_salesFunnel();
 
+ // окончание подготавливаем данные для Sales Funnel
+}
+let listNoteTrsffic = [];
+docRefPosition.collection("PositionSettingsNoteTrafic").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+        let document = doc.data();
+        let settingsNoteTrafficOption1 = document.SettingsNoteTrafficOption1;
+        let settingsNoteTrafficOption2 = document.SettingsNoteTrafficOption2;
+        let settingsNoteTrafficOption3 = document.SettingsNoteTrafficOption3;
+        let settingsNoteTrafficOption4 = document.SettingsNoteTrafficOption4;
+        let settingsNoteTrafficOption5 = document.SettingsNoteTrafficOption5;
+        let settingsNoteTrafficOption6 = document.SettingsNoteTrafficOption6;
+        let settingsNoteTrafficOption7 = document.SettingsNoteTrafficOption7;
+        let settingsNoteTrafficOption8 = document.SettingsNoteTrafficOption8;
+        let settingsNoteTrafficOption9 = document.SettingsNoteTrafficOption9;
+        let settingsNoteTrafficOption10 = document.SettingsNoteTrafficOption10;
+        if (settingsNoteTrafficOption1 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption1});
+        }
+        if (settingsNoteTrafficOption2 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption2});
+        }
+        if (settingsNoteTrafficOption3 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption3});
+        }
+        if (settingsNoteTrafficOption4 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption4});
+        }
+        if (settingsNoteTrafficOption5 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption5});
+        }
+        if (settingsNoteTrafficOption6 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption6});
+        }
+        if (settingsNoteTrafficOption7 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption7});
+        }
+        if (settingsNoteTrafficOption8 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption8});
+        }
+        if (settingsNoteTrafficOption9 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption9});
+        }
+        if (settingsNoteTrafficOption10 !== "")
+        {
+          listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption10});
+        }
+    });
 });
-
-
-
-
-
-});
-
 
 }
 
-  // переменные для диаграммы
-  LABELS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG' , 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'];
-  dataNotAvailable = [10, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
-  dataPerhaps = [20, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
-  dataAvailable = [30, 5, 5, 40, 5, 5, 5, 5, 5, 5, 40, 5, 5, 5, 5];
-  goo();
 
-
-
-
-
-}
-
-
-function goo()
-{
-// получаем переменные для диаграммы
-
-//////////////////////////////////
-(function($) {
+function display_Chart()
+{(function($) {
   'use strict';
   $(function() {
-
-    // Remove pro banner on close
-    // document.querySelector('#bannerClose').addEventListener('click',function() {
-    //   document.querySelector('#proBanner').classList.add('d-none');
-    // });
-
     Chart.defaults.global.legend.labels.usePointStyle = true;
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if ($("#visit-sale-chart").length) {
   Chart.defaults.global.legend.labels.usePointStyle = true;
@@ -1463,8 +1759,75 @@ if ($("#visit-sale-chart").length) {
       }
   })
   $("#visit-sale-chart-legend").html(myChart.generateLegend());
-}
-});
-})(jQuery);
-}
 ///////////////////////////////////////////////////////////////////////
+   }
+  });
+ })(jQuery);
+}
+
+function start_salesFunnel()
+{
+///////////////////////////////////////////////////////////////////////
+$(function () {
+  /* ChartJS
+   * -------
+   * Data and config for chartjs
+   */
+  'use strict';
+  var data = {
+    labels: labels_FS,
+    datasets: [{
+      label: '# number of events',
+      data: data_FS,
+      // data: [1],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      fill: false
+    }]
+  };
+
+  var options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    legend: {
+      display: false
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
+    }
+
+  };
+  // Get context with jQuery - using jQuery's .get() method.
+  if ($("#barChart").length) {
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+  }
+ });
+};
