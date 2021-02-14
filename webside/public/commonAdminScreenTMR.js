@@ -1135,7 +1135,162 @@ function editShiftDataButton (obj)
 function changeShiftDataButton (obj)
 {
   let objId = obj.id;
+  let objId_item = obj.item;
+  let itemsShiftDataButton = [];
+  let control_Play = 0;
+  let listPositionUser = objId_item.ListPositionUser;
+  let length_listPositionUser = listPositionUser.length;
+  listPositionUser.forEach(function(item, i, arr) {
+   let email = listPositionUser[i];
+   let idDocWorkShift = "";
+   let workShiftPositionStartString ="";
+   let workShiftPositionStartString_P ="";
+   // начало поиск открытых смен у пользователей
+   db.collection("WorkShift").where("EmailPositionUser", "==", email)
+                             .where("IdDocPosition", "==", idDocPosition)
+                             .where("WorkShiftEnd", "==", "")
+       .get()
+       .then((querySnapshot) => {
+           querySnapshot.forEach((doc) => {
+               // doc.data() is never undefined for query doc snapshots
+               // console.log(doc.id, " => ", doc.data());
+               let docyment =  doc.data();
+               let workShiftStartTime = docyment.WorkShiftStartTime;
+               let secondsStart = workShiftStartTime.seconds*1000;
+               let dataStart = new Date(secondsStart);
+               let l = dataStart.toString();
+               // let getDay = l.split(" ")[0];
+               let getMonth = l.split(" ")[1];
+               let getDate = l.split(" ")[2];
+               // let getFullYear = l.split(" ")[3];
+               let getTime = l.split(" ")[4];
+               let getHours = getTime.split(":")[0];
+               let getMinutes = getTime.split(":")[1];
+               workShiftPositionStartString ="From "+(getDate)+" "+(getMonth)+" _ "+(getHours)+":"+(getMinutes);
+               // console.log(workShiftPositionStartString);
+               idDocWorkShift = doc.id;
 
+           });
+       })
+       .catch((error) => {
+           console.log("Error getting documents: ", error);
+       }).finally(() => {
+       // начало отбираем открытый документ смены пользователя
+         let docWorkShift = db.collection("WorkShift").doc(idDocWorkShift);
+         docWorkShift.collection("ProcessUser").where("ProcessUserEnd", "==", "")
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                // console.log(doc.id, " => ", doc.data());
+                let docyment_Element =  doc.data();
+                let nameDocProcessButton = docyment_Element.NameDocProcessButton;
+                let processUserStartTime_P = docyment_Element.ProcessUserStartTime;
+                let secondsStart_P = processUserStartTime_P.seconds*1000;
+                let dataStart_P = new Date(secondsStart_P);
+                let l = dataStart_P.toString();
+                // let getDay = l.split(" ")[0];
+                let getMonth_P = l.split(" ")[1];
+                let getDate_P = l.split(" ")[2];
+                // let getFullYear = l.split(" ")[3];
+                let getTime_P = l.split(" ")[4];
+                let getHours_P = getTime_P.split(":")[0];
+                let getMinutes_P = getTime_P.split(":")[1];
+                workShiftPositionStartString_P ="From "+(getDate_P)+" "+(getMonth_P)+" _ "+(getHours_P)+":"+(getMinutes_P);
+                itemsShiftDataButton.push({Email: email, PersonalChange: workShiftPositionStartString, Status: workShiftPositionStartString_P});
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+          }).finally(() => {
+              if (length_listPositionUser === control_Play)
+              {
+                 showShiftDataButton();
+              }
+          });
+       // окончание отбираем открытый документ смены пользователя
+   // окончание поиск открытых смен у пользователей
+     });
+     control_Play = control_Play + 1;
+  });
+
+function showShiftDataButton()
+{
+  listPositionUser.forEach(function(item, i, arr) {
+    let email_Play = listPositionUser[i];
+    let obj = itemsShiftDataButton.find(o => o.Email === email_Play);
+      if (obj == undefined)
+      {
+        itemsShiftDataButton.push({Email: email_Play, PersonalChange: "Shift is not open", Status: "No open events"});
+      }
+  });
+  // начало отображаем таблицу
+  itemsShiftDataButton.forEach(function(item, i, arr) {
+  var tr = document.createElement("tr");
+
+  var numer_Column = document.createElement('td');
+  numer_Column.innerHTML = i + 1;
+
+  var email_Column = document.createElement('td');
+  email_Column.innerHTML = item.Email;
+
+  var personalChange_Column = document.createElement('td');
+  personalChange_Column.innerHTML = item.PersonalChange;
+
+  var status_Column = document.createElement('td');
+  status_Column.innerHTML = item.Status;
+
+  // var СurrentEvent_Column = document.createElement('td');
+  // СurrentEvent_Column.innerHTML = item.СurrentEvent;
+
+  // var changeShiftData = document.createElement('button');
+  // changeShiftData.innerHTML = "To come in";
+  // changeShiftData.className = 'badge badge-gradient-success';
+  // changeShiftData.id = item.idPositionShift;
+  // changeShiftData.item = item;
+  // changeShiftData.setAttribute('onclick', 'changeShiftDataButton(this)');
+  //
+  // var changeShiftDataColumn = document.createElement('td');
+  // changeShiftDataColumn.appendChild(changeShiftData);
+  //
+  // var editShiftData = document.createElement('button');
+  // editShiftData.innerHTML = "Edit";
+  // editShiftData.className = 'badge badge-gradient-warning';
+  // editShiftData.id = item.idPositionShift;
+  // editShiftData.item = item;
+  // editShiftData.setAttribute('onclick', 'editShiftDataButton(this)');
+  //
+  // var editShiftDataColumn = document.createElement('td');
+  // editShiftDataColumn.appendChild(editShiftData);
+  //
+  // var deleteShiftData = document.createElement('button');
+  // deleteShiftData.innerHTML = "Delete";
+  // deleteShiftData.className = 'badge badge-gradient-danger';
+  // deleteShiftData.id = item.idPositionShift;
+  // deleteShiftData.item = item;
+  // deleteShiftData.setAttribute('onclick', 'deleteShiftDataButton(this)');
+  //
+  // var deleteShiftDataColumn = document.createElement('td');
+  // deleteShiftDataColumn.appendChild(deleteShiftData);
+
+  tr.appendChild(numer_Column);
+  tr.appendChild(email_Column);
+  tr.appendChild(personalChange_Column);
+  tr.appendChild(status_Column);
+  // tr.appendChild(СurrentEvent_Column);
+  // tr.appendChild(editShiftDataColumn);
+  // tr.appendChild(deleteShiftDataColumn);
+
+  var container = document.getElementById("tableEmploymentUser").getElementsByTagName("tbody")[0];
+
+  container.appendChild(tr);
+});
+
+
+  // окончание отображаем таблицу
+}
+
+//tableEmploymentUser
 
 
 

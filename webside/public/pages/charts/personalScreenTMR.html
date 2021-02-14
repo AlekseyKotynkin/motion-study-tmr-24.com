@@ -21,7 +21,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="../../js/index.js"></script>
-    <script src="../../commonChartjsTMR.js"></script>
+    <script src="../../commonPersonalScreenTMR.js"></script>
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
@@ -326,16 +326,17 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of own organizations</h4>
+                    <h4 class="card-title">List of open notes</h4>
                     <div class="table-responsive">
-                      <table id="tableAvalableOrganizations"class="table">
+                      <table id="tableNoteUser"class="table">
                         <thead>
                           <tr>
-                            <th> Email </th>
+                            <th> # </th>
+                            <th> Parent </th>
                             <th> Сomment </th>
-                            <th> Position </th>
-                            <th> Subdivision </th>
-                            <th> Organization </th>
+                            <th> Time of creation </th>
+                            <th> Parent document title </th>
+                            <th></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -348,7 +349,7 @@
               </div>
             </div>
             <!-- Окно выбора пользователя. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -372,9 +373,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно выбора смены. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -399,9 +400,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно детализация дня в таблице. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -424,9 +425,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно детализация дня в графике. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -444,11 +445,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- Модальное окно параметров смены Event -->
-          <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <!-- <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -478,7 +479,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
