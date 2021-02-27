@@ -1650,6 +1650,9 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         data.put("NoteUser", userNameEmail);
                         data.put("NoteStatus", "false");
                         data.put("NoteComment", "");
+                        data.put("NoteParentName", NameDocProcessButton);
+                        data.put("NoteIdDocPosition", idPosition);
+
                         db.collection("Note")
                                 .add(data)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -1696,6 +1699,9 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                                 data.put("NoteUser", userNameEmail);
                                 data.put("NoteStatus", "");
                                 data.put("NoteComment", "");
+                                data.put("NoteParentName", NameDocProcessButton);
+                                data.put("NoteIdDocPosition", idPosition);
+
                                 db.collection("Note")
                                         .add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -1788,6 +1794,9 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                         data.put("NoteUser", userNameEmail);
                         data.put("NoteStatus", "");
                         data.put("NoteComment", "");
+                        data.put("NoteParentName", NameDocProcessButton);
+                        data.put("NoteIdDocPosition", idPosition);
+
 
                         db.collection("Note")
                                 .add(data)
@@ -2058,6 +2067,8 @@ public class UserProcessActivity extends AppCompatActivity implements LifecycleO
                                 data.put("NoteUser", userNameEmail);
                                 data.put("NoteStatus", "false");
                                 data.put("NoteComment", "");
+                                data.put("NoteParentName", NameDocProcessButton);
+                                data.put("NoteIdDocPosition", idPosition);
 
                                 db.collection("Note")
                                         .add(data)
