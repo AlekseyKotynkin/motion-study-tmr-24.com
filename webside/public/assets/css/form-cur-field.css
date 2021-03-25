@@ -1,0 +1,78 @@
+.form-income-field {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: salary;
+}
+
+.form-income-field__container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.form-income-field__container .brand-form__input {
+  flex-grow: 2;
+  grid-area: unset;
+}
+
+.form-income-field__container .brand-form__input[data-area="schedule"] {
+  width: 160px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-income-field__container .brand-form__input[data-area="schedule"] .brand-dropdown__label {
+  flex-grow: 2;
+}
+
+.form-income-field__container .brand-dropdown.brand-form__input[data-area="schedule"] .brand-dropdown__label {
+  visibility: hidden;
+}
+
+.form-income-field__container .brand-dropdown.brand-form__input[data-area="schedule"] .brand-dropdown__field {
+  border-left: 1px solid #a6a6a6;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+@media (max-width: 1679px) {
+  .form-income-field__container .brand-form__input[data-area="schedule"] {
+    width: 140px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 1365px) {
+  .form-income-field {
+      -ms-grid-row: 5;
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 3;
+  }
+
+  .form-income-field__container .brand-form__input[data-area="schedule"] {
+    width: 140px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .form-income-field__container .brand-form__input[data-area="schedule"] {
+    width: 140px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 767px) {
+  .form-income-field {
+      -ms-grid-row: 7;
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 6;
+  }
+
+  .form-income-field__container .brand-form__input[data-area="schedule"] {
+    width: 110px;
+    min-width: 110px;
+  }
+}

@@ -1,0 +1,112 @@
+/* копировать ссылку */
+.link-widget .js-link-button:hover {
+	color: #ff8c69;
+}
+
+
+
+@media (max-width: 1023px) {
+	#payment_block .link-widget__wrapper .js-link-button {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		margin-top: 10px !important;
+	}
+}
+
+@media (max-width: 767px) {
+	#payment_block .link-widget__wrapper button.js-link-button {
+		font-size: 12px !important;
+		margin-top: 10px !important;
+	}
+
+	#payment_block .link-widget__wrapper button.js-link-button .icon {
+		width: 12px;
+		margin-right: 5px;
+	}
+
+
+
+	/* большинство кнопок */
+	.brand-link, .brand-button {
+		height: auto !important;
+	}
+
+	.brand-link__link span {
+		display: block;
+		padding-top: 20px !important;
+		padding-bottom: 20px !important;
+	}
+
+	.brand-button .brand-button__text {
+		padding-top: 20px !important;
+		padding-bottom: 20px !important;
+	}
+
+
+
+	/* loader */
+	.brand-button.brand-button_fg-form-submit-btn--loading img {
+		padding-top: 7px !important;
+		padding-bottom: 7px !important;
+	}
+
+
+
+	/* войти */
+	brand-nav__link.brand-link {
+		height: 28px;
+	}
+
+	.brand-nav__link.brand-link .brand-link__link span {
+		display: initial;
+		padding: 0 !important;
+	}
+
+
+
+	/* добавить фото, удалить фото в форме */
+	.photo-widget__controls .brand-button {
+		height: 24px !important;
+	}
+
+	.photo-widget__controls .brand-button .brand-button__text {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
+}
+
+@media (max-width: 575px) {
+	.brand-link, .brand-button {
+		height: auto !important;
+	}
+
+	.brand-link__link span {
+		display: block;
+		padding-top: 12px !important;
+		padding-bottom: 12px !important;
+	}
+
+	.brand-link__link {
+		font-size: 12px !important;
+		line-height: 1.3;
+	}
+
+	.brand-button .brand-button__text {
+		font-size: 12px !important;
+		line-height: 1.3;
+		padding-top: 12px !important;
+		padding-bottom: 12px !important;
+	}
+
+	.custom-header-btn .brand-button__text {
+		padding-top: 18px !important;
+		padding-bottom: 18px !important;
+	}
+
+
+	/* loader */
+	.brand-button.brand-button_fg-form-submit-btn--loading img {
+		padding-top: 12px !important;
+		padding-bottom: 12px !important;
+	}
+}

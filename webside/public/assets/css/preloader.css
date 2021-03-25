@@ -1,0 +1,14 @@
+.brand-button_fg-form-submit-btn--loading img {
+	width: 40px;
+	height: auto;
+}
+
+.brand-button_fg-form-submit-btn--loading span {
+	display: none;
+}
+
+@media(max-width: 575px) {
+	.brand-button_fg-form-submit-btn--loading img {
+		width: 30px;
+	}
+}
