@@ -51,11 +51,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // профиль. ID и базовый профиль включены в DEFAULT_SIGN_IN.
         init()
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
+            .requestEmail()
+            .build()
         // Build a GoogleSignInClient with the options specified by gso.
         // Создайте GoogleSignInClient с параметрами, указанными в gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this@MainActivity, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(this@MainActivity, gso!!)
         findViewById<View>(R.id.sign_in_button).setOnClickListener(this@MainActivity as View.OnClickListener)
     }
 
@@ -93,24 +93,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun toComeIn(view: View?) {
-        if (!TextUtils.isEmpty(editTextLogin!!.text.toString()) && !TextUtils.isEmpty(editTextPassword!!.text.toString())) {
-            mAuth!!.signInWithEmailAndPassword(editTextLogin!!.text.toString(), editTextPassword!!.text.toString())
-                    .addOnCompleteListener(this) { task ->
-                        // Если войти не удается, отобразите сообщение для пользователя.
-                        if (task.isSuccessful) {
-                            // Успешный вход в систему, обновление пользовательского интерфейса информацией о вошедшем в систему пользователе.
-                            Toast.makeText(applicationContext, "User logged in successfully", Toast.LENGTH_SHORT).show()
-                            startActivity(intent)
-                            finish()
-                            overridePendingTransition(0, 0)
-                        } else {
-                            Toast.makeText(applicationContext, "Login failed", Toast.LENGTH_SHORT).show()
-                        }
-
-                        // ...
+        if (!TextUtils.isEmpty(editTextLogin!!.text.toString()) && !TextUtils.isEmpty(
+                editTextPassword!!.text.toString()
+            )
+        ) {
+            mAuth!!.signInWithEmailAndPassword(
+                editTextLogin!!.text.toString(),
+                editTextPassword!!.text.toString()
+            )
+                .addOnCompleteListener(this) { task ->
+                    // Если войти не удается, отобразите сообщение для пользователя.
+                    if (task.isSuccessful) {
+                        // Успешный вход в систему, обновление пользовательского интерфейса информацией о вошедшем в систему пользователе.
+                        Toast.makeText(
+                            applicationContext,
+                            "User logged in successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        startActivity(intent)
+                        finish()
+                        overridePendingTransition(0, 0)
+                    } else {
+                        Toast.makeText(applicationContext, "Login failed", Toast.LENGTH_SHORT)
+                            .show()
                     }
+
+                    // ...
+                }
         } else {
-            Toast.makeText(applicationContext, "Please tnter Email end Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "Please tnter Email end Password",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -164,7 +179,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 // Вход в Google прошел успешно, аутентифицируемся с помощью Firebase
-                val account = task.getResult<ApiException>(ApiException::class.java)
+                val account = task.getResult(ApiException::class.java)
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken)
             } catch (e: ApiException) {
@@ -176,28 +191,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth!!.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        // Успешный вход, обновление пользовательского интерфейса информацией о вошедшем пользователе
-                        Log.d(TAG, "signInWithCredential:success")
-                        val user = mAuth!!.currentUser
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    // Успешный вход, обновление пользовательского интерфейса информацией о вошедшем пользователе
+                    Log.d(TAG, "signInWithCredential:success")
+                    val user = mAuth!!.currentUser
 
-                        //     updateUI(user);
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        // Если войти не удалось, отобразить сообщение пользователю.
-                        Log.w(TAG, "signInWithCredential:failure", task.exception)
-                        //    Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                        Toast.makeText(applicationContext, "Login failed", Toast.LENGTH_SHORT).show()
-                        //     updateUI(null);
-                    }
-
-                    // ...
+                    //     updateUI(user);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    // Если войти не удалось, отобразить сообщение пользователю.
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    //    Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "Login failed", Toast.LENGTH_SHORT).show()
+                    //     updateUI(null);
                 }
+
+                // ...
+            }
     }
 
     companion object {

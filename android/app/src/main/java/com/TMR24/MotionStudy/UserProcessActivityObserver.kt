@@ -5,7 +5,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class UserProcessActivityObserver(context: Context?, private val lifecycle: Lifecycle) : LifecycleObserver {
+class UserProcessActivityObserver(context: Context?, private val lifecycle: Lifecycle) :
+    LifecycleObserver {
     private val enabled = false
 
     companion object {

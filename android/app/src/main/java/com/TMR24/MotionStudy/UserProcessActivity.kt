@@ -1,50 +1,70 @@
 package com.TMR24.MotionStudy
 
-import android.Manifest.permission
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.Presentation
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import android.media.SoundPool
 import android.media.AudioManager
 import android.media.MediaRecorder
-import android.media.SoundPool
+import android.app.Presentation
+import androidx.lifecycle.Lifecycle
+import com.TMR24.MotionStudy.UserProcessActivityObserver
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.view.PreviewView
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.core.Preview
+import androidx.camera.core.CameraSelector
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.firebase.firestore.GeoPoint
+import com.TMR24.MotionStudy.PositionSettingObjectMap
+import com.TMR24.MotionStudy.R
+import androidx.core.content.ContextCompat
+import android.annotation.SuppressLint
+import android.content.Intent
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.FieldValue
+import com.TMR24.MotionStudy.UserInfoActivity
+import android.content.DialogInterface
+import com.TMR24.MotionStudy.NotificationWorker
+import androidx.work.WorkInfo
+import androidx.core.app.ActivityCompat
+import android.Manifest.permission
+import android.app.AlertDialog
+import android.content.Context
+import com.TMR24.MotionStudy.UserProcessActivity
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.*
 import android.util.Log
 import android.util.Size
 import android.view.*
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
-import com.TMR24.MotionStudy.NotificationWorker
-import com.TMR24.MotionStudy.UserProcessActivity
-import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.firebase.storage.StorageMetadata
+import com.google.firebase.storage.UploadTask
+import com.google.firebase.storage.OnPausedListener
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.Task
+import kotlin.Throws
+import androidx.camera.core.ImageCaptureException
+import androidx.work.Data
+import com.google.android.gms.tasks.*
 import com.google.common.util.concurrent.ListenableFuture
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.storage.*
+import com.google.firebase.functions.HttpsCallableResult
 import java.io.File
 import java.io.IOException
+import java.lang.IllegalStateException
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutionException
-import kotlin.Throws
 
 class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private var textActivPosition: TextView? = null
@@ -135,7 +155,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private val ButtonMap: MutableList<Button?> = ArrayList<Any?>()
     private var linearLayoutButton: LinearLayout? = null
     private var containerPreviewView: FrameLayout? = null
-    private var window: Window? = null
+    private final var window: Window? = null
     val context: Context = this
 
     //переменные для списка заметок List
@@ -193,46 +213,58 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             imageAnalysis = null
             cameraProviderFuture = ProcessCameraProvider.getInstance(this@UserProcessActivity)
             imageAnalysis = ImageAnalysis.Builder()
-                    .setTargetResolution(Size(1280, 720))
-                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .build()
-            cameraProviderFuture.addListener(Runnable {
-                try {
-                    // Camera provider is now guaranteed to be available
-                    // Поставщик камеры теперь гарантированно доступен
-                    cameraProvider = cameraProviderFuture.get() as ProcessCameraProvider
-                    // Set up the view finder use case to display camera preview
-                    // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
-                    preview = Preview.Builder().build()
-                    // Set up the capture use case to allow users to take photos
-                    // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
-                    imageCapture = ImageCapture.Builder()
+                .setTargetResolution(Size(1280, 720))
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build()
+            (cameraProviderFuture as ListenableFuture<ProcessCameraProvider>).addListener(
+                Runnable {
+                    try {
+                        // Camera provider is now guaranteed to be available
+                        // Поставщик камеры теперь гарантированно доступен
+                        cameraProvider = (cameraProviderFuture as ListenableFuture<ProcessCameraProvider>).get() as ProcessCameraProvider
+                        // Set up the view finder use case to display camera preview
+                        // Настраиваем вариант использования видоискателя для отображения предварительного просмотра камеры
+                        preview = Preview.Builder().build()
+                        // Set up the capture use case to allow users to take photos
+                        // Настройка сценария использования захвата, чтобы пользователи могли делать фотографии
+                        imageCapture = ImageCapture.Builder()
                             .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                             .build()
-                    // Choose the camera by requiring a lens facing
-                    // Выбираем камеру, требуя, чтобы объектив смотрел
-                    cameraSelector = CameraSelector.Builder()
+                        // Choose the camera by requiring a lens facing
+                        // Выбираем камеру, требуя, чтобы объектив смотрел
+                        cameraSelector = CameraSelector.Builder()
                             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                             .build()
-                    // Connect the preview use case to the previewView
-                    // Подключите вариант использования предварительного просмотра к previewView
-                    preview!!.setSurfaceProvider(previewView!!.surfaceProvider)
-                    ////
-                    cameraProvider!!.bindToLifecycle((this as LifecycleOwner), cameraSelector!!, imageCapture, imageAnalysis, preview)
-                } catch (e: InterruptedException) {
-                    // Currently no exceptions thrown. cameraProviderFuture.get()
-                    // shouldn't block since the listener is being called, so no need to
-                    // handle InterruptedException.
-                    // В настоящее время исключений нет. cameraProviderFuture.get ()
-                    // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
-                    // обрабатываем InterruptedException.
-                } catch (e: ExecutionException) {
-                }
-            },
-                    ContextCompat.getMainExecutor(this@UserProcessActivity))
+                        // Connect the preview use case to the previewView
+                        // Подключите вариант использования предварительного просмотра к previewView
+                        preview!!.setSurfaceProvider(previewView!!.surfaceProvider)
+                        ////
+                        cameraProvider!!.bindToLifecycle(
+                            (this as LifecycleOwner),
+                            cameraSelector!!,
+                            imageCapture,
+                            imageAnalysis,
+                            preview
+                        )
+                    } catch (e: InterruptedException) {
+                        // Currently no exceptions thrown. cameraProviderFuture.get()
+                        // shouldn't block since the listener is being called, so no need to
+                        // handle InterruptedException.
+                        // В настоящее время исключений нет. cameraProviderFuture.get ()
+                        // не должен блокироваться, так как слушатель вызывается, поэтому нет необходимости
+                        // обрабатываем InterruptedException.
+                    } catch (e: ExecutionException) {
+                    }
+                },
+                ContextCompat.getMainExecutor(this@UserProcessActivity)
+            )
         } else {
             // Use Camera1
-            Toast.makeText(this@UserProcessActivity, "This device does not support CameraX operation.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@UserProcessActivity,
+                "This device does not support CameraX operation.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
 
@@ -242,7 +274,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     @SuppressLint("ResourceType")
     public override fun onStart() {
         super.onStart()
-        UserProcessActivityObserver.Companion.connect()
+        UserProcessActivityObserver.connect()
         val i = intent
         if (i != null) {   //window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             //очистили ArrayList
@@ -268,24 +300,33 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             parentHierarchyShiftUser = i.getStringExtra(Constant.PARENT_HIERARCHY_SHIFT_USER)
             val delimeter = ">"
-            val idOrganization: String = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(0)
-            val nameOrganization: String = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(1)
-            val idSubdivision: String = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(2)
-            val nameSubdivision: String = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(3)
-            idPosition = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(4)
-            val namePosition: String = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(5)
-            activShiftDocId = parentHierarchyShiftUser.split(delimeter).toTypedArray().get(6)
+            val idOrganization =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[0]
+            val nameOrganization =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[1]
+            val idSubdivision =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[2]
+            val nameSubdivision =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[3]
+            idPosition = parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[4]
+            val namePosition =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[5]
+            activShiftDocId =
+                parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[6]
             //вывели на экран Должность Подразделение Организацию в которой планируем работать
             textActivPosition!!.text = "$nameOrganization > $nameSubdivision > $namePosition"
             //получаем parentHierarchyPositionUserMap из документа Активной смены
-            val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
+            val docRef = db!!.collection("WorkShift").document(
+                activShiftDocId!!
+            )
             docRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.data)
                         val doc = document.data
-                        parentHierarchyPositionUserMap = doc!!["ParentHierarchyPositionUser"] as Map<String?, Any?>?
+                        parentHierarchyPositionUserMap =
+                            doc!!["ParentHierarchyPositionUser"] as Map<String?, Any?>?
                         buttonCloseShift!!.visibility = View.VISIBLE
                     } else {
                         Log.d(TAG, "No such document")
@@ -303,142 +344,175 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             val settingsPassiveControl = false
             val settingsCommitDescriptionExpect = true
             val dataSettingsButtonExpect: MutableMap<String, Any> = HashMap()
-            dataSettingsButtonExpect.put("SettingsTitle", settingsTitleExpect)
-            dataSettingsButtonExpect.put("SettingsActiveControl", settingsActiveControl)
-            dataSettingsButtonExpect.put("SettingsPassiveControl", settingsPassiveControl)
-            dataSettingsButtonExpect.put("SettingsCommitDescription", settingsCommitDescriptionExpect)
-            dataSettingsButtonExpect.put("SettingsResultCapture", settingsResultCapture)
-            val positionSettingsObjectExpect = PositionSettingObjectMap(idButtonExpect, idSettingsButtonExpect, dataSettingsButtonExpect)
+            dataSettingsButtonExpect["SettingsTitle"] = settingsTitleExpect
+            dataSettingsButtonExpect["SettingsActiveControl"] = settingsActiveControl
+            dataSettingsButtonExpect["SettingsPassiveControl"] = settingsPassiveControl
+            dataSettingsButtonExpect["SettingsCommitDescription"] = settingsCommitDescriptionExpect
+            dataSettingsButtonExpect["SettingsResultCapture"] = settingsResultCapture
+            val positionSettingsObjectExpect = PositionSettingObjectMap(
+                idButtonExpect,
+                idSettingsButtonExpect,
+                dataSettingsButtonExpect
+            )
             PositionSettingsMap.add(positionSettingsObjectExpect)
             buttonExpect!!.id = idButtonExpect
             val idSettingsButtonOther = "buttonOther"
             val SettingsTitleOther = "Other"
             val settingsCommitDescriptionOther = true
             val dataSettingsButtonOther: MutableMap<String, Any> = HashMap()
-            dataSettingsButtonOther.put("SettingsTitle", SettingsTitleOther)
-            dataSettingsButtonOther.put("SettingsActiveControl", settingsActiveControl)
-            dataSettingsButtonOther.put("SettingsPassiveControl", settingsPassiveControl)
-            dataSettingsButtonOther.put("SettingsCommitDescription", settingsCommitDescriptionOther)
-            dataSettingsButtonOther.put("SettingsResultCapture", settingsResultCapture)
-            val positionSettingsObjectOther = PositionSettingObjectMap(idButtonOther, idSettingsButtonOther, dataSettingsButtonOther)
+            dataSettingsButtonOther["SettingsTitle"] = SettingsTitleOther
+            dataSettingsButtonOther["SettingsActiveControl"] = settingsActiveControl
+            dataSettingsButtonOther["SettingsPassiveControl"] = settingsPassiveControl
+            dataSettingsButtonOther["SettingsCommitDescription"] = settingsCommitDescriptionOther
+            dataSettingsButtonOther["SettingsResultCapture"] = settingsResultCapture
+            val positionSettingsObjectOther = PositionSettingObjectMap(
+                idButtonOther,
+                idSettingsButtonOther,
+                dataSettingsButtonOther
+            )
             PositionSettingsMap.add(positionSettingsObjectOther)
             buttonOther!!.id = idButtonOther
             val idSettingsButtonGone = "buttonGone"
             val SettingsTitleGone = "Gone"
             val dataSettingsButtonGone: MutableMap<String, Any> = HashMap()
-            dataSettingsButtonGone.put("SettingsTitle", SettingsTitleGone)
-            dataSettingsButtonGone.put("SettingsActiveControl", settingsActiveControl)
-            dataSettingsButtonGone.put("SettingsPassiveControl", settingsPassiveControl)
-            dataSettingsButtonGone.put("SettingsCommitDescription", settingsCommitDescription)
-            dataSettingsButtonGone.put("SettingsResultCapture", settingsResultCapture)
-            val positionSettingsObjectGone = PositionSettingObjectMap(idButtonGone, idSettingsButtonGone, dataSettingsButtonGone)
+            dataSettingsButtonGone["SettingsTitle"] = SettingsTitleGone
+            dataSettingsButtonGone["SettingsActiveControl"] = settingsActiveControl
+            dataSettingsButtonGone["SettingsPassiveControl"] = settingsPassiveControl
+            dataSettingsButtonGone["SettingsCommitDescription"] = settingsCommitDescription
+            dataSettingsButtonGone["SettingsResultCapture"] = settingsResultCapture
+            val positionSettingsObjectGone =
+                PositionSettingObjectMap(idButtonGone, idSettingsButtonGone, dataSettingsButtonGone)
             PositionSettingsMap.add(positionSettingsObjectGone)
             buttonGone!!.id = idButtonGone
             //получаем настройки для данной должности
             val docRefOrganization = db!!.collection("Organization").document(idOrganization)
-            val docRefSubdivision = docRefOrganization.collection("Subdivision").document(idSubdivision)
-            val docRefPosition = docRefSubdivision.collection("Position").document(idPosition!!)
+            val docRefSubdivision =
+                docRefOrganization.collection("Subdivision").document(idSubdivision)
+            val docRefPosition = docRefSubdivision.collection("Position").document(
+                idPosition!!
+            )
             docRefPosition.collection("PositionSettings")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result) {
-                                Log.d(TAG, document.id + " => " + document.data)
-                                //достаем название и настройки
-                                val doc = document.data
-                                val buttonName = doc["SettingsTitle"] as String?
-                                button = Button(this@UserProcessActivity)
-                                button!!.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                button!!.text = buttonName
-                                val id = View.generateViewId()
-                                button!!.id = id
-                                button!!.setOnClickListener(mCorkyListener)
-                                ButtonMap.add(button)
-                                // устанавливаем настройки созданных кнопок в PositionSettingsMap
-                                val idSettingsButton = document.id
-                                val dataSettingsButton = document.data
-                                val positionSettingsObject = PositionSettingObjectMap(id, idSettingsButton, dataSettingsButton)
-                                PositionSettingsMap.add(positionSettingsObject)
-                                //публикуем
-                                linearLayoutButton!!.addView(button)
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.exception)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            Log.d(TAG, document.id + " => " + document.data)
+                            //достаем название и настройки
+                            val doc = document.data
+                            val buttonName = doc["SettingsTitle"] as String?
+                            button = Button(this@UserProcessActivity)
+                            button!!.layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            button!!.text = buttonName
+                            val id = View.generateViewId()
+                            button!!.id = id
+                            button!!.setOnClickListener(mCorkyListener)
+                            ButtonMap.add(button)
+                            // устанавливаем настройки созданных кнопок в PositionSettingsMap
+                            val idSettingsButton = document.id
+                            val dataSettingsButton = document.data
+                            val positionSettingsObject =
+                                PositionSettingObjectMap(id, idSettingsButton, dataSettingsButton)
+                            PositionSettingsMap.add(positionSettingsObject)
+                            //публикуем
+                            linearLayoutButton!!.addView(button)
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.exception)
                     }
+                }
             //получаем настройки заметок List для текущей должности PositionSettingsNoteList
             docRefPosition.collection("PositionSettingsNoteList")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result) {
-                                Log.d(TAG, document.id + " => " + document.data)
-                                //достаем название и настройки
-                                PositionSettingsNoteListMap = document.data
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.exception)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            Log.d(TAG, document.id + " => " + document.data)
+                            //достаем название и настройки
+                            PositionSettingsNoteListMap = document.data
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.exception)
                     }
+                }
             //получаем настройки заметок Traffic для текущей должности PositionSettingsNoteTrafficMap
             docRefPosition.collection("PositionSettingsNoteTrafic")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result) {
-                                Log.d(TAG, document.id + " => " + document.data)
-                                //достаем название и настройки
-                                PositionSettingsNoteTrafficMap = document.data
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.exception)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            Log.d(TAG, document.id + " => " + document.data)
+                            //достаем название и настройки
+                            PositionSettingsNoteTrafficMap = document.data
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.exception)
                     }
+                }
             //получаем открытый документ процесса и устанавливаем активность
             docRef.collection("ProcessUser")
-                    .whereEqualTo("ProcessUserEnd", "")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result) {
-                                Log.d(TAG, document.id + " => " + document.data)
-                                idDocActivButtonUser = document.id
-                                val dataSettingsButton = document.data
-                                //String IdDocProcessButton = (String) dataSettingsButton.get("IdDocProcessButton");
-                                NameDocProcessButton = dataSettingsButton["NameDocProcessButton"] as String?
-                                ButtonActivationByBackgroundTask(NameDocProcessButton)
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.exception)
+                .whereEqualTo("ProcessUserEnd", "")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            Log.d(TAG, document.id + " => " + document.data)
+                            idDocActivButtonUser = document.id
+                            val dataSettingsButton = document.data
+                            //String IdDocProcessButton = (String) dataSettingsButton.get("IdDocProcessButton");
+                            NameDocProcessButton =
+                                dataSettingsButton["NameDocProcessButton"] as String?
+                            ButtonActivationByBackgroundTask(NameDocProcessButton)
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.exception)
                     }
+                }
         }
     }
 
     //---Операция закрытия рабочей смены и крайнего сдокумента событие смены.---
     fun buttonCloseShift(view: View?) { //Закрываем рабочую смену
-        val washingtonRef = db!!.collection("WorkShift").document(activShiftDocId!!)
+        val washingtonRef = db!!.collection("WorkShift").document(
+            activShiftDocId!!
+        )
         washingtonRef
-                .update("WorkShiftEnd", "false")
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-        val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
+            .update("WorkShiftEnd", "false")
+            .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                override fun onSuccess(aVoid: Void?) {
+                    Log.d(TAG, "DocumentSnapshot successfully updated!")
+                }
+            })
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        val docRef = db!!.collection("WorkShift").document(
+            activShiftDocId!!
+        )
         // Обновляем поле отметки времени значением с сервера
         // Update the timestamp field with the value from the server
         val updates: MutableMap<String, Any> = HashMap()
-        updates.put("WorkShiftEndTime", FieldValue.serverTimestamp())
+        updates["WorkShiftEndTime"] = FieldValue.serverTimestamp()
         docRef.update(updates).addOnCompleteListener // [START_EXCLUDE]
         // [START_EXCLUDE]
         { }
         // Закрываем документ активного процесса
-        val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(idDocActivButtonUser!!)
+        val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(
+            idDocActivButtonUser!!
+        )
         washingtonRefProcessUser
-                .update("ProcessUserEnd", "false")
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-        val docRefProcessUser = docRef.collection("ProcessUser").document(idDocActivButtonUser!!)
+            .update("ProcessUserEnd", "false")
+            .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                override fun onSuccess(aVoid: Void?) {
+                    Log.d(TAG, "DocumentSnapshot successfully updated!")
+                }
+            })
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        val docRefProcessUser = docRef.collection("ProcessUser").document(
+            idDocActivButtonUser!!
+        )
         val updatesProcessUser: MutableMap<String, Any> = HashMap()
-        updatesProcessUser.put("ProcessUserEndTime", FieldValue.serverTimestamp())
+        updatesProcessUser["ProcessUserEndTime"] = FieldValue.serverTimestamp()
         docRefProcessUser.update(updatesProcessUser).addOnCompleteListener // [START_EXCLUDE]
         // [START_EXCLUDE]
         { }
@@ -459,9 +533,9 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             if (activButtonId == idButton) {
                 val idSettingsButton = h.idSettingsButton
                 val dataSettingsButton: Map<*, *>? = h.dataSettingsButton
-                NameDocProcessButton = dataSettingsButton!!.get("SettingsTitle") as String?
+                NameDocProcessButton = dataSettingsButton!!["SettingsTitle"] as String?
                 // закрываем задачи активного контроля
-                val settingsActiveControl = dataSettingsButton.get("SettingsActiveControl") as Boolean
+                val settingsActiveControl = dataSettingsButton["SettingsActiveControl"] as Boolean
                 if (settingsActiveControl == true) {
                     // очищаем список фоновых задач с тегом "workmng"
                     if (mRequest != null) {
@@ -470,13 +544,13 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     }
                 }
                 //
-                val settingsPassiveControl = dataSettingsButton.get("SettingsPassiveControl") as Boolean
+                val settingsPassiveControl = dataSettingsButton["SettingsPassiveControl"] as Boolean
                 if (settingsPassiveControl == true) {
-                    val settingsPassiveAudio = dataSettingsButton.get("SettingsPassiveAudio") as Boolean
+                    val settingsPassiveAudio = dataSettingsButton["SettingsPassiveAudio"] as Boolean
                     if (settingsPassiveAudio == true) {
                         stopRecordingAudio()
                     }
-                    val settingsPassivePhoto = dataSettingsButton.get("SettingsPassivePhoto") as Boolean
+                    val settingsPassivePhoto = dataSettingsButton["SettingsPassivePhoto"] as Boolean
                     if (settingsPassivePhoto == true) {
                         // очищаем список фоновых задач с тегом "workmng"
                         if (mRequestPassivePhotoInterval != null) {
@@ -484,11 +558,12 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                             mWorkManager!!.cancelWorkById(mRequestPassivePhotoInterval!!.id)
                         }
                     }
-                    val settingsPassiveVideo = dataSettingsButton.get("SettingsPassiveVideo") as Boolean
+                    val settingsPassiveVideo = dataSettingsButton["SettingsPassiveVideo"] as Boolean
                     if (settingsPassiveAudio == true) {
                         //
                     }
-                    val settingsPassiveGeolocation = dataSettingsButton.get("SettingsPassiveGeolocation") as Boolean
+                    val settingsPassiveGeolocation =
+                        dataSettingsButton["SettingsPassiveGeolocation"] as Boolean
                     if (settingsPassiveGeolocation == true) {
                         // очищаем список фоновых задач с тегом "workmng"
                         if (mRequestPassiveGeolocationInterval != null) {
@@ -498,7 +573,8 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     }
                 }
                 // проверяем необходимость личного комментария при закрытии документа
-                val settingsCommitDescription = dataSettingsButton.get("SettingsCommitDescription") as Boolean
+                val settingsCommitDescription =
+                    dataSettingsButton["SettingsCommitDescription"] as Boolean
                 if (settingsCommitDescription == true) { // создаем всплывающее окно
                     val li = LayoutInflater.from(context)
                     val promptsView = li.inflate(R.layout.prompt, null)
@@ -506,74 +582,118 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     builder.setView(promptsView)
                     val userInput = promptsView.findViewById<View>(R.id.input_text) as EditText
                     builder.setTitle("Comment Result")
-                            .setCancelable(false)
-                            .setPositiveButton("OK"
-                            ) { dialog, id -> //получаем текст комментария
-                                val commitDescriptioText = userInput.text.toString()
-                                val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-                                val washingtonRef = docRef.collection("ProcessUser").document(idDocActivButtonUserFinal!!)
-                                // Set the "isCapital" field of the city 'DC'
-                                washingtonRef
-                                        .update("CommitDescriptioText", commitDescriptioText)
-                                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                                        .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-                            }
-                            .setNegativeButton("Cansel"
-                            ) { dialog, id -> dialog.cancel() }
+                        .setCancelable(false)
+                        .setPositiveButton(
+                            "OK"
+                        ) { dialog, id -> //получаем текст комментария
+                            val commitDescriptioText = userInput.text.toString()
+                            val docRef = db!!.collection("WorkShift").document(
+                                activShiftDocId!!
+                            )
+                            val washingtonRef = docRef.collection("ProcessUser").document(
+                                idDocActivButtonUserFinal!!
+                            )
+                            // Set the "isCapital" field of the city 'DC'
+                            washingtonRef
+                                .update("CommitDescriptioText", commitDescriptioText)
+                                .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                                    override fun onSuccess(aVoid: Void?) {
+                                        Log.d(TAG, "DocumentSnapshot successfully updated!")
+                                    }
+                                })
+                                .addOnFailureListener { e ->
+                                    Log.w(
+                                        TAG,
+                                        "Error updating document",
+                                        e
+                                    )
+                                }
+                        }
+                        .setNegativeButton(
+                            "Cansel"
+                        ) { dialog, id -> dialog.cancel() }
                     val alert = builder.create()
                     alert.show()
                 }
                 // проверяем необходимость типового комментария при закрытии документа
-                val settingsResultCapture = dataSettingsButton.get("SettingsResultCapture") as Boolean
+                val settingsResultCapture = dataSettingsButton["SettingsResultCapture"] as Boolean
                 if (settingsResultCapture == true) {  //фиксируем результат исполнения процесса из предложенного варианта
                     val builder = AlertDialog.Builder(this@UserProcessActivity)
                     builder.setTitle("Select result")
                     val settings_array: MutableList<String?> = ArrayList()
-                    val settingsResultControlOption1 = dataSettingsButton.get("SettingsResultControlOption1") as String?
+                    val settingsResultControlOption1 =
+                        dataSettingsButton["SettingsResultControlOption1"] as String?
                     if (settingsResultControlOption1 !== "") {
                         settings_array.add(settingsResultControlOption1)
                     }
-                    val settingsResultControlOption2 = dataSettingsButton.get("SettingsResultControlOption2") as String?
+                    val settingsResultControlOption2 =
+                        dataSettingsButton["SettingsResultControlOption2"] as String?
                     if (settingsResultControlOption2 !== "") {
                         settings_array.add(settingsResultControlOption2)
                     }
-                    val settingsResultControlOption3 = dataSettingsButton.get("SettingsResultControlOption3") as String?
+                    val settingsResultControlOption3 =
+                        dataSettingsButton["SettingsResultControlOption3"] as String?
                     if (settingsResultControlOption3 !== "") {
                         settings_array.add(settingsResultControlOption3)
                     }
-                    val settingsResultControlOption4 = dataSettingsButton.get("SettingsResultControlOption4") as String?
+                    val settingsResultControlOption4 =
+                        dataSettingsButton["SettingsResultControlOption4"] as String?
                     if (settingsResultControlOption4 !== "") {
                         settings_array.add(settingsResultControlOption4)
                     }
-                    val settingsResultControlOption5 = dataSettingsButton.get("SettingsResultControlOption5") as String?
+                    val settingsResultControlOption5 =
+                        dataSettingsButton["SettingsResultControlOption5"] as String?
                     if (settingsResultControlOption5 !== "") {
                         settings_array.add(settingsResultControlOption5)
                     }
-                    val settingsResultControlOption6 = dataSettingsButton.get("SettingsResultControlOption6") as String?
+                    val settingsResultControlOption6 =
+                        dataSettingsButton["SettingsResultControlOption6"] as String?
                     if (settingsResultControlOption6 !== "") {
                         settings_array.add(settingsResultControlOption6)
                     }
-                    val settingsResultControlOption7 = dataSettingsButton.get("SettingsResultControlOption7") as String?
+                    val settingsResultControlOption7 =
+                        dataSettingsButton["SettingsResultControlOption7"] as String?
                     if (settingsResultControlOption7 !== "") {
                         settings_array.add(settingsResultControlOption7)
                     }
-                    val settingsResultControlOption8 = dataSettingsButton.get("SettingsResultControlOption8") as String?
+                    val settingsResultControlOption8 =
+                        dataSettingsButton["SettingsResultControlOption8"] as String?
                     if (settingsResultControlOption8 !== "") {
                         settings_array.add(settingsResultControlOption8)
                     }
                     if (settings_array.size != 0) {
-                        val dataAdapter = ArrayAdapter(this@UserProcessActivity,
-                                android.R.layout.simple_dropdown_item_1line, settings_array)
+                        val dataAdapter = ArrayAdapter(
+                            this@UserProcessActivity,
+                            android.R.layout.simple_dropdown_item_1line, settings_array
+                        )
                         builder.setAdapter(dataAdapter) { dialog, which ->
-                            Toast.makeText(this@UserProcessActivity, "You have selected " + settings_array[which], Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@UserProcessActivity,
+                                "You have selected " + settings_array[which],
+                                Toast.LENGTH_LONG
+                            ).show()
                             val resultControlButton = settings_array[which]
-                            val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-                            val washingtonRef = docRef.collection("ProcessUser").document(idDocActivButtonUserFinal!!)
+                            val docRef = db!!.collection("WorkShift").document(
+                                activShiftDocId!!
+                            )
+                            val washingtonRef = docRef.collection("ProcessUser").document(
+                                idDocActivButtonUserFinal!!
+                            )
                             // Set the "isCapital" field of the city 'DC'
                             washingtonRef
-                                    .update("ResultControlButton", resultControlButton)
-                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+                                .update("ResultControlButton", resultControlButton)
+                                .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                                    override fun onSuccess(aVoid: Void?) {
+                                        Log.d(TAG, "DocumentSnapshot successfully updated!")
+                                    }
+                                })
+                                .addOnFailureListener { e ->
+                                    Log.w(
+                                        TAG,
+                                        "Error updating document",
+                                        e
+                                    )
+                                }
                         }
                         val dialog = builder.create()
                         dialog.show()
@@ -582,16 +702,28 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             }
         }
         // Закрываем документ активного процесса
-        val washingtonRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-        val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-        val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(idDocActivButtonUser!!)
+        val washingtonRef = db!!.collection("WorkShift").document(
+            activShiftDocId!!
+        )
+        val docRef = db!!.collection("WorkShift").document(
+            activShiftDocId!!
+        )
+        val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(
+            idDocActivButtonUser!!
+        )
         washingtonRefProcessUser
-                .update("ProcessUserEnd", "false")
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-        val docRefProcessUser = docRef.collection("ProcessUser").document(idDocActivButtonUser!!)
+            .update("ProcessUserEnd", "false")
+            .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                override fun onSuccess(aVoid: Void?) {
+                    Log.d(TAG, "DocumentSnapshot successfully updated!")
+                }
+            })
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        val docRefProcessUser = docRef.collection("ProcessUser").document(
+            idDocActivButtonUser!!
+        )
         val updatesProcessUser: MutableMap<String, Any> = HashMap()
-        updatesProcessUser.put("ProcessUserEndTime", FieldValue.serverTimestamp())
+        updatesProcessUser["ProcessUserEndTime"] = FieldValue.serverTimestamp()
         docRefProcessUser.update(updatesProcessUser).addOnCompleteListener // [START_EXCLUDE]
         // [START_EXCLUDE]
         { }
@@ -605,78 +737,105 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             if (activButtonId == idButton) {
                 val idSettingsButton = h.idSettingsButton
                 val dataSettingsButton: Map<*, *>? = h.dataSettingsButton
-                NameDocProcessButton = dataSettingsButton!!.get("SettingsTitle") as String?
+                NameDocProcessButton = dataSettingsButton!!["SettingsTitle"] as String?
                 //активизируем процесс по нажатию кнопки
                 val dataProcessUser: MutableMap<String, Any?> = HashMap()
-                dataProcessUser.put("EmailPositionUser", userNameEmail)
-                dataProcessUser.put("IdDocPosition", idPosition)
-                dataProcessUser.put("IdDocProcessButton", idSettingsButton)
-                dataProcessUser.put("NameDocProcessButton", NameDocProcessButton)
-                dataProcessUser.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap)
-                dataProcessUser.put("ProcessUserEnd", "")
-                dataProcessUser.put("ProcessUserStartTime", FieldValue.serverTimestamp())
+                dataProcessUser["EmailPositionUser"] = userNameEmail
+                dataProcessUser["IdDocPosition"] = idPosition
+                dataProcessUser["IdDocProcessButton"] = idSettingsButton
+                dataProcessUser["NameDocProcessButton"] = NameDocProcessButton
+                dataProcessUser["ParentHierarchyPositionUser"] = parentHierarchyPositionUserMap
+                dataProcessUser["ProcessUserEnd"] = ""
+                dataProcessUser["ProcessUserStartTime"] = FieldValue.serverTimestamp()
                 washingtonRef.collection("ProcessUser")
-                        .add(dataProcessUser)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id)
-                            idDocActivButtonUser = documentReference.id
-                        }
-                        .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                    .add(dataProcessUser)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id)
+                        idDocActivButtonUser = documentReference.id
+                    }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                 // получаем настройки для новой активной кнопки
-                val settingsActiveControl = dataSettingsButton.get("SettingsActiveControl") as Boolean
+                val settingsActiveControl = dataSettingsButton["SettingsActiveControl"] as Boolean
                 if (settingsActiveControl == true) {
                     //получаем настройки параметров активного контроля
-                    val settingsActiveDurationSeconds = dataSettingsButton.get("SettingsActiveDurationSeconds") as String?
+                    val settingsActiveDurationSeconds =
+                        dataSettingsButton["SettingsActiveDurationSeconds"] as String?
                     val delimeter = " "
-                    val settingsActiveDurationSecondsFigure: String = settingsActiveDurationSeconds.split(delimeter).toTypedArray().get(0)
-                    val settingsActiveDurationSecondsFigureTime: String = settingsActiveDurationSeconds.split(delimeter).toTypedArray().get(1)
-                    var settingsActiveDurationSecondsLong: Long = settingsActiveDurationSecondsFigure.toLong()
+                    val settingsActiveDurationSecondsFigure =
+                        settingsActiveDurationSeconds!!.split(delimeter.toRegex()).toTypedArray()[0]
+                    val settingsActiveDurationSecondsFigureTime =
+                        settingsActiveDurationSeconds.split(delimeter.toRegex()).toTypedArray()[1]
+                    var settingsActiveDurationSecondsLong =
+                        settingsActiveDurationSecondsFigure.toLong()
                     if (settingsActiveDurationSecondsFigureTime == "minutes") {
                         settingsActiveDurationSecondsLong = settingsActiveDurationSecondsLong * 60
                     }
                     settingsActiveDurationSecondsLong1000 = settingsActiveDurationSecondsLong * 1000
-                    val settingsActiveIntervalMinutes = dataSettingsButton.get("SettingsActiveIntervalMinutes") as String?
-                    settingsActiveIntervalMinutesFigure = settingsActiveIntervalMinutes.split(delimeter).toTypedArray().get(0)
-                    val settingsActiveIntervalMinutesFigureTime: String = settingsActiveIntervalMinutes.split(delimeter).toTypedArray().get(1)
-                    var settingsActiveIntervalMinutesFigureLong: Long = settingsActiveIntervalMinutesFigure.toLong()
+                    val settingsActiveIntervalMinutes =
+                        dataSettingsButton["SettingsActiveIntervalMinutes"] as String?
+                    settingsActiveIntervalMinutesFigure =
+                        settingsActiveIntervalMinutes!!.split(delimeter.toRegex()).toTypedArray()[0]
+                    val settingsActiveIntervalMinutesFigureTime =
+                        settingsActiveIntervalMinutes.split(delimeter.toRegex()).toTypedArray()[1]
+                    var settingsActiveIntervalMinutesFigureLong =
+                        settingsActiveIntervalMinutesFigure!!.toLong()
                     if (settingsActiveIntervalMinutesFigureTime == "minutes") {
-                        settingsActiveIntervalMinutesFigureLong = settingsActiveIntervalMinutesFigureLong * 60
-                        settingsActiveIntervalMinutesFigure = java.lang.Long.toString(settingsActiveIntervalMinutesFigureLong)
+                        settingsActiveIntervalMinutesFigureLong =
+                            settingsActiveIntervalMinutesFigureLong * 60
+                        settingsActiveIntervalMinutesFigure =
+                            java.lang.Long.toString(settingsActiveIntervalMinutesFigureLong)
                     }
-                    settingsActiveSignal = dataSettingsButton.get("SettingsActiveSignal") as Boolean
-                    settingsActiveTransition = dataSettingsButton.get("SettingsActiveTransition") as String?
+                    settingsActiveSignal = dataSettingsButton["SettingsActiveSignal"] as Boolean
+                    settingsActiveTransition =
+                        dataSettingsButton["SettingsActiveTransition"] as String?
                     //метод ожидания времени запуска
                     WaitingForTheQuestionOfActiveControl()
                     //включаем вибросигнал для подтверждения нажатия кнопки
                     val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(
+                                500,
+                                VibrationEffect.DEFAULT_AMPLITUDE
+                            )
+                        )
                     } else {
                         vibrator.vibrate(500)
                     }
                 }
                 //
-                val settingsPassiveControl = dataSettingsButton.get("SettingsPassiveControl") as Boolean
+                val settingsPassiveControl = dataSettingsButton["SettingsPassiveControl"] as Boolean
                 if (settingsPassiveControl == true) {
-                    val settingsPassiveAudio = dataSettingsButton.get("SettingsPassiveAudio") as Boolean
+                    val settingsPassiveAudio = dataSettingsButton["SettingsPassiveAudio"] as Boolean
                     if (settingsPassiveAudio == true) {
                         startRecordingAudio()
                     }
-                    val settingsPassivePhoto = dataSettingsButton.get("SettingsPassivePhoto") as Boolean
+                    val settingsPassivePhoto = dataSettingsButton["SettingsPassivePhoto"] as Boolean
                     if (settingsPassivePhoto == true) {
                         //получаем настройки параметров интервала Фото фиксации
-                        val settingsPassivePhotoInterval = dataSettingsButton.get("SettingsPassivePhotoInterval") as String?
+                        val settingsPassivePhotoInterval =
+                            dataSettingsButton["SettingsPassivePhotoInterval"] as String?
                         val delimeter = " "
-                        settingsPassivePhotoIntervalSecondsFigure = settingsPassivePhotoInterval.split(delimeter).toTypedArray().get(0)
-                        val settingsPassivePhotoIntervalFigureTime: String = settingsPassivePhotoInterval.split(delimeter).toTypedArray().get(1)
-                        val settingsPassivePhotoIntervalSecondsLong: Long = settingsPassivePhotoIntervalSecondsFigure.toLong()
+                        settingsPassivePhotoIntervalSecondsFigure =
+                            settingsPassivePhotoInterval!!.split(delimeter.toRegex())
+                                .toTypedArray()[0]
+                        val settingsPassivePhotoIntervalFigureTime =
+                            settingsPassivePhotoInterval.split(delimeter.toRegex())
+                                .toTypedArray()[1]
+                        val settingsPassivePhotoIntervalSecondsLong =
+                            settingsPassivePhotoIntervalSecondsFigure!!.toLong()
                         if (settingsPassivePhotoIntervalFigureTime == "minutes") {
-                            val settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60
-                            settingsPassivePhotoIntervalSecondsFigure = java.lang.Long.toString(settingsPassivePhotoIntervalMinutesLong)
+                            val settingsPassivePhotoIntervalMinutesLong =
+                                settingsPassivePhotoIntervalSecondsLong * 60
+                            settingsPassivePhotoIntervalSecondsFigure =
+                                java.lang.Long.toString(settingsPassivePhotoIntervalMinutesLong)
                         }
-                        val settingsPassivePhotoSmartphoneCamera = dataSettingsButton.get("SettingsPassivePhotoSmartphoneCamera") as Boolean
-                        val settingsPassivePhotoCameraIP = dataSettingsButton.get("SettingsPassivePhotoCameraIP") as Boolean
-                        val settingsPassivePhotoCaptureEventOnClick = dataSettingsButton.get("SettingsPassivePhotoCaptureEventOnClick") as Boolean
+                        val settingsPassivePhotoSmartphoneCamera =
+                            dataSettingsButton["SettingsPassivePhotoSmartphoneCamera"] as Boolean
+                        val settingsPassivePhotoCameraIP =
+                            dataSettingsButton["SettingsPassivePhotoCameraIP"] as Boolean
+                        val settingsPassivePhotoCaptureEventOnClick =
+                            dataSettingsButton["SettingsPassivePhotoCaptureEventOnClick"] as Boolean
                         if (settingsPassivePhotoCaptureEventOnClick == true) {
                             //запускае первую фото фиксацию камеры со смарфона
                             if (settingsPassivePhotoSmartphoneCamera == true) {
@@ -689,27 +848,42 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                             }
                         }
                         //запускаем интервал фиксации местоположения
-                        WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera, settingsPassivePhotoCameraIP)
+                        WaitingForTheQuestionOfPassivePhotoInterval(
+                            settingsPassivePhotoSmartphoneCamera,
+                            settingsPassivePhotoCameraIP
+                        )
                     }
-                    val settingsPassiveVideo = dataSettingsButton.get("SettingsPassiveVideo") as Boolean
+                    val settingsPassiveVideo = dataSettingsButton["SettingsPassiveVideo"] as Boolean
                     if (settingsPassiveVideo == true) {
                         //
                     }
-                    val settingsPassiveGeolocation = dataSettingsButton.get("SettingsPassiveGeolocation") as Boolean
+                    val settingsPassiveGeolocation =
+                        dataSettingsButton["SettingsPassiveGeolocation"] as Boolean
                     if (settingsPassiveGeolocation == true) {
                         //
                         //получаем настройки параметров интервала ГЕО локации
-                        val settingsPassiveGeolocationInterval = dataSettingsButton.get("SettingsPassiveGeolocationInterval") as String?
+                        val settingsPassiveGeolocationInterval =
+                            dataSettingsButton["SettingsPassiveGeolocationInterval"] as String?
                         val delimeter = " "
-                        settingsPassiveGeolocationIntervalSecondsFigure = settingsPassiveGeolocationInterval.split(delimeter).toTypedArray().get(0)
-                        val settingsPassiveGeolocationIntervalFigureTime: String = settingsPassiveGeolocationInterval.split(delimeter).toTypedArray().get(1)
-                        val settingsPassiveGeolocationIntervalSecondsLong: Long = settingsPassiveGeolocationIntervalSecondsFigure.toLong()
+                        settingsPassiveGeolocationIntervalSecondsFigure =
+                            settingsPassiveGeolocationInterval!!.split(delimeter.toRegex())
+                                .toTypedArray()[0]
+                        val settingsPassiveGeolocationIntervalFigureTime =
+                            settingsPassiveGeolocationInterval.split(delimeter.toRegex())
+                                .toTypedArray()[1]
+                        val settingsPassiveGeolocationIntervalSecondsLong =
+                            settingsPassiveGeolocationIntervalSecondsFigure!!.toLong()
                         if (settingsPassiveGeolocationIntervalFigureTime == "minutes") {
-                            val settingsPassiveGeolocationIntervalMinutesLong = settingsPassiveGeolocationIntervalSecondsLong * 60
-                            settingsPassiveGeolocationIntervalSecondsFigure = java.lang.Long.toString(settingsPassiveGeolocationIntervalMinutesLong)
+                            val settingsPassiveGeolocationIntervalMinutesLong =
+                                settingsPassiveGeolocationIntervalSecondsLong * 60
+                            settingsPassiveGeolocationIntervalSecondsFigure =
+                                java.lang.Long.toString(
+                                    settingsPassiveGeolocationIntervalMinutesLong
+                                )
                         }
                         //запускае первую фиксацию местоположения
-                        val settingsPassiveGeolocationCaptureEventOnClick = dataSettingsButton.get("SettingsPassiveGeolocationCaptureEventOnClick") as Boolean
+                        val settingsPassiveGeolocationCaptureEventOnClick =
+                            dataSettingsButton["SettingsPassiveGeolocationCaptureEventOnClick"] as Boolean
                         if (settingsPassiveGeolocationCaptureEventOnClick == true) {
                             currentLocationGEO
                         }
@@ -725,65 +899,73 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private fun WaitingForTheQuestionOfActiveControl() {
         //метод ожидания времени запуска
         val myData = Data.Builder()
-                .putString("Interval_SECONDS", settingsActiveIntervalMinutesFigure)
-                .build()
-        mRequest = OneTimeWorkRequest.Builder(NotificationWorker::class.java).setInputData(myData).build()
+            .putString("Interval_SECONDS", settingsActiveIntervalMinutesFigure)
+            .build()
+        mRequest =
+            OneTimeWorkRequest.Builder(NotificationWorker::class.java).setInputData(myData).build()
         WorkManager.getInstance().enqueue(mRequest!!)
         //проверка статуса
-        mWorkManager!!.getWorkInfoByIdLiveData(mRequest!!.id).observe(this@UserProcessActivity, { workInfo ->
-            if (workInfo != null) {
-                val state = workInfo.state
-                if (state == WorkInfo.State.SUCCEEDED) {
-                    //подаем звуковой сигнал
-                    if (settingsActiveSignal == true) {
-                        val mPlay = soundPool!!.play(soundId, 1f, 1f, 1, 0, 1f)
-                    }
-                    //открываем диалоговое окно
-                    settingsActiveTransitionControl = "no forward"
-                    val builder = AlertDialog.Builder(this@UserProcessActivity)
-                    builder.setTitle("Attention!")
+        mWorkManager!!.getWorkInfoByIdLiveData(mRequest!!.id)
+            .observe(this@UserProcessActivity) { workInfo ->
+                if (workInfo != null) {
+                    val state = workInfo.state
+                    if (state == WorkInfo.State.SUCCEEDED) {
+                        //подаем звуковой сигнал
+                        if (settingsActiveSignal == true) {
+                            val mPlay = soundPool!!.play(soundId, 1f, 1f, 1, 0, 1f)
+                        }
+                        //открываем диалоговое окно
+                        settingsActiveTransitionControl = "no forward"
+                        val builder = AlertDialog.Builder(this@UserProcessActivity)
+                        builder.setTitle("Attention!")
                             .setMessage("You are in the process of $NameDocProcessButton") // .setIcon(R.drawable.ic_android_cat)
                             .setCancelable(false)
-                            .setNegativeButton("ОК"
+                            .setNegativeButton(
+                                "ОК"
                             ) { dialog, id ->
                                 println("нажали ОК")
                                 WaitingForTheQuestionOfActiveControl()
                                 settingsActiveTransitionControl = "forward"
                                 dialog.cancel()
                             }
-                    val alert = builder.create()
-                    alert.show()
+                        val alert = builder.create()
+                        alert.show()
 
-                    //закрытие диалогового окна по таймеру
-                    object : CountDownTimer(settingsActiveDurationSecondsLong1000, 1000) {
-                        override fun onTick(millisUntilFinished: Long) {
-                            // TODO Auto-generated method stub
-                            //  mTimer.setText("Осталось: "
-                            //          + millisUntilFinished / 1000);
-                            println("запускаем космонавта")
-                        }
-
-                        override fun onFinish() {
-                            // TODO Auto-generated method stub
-                            // проверяем необходимость запуска нужной кнопки
-                            if (settingsActiveTransitionControl !== "forward") {
-                                ButtonActivationByBackgroundTask(settingsActiveTransition)
+                        //закрытие диалогового окна по таймеру
+                        object : CountDownTimer(settingsActiveDurationSecondsLong1000, 1000) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                // TODO Auto-generated method stub
+                                //  mTimer.setText("Осталось: "
+                                //          + millisUntilFinished / 1000);
+                                println("запускаем космонавта")
                             }
 
-                            // закрываем диалоговое окно
-                            alert.dismiss()
+                            override fun onFinish() {
+                                // TODO Auto-generated method stub
+                                // проверяем необходимость запуска нужной кнопки
+                                if (settingsActiveTransitionControl !== "forward") {
+                                    ButtonActivationByBackgroundTask(settingsActiveTransition)
+                                }
+
+                                // закрываем диалоговое окно
+                                alert.dismiss()
+                            }
+                        }.start()
+                        // включаем вибро на телефоне
+                        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            vibrator.vibrate(
+                                VibrationEffect.createOneShot(
+                                    500,
+                                    VibrationEffect.DEFAULT_AMPLITUDE
+                                )
+                            )
+                        } else {
+                            vibrator.vibrate(500)
                         }
-                    }.start()
-                    // включаем вибро на телефоне
-                    val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-                    } else {
-                        vibrator.vibrate(500)
                     }
                 }
             }
-        })
     }
 
     // ------активация кнопки фоновым (программно) заданием------
@@ -806,8 +988,9 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 if (activButtonId == idButton) {
                     val idSettingsButton = h.idSettingsButton
                     val dataSettingsButton: Map<*, *>? = h.dataSettingsButton
-                    NameDocProcessButton = dataSettingsButton!!.get("SettingsTitle") as String?
-                    val settingsActiveControl = dataSettingsButton.get("SettingsActiveControl") as Boolean
+                    NameDocProcessButton = dataSettingsButton!!["SettingsTitle"] as String?
+                    val settingsActiveControl =
+                        dataSettingsButton["SettingsActiveControl"] as Boolean
                     if (settingsActiveControl == true) {
                         // удаляем фоновое задание по ID
                         if (mRequest != null) {
@@ -816,13 +999,16 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                         }
                     }
                     //
-                    val settingsPassiveControl = dataSettingsButton.get("SettingsPassiveControl") as Boolean
+                    val settingsPassiveControl =
+                        dataSettingsButton["SettingsPassiveControl"] as Boolean
                     if (settingsPassiveControl == true) {
-                        val settingsPassiveAudio = dataSettingsButton.get("SettingsPassiveAudio") as Boolean
+                        val settingsPassiveAudio =
+                            dataSettingsButton["SettingsPassiveAudio"] as Boolean
                         if (settingsPassiveAudio == true) {
                             stopRecordingAudio()
                         }
-                        val settingsPassivePhoto = dataSettingsButton.get("SettingsPassivePhoto") as Boolean
+                        val settingsPassivePhoto =
+                            dataSettingsButton["SettingsPassivePhoto"] as Boolean
                         if (settingsPassivePhoto == true) {
                             // очищаем список фоновых задач с тегом "workmng"
                             if (mRequestPassivePhotoInterval != null) {
@@ -830,11 +1016,13 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                                 mWorkManager!!.cancelWorkById(mRequestPassivePhotoInterval!!.id)
                             }
                         }
-                        val settingsPassiveVideo = dataSettingsButton.get("SettingsPassiveVideo") as Boolean
+                        val settingsPassiveVideo =
+                            dataSettingsButton["SettingsPassiveVideo"] as Boolean
                         if (settingsPassiveVideo == true) {
                             //
                         }
-                        val settingsPassiveGeolocation = dataSettingsButton.get("SettingsPassiveGeolocation") as Boolean
+                        val settingsPassiveGeolocation =
+                            dataSettingsButton["SettingsPassiveGeolocation"] as Boolean
                         if (settingsPassiveGeolocation == true) {
                             // очищаем список фоновых задач с тегом "workmng"
                             if (mRequestPassiveGeolocationInterval != null) {
@@ -843,25 +1031,39 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                             }
                         }
                     }
-                    val settingsCommitDescription = dataSettingsButton.get("SettingsCommitDescription") as Boolean
+                    val settingsCommitDescription =
+                        dataSettingsButton["SettingsCommitDescription"] as Boolean
                     if (settingsCommitDescription == true) { // создаем всплывающее окно
                     }
-                    val settingsResultCapture = dataSettingsButton.get("SettingsResultCapture") as Boolean
+                    val settingsResultCapture =
+                        dataSettingsButton["SettingsResultCapture"] as Boolean
                     if (settingsResultCapture == true) {  //фиксируем результат исполнения процесса из предложенного варианта
                     }
                 }
             }
             // Закрываем документ активного процесса
-            val washingtonRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-            val docRef = db!!.collection("WorkShift").document(activShiftDocId!!)
-            val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(idDocActivButtonUserFinalTrans!!)
+            val washingtonRef = db!!.collection("WorkShift").document(
+                activShiftDocId!!
+            )
+            val docRef = db!!.collection("WorkShift").document(
+                activShiftDocId!!
+            )
+            val washingtonRefProcessUser = washingtonRef.collection("ProcessUser").document(
+                idDocActivButtonUserFinalTrans!!
+            )
             washingtonRefProcessUser
-                    .update("ProcessUserEnd", "false")
-                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-            val docRefProcessUser = docRef.collection("ProcessUser").document(idDocActivButtonUserFinalTrans)
+                .update("ProcessUserEnd", "false")
+                .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                    override fun onSuccess(aVoid: Void?) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!")
+                    }
+                })
+                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+            val docRefProcessUser = docRef.collection("ProcessUser").document(
+                idDocActivButtonUserFinalTrans
+            )
             val updatesProcessUser: MutableMap<String, Any> = HashMap()
-            updatesProcessUser.put("ProcessUserEndTime", FieldValue.serverTimestamp())
+            updatesProcessUser["ProcessUserEndTime"] = FieldValue.serverTimestamp()
             docRefProcessUser.update(updatesProcessUser).addOnCompleteListener // [START_EXCLUDE]
             // [START_EXCLUDE]
             { }
@@ -869,7 +1071,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         // устанавливаем агресивный цвет фона активной кнопки
         for (h in PositionSettingsMap) {
             val dataSettingsButtonFor: Map<*, *>? = h!!.dataSettingsButton
-            val NameDocProcessButtonFor = dataSettingsButtonFor!!.get("SettingsTitle") as String?
+            val NameDocProcessButtonFor = dataSettingsButtonFor!!["SettingsTitle"] as String?
             if (settingsActiveTransitionTransferGo == NameDocProcessButtonFor) {
                 activButtonId = h.idButton
                 val idSettingsButton = h.idSettingsButton
@@ -880,82 +1082,115 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                         activeButton = s
                     }
                 }
-                NameDocProcessButton = dataSettingsButtonFor.get("SettingsTitle") as String?
+                NameDocProcessButton = dataSettingsButtonFor["SettingsTitle"] as String?
                 //активизируем процесс по нажатию кнопки
                 if (activeButtonControl != null) {
                     val dataProcessUser: MutableMap<String, Any?> = HashMap()
-                    dataProcessUser.put("ButtonActivationMethod", buttonActivationMethod)
-                    dataProcessUser.put("EmailPositionUser", userNameEmail)
-                    dataProcessUser.put("IdDocPosition", idPosition)
-                    dataProcessUser.put("IdDocProcessButton", idSettingsButton)
-                    dataProcessUser.put("NameDocProcessButton", NameDocProcessButton)
-                    dataProcessUser.put("ParentHierarchyPositionUser", parentHierarchyPositionUserMap)
-                    dataProcessUser.put("ProcessUserEnd", "")
-                    dataProcessUser.put("ProcessUserStartTime", FieldValue.serverTimestamp())
-                    val washingtonRef = db!!.collection("WorkShift").document(activShiftDocId!!)
+                    dataProcessUser["ButtonActivationMethod"] = buttonActivationMethod
+                    dataProcessUser["EmailPositionUser"] = userNameEmail
+                    dataProcessUser["IdDocPosition"] = idPosition
+                    dataProcessUser["IdDocProcessButton"] = idSettingsButton
+                    dataProcessUser["NameDocProcessButton"] = NameDocProcessButton
+                    dataProcessUser["ParentHierarchyPositionUser"] = parentHierarchyPositionUserMap
+                    dataProcessUser["ProcessUserEnd"] = ""
+                    dataProcessUser["ProcessUserStartTime"] = FieldValue.serverTimestamp()
+                    val washingtonRef = db!!.collection("WorkShift").document(
+                        activShiftDocId!!
+                    )
                     washingtonRef.collection("ProcessUser")
-                            .add(dataProcessUser)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id)
-                                idDocActivButtonUser = documentReference.id
-                            }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                        .add(dataProcessUser)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id)
+                            idDocActivButtonUser = documentReference.id
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                 }
                 // получаем настройки для новой активной кнопки
-                val settingsActiveControl = dataSettingsButtonFor.get("SettingsActiveControl") as Boolean
+                val settingsActiveControl =
+                    dataSettingsButtonFor["SettingsActiveControl"] as Boolean
                 if (settingsActiveControl == true) {
                     //получаем настройки параметров активного контроля
-                    val settingsActiveDurationSeconds = dataSettingsButtonFor.get("SettingsActiveDurationSeconds") as String?
+                    val settingsActiveDurationSeconds =
+                        dataSettingsButtonFor["SettingsActiveDurationSeconds"] as String?
                     val delimeter = " "
-                    val settingsActiveDurationSecondsFigure: String = settingsActiveDurationSeconds.split(delimeter).toTypedArray().get(0)
-                    val settingsActiveDurationSecondsFigureTime: String = settingsActiveDurationSeconds.split(delimeter).toTypedArray().get(1)
-                    var settingsActiveDurationSecondsLong: Long = settingsActiveDurationSecondsFigure.toLong()
+                    val settingsActiveDurationSecondsFigure =
+                        settingsActiveDurationSeconds!!.split(delimeter.toRegex()).toTypedArray()[0]
+                    val settingsActiveDurationSecondsFigureTime =
+                        settingsActiveDurationSeconds.split(delimeter.toRegex()).toTypedArray()[1]
+                    var settingsActiveDurationSecondsLong =
+                        settingsActiveDurationSecondsFigure.toLong()
                     if (settingsActiveDurationSecondsFigureTime == "minutes") {
                         settingsActiveDurationSecondsLong = settingsActiveDurationSecondsLong * 60
                     }
                     settingsActiveDurationSecondsLong1000 = settingsActiveDurationSecondsLong * 1000
-                    val settingsActiveIntervalMinutes = dataSettingsButtonFor.get("SettingsActiveIntervalMinutes") as String?
-                    settingsActiveIntervalMinutesFigure = settingsActiveIntervalMinutes.split(delimeter).toTypedArray().get(0)
-                    val settingsActiveIntervalMinutesFigureTime: String = settingsActiveIntervalMinutes.split(delimeter).toTypedArray().get(1)
-                    var settingsActiveIntervalMinutesFigureLong: Long = settingsActiveIntervalMinutesFigure.toLong()
+                    val settingsActiveIntervalMinutes =
+                        dataSettingsButtonFor["SettingsActiveIntervalMinutes"] as String?
+                    settingsActiveIntervalMinutesFigure =
+                        settingsActiveIntervalMinutes!!.split(delimeter.toRegex()).toTypedArray()[0]
+                    val settingsActiveIntervalMinutesFigureTime =
+                        settingsActiveIntervalMinutes.split(delimeter.toRegex()).toTypedArray()[1]
+                    var settingsActiveIntervalMinutesFigureLong =
+                        settingsActiveIntervalMinutesFigure!!.toLong()
                     if (settingsActiveIntervalMinutesFigureTime == "minutes") {
-                        settingsActiveIntervalMinutesFigureLong = settingsActiveIntervalMinutesFigureLong * 60
-                        settingsActiveIntervalMinutesFigure = java.lang.Long.toString(settingsActiveIntervalMinutesFigureLong)
+                        settingsActiveIntervalMinutesFigureLong =
+                            settingsActiveIntervalMinutesFigureLong * 60
+                        settingsActiveIntervalMinutesFigure =
+                            java.lang.Long.toString(settingsActiveIntervalMinutesFigureLong)
                     }
-                    settingsActiveSignal = dataSettingsButtonFor.get("SettingsActiveSignal") as Boolean
-                    settingsActiveTransition = dataSettingsButtonFor.get("SettingsActiveTransition") as String?
+                    settingsActiveSignal = dataSettingsButtonFor["SettingsActiveSignal"] as Boolean
+                    settingsActiveTransition =
+                        dataSettingsButtonFor["SettingsActiveTransition"] as String?
                     //метод ожидания времени запуска
                     WaitingForTheQuestionOfActiveControl()
                     // вибро звонок
                     val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(
+                                500,
+                                VibrationEffect.DEFAULT_AMPLITUDE
+                            )
+                        )
                     } else {
                         vibrator.vibrate(500)
                     }
                 }
                 //
-                val settingsPassiveControl = dataSettingsButtonFor.get("SettingsPassiveControl") as Boolean
+                val settingsPassiveControl =
+                    dataSettingsButtonFor["SettingsPassiveControl"] as Boolean
                 if (settingsPassiveControl == true) {
-                    val settingsPassiveAudio = dataSettingsButtonFor.get("SettingsPassiveAudio") as Boolean
+                    val settingsPassiveAudio =
+                        dataSettingsButtonFor["SettingsPassiveAudio"] as Boolean
                     if (settingsPassiveAudio == true) {
                         startRecordingAudio()
                     }
-                    val settingsPassivePhoto = dataSettingsButtonFor.get("SettingsPassivePhoto") as Boolean
+                    val settingsPassivePhoto =
+                        dataSettingsButtonFor["SettingsPassivePhoto"] as Boolean
                     if (settingsPassivePhoto == true) {
                         //получаем настройки параметров интервала Фото фиксации
-                        val settingsPassivePhotoInterval = dataSettingsButtonFor.get("SettingsPassivePhotoInterval") as String?
+                        val settingsPassivePhotoInterval =
+                            dataSettingsButtonFor["SettingsPassivePhotoInterval"] as String?
                         val delimeter = " "
-                        settingsPassivePhotoIntervalSecondsFigure = settingsPassivePhotoInterval.split(delimeter).toTypedArray().get(0)
-                        val settingsPassivePhotoIntervalFigureTime: String = settingsPassivePhotoInterval.split(delimeter).toTypedArray().get(1)
-                        val settingsPassivePhotoIntervalSecondsLong: Long = settingsPassivePhotoIntervalSecondsFigure.toLong()
+                        settingsPassivePhotoIntervalSecondsFigure =
+                            settingsPassivePhotoInterval!!.split(delimeter.toRegex())
+                                .toTypedArray()[0]
+                        val settingsPassivePhotoIntervalFigureTime =
+                            settingsPassivePhotoInterval.split(delimeter.toRegex())
+                                .toTypedArray()[1]
+                        val settingsPassivePhotoIntervalSecondsLong =
+                            settingsPassivePhotoIntervalSecondsFigure!!.toLong()
                         if (settingsPassivePhotoIntervalFigureTime == "minutes") {
-                            val settingsPassivePhotoIntervalMinutesLong = settingsPassivePhotoIntervalSecondsLong * 60
-                            settingsPassivePhotoIntervalSecondsFigure = java.lang.Long.toString(settingsPassivePhotoIntervalMinutesLong)
+                            val settingsPassivePhotoIntervalMinutesLong =
+                                settingsPassivePhotoIntervalSecondsLong * 60
+                            settingsPassivePhotoIntervalSecondsFigure =
+                                java.lang.Long.toString(settingsPassivePhotoIntervalMinutesLong)
                         }
-                        val settingsPassivePhotoSmartphoneCamera = dataSettingsButtonFor.get("SettingsPassivePhotoSmartphoneCamera") as Boolean
-                        val settingsPassivePhotoCameraIP = dataSettingsButtonFor.get("SettingsPassivePhotoCameraIP") as Boolean
-                        val settingsPassivePhotoCaptureEventOnClick = dataSettingsButtonFor.get("SettingsPassivePhotoCaptureEventOnClick") as Boolean
+                        val settingsPassivePhotoSmartphoneCamera =
+                            dataSettingsButtonFor["SettingsPassivePhotoSmartphoneCamera"] as Boolean
+                        val settingsPassivePhotoCameraIP =
+                            dataSettingsButtonFor["SettingsPassivePhotoCameraIP"] as Boolean
+                        val settingsPassivePhotoCaptureEventOnClick =
+                            dataSettingsButtonFor["SettingsPassivePhotoCaptureEventOnClick"] as Boolean
                         if (settingsPassivePhotoCaptureEventOnClick == true) {
                             //запускае первую фото фиксацию камеры со смарфона
                             if (settingsPassivePhotoSmartphoneCamera == true) {
@@ -968,7 +1203,10 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                             }
                         }
                         //запускаем интервал фиксации местоположения
-                        WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera, settingsPassivePhotoCameraIP)
+                        WaitingForTheQuestionOfPassivePhotoInterval(
+                            settingsPassivePhotoSmartphoneCamera,
+                            settingsPassivePhotoCameraIP
+                        )
                         // if (settingsPassivePhotoSmartphoneCamera == true) {
                         //запускаем фото фиксацию камеры со смарфона
                         //    dispatchTakePictureIntentSmartphoneCamera();
@@ -978,25 +1216,38 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                         //     dispatchTakePictureIntentCameraIP(idDocActivButtonUser);
                         // }
                     }
-                    val settingsPassiveVideo = dataSettingsButtonFor.get("SettingsPassiveVideo") as Boolean
+                    val settingsPassiveVideo =
+                        dataSettingsButtonFor["SettingsPassiveVideo"] as Boolean
                     if (settingsPassiveVideo == true) {
                         //
                     }
-                    val settingsPassiveGeolocation = dataSettingsButtonFor.get("SettingsPassiveGeolocation") as Boolean
+                    val settingsPassiveGeolocation =
+                        dataSettingsButtonFor["SettingsPassiveGeolocation"] as Boolean
                     if (settingsPassiveGeolocation == true) {
                         //
                         //получаем настройки параметров интервала ГЕО локации
-                        val settingsPassiveGeolocationInterval = dataSettingsButtonFor.get("SettingsPassiveGeolocationInterval") as String?
+                        val settingsPassiveGeolocationInterval =
+                            dataSettingsButtonFor["SettingsPassiveGeolocationInterval"] as String?
                         val delimeter = " "
-                        settingsPassiveGeolocationIntervalSecondsFigure = settingsPassiveGeolocationInterval.split(delimeter).toTypedArray().get(0)
-                        val settingsPassiveGeolocationIntervalFigureTime: String = settingsPassiveGeolocationInterval.split(delimeter).toTypedArray().get(1)
-                        val settingsPassiveGeolocationIntervalSecondsLong: Long = settingsPassiveGeolocationIntervalSecondsFigure.toLong()
+                        settingsPassiveGeolocationIntervalSecondsFigure =
+                            settingsPassiveGeolocationInterval!!.split(delimeter.toRegex())
+                                .toTypedArray()[0]
+                        val settingsPassiveGeolocationIntervalFigureTime =
+                            settingsPassiveGeolocationInterval.split(delimeter.toRegex())
+                                .toTypedArray()[1]
+                        val settingsPassiveGeolocationIntervalSecondsLong =
+                            settingsPassiveGeolocationIntervalSecondsFigure!!.toLong()
                         if (settingsPassiveGeolocationIntervalFigureTime == "minutes") {
-                            val settingsPassiveGeolocationIntervalMinutesLong = settingsPassiveGeolocationIntervalSecondsLong * 60
-                            settingsPassiveGeolocationIntervalSecondsFigure = java.lang.Long.toString(settingsPassiveGeolocationIntervalMinutesLong)
+                            val settingsPassiveGeolocationIntervalMinutesLong =
+                                settingsPassiveGeolocationIntervalSecondsLong * 60
+                            settingsPassiveGeolocationIntervalSecondsFigure =
+                                java.lang.Long.toString(
+                                    settingsPassiveGeolocationIntervalMinutesLong
+                                )
                         }
                         //запускае первую фиксацию местоположения SettingsPassiveGeolocationCaptureEventOnClick
-                        val settingsPassiveGeolocationCaptureEventOnClick = dataSettingsButtonFor.get("SettingsPassiveGeolocationCaptureEventOnClick") as Boolean
+                        val settingsPassiveGeolocationCaptureEventOnClick =
+                            dataSettingsButtonFor["SettingsPassiveGeolocationCaptureEventOnClick"] as Boolean
                         if (settingsPassiveGeolocationCaptureEventOnClick == true) {
                             currentLocationGEO
                         }
@@ -1010,11 +1261,17 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
 
     // разрешение для доступа к микрофону и работы с файлами
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this@UserProcessActivity, arrayOf(permission.RECORD_AUDIO, permission.ACCESS_FINE_LOCATION, permission.CAMERA), RequestPermissionCode)
+        ActivityCompat.requestPermissions(
+            this@UserProcessActivity,
+            arrayOf(permission.RECORD_AUDIO, permission.ACCESS_FINE_LOCATION, permission.CAMERA),
+            RequestPermissionCode
+        )
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             RequestPermissionCode -> if (grantResults.size > 0) {
                 val RecordPermission = grantResults[0] ==
@@ -1024,22 +1281,31 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 val CameraPermission = grantResults[2] ==
                         PackageManager.PERMISSION_GRANTED
                 if (RecordPermission && LocationPermission && CameraPermission) {
-                    Toast.makeText(this@UserProcessActivity, "Permission Granted",
-                            Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@UserProcessActivity, "Permission Granted",
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
-                    Toast.makeText(this@UserProcessActivity, "Permission Denied", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@UserProcessActivity, "Permission Denied", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
     }
 
     fun checkPermission(): Boolean {
-        val result = ContextCompat.checkSelfPermission(applicationContext,
-                permission.RECORD_AUDIO)
-        val result1 = ContextCompat.checkSelfPermission(applicationContext,
-                permission.ACCESS_FINE_LOCATION)
-        val result2 = ContextCompat.checkSelfPermission(applicationContext,
-                permission.CAMERA)
+        val result = ContextCompat.checkSelfPermission(
+            applicationContext,
+            permission.RECORD_AUDIO
+        )
+        val result1 = ContextCompat.checkSelfPermission(
+            applicationContext,
+            permission.ACCESS_FINE_LOCATION
+        )
+        val result2 = ContextCompat.checkSelfPermission(
+            applicationContext,
+            permission.CAMERA
+        )
         return  //result == PackageManager.PERMISSION_GRANTED &&
         result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED
     }
@@ -1057,7 +1323,8 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     // запись аудио и создание Media Recorder
     protected fun startRecordingAudio() {
         if (checkPermission()) {
-            fileName = externalCacheDir!!.absolutePath + "/audiorecord_" + idDocActivButtonUser + ".m4a"
+            fileName =
+                externalCacheDir!!.absolutePath + "/audiorecord_" + idDocActivButtonUser + ".m4a"
             recorder = MediaRecorder()
             recorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
             recorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -1073,8 +1340,10 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 // TODO Auto-generated catch block
                 e.printStackTrace()
             }
-            Toast.makeText(this@UserProcessActivity, "Recording started",
-                    Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@UserProcessActivity, "Recording started",
+                Toast.LENGTH_LONG
+            ).show()
         } else {
             requestPermission()
         }
@@ -1092,11 +1361,12 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         // Create the file metadata
         // Создаем метаданные файла
         val metadata = StorageMetadata.Builder()
-                .setContentType("audio/.mp4")
-                .build()
+            .setContentType("audio/.mp4")
+            .build()
         // Upload file and metadata to the path 'images/mountains.jpg'
         // Загрузить файл и метаданные по пути images / mountains.jpg'
-        val uploadTask = storageRef!!.child("AudioRecordingOfEvents/" + file.lastPathSegment).putFile(file, metadata)
+        val uploadTask = storageRef!!.child("AudioRecordingOfEvents/" + file.lastPathSegment)
+            .putFile(file, metadata)
         // Listen for state changes, errors, and completion of the upload.
         // Слушаем изменения состояния, ошибки и завершение загрузки
         uploadTask.addOnProgressListener { taskSnapshot ->
@@ -1108,34 +1378,40 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             }
         }).addOnFailureListener {
             // Handle unsuccessful uploads
-        }.addOnSuccessListener { // Handle successful uploads on complete
-            // Обработка успешных загрузок по завершении
-            // ...
-            val fileDelete = File(fileName)
-            if (fileDelete.delete()) {
-                println("File deleted!")
-            } else println("File not found!")
-        }
+        }.addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot?> {
+            override fun onSuccess(taskSnapshot: UploadTask.TaskSnapshot?) {
+                // Handle successful uploads on complete
+                // Обработка успешных загрузок по завершении
+                // ...
+                val fileDelete = File(fileName)
+                if (fileDelete.delete()) {
+                    println("File deleted!")
+                } else println("File not found!")
+            }
+        })
     }
 
     // ----запуск ожидания PassiveGeolocationInterval-----
     private fun WaitingForTheQuestionOfPassiveGeolocationInterval() {
         //метод ожидания времени запуска
         val myDataGeolocationInterval = Data.Builder()
-                .putString("Interval_SECONDS", settingsPassiveGeolocationIntervalSecondsFigure)
-                .build()
-        mRequestPassiveGeolocationInterval = OneTimeWorkRequest.Builder(NotificationWorker::class.java).setInputData(myDataGeolocationInterval).build()
+            .putString("Interval_SECONDS", settingsPassiveGeolocationIntervalSecondsFigure)
+            .build()
+        mRequestPassiveGeolocationInterval =
+            OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+                .setInputData(myDataGeolocationInterval).build()
         WorkManager.getInstance().enqueue(mRequestPassiveGeolocationInterval!!)
         //проверка статуса
-        mWorkManager!!.getWorkInfoByIdLiveData(mRequestPassiveGeolocationInterval!!.id).observe(this@UserProcessActivity, { workInfo ->
-            if (workInfo != null) {
-                val state = workInfo.state
-                if (state == WorkInfo.State.SUCCEEDED) {
-                    //подаем звуковой сигнал
-                    currentLocationGEO
+        mWorkManager!!.getWorkInfoByIdLiveData(mRequestPassiveGeolocationInterval!!.id)
+            .observe(this@UserProcessActivity) { workInfo ->
+                if (workInfo != null) {
+                    val state = workInfo.state
+                    if (state == WorkInfo.State.SUCCEEDED) {
+                        //подаем звуковой сигнал
+                        currentLocationGEO
+                    }
                 }
             }
-        })
     }// Logic to handle location object
 
     // Add a new document with a generated id.
@@ -1144,26 +1420,43 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     val currentLocationGEO: Unit
         get() {
             if (checkPermission()) {
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@UserProcessActivity)
-                fusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(this@UserProcessActivity) { location ->
-                            // Got last known location. In some rare situations this can be null.
-                            if (location != null) {
-                                // Logic to handle location object
-                                val latitude = location.latitude
-                                val longitude = location.longitude
-                                val locationCoordinates = GeoPoint(latitude, longitude)
-                                // Add a new document with a generated id.
-                                val data: MutableMap<String, Any?> = HashMap()
-                                data.put("IdDocActivButtonUser", idDocActivButtonUser)
-                                data.put("LocationCoordinates", locationCoordinates)
-                                data.put("CheckInTimeLocationCoordinates", FieldValue.serverTimestamp())
-                                db!!.collection("CurrentLocation")
+                fusedLocationClient =
+                    LocationServices.getFusedLocationProviderClient(this@UserProcessActivity)
+                fusedLocationClient!!.lastLocation
+                    .addOnSuccessListener(
+                        this@UserProcessActivity,
+                        object : OnSuccessListener<Location?> {
+                            override fun onSuccess(location: Location?) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    // Logic to handle location object
+                                    val latitude = location.latitude
+                                    val longitude = location.longitude
+                                    val locationCoordinates = GeoPoint(latitude, longitude)
+                                    // Add a new document with a generated id.
+                                    val data: MutableMap<String, Any?> = HashMap()
+                                    data["IdDocActivButtonUser"] = idDocActivButtonUser
+                                    data["LocationCoordinates"] = locationCoordinates
+                                    data["CheckInTimeLocationCoordinates"] =
+                                        FieldValue.serverTimestamp()
+                                    db!!.collection("CurrentLocation")
                                         .add(data)
-                                        .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id) }
-                                        .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                                        .addOnSuccessListener { documentReference ->
+                                            Log.d(
+                                                TAG,
+                                                "DocumentSnapshot written with ID: " + documentReference.id
+                                            )
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(
+                                                TAG,
+                                                "Error adding document",
+                                                e
+                                            )
+                                        }
+                                }
                             }
-                        }
+                        })
                 return
             } else {
                 requestPermission()
@@ -1175,17 +1468,19 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private fun createImageFile(): File {
         // Create an image file name
         // Создаем имя файла изображения
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val timeStamp =
+            SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "Foto_" + idDocActivButtonUser + "_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir =
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         //File storageDir = getExternalCacheDir();
         // Save a file: path for use with ACTION_VIEW intents
         // Сохраняем файл: путь для использования с намерениями ACTION_VIEW
         //   currentPhotoPath = image.getAbsolutePath();
         return File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",  /* suffix */
-                storageDir /* directory */
+            imageFileName,  /* prefix */
+            ".jpg",  /* suffix */
+            storageDir /* directory */
         )
     }
 
@@ -1215,95 +1510,111 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         //cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
         //сохраняем фото в файл
         val outputFileOptionsBuilder = ImageCapture.OutputFileOptions.Builder(photoFile)
-        imageCapture!!.takePicture(outputFileOptionsBuilder.build(), { obj: Runnable -> obj.run() }, object : ImageCapture.OnImageSavedCallback {
-            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                //ggg();
-                val params = Bundle()
-                params.putString("FILE_PATH", photoFile.path)
-                // подготовка к удалению файла
-                val file = Uri.fromFile(File(photoFile.toString()))
-                // Create the file metadata
-                // Создаем метаданные файла
-                val metadata = StorageMetadata.Builder()
+        imageCapture!!.takePicture(
+            outputFileOptionsBuilder.build(),
+            { obj: Runnable -> obj.run() },
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    //ggg();
+                    val params = Bundle()
+                    params.putString("FILE_PATH", photoFile.path)
+                    // подготовка к удалению файла
+                    val file = Uri.fromFile(File(photoFile.toString()))
+                    // Create the file metadata
+                    // Создаем метаданные файла
+                    val metadata = StorageMetadata.Builder()
                         .setContentType("foto/.jpg")
                         .build()
-                // Upload file and metadata to the path 'images/mountains.jpg'
-                // Загрузить файл и метаданные по пути images / mountains.jpg'
-                val uploadTask = storageRef!!.child("FotoOfEvents/" + file.lastPathSegment).putFile(file, metadata)
-                // Listen for state changes, errors, and completion of the upload.
-                // Слушаем изменения состояния, ошибки и завершение загрузки
-                uploadTask.addOnProgressListener { taskSnapshot ->
-                    val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                    Log.d(TAG, "Upload is $progress% done")
-                }.addOnPausedListener(object : OnPausedListener<UploadTask.TaskSnapshot?> {
-                    override fun onPaused(taskSnapshot: UploadTask.TaskSnapshot?) {
-                        Log.d(TAG, "Upload is paused")
-                    }
-                }).addOnFailureListener {
-                    // Handle unsuccessful uploads
-                }.addOnSuccessListener { // Handle successful uploads on complete
-                    // Обработка успешных загрузок по завершении
-                    val fileDelete = File(photoFile.toString())
-                    if (fileDelete.delete()) {
-                        println("File deleted!")
-                    } else println("File not found!")
+                    // Upload file and metadata to the path 'images/mountains.jpg'
+                    // Загрузить файл и метаданные по пути images / mountains.jpg'
+                    val uploadTask = storageRef!!.child("FotoOfEvents/" + file.lastPathSegment)
+                        .putFile(file, metadata)
+                    // Listen for state changes, errors, and completion of the upload.
+                    // Слушаем изменения состояния, ошибки и завершение загрузки
+                    uploadTask.addOnProgressListener { taskSnapshot ->
+                        val progress =
+                            100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                        Log.d(TAG, "Upload is $progress% done")
+                    }.addOnPausedListener(object : OnPausedListener<UploadTask.TaskSnapshot?> {
+                        override fun onPaused(taskSnapshot: UploadTask.TaskSnapshot?) {
+                            Log.d(TAG, "Upload is paused")
+                        }
+                    }).addOnFailureListener {
+                        // Handle unsuccessful uploads
+                    }.addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot?> {
+                        override fun onSuccess(taskSnapshot: UploadTask.TaskSnapshot?) {
+                            // Handle successful uploads on complete
+                            // Обработка успешных загрузок по завершении
+                            val fileDelete = File(photoFile.toString())
+                            if (fileDelete.delete()) {
+                                println("File deleted!")
+                            } else println("File not found!")
+                        }
+                    })
                 }
-            }
 
-            override fun onError(exception: ImageCaptureException) {
-                exception.printStackTrace()
-            }
-        })
+                override fun onError(exception: ImageCaptureException) {
+                    exception.printStackTrace()
+                }
+            })
     }
 
     // ----запуск ожидания PassivePhotoInterval-----
-    private fun WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera: Boolean, settingsPassivePhotoCameraIP: Boolean) {
+    private fun WaitingForTheQuestionOfPassivePhotoInterval(
+        settingsPassivePhotoSmartphoneCamera: Boolean,
+        settingsPassivePhotoCameraIP: Boolean
+    ) {
         //метод ожидания времени запуска
         val myDataPassivePhotoInterval = Data.Builder()
-                .putString("Interval_SECONDS", settingsPassivePhotoIntervalSecondsFigure)
-                .build()
-        mRequestPassivePhotoInterval = OneTimeWorkRequest.Builder(NotificationWorker::class.java).setInputData(myDataPassivePhotoInterval).build()
+            .putString("Interval_SECONDS", settingsPassivePhotoIntervalSecondsFigure)
+            .build()
+        mRequestPassivePhotoInterval = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+            .setInputData(myDataPassivePhotoInterval).build()
         WorkManager.getInstance().enqueue(mRequestPassivePhotoInterval!!)
         //проверка статуса
-        mWorkManager!!.getWorkInfoByIdLiveData(mRequestPassivePhotoInterval!!.id).observe(this@UserProcessActivity, { workInfo ->
-            if (workInfo != null) {
-                val state = workInfo.state
-                if (state == WorkInfo.State.SUCCEEDED) {
-                    //запускаем интервал фиксации местоположения
-                    WaitingForTheQuestionOfPassivePhotoInterval(settingsPassivePhotoSmartphoneCamera, settingsPassivePhotoCameraIP)
-                    if (settingsPassivePhotoSmartphoneCamera == true) {
-                        //запускаем фото фиксацию камеры со смарфона
-                        dispatchTakePictureIntentSmartphoneCamera()
-                    }
-                    if (settingsPassivePhotoCameraIP == true) {
-                        //запускае первую фото фиксацию с камеры IP
-                        dispatchTakePictureIntentCameraIP(idDocActivButtonUser)
+        mWorkManager!!.getWorkInfoByIdLiveData(mRequestPassivePhotoInterval!!.id)
+            .observe(this@UserProcessActivity) { workInfo ->
+                if (workInfo != null) {
+                    val state = workInfo.state
+                    if (state == WorkInfo.State.SUCCEEDED) {
+                        //запускаем интервал фиксации местоположения
+                        WaitingForTheQuestionOfPassivePhotoInterval(
+                            settingsPassivePhotoSmartphoneCamera,
+                            settingsPassivePhotoCameraIP
+                        )
+                        if (settingsPassivePhotoSmartphoneCamera == true) {
+                            //запускаем фото фиксацию камеры со смарфона
+                            dispatchTakePictureIntentSmartphoneCamera()
+                        }
+                        if (settingsPassivePhotoCameraIP == true) {
+                            //запускае первую фото фиксацию с камеры IP
+                            dispatchTakePictureIntentCameraIP(idDocActivButtonUser)
+                        }
                     }
                 }
             }
-        })
     }
 
     //создаем адрес и название файла фото фиксации c камеры IP
     private fun dispatchTakePictureIntentCameraIP(text: String?): Task<String> {  //Отправляем и получаем обработанные данные с сервера списком в каких должностях принимает участие пользователь
         val data: MutableMap<String, Any?> = HashMap()
-        data.put("text", text)
-        data.put("push", true)
+        data["text"] = text
+        data["push"] = true
         return mFunctions
-                .getHttpsCallable("addDispatchTakePictureIntentCameraIP")
-                .call(data)
-                .continueWith { task -> // This continuation runs on either success or failure, but if the task
-                    // has failed then getResult() will throw an Exception which will be
-                    // propagated down.
-                    // Это продолжение выполняется при успехе или неудаче, но если задача
-                    // не удалось, тогда getResult () выдаст исключение, которое будет
-                    // распространились вниз.
-                    val rezult = task.result.data as HashMap<*, *>?
-                    val functionResult = rezult!!.get("text") as String?
-                    //задержка
-                    Thread.sleep(10000)
-                    functionResult
-                }
+            .getHttpsCallable("addDispatchTakePictureIntentCameraIP")
+            .call(data)
+            .continueWith(Continuation { task -> // This continuation runs on either success or failure, but if the task
+                // has failed then getResult() will throw an Exception which will be
+                // propagated down.
+                // Это продолжение выполняется при успехе или неудаче, но если задача
+                // не удалось, тогда getResult () выдаст исключение, которое будет
+                // распространились вниз.
+                val rezult = task.result.data as HashMap<*, *>?
+                val functionResult = rezult!!["text"] as String?
+                //задержка
+                Thread.sleep(10000)
+                functionResult
+            })
     }
 
     //обработка выбора в верхнем меню
@@ -1343,68 +1654,89 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             val builder = AlertDialog.Builder(this@UserProcessActivity)
             builder.setTitle("Select traffic source")
             val settings_array_note_traffic: MutableList<String?> = ArrayList()
-            val settingsNoteTrafficOption1 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption1"] as String?
+            val settingsNoteTrafficOption1 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption1"] as String?
             if (settingsNoteTrafficOption1 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption1)
             }
-            val settingsNoteTrafficOption2 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption2"] as String?
+            val settingsNoteTrafficOption2 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption2"] as String?
             if (settingsNoteTrafficOption2 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption2)
             }
-            val settingsNoteTrafficOption3 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption3"] as String?
+            val settingsNoteTrafficOption3 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption3"] as String?
             if (settingsNoteTrafficOption3 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption3)
             }
-            val settingsNoteTrafficOption4 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption4"] as String?
+            val settingsNoteTrafficOption4 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption4"] as String?
             if (settingsNoteTrafficOption4 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption4)
             }
-            val settingsNoteTrafficOption5 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption5"] as String?
+            val settingsNoteTrafficOption5 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption5"] as String?
             if (settingsNoteTrafficOption5 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption5)
             }
-            val settingsNoteTrafficOption6 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption6"] as String?
+            val settingsNoteTrafficOption6 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption6"] as String?
             if (settingsNoteTrafficOption6 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption6)
             }
-            val settingsNoteTrafficOption7 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption7"] as String?
+            val settingsNoteTrafficOption7 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption7"] as String?
             if (settingsNoteTrafficOption7 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption7)
             }
-            val settingsNoteTrafficOption8 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption8"] as String?
+            val settingsNoteTrafficOption8 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption8"] as String?
             if (settingsNoteTrafficOption8 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption8)
             }
-            val settingsNoteTrafficOption9 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption9"] as String?
+            val settingsNoteTrafficOption9 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption9"] as String?
             if (settingsNoteTrafficOption9 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption9)
             }
-            val settingsNoteTrafficOption10 = PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption10"] as String?
+            val settingsNoteTrafficOption10 =
+                PositionSettingsNoteTrafficMap!!["SettingsNoteTrafficOption10"] as String?
             if (settingsNoteTrafficOption10 !== "") {
                 settings_array_note_traffic.add(settingsNoteTrafficOption10)
             }
             if (settings_array_note_traffic.size != 0) {
-                val dataAdapter = ArrayAdapter(this@UserProcessActivity,
-                        android.R.layout.simple_dropdown_item_1line, settings_array_note_traffic)
+                val dataAdapter = ArrayAdapter(
+                    this@UserProcessActivity,
+                    android.R.layout.simple_dropdown_item_1line, settings_array_note_traffic
+                )
                 builder.setAdapter(dataAdapter) { dialog, which ->
-                    Toast.makeText(this@UserProcessActivity, "You have selected " + settings_array_note_traffic[which], Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@UserProcessActivity,
+                        "You have selected " + settings_array_note_traffic[which],
+                        Toast.LENGTH_LONG
+                    ).show()
                     val resultControlButton = settings_array_note_traffic[which]
                     //добавляем документ
                     // Add a new document with a generated id.
                     val data: MutableMap<String, Any?> = HashMap()
-                    data.put("NoteSource", "note_traffic")
-                    data.put("NoteParent", idDocActivButtonUser)
-                    data.put("NoteTime", FieldValue.serverTimestamp())
-                    data.put("NoteText", resultControlButton)
-                    data.put("NoteUser", userNameEmail)
-                    data.put("NoteStatus", "false")
-                    data.put("NoteComment", "")
-                    data.put("NoteParentName", NameDocProcessButton)
-                    data.put("NoteIdDocPosition", idPosition)
+                    data["NoteSource"] = "note_traffic"
+                    data["NoteParent"] = idDocActivButtonUser
+                    data["NoteTime"] = FieldValue.serverTimestamp()
+                    data["NoteText"] = resultControlButton
+                    data["NoteUser"] = userNameEmail
+                    data["NoteStatus"] = "false"
+                    data["NoteComment"] = ""
+                    data["NoteParentName"] = NameDocProcessButton
+                    data["NoteIdDocPosition"] = idPosition
                     db!!.collection("Note")
-                            .add(data)
-                            .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id) }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                        .add(data)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                TAG,
+                                "DocumentSnapshot written with ID: " + documentReference.id
+                            )
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                 }
                 val dialog = builder.create()
                 dialog.show()
@@ -1420,29 +1752,36 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         builder.setView(promptsView)
         val userInput = promptsView.findViewById<View>(R.id.input_text) as EditText
         builder.setTitle("Write a note")
-                .setCancelable(false)
-                .setPositiveButton("OK"
-                ) { dialog, id -> //получаем текст комментария
-                    val noteText = userInput.text.toString()
-                    //создаем документ
-                    // Add a new document with a generated id.
-                    val data: MutableMap<String, Any?> = HashMap()
-                    data.put("NoteSource", "note_text")
-                    data.put("NoteParent", idDocActivButtonUser)
-                    data.put("NoteTime", FieldValue.serverTimestamp())
-                    data.put("NoteText", noteText)
-                    data.put("NoteUser", userNameEmail)
-                    data.put("NoteStatus", "")
-                    data.put("NoteComment", "")
-                    data.put("NoteParentName", NameDocProcessButton)
-                    data.put("NoteIdDocPosition", idPosition)
-                    db!!.collection("Note")
-                            .add(data)
-                            .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id) }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
-                }
-                .setNegativeButton("Cansel"
-                ) { dialog, id -> dialog.cancel() }
+            .setCancelable(false)
+            .setPositiveButton(
+                "OK"
+            ) { dialog, id -> //получаем текст комментария
+                val noteText = userInput.text.toString()
+                //создаем документ
+                // Add a new document with a generated id.
+                val data: MutableMap<String, Any?> = HashMap()
+                data["NoteSource"] = "note_text"
+                data["NoteParent"] = idDocActivButtonUser
+                data["NoteTime"] = FieldValue.serverTimestamp()
+                data["NoteText"] = noteText
+                data["NoteUser"] = userNameEmail
+                data["NoteStatus"] = ""
+                data["NoteComment"] = ""
+                data["NoteParentName"] = NameDocProcessButton
+                data["NoteIdDocPosition"] = idPosition
+                db!!.collection("Note")
+                    .add(data)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(
+                            TAG,
+                            "DocumentSnapshot written with ID: " + documentReference.id
+                        )
+                    }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+            }
+            .setNegativeButton(
+                "Cansel"
+            ) { dialog, id -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
     }
@@ -1452,69 +1791,90 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             val builder = AlertDialog.Builder(this@UserProcessActivity)
             builder.setTitle("Select note")
             val settings_array_note_list: MutableList<String?> = ArrayList()
-            val settingsNoteListOption1 = PositionSettingsNoteListMap!!["SettingsNoteListOption1"] as String?
+            val settingsNoteListOption1 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption1"] as String?
             if (settingsNoteListOption1 !== "") {
                 settings_array_note_list.add(settingsNoteListOption1)
             }
-            val settingsNoteListOption2 = PositionSettingsNoteListMap!!["SettingsNoteListOption2"] as String?
+            val settingsNoteListOption2 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption2"] as String?
             if (settingsNoteListOption2 !== "") {
                 settings_array_note_list.add(settingsNoteListOption2)
             }
-            val settingsNoteListOption3 = PositionSettingsNoteListMap!!["SettingsNoteListOption3"] as String?
+            val settingsNoteListOption3 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption3"] as String?
             if (settingsNoteListOption3 !== "") {
                 settings_array_note_list.add(settingsNoteListOption3)
             }
-            val settingsNoteListOption4 = PositionSettingsNoteListMap!!["SettingsNoteListOption4"] as String?
+            val settingsNoteListOption4 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption4"] as String?
             if (settingsNoteListOption4 !== "") {
                 settings_array_note_list.add(settingsNoteListOption4)
             }
-            val settingsNoteListOption5 = PositionSettingsNoteListMap!!["SettingsNoteListOption5"] as String?
+            val settingsNoteListOption5 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption5"] as String?
             if (settingsNoteListOption5 !== "") {
                 settings_array_note_list.add(settingsNoteListOption5)
             }
-            val settingsNoteListOption6 = PositionSettingsNoteListMap!!["SettingsNoteListOption6"] as String?
+            val settingsNoteListOption6 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption6"] as String?
             if (settingsNoteListOption6 !== "") {
                 settings_array_note_list.add(settingsNoteListOption6)
             }
-            val settingsNoteListOption7 = PositionSettingsNoteListMap!!["SettingsNoteListOption7"] as String?
+            val settingsNoteListOption7 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption7"] as String?
             if (settingsNoteListOption7 !== "") {
                 settings_array_note_list.add(settingsNoteListOption7)
             }
-            val settingsNoteListOption8 = PositionSettingsNoteListMap!!["SettingsNoteListOption8"] as String?
+            val settingsNoteListOption8 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption8"] as String?
             if (settingsNoteListOption8 !== "") {
                 settings_array_note_list.add(settingsNoteListOption8)
             }
-            val settingsNoteListOption9 = PositionSettingsNoteListMap!!["SettingsNoteListOption9"] as String?
+            val settingsNoteListOption9 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption9"] as String?
             if (settingsNoteListOption9 !== "") {
                 settings_array_note_list.add(settingsNoteListOption9)
             }
-            val settingsNoteListOption10 = PositionSettingsNoteListMap!!["SettingsNoteListOption10"] as String?
+            val settingsNoteListOption10 =
+                PositionSettingsNoteListMap!!["SettingsNoteListOption10"] as String?
             if (settingsNoteListOption10 !== "") {
                 settings_array_note_list.add(settingsNoteListOption10)
             }
             if (settings_array_note_list.size != 0) {
-                val dataAdapter = ArrayAdapter(this@UserProcessActivity,
-                        android.R.layout.simple_dropdown_item_1line, settings_array_note_list)
+                val dataAdapter = ArrayAdapter(
+                    this@UserProcessActivity,
+                    android.R.layout.simple_dropdown_item_1line, settings_array_note_list
+                )
                 builder.setAdapter(dataAdapter) { dialog, which ->
-                    Toast.makeText(this@UserProcessActivity, "You have selected " + settings_array_note_list[which], Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@UserProcessActivity,
+                        "You have selected " + settings_array_note_list[which],
+                        Toast.LENGTH_LONG
+                    ).show()
                     val resultControlButton = settings_array_note_list[which]
                     //добавляем документ
                     //создаем документ
                     // Add a new document with a generated id.
                     val data: MutableMap<String, Any?> = HashMap()
-                    data.put("NoteSource", "note_list")
-                    data.put("NoteParent", idDocActivButtonUser)
-                    data.put("NoteTime", FieldValue.serverTimestamp())
-                    data.put("NoteText", resultControlButton)
-                    data.put("NoteUser", userNameEmail)
-                    data.put("NoteStatus", "")
-                    data.put("NoteComment", "")
-                    data.put("NoteParentName", NameDocProcessButton)
-                    data.put("NoteIdDocPosition", idPosition)
+                    data["NoteSource"] = "note_list"
+                    data["NoteParent"] = idDocActivButtonUser
+                    data["NoteTime"] = FieldValue.serverTimestamp()
+                    data["NoteText"] = resultControlButton
+                    data["NoteUser"] = userNameEmail
+                    data["NoteStatus"] = ""
+                    data["NoteComment"] = ""
+                    data["NoteParentName"] = NameDocProcessButton
+                    data["NoteIdDocPosition"] = idPosition
                     db!!.collection("Note")
-                            .add(data)
-                            .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id) }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                        .add(data)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                TAG,
+                                "DocumentSnapshot written with ID: " + documentReference.id
+                            )
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                 }
                 val dialog = builder.create()
                 dialog.show()
@@ -1565,17 +1925,20 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private fun createFotoNoteImageFile(): File {
         // Create an image file name
         // Создаем имя файла изображения
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val imageFileName = "FotoNote_" + idDocActivButtonUser + "_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val timeStamp =
+            SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageFileName =
+            "FotoNote_" + idDocActivButtonUser + "_" + timeStamp + "_"
+        val storageDir =
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         //File storageDir = getExternalCacheDir();
         // Save a file: path for use with ACTION_VIEW intents
         // Сохраняем файл: путь для использования с намерениями ACTION_VIEW
         //   currentPhotoPath = image.getAbsolutePath();
         return File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",  /* suffix */
-                storageDir /* directory */
+            imageFileName,  /* prefix */
+            ".jpg",  /* suffix */
+            storageDir /* directory */
         )
     }
 
@@ -1585,45 +1948,53 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         //cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageCapture, imageAnalysis, preview);
         //сохраняем фото в файл
         val outputFileOptionsBuilder = ImageCapture.OutputFileOptions.Builder(photoFile)
-        imageCapture!!.takePicture(outputFileOptionsBuilder.build(), { obj: Runnable -> obj.run() }, object : ImageCapture.OnImageSavedCallback {
-            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                //ggg();
-                val params = Bundle()
-                params.putString("FILE_PATH", photoFile.path)
-                // подготовка к удалению файла
-                val file = Uri.fromFile(File(photoFile.toString()))
-                // Create the file metadata
-                // Создаем метаданные файла
-                val metadata = StorageMetadata.Builder()
+        imageCapture!!.takePicture(
+            outputFileOptionsBuilder.build(),
+            { obj: Runnable -> obj.run() },
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    //ggg();
+                    val params = Bundle()
+                    params.putString("FILE_PATH", photoFile.path)
+                    // подготовка к удалению файла
+                    val file = Uri.fromFile(File(photoFile.toString()))
+                    // Create the file metadata
+                    // Создаем метаданные файла
+                    val metadata = StorageMetadata.Builder()
                         .setContentType("foto/.jpg")
                         .build()
-                // Upload file and metadata to the path 'images/mountains.jpg'
-                // Загрузить файл и метаданные по пути images / mountains.jpg'
-                val uploadTask = storageRef!!.child("FotoOfNote/" + file.lastPathSegment).putFile(file, metadata)
-                // Listen for state changes, errors, and completion of the upload.
-                // Слушаем изменения состояния, ошибки и завершение загрузки
-                uploadTask.addOnProgressListener { taskSnapshot ->
-                    val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                    Log.d(TAG, "Upload is $progress% done")
-                }.addOnPausedListener(object : OnPausedListener<UploadTask.TaskSnapshot?> {
-                    override fun onPaused(taskSnapshot: UploadTask.TaskSnapshot?) {
-                        Log.d(TAG, "Upload is paused")
-                    }
-                }).addOnFailureListener {
-                    // Handle unsuccessful uploads
-                }.addOnSuccessListener { // Handle successful uploads on complete
-                    // Обработка успешных загрузок по завершении
-                    val fileDelete = File(photoFile.toString())
-                    if (fileDelete.delete()) {
-                        println("File deleted!")
-                    } else println("File not found!")
+                    // Upload file and metadata to the path 'images/mountains.jpg'
+                    // Загрузить файл и метаданные по пути images / mountains.jpg'
+                    val uploadTask = storageRef!!.child("FotoOfNote/" + file.lastPathSegment)
+                        .putFile(file, metadata)
+                    // Listen for state changes, errors, and completion of the upload.
+                    // Слушаем изменения состояния, ошибки и завершение загрузки
+                    uploadTask.addOnProgressListener { taskSnapshot ->
+                        val progress =
+                            100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                        Log.d(TAG, "Upload is $progress% done")
+                    }.addOnPausedListener(object : OnPausedListener<UploadTask.TaskSnapshot?> {
+                        override fun onPaused(taskSnapshot: UploadTask.TaskSnapshot?) {
+                            Log.d(TAG, "Upload is paused")
+                        }
+                    }).addOnFailureListener {
+                        // Handle unsuccessful uploads
+                    }.addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot?> {
+                        override fun onSuccess(taskSnapshot: UploadTask.TaskSnapshot?) {
+                            // Handle successful uploads on complete
+                            // Обработка успешных загрузок по завершении
+                            val fileDelete = File(photoFile.toString())
+                            if (fileDelete.delete()) {
+                                println("File deleted!")
+                            } else println("File not found!")
+                        }
+                    })
                 }
-            }
 
-            override fun onError(exception: ImageCaptureException) {
-                exception.printStackTrace()
-            }
-        })
+                override fun onError(exception: ImageCaptureException) {
+                    exception.printStackTrace()
+                }
+            })
     }
 
     //отмена экрана вывода фото заметки
@@ -1646,7 +2017,8 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         if (recorder == null) {
             if (checkPermission()) {
                 val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-                val fileNameNote = externalCacheDir!!.absolutePath + "/audioNote_" + idDocActivButtonUser + "_" + timeStamp + "_" + ".m4a"
+                val fileNameNote =
+                    externalCacheDir!!.absolutePath + "/audioNote_" + idDocActivButtonUser + "_" + timeStamp + "_" + ".m4a"
                 recorder = MediaRecorder()
                 recorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
                 recorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -1662,15 +2034,19 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     // TODO Auto-generated catch block
                     e.printStackTrace()
                 }
-                Toast.makeText(this@UserProcessActivity, "Recording started",
-                        Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@UserProcessActivity, "Recording started",
+                    Toast.LENGTH_LONG
+                ).show()
                 noteAudioStop(fileNameNote)
             } else {
                 requestPermission()
             }
         }
-        Toast.makeText(this@UserProcessActivity, "Recording active",
-                Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this@UserProcessActivity, "Recording active",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     //открываем диалоговое окно для остановки записи аудио заметки
@@ -1678,25 +2054,29 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         val builder = AlertDialog.Builder(this@UserProcessActivity)
         builder.setTitle("Recording an audio note!")
         //    builder.setMessage(content);
-        builder.setPositiveButton("Stop"
+        builder.setPositiveButton(
+            "Stop"
         ) { dialog, which ->
             recorder!!.stop()
             recorder!!.reset()
             recorder!!.release()
             recorder = null
-            Toast.makeText(this@UserProcessActivity, "Recording stop",
-                    Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@UserProcessActivity, "Recording stop",
+                Toast.LENGTH_LONG
+            ).show()
             // File or Blob
             // Файл или Blob
             val file = Uri.fromFile(File(fileNameNote))
             // Create the file metadata
             // Создаем метаданные файла
             val metadata = StorageMetadata.Builder()
-                    .setContentType("audio/.mp4")
-                    .build()
+                .setContentType("audio/.mp4")
+                .build()
             // Upload file and metadata to the path 'images/mountains.jpg'
             // Загрузить файл и метаданные по пути images / mountains.jpg'
-            val uploadTask = storageRef!!.child("AudioRecordingOfNote/" + file.lastPathSegment).putFile(file, metadata)
+            val uploadTask = storageRef!!.child("AudioRecordingOfNote/" + file.lastPathSegment)
+                .putFile(file, metadata)
             // Listen for state changes, errors, and completion of the upload.
             // Слушаем изменения состояния, ошибки и завершение загрузки
             uploadTask.addOnProgressListener { taskSnapshot ->
@@ -1708,14 +2088,17 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 }
             }).addOnFailureListener {
                 // Handle unsuccessful uploads
-            }.addOnSuccessListener { // Handle successful uploads on complete
-                // Обработка успешных загрузок по завершении
-                // ...
-                val fileDelete = File(fileNameNote)
-                if (fileDelete.delete()) {
-                    println("File deleted!")
-                } else println("File not found!")
-            }
+            }.addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot?> {
+                override fun onSuccess(taskSnapshot: UploadTask.TaskSnapshot?) {
+                    // Handle successful uploads on complete
+                    // Обработка успешных загрузок по завершении
+                    // ...
+                    val fileDelete = File(fileNameNote)
+                    if (fileDelete.delete()) {
+                        println("File deleted!")
+                    } else println("File not found!")
+                }
+            })
         }
         // устанавливаем кнопку, которая отвечает за выбранный нами ответ
         // в данном случаем мы просто хотим всплывающее окно с отменой
@@ -1724,32 +2107,48 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
 
     fun noteGEO() {
         if (checkPermission()) {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@UserProcessActivity)
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this@UserProcessActivity) { location ->
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            val latitude = location.latitude
-                            val longitude = location.longitude
-                            val locationCoordinates = GeoPoint(latitude, longitude)
-                            //создаем документ
-                            val data: MutableMap<String, Any?> = HashMap()
-                            data.put("NoteSource", "note_geo")
-                            data.put("NoteParent", idDocActivButtonUser)
-                            data.put("NoteTime", FieldValue.serverTimestamp())
-                            data.put("NoteText", locationCoordinates)
-                            data.put("NoteUser", userNameEmail)
-                            data.put("NoteStatus", "false")
-                            data.put("NoteComment", "")
-                            data.put("NoteParentName", NameDocProcessButton)
-                            data.put("NoteIdDocPosition", idPosition)
-                            db!!.collection("Note")
+            fusedLocationClient =
+                LocationServices.getFusedLocationProviderClient(this@UserProcessActivity)
+            fusedLocationClient!!.lastLocation
+                .addOnSuccessListener(
+                    this@UserProcessActivity,
+                    object : OnSuccessListener<Location?> {
+                        override fun onSuccess(location: Location?) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                val latitude = location.latitude
+                                val longitude = location.longitude
+                                val locationCoordinates = GeoPoint(latitude, longitude)
+                                //создаем документ
+                                val data: MutableMap<String, Any?> = HashMap()
+                                data["NoteSource"] = "note_geo"
+                                data["NoteParent"] = idDocActivButtonUser
+                                data["NoteTime"] = FieldValue.serverTimestamp()
+                                data["NoteText"] = locationCoordinates
+                                data["NoteUser"] = userNameEmail
+                                data["NoteStatus"] = "false"
+                                data["NoteComment"] = ""
+                                data["NoteParentName"] = NameDocProcessButton
+                                data["NoteIdDocPosition"] = idPosition
+                                db!!.collection("Note")
                                     .add(data)
-                                    .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id) }
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                                    .addOnSuccessListener { documentReference ->
+                                        Log.d(
+                                            TAG,
+                                            "DocumentSnapshot written with ID: " + documentReference.id
+                                        )
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.w(
+                                            TAG,
+                                            "Error adding document",
+                                            e
+                                        )
+                                    }
+                            }
                         }
-                    }
+                    })
             return
         } else {
             requestPermission()
@@ -1758,7 +2157,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onStop() {
         super.onStop()
-        UserProcessActivityObserver.Companion.disconnect()
+        UserProcessActivityObserver.disconnect()
     }
 
     companion object {

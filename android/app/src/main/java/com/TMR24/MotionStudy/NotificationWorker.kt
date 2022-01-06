@@ -1,16 +1,18 @@
 package com.TMR24.MotionStudy
 
 import android.content.Context
-import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.ListenableWorker
+import androidx.work.Worker
 import java.util.concurrent.TimeUnit
 
-class NotificationWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+class NotificationWorker(context: Context, workerParams: WorkerParameters) :
+    Worker(context, workerParams) {
     override fun doWork(): Result {
         //запускает
         try {
             val settingsActiveIntervalMinutes = inputData.getString("Interval_SECONDS")
-            val settingsActiveIntervalMinutesLong: Long = settingsActiveIntervalMinutes.toLong()
+            val settingsActiveIntervalMinutesLong = settingsActiveIntervalMinutes!!.toLong()
             TimeUnit.SECONDS.sleep(settingsActiveIntervalMinutesLong)
         } catch (e: InterruptedException) {
             e.printStackTrace()

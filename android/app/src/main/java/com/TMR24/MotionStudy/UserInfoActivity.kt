@@ -1,20 +1,32 @@
 package com.TMR24.MotionStudy
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
-import com.TMR24.MotionStudy.UserInfoActivity
-import com.google.android.gms.tasks.Task
+import android.widget.TextView
+import android.widget.ArrayAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
+import android.os.Bundle
+import com.TMR24.MotionStudy.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.functions.HttpsCallableResult
+import kotlin.Throws
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.OnFailureListener
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView
+import android.content.Intent
+import android.util.Log
+import android.widget.ListView
+import com.TMR24.MotionStudy.UserShiftActivity
+import com.TMR24.MotionStudy.UserProcessActivity
+import com.google.android.gms.tasks.Task
 import java.text.DateFormat
 import java.util.*
 
 class UserInfoActivity : AppCompatActivity() {
-    private val textCurrentDate: TextView? = null
     private var listSessions: ListView? = null
     private var listPosts: ListView? = null
     private var adapter: ArrayAdapter<String>? = null
@@ -68,84 +80,104 @@ class UserInfoActivity : AppCompatActivity() {
     private val dataFromDB: Unit
         private get() {             // Заполняем табличную часть с Активными сменами
             db!!.collection("WorkShift")
-                    .whereEqualTo("EmailPositionUser", userNameEmail)
-                    .whereEqualTo("WorkShiftEnd", "")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result) {
-                                Log.d(TAG, document.id + " => " + document.data)
-                                val doc = document.data
-                                val docy = doc["ParentHierarchyPositionUser"] as Map<String, Any>?
-                                val nameOrganization = docy!!["NameOrganization"] as String?
-                                val idOrganization = docy["idDocOrganization"] as String?
-                                val nameSubdivision = docy["NameSubdivision"] as String?
-                                val idSubdivision = docy["idDocSubdivision"] as String?
-                                val namePosition = docy["NamePosition"] as String?
-                                val idPosition = docy["idDocPosition"] as String?
-                                val activShiftDocId = document.id
-                                listData!!.add("$nameOrganization > $nameSubdivision > $namePosition")
-                                listDataItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$activShiftDocId")
-                                adapter!!.notifyDataSetChanged()
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.exception)
+                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("WorkShiftEnd", "")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result) {
+                            Log.d(TAG, document.id + " => " + document.data)
+                            val doc = document.data
+                            val docy = doc["ParentHierarchyPositionUser"] as Map<String, Any>?
+                            val nameOrganization = docy!!["NameOrganization"] as String?
+                            val idOrganization = docy["idDocOrganization"] as String?
+                            val nameSubdivision = docy["NameSubdivision"] as String?
+                            val idSubdivision = docy["idDocSubdivision"] as String?
+                            val namePosition = docy["NamePosition"] as String?
+                            val idPosition = docy["idDocPosition"] as String?
+                            val activShiftDocId = document.id
+                            listData!!.add("$nameOrganization > $nameSubdivision > $namePosition")
+                            listDataItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$activShiftDocId")
+                            adapter!!.notifyDataSetChanged()
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.exception)
                     }
+                }
         }
 
     private fun addMessage(text: String?): Task<String> {  //Отправляем и получаем обработанные данные с сервера списком в каких должностях принимает участие пользователь
         val data: MutableMap<String, Any?> = HashMap()
-        data.put("text", text)
-        data.put("push", true)
+        data["text"] = text
+        data["push"] = true
         return mFunctions
-                .getHttpsCallable("addDocListPosts")
-                .call(data)
-                .continueWith { task -> // This continuation runs on either success or failure, but if the task
-                    // has failed then getResult() will throw an Exception which will be
-                    // propagated down.
-                    // Это продолжение выполняется при успехе или неудаче, но если задача
-                    // не удалось, тогда getResult () выдаст исключение, которое будет
-                    // распространились вниз.
-                    val rezult = task.result.data as HashMap<*, *>?
-                    val idDocPosts = rezult!!.get("text") as String?
-                    Thread.sleep(10000)
-                    val docRef = db!!.collection("messages").document(idDocPosts!!)
-                    docRef.get().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val document = task.result
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.data)
-                                val doc = document.data
-                                val massivDocPosts = doc!!["gerDoc"] as ArrayList<*>?
-                                for (i in massivDocPosts.indices) {
-                                    val stringDocPosts = massivDocPosts!![i] as String
-                                    val delimeter = ">"
-                                    val idOrganization: String = stringDocPosts.split(delimeter).toTypedArray().get(0)
-                                    val nameOrganization: String = stringDocPosts.split(delimeter).toTypedArray().get(1)
-                                    val idSubdivision: String = stringDocPosts.split(delimeter).toTypedArray().get(2)
-                                    val nameSubdivision: String = stringDocPosts.split(delimeter).toTypedArray().get(3)
-                                    val idPosition: String = stringDocPosts.split(delimeter).toTypedArray().get(4)
-                                    val namePosition: String = stringDocPosts.split(delimeter).toTypedArray().get(5)
-                                    val idDocPositionUser: String = stringDocPosts.split(delimeter).toTypedArray().get(6)
-                                    val userСomment: String = stringDocPosts.split(delimeter).toTypedArray().get(7)
-                                    listDataPosts!!.add("$nameOrganization > $nameSubdivision > $namePosition")
-                                    listDataPostsItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$userСomment")
-                                    adapterPosts!!.notifyDataSetChanged()
-                                }
-                                db!!.collection("messages").document(idDocPosts)
-                                        .delete()
-                                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
-                            } else {
-                                Log.d(TAG, "No such document")
+            .getHttpsCallable("addDocListPosts")
+            .call(data)
+            .continueWith { task -> // This continuation runs on either success or failure, but if the task
+                // has failed then getResult() will throw an Exception which will be
+                // propagated down.
+                // Это продолжение выполняется при успехе или неудаче, но если задача
+                // не удалось, тогда getResult () выдаст исключение, которое будет
+                // распространились вниз.
+                val rezult = task.result.data as HashMap<*, *>?
+                val idDocPosts = rezult!!["text"] as String?
+                Thread.sleep(10000)
+                val docRef = db!!.collection("messages").document(
+                    idDocPosts!!
+                )
+                docRef.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.data)
+                            val doc = document.data
+                            val massivDocPosts = doc!!["gerDoc"] as ArrayList<*>?
+                            for (i in massivDocPosts!!.indices) {
+                                val stringDocPosts = massivDocPosts[i] as String
+                                val delimeter = ">"
+                                val idOrganization =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[0]
+                                val nameOrganization =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[1]
+                                val idSubdivision =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[2]
+                                val nameSubdivision =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[3]
+                                val idPosition =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[4]
+                                val namePosition =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[5]
+                                val idDocPositionUser =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[6]
+                                val userСomment =
+                                    stringDocPosts.split(delimeter.toRegex()).toTypedArray()[7]
+                                listDataPosts!!.add("$nameOrganization > $nameSubdivision > $namePosition")
+                                listDataPostsItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$userСomment")
+                                adapterPosts!!.notifyDataSetChanged()
                             }
+                            db!!.collection("messages").document(idDocPosts)
+                                .delete()
+                                .addOnSuccessListener(object : OnSuccessListener<Void?> {
+                                    override fun onSuccess(aVoid: Void?) {
+                                        Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                                    }
+                                })
+                                .addOnFailureListener { e ->
+                                    Log.w(
+                                        TAG,
+                                        "Error deleting document",
+                                        e
+                                    )
+                                }
                         } else {
-                            Log.d(TAG, "get failed with ", task.exception)
+                            Log.d(TAG, "No such document")
                         }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.exception)
                     }
-                    idDocPosts
                 }
+                idDocPosts
+            }
     }
 
     private fun setOnClickItemPosts() { //
