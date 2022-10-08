@@ -1,56 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.TMR24.MotionStudy">
-    <uses-sdk tools:overrideLibrary="androidx.camera.view, androidx.camera.camera2, androidx.camera.lifecycle, androidx.camera.core, androidx.camera.extensions" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    package="com.example.tmr24">
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <queries>
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
-        </intent>
-    </queries>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera.any" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_icon"
-        android:label="TMR-24"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity"
+        android:theme="@style/Theme.TMR24">
+        <activity
+            android:name=".UserInfoMyProject"
+            android:label="@string/title_activity_user_info_my_project"
+            android:exported="false" />
+        <activity
+            android:name=".UserInfoProject"
+            android:exported="false"
+            android:label="@string/title_activity_user_info_project" />
+        <activity
+            android:name=".UserInfoTasks"
+            android:label="@string/title_activity_user_info_tasks"
+            android:exported="false" />
+        <activity
+            android:name=".UserInfoMyTasks"
+            android:label="@string/title_activity_user_info_my_tasks"
+            android:exported="false" />
+        <activity
+            android:name=".UserInfoOperativActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_info_operativ" />
+        <activity
+            android:name=".UserShiftHistory"
+            android:exported="false" />
+        <activity
+            android:name=".UserProcessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserShiftActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".UserInfoActivity"/>
-        <activity android:name=".UserShiftActivity"/>
-        <activity android:name=".UserShiftHistory"/>
-        <activity android:name=".UserProcessActivity"/>
-            <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="com.TMR24.MotionStudy.fileprovider"
-                android:exported="false"
-                android:grantUriPermissions="true">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
-            </provider>
-        </application>
-
-
-
+    </application>
 
 </manifest>

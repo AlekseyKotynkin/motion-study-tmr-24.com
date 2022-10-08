@@ -13,11 +13,17 @@ android:padding="10dp" >
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-<EditText
-    android:id="@+id/input_text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-    <requestFocus />
-</EditText>
+    <EditText
+        android:id="@+id/input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/note_text"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#00838F">
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>

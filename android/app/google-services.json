@@ -36,7 +36,36 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com",
+              "client_id": "475611275877-3lreb9pii5lcqdbkvbb9vlnph8iri3lb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475611275877:android:ae171899788422c82edc8c",
+        "android_client_info": {
+          "package_name": "com.example.tmr24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTFmGcAE3dFOtnPxaYME69uynFl94SivI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475611275877-3lreb9pii5lcqdbkvbb9vlnph8iri3lb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">TMR24</string>
-    <string name="to_begin">To Begin</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="todo">TODO</string>
-    <string name="come_in">Come In</string>
-    <string name="exit">Exit</string>
-    <string name="todo_test">TODO</string>
-    <string name="todoStart">TODO</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid user name</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="text_user_name">User name</string>
     <string name="go">Go</string>
+    <string name="other_login">Other login</string>
+    <string name="text_log_in">Log in with a user name?</string>
+    <string name="logo_company">logo company</string>
+    <string name="text_current_date">textCurrentDate</string>
     <string name="list_of_active_user_sessions">List Of Active User Sessions</string>
     <string name="list_of_posts_in_which_you_are_involved_as_a_user">List Of Posts In Which You Are Involved As A User</string>
     <string name="textcurrentdate">textCurrentDate</string>
@@ -32,6 +38,12 @@
     <string name="back">Back</string>
     <string name="shift_histories">Shift histories</string>
     <string name="note_traffic">Note "Traffic"</string>
+    <string name="note_calendar">Calendar</string>
+    <string name="note_contacts">Contacts"</string>
+    <string name="note_settings">Settings"</string>
+    <string name="note_info">Info</string>
+    <string name="note_products">Products</string>
+    <string name="note_tasks">Tasks"</string>
     <string name="note_text">Note "Text"</string>
     <string name="note_list">Note "List"</string>
     <string name="note_foto">Note "Foto"</string>
@@ -40,7 +52,146 @@
     <string name="note_geo">Note "GEO"</string>
     <string name="foto">Foto</string>
     <string name="cansel">Cansel</string>
+    <string name="title_activity_user_info_operativ">TMR24</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <!-- Активити UserInfoOperativ -->
+    <string name="editdatatext">editDataText</string>
+    <string name="button_voqealar_calendar">События календаря</string>
+    <string name="button_my_tasks">Мои задачи</string>
+    <string name="button_incoming_tasks">Входящие задачи</string>
+    <string name="button_outgoing_tasks">Исходящие задачи</string>
+    <string name="button_process_templates">Шаблоны процессов</string>
+    <string name="button_project">Проекты</string>
+
+    <!-- Активити UserInfoTasks -->
+    <string name="title_activity_user_info_my_tasks">TMR24 Задачи</string>
+    <string name="text_list_sessions">Активные смены</string>
+    <string name="button_add_tasks_colleague">+Задачу</string>
+    <string name="button_exit_my_tasks">Выход</string>
+    <string name="title_dialog_my_tasks_text_total">Всего задач</string>
+    <string name="title_dialog_my_tasks_total">/--/</string>
+    <string name="title_dialog_my_tasks_text_overdue">Просроченные задачи</string>
+    <string name="title_dialog_my_tasks_overdue">/--/</string>
+    <string name="title_dialog_my_tasks_text_current">Текущие задачи</string>
+    <string name="title_dialog_my_tasks_current">/--/</string>
+    <string name="title_dialog_my_tasks_typeNames">/--/--/--/</string>
+
+    <!-- Активити recycler_my_project -->
+    <string name="title_recycler_my_tasks_name">/--/--/--/</string>
+    <string name="title_recycler_my_tasks_nameOrganization">/--/--/--/</string>
+    <string name="title_recycler_my_tasks_data_stop_plan">/--/--/----/</string>
+    <string name="title_recycler_my_tasks_id">/--/</string>
+
+
+    <!-- Активити UserInfoTasks -->
+    <string name="title_activity_user_info_tasks">TMR24 Задача</string>
+    <string name="title_dialog_tasks_executor">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_quarantor">Поручитель</string>
+    <string name="title_dialog_tasks_quarantor">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_executor">Исполнитель</string>
+    <string name="title_dialog_tasks_data_start">/--/--/----/</string>
+    <string name="title_dialog_tasks_text_data_start">Дата начала</string>
+    <string name="title_dialog_tasks_data_stop">/--/--/----/</string>
+    <string name="title_dialog_tasks_text_data_stop">Дата окончания</string>
+    <string name="title_dialog_tasks_text_status">Статус</string>
+    <string name="title_dialog_tasks_status">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_project">Проект</string>
+    <string name="title_dialog_tasks_project">/--/--/--/</string>
+    <string name="title_dialog_tasks_project_id">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_topic">Тема</string>
+    <string name="title_dialog_tasks_topic">Пишем тему задачи</string>
+    <string name="title_dialog_tasks_topic_view">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_tasks">Текст задачи</string>
+    <string name="title_dialog_tasks_tasks_view">/--/--/--/</string>
+    <string name="title_dialog_tasks_tasks">Пишем текст задачи</string>
+    <string name="title_dialog_tasks_text_tasks_open">Результат задачи</string>
+    <string name="title_dialog_tasks_tasks_open">Пишем результат задачи</string>
+    <string name="title_dialog_tasks_tasks_open_view">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_data_stop_plan">Завершить к</string>
+    <string name="title_dialog_tasks_data_stop_plan">/--/--/----/</string>
+    <string name="title_dialog_tasks_text_footing">Основание</string>
+    <string name="title_dialog_tasks_footing">/--/--/--/</string>
+    <string name="title_dialog_tasks_footing_id">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_importance">Важность</string>
+    <string name="title_dialog_tasks_importance">Средняя</string>
+    <string name="title_dialog_tasks_text_assessment">Оценка результата задачи</string>
+    <string name="title_dialog_tasks_assessment">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_assessment_comment">Комментарий оценки</string>
+    <string name="title_dialog_tasks_assessment_comment">Пишем комментарий оценке</string>
+    <string name="title_dialog_tasks_assessment_comment_view">/--/--/--/</string>
+    <string name="title_dialog_tasks_text_organiza">Основание</string>
+    <string name="title_dialog_taskst_text_nameOrganization">Название организации</string>
+    <string name="title_dialog_tasks_nameOrganization">/--/--/--/</string>
+    <string name="title_dialog_tasks_idOrganization">/--/--/--/</string>
+    <string name="button_dialog_tasks_start">Старт</string>
+    <string name="button_dialog_tasks_dialog_box_exit">Выход</string>
+    <string name="button_dialog_tasks_done">Выполнено</string>
+    <string name="button_dialog_tasks_assessment">Оценить</string>
+    <string name="button_dialog_tasks_more">Еще...</string>
+    <string name="button_dialog_tasks_add_tasks">Ввести задачу на основание</string>
+    <string name="button_dialog_tasks_add_event">Ввести событие на основание</string>
+    <string name="button_dialog_tasks_edit">Редактировать</string>
+    <string name="button_dialog_tasks_add_reminder">Ввести напоминание на основание</string>
+    <string name="button_dialog_tasks_exit">Выход</string>
+    <string name="button_dialog_tasks_add_note_text">Заметка текст</string>
+    <string name="button_dialog_tasks_add_note_foto">Заметка фото</string>
+    <string name="button_dialog_tasks_add_note_audio">Заметка звук</string>
+    <string name="button_dialog_tasks_add_note_geo">Заметка локация</string>
+    <string name="hint">hint</string>
+    <string name="no_text"></string>
+
+    <!-- Активити UserInfoMyProject -->
+    <string name="title_activity_user_info_my_project">TMR24 Проекты</string>
+    <string name="button_add_my_project">Добавить проект</string>
+    <string name="button_exit_my_project">Выход</string>
+    <string name="title_dialog_my_progect_text_total">Всего проектов</string>
+    <string name="title_dialog_my_progect_total">/--/</string>
+    <string name="title_dialog_my_progect_text_overdue">Просроченные проекты</string>
+    <string name="title_dialog_my_progect_overdue">/--/</string>
+    <string name="title_dialog_my_progect_text_current">Текущие проекты</string>
+    <string name="title_dialog_my_progect_current">/--/</string>
+
+    <!-- Активити UserInfoProject -->
+    <string name="title_activity_user_info_project">TMR24 Проект</string>
+    <string name="title_dialog_progect_text_name">Тема</string>
+    <string name="title_dialog_progect_name">Пишем тему проекта</string>
+    <string name="title_dialog_progect_text_comment">Комментарий</string>
+    <string name="title_dialog_progect_comment">Пишем комментарий к проекту</string>
+    <string name="title_dialog_progect_text_idOrganization">Индекс организации</string>
+    <string name="title_dialog_progect_idOrganization">/--/--/--/</string>
+    <string name="title_dialog_progect_text_nameOrganization">Название организации</string>
+    <string name="title_dialog_progect_nameOrganization">/--/--/--/</string>
+    <string name="title_dialog_progect_text_footing">Основание</string>
+    <string name="title_dialog_progect_footing">/--/--/--/</string>
+    <string name="title_dialog_progect_footing_id">/--/--/--/</string>
+    <string name="title_dialog_progect_text_status">Статус</string>
+    <string name="title_dialog_progect_status">/--/--/--/</string>
+    <string name="title_dialog_progect_text_data_stop">Дата окончания</string>
+    <string name="title_dialog_progect_data_stop">/--/--/----/</string>
+    <string name="title_dialog_progect_text_data_start">Дата начала</string>
+    <string name="title_dialog_progect_data_start">/--/--/----/</string>
+    <string name="title_dialog_progect_text_originator">Автор</string>
+    <string name="title_dialog_progect_originator">/--/--/--/</string>
+    <string name="title_dialog_progect_text_data_stop_plan">Завершить к</string>
+    <string name="title_dialog_progect_data_stop_plan">/--/--/----/</string>
+    <string name="title_dialog_progect_text_assessment_comment">Комментарий к результату проекта</string>
+    <string name="title_dialog_progect_assessment_comment">Пишем результат проекта</string>
+    <string name="button_exit_project">Выход</string>
+    <string name="button_add_project">Создать</string>
+    <string name="button_edit_project">Редактировать</string>
+
+    <!-- Активити recycler_my_project -->
+    <string name="title_recycler_my_progect_name">/--/--/--/</string>
+    <string name="title_recycler_my_progect_nameOrganization">/--/--/--/</string>
+    <string name="title_recycler_my_progect_data_stop_plan">/--/--/----/</string>
+    <string name="title_recycler_my_progect_id">/--/</string>
 
 
 </resources>

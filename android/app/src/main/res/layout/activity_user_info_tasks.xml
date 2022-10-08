@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context=".UserInfoTasks">
+
+    <TextView
+    android:id="@+id/title_dialog_tasks_executor"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/title_dialog_tasks_executor"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_executor" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_quarantor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="105dp"
+        android:text="@string/title_dialog_tasks_text_quarantor"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_executor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/title_dialog_tasks_text_executor"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_data_start"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:text="@string/title_dialog_tasks_data_start"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_start" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_data_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_dialog_tasks_text_data_start"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_status" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_data_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/title_dialog_tasks_text_data_stop"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_status" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_data_stop"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/title_dialog_tasks_data_stop"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_stop" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_text_status"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/title_dialog_tasks_text_status"
+    android:textColor="@color/black"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_tasks_open" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_status"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/title_dialog_tasks_status"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_tasks_open" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="85dp"
+        android:text="@string/title_dialog_tasks_text_project"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_executor" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_project"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/title_dialog_tasks_project"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_project" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/title_dialog_tasks_text_topic"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_stop_plan" />
+
+    <EditText
+        android:id="@+id/title_dialog_tasks_topic"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/title_dialog_tasks_topic"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/title_dialog_tasks_text_topic"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_stop_plan"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:text="@string/title_dialog_tasks_text_tasks"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_stop_plan" />
+
+    <EditText
+        android:id="@+id/title_dialog_tasks_tasks"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/title_dialog_tasks_tasks"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_tasks"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_tasks_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/title_dialog_tasks_text_tasks_open"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_tasks" />
+
+    <EditText
+        android:id="@+id/title_dialog_tasks_tasks_open"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/title_dialog_tasks_tasks_open"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_tasks_open"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_data_stop_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_dialog_tasks_text_data_stop_plan"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_importance" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_data_stop_plan"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_data_stop_plan"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_importance" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_footing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="42dp"
+        android:text="@string/title_dialog_tasks_text_footing"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_quarantor" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_footing"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:text="@string/title_dialog_tasks_footing"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_footing" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/title_dialog_tasks_text_importance"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_footing" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_importance"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_importance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_project" />
+
+    <TextView
+    android:id="@+id/title_dialog_tasks_text_assessment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/title_dialog_tasks_text_assessment"
+    android:textColor="@color/black"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_data_start" />
+
+<TextView
+    android:id="@+id/title_dialog_tasks_assessment"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/title_dialog_tasks_assessment"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_data_stop" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_text_assessment_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/title_dialog_tasks_text_assessment_comment"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_assessment" />
+
+    <EditText
+        android:id="@+id/title_dialog_tasks_assessment_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/title_dialog_tasks_tasks_open"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_dialog_tasks_text_assessment_comment"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_assessment"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/button_dialog_tasks_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_dialog_tasks_exit"
+        app:layout_constraintStart_toEndOf="@+id/button_dialog_tasks_more"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_quarantor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_dialog_tasks_quarantor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_quarantor" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_dialog_tasks_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_footing_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_dialog_tasks_footing_id"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/title_dialog_tasks_footing"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_footing" />
+
+    <TextView
+        android:id="@+id/title_dialog_taskst_text_nameOrganization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="75dp"
+        android:text="@string/title_dialog_taskst_text_nameOrganization"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_nameOrganization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_nameOrganization"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_idOrganization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        android:layout_marginTop="75dp"
+        android:text="@string/title_dialog_tasks_idOrganization"
+        app:layout_constraintStart_toEndOf="@+id/title_dialog_taskst_text_nameOrganization"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_project_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:text="@string/title_dialog_tasks_project_id"
+        app:layout_constraintEnd_toStartOf="@+id/title_dialog_tasks_project"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_project" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        android:text="@string/button_dialog_tasks_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:text="@string/button_dialog_tasks_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_dialog_tasks_assessment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/button_dialog_tasks_assessment"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_topic_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/title_dialog_tasks_topic_view"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/title_dialog_tasks_text_topic"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_data_stop_plan" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_tasks_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_tasks_view"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_tasks" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_tasks_open_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_tasks_open_view"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_text_tasks_open" />
+
+    <TextView
+        android:id="@+id/title_dialog_tasks_assessment_comment_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/title_dialog_tasks_assessment_comment_view"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_dialog_tasks_assessment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
