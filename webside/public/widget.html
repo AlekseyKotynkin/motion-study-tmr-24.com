@@ -72,8 +72,8 @@
                 <div class="brand-logo">
                   <img src="../../svg/logo TMR Systems 192 80.svg">
                 </div>
-                <h4>Welcome!</h4>
-                <h6 class="font-weight-light">Come in and manage your team!</h6>
+                <h4 class = "lang" key ="Welcome">Welcome!</h4>
+                <h6 class="font-weight-light lang" key ="slogan">Come in and manage your team!</h6>
                 <form class="pt-3">
                   <div class="form-group">
                     <input type="email" class="form-control form-control-lg" id="inputEmail1" placeholder="Email*" required>
@@ -82,20 +82,20 @@
                     <input type="password" class="form-control form-control-lg" id="inputPassword1" placeholder="Password*" required>
                   </div>
                   <div class="form-group">
-                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" onclick="signUp()">SIGN IN</a>
+                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn lang" key ="SIGN_IN" onclick="signUp()">SIGN IN</a>
                   </div>
                   <br>
                     <center>
                      <div class="container" style="container">
-                      <a class="center" href="pages\samples\register.html">
-                        <i class="mdi mdi-account-plus menu-icon"></i> Register </a>
+                      <a class="center lang" key ="register" href="pages\samples\register.html">
+                        <i class="mdi mdi-account-plus menu-icon"></i>Register</a>
                      </div>
                     </center>
                     <br>
                     <center>
                      <div class="container" style="container">
-                      <a onclick="SignoutAdminLogin()" class="center" href="#">
-                        <i class="mdi mdi-logout mr-2 text-primary"></i> Sign out </a>
+                      <a onclick="SignoutAdminLogin()" class="center lang" key ="sign_out" href="#">
+                        <i class="mdi mdi-logout mr-2 text-primary"></i>Sign out</a>
                      </div>
                      <br>
                     </center>
@@ -123,5 +123,25 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/misc.js"></script>
     <!-- endinject -->
+    <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
+    <script type="text/javascript">
+     if (localStorage.length > 0)
+     {
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'TMR::translation')
+            {
+              var key_translation = localStorage.getItem('TMR::translation');
+              if(key_translation == 'en'){
+                translation_EN ()
+              }else {
+                translation_RU ()
+              }
+            }
+          }
+     }
+    </script>
   </body>
 </html>

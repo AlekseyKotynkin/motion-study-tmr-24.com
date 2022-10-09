@@ -43,12 +43,27 @@ var arrLang = {
     'login': 'Login',
     'register': 'Register',
     'knowledge_base': 'Knowledge base',
+    'Welcome': 'Welcome!',
+    'slogan': 'Come in and manage your team!',
+    'SIGN_IN': 'SIGN IN',
+    'sign_out': 'Sign out',
+
+
+
+
+
     'search_projects': 'Search projects',
   },
   'ru': {
     'login': 'Вход',
     'register': 'Регистрация',
     'knowledge_base': 'База знаний',
+    'Welcome': 'Здравствуйте!',
+    'slogan': 'Управляйте своей командой!',
+    'SIGN_IN': 'ВОЙТИ',
+    'sign_out': 'Выйти',
+
+
     'search_projects': 'Поиск',
   }
 };
