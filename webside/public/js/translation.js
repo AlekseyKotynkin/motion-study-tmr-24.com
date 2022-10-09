@@ -14,7 +14,7 @@ var arrLang = {
 };
 
   $(function() {
-    $('.translate').click(function() {
+    $('.navbar-translation').click(function() {
       var lang = $(this).attr('id');
 
       $('.lang').each(function(index, item) {
