@@ -924,5 +924,25 @@
     <script src="assets/js/dashboard.js"></script>
     <script src="assets/js/todolist.js"></script>
     <!-- End custom js for this page -->
+    <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
+    <script type="text/javascript">
+     if (localStorage.length > 0)
+     {
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'TMR::translation')
+            {
+              var key_translation = localStorage.getItem('TMR::translation');
+              if(key_translation == 'en'){
+                translation_EN ()
+              }else {
+                translation_RU ()
+              }
+            }
+          }
+     }
+    </script>
   </body>
 </html>
