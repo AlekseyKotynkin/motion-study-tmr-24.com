@@ -6,19 +6,13 @@ function translation_RU (){
   });
   if (localStorage.length > 0)
   {
-    for(let key in localStorage) {
-     if (!localStorage.hasOwnProperty(key)) {
-     continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
-       }
-         if (key === 'TMR::translation')
-         {
-            var key_translation = localStorage.getItem('TMR::translation');
-            if (key_translation !== 'ru' ){
-               localStorage.removeItem('TMR::translation');
-               localStorage.setItem('TMR::translation', 'ru');
-            }
-         }
-       }
+    var key_translation = localStorage.getItem('TMR::translation');
+    if(key_translation == null){
+      localStorage.setItem('TMR::translation', 'ru');
+    }else {
+      localStorage.removeItem('TMR::translation');
+      localStorage.setItem('TMR::translation', 'ru');
+    }
   } else {
     localStorage.setItem('TMR::translation', 'ru');
   }
@@ -32,19 +26,13 @@ function translation_EN (){
   });
   if (localStorage.length > 0)
   {
-    for(let key in localStorage) {
-     if (!localStorage.hasOwnProperty(key)) {
-     continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
-       }
-         if (key === 'TMR::translation')
-         {
-            var key_translation = localStorage.getItem('TMR::translation');
-            if (key_translation !== 'en' ){
-               localStorage.removeItem('TMR::translation');
-               localStorage.setItem('TMR::translation', 'en');
-            }
-         }
-       }
+    var key_translation = localStorage.getItem('TMR::translation');
+    if(key_translation == null){
+      localStorage.setItem('TMR::translation', 'en');
+    }else {
+      localStorage.removeItem('TMR::translation');
+      localStorage.setItem('TMR::translation', 'en');
+    }
   } else {
     localStorage.setItem('TMR::translation', 'en');
   }
@@ -64,13 +52,3 @@ var arrLang = {
     'search_projects': 'Поиск',
   }
 };
-
-//  $(function() {
-//    $('.navbar-translation').click(function() {
-//      var lang = $(this).attr('id');
-
-//      $('.lang').each(function(index, item) {
-//        $(this).text(arrLang[lang][$(this).attr('key')]);
-//      });
-//    });
-//  });
