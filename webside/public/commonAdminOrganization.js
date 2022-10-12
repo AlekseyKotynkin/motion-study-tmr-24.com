@@ -11,7 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -85,7 +86,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     alert ("An error happened!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert ("An error happened!");
+     } else {
+       alert ("Произошла ошибка!");
+     }
    });
   }
   /**
@@ -98,7 +103,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     var subdivisionTitle = document.getElementById("exampleInputModalSubdivisionTitle").value;
     if (subdivisionTitle.length < 1)
     {
-     alert('Please enter an subdivision name.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please enter an subdivision name.');
+      } else {
+        alert('Пожалуйста, введите название подразделения.');
+      }
      return;
     }
     var nameOfDepartmentHead = document.getElementById("exampleInputModalSubdivisionNameOfDepartamentHead").value;
@@ -119,7 +128,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
-        alert("Error adding document: ", error);
+        if(translation_JS == null && translation_JS == 'en'){
+          alert("Error adding document: ", error);
+        } else {
+          alert('Ошибка добавления документа:');
+        }
     });
   };
 
@@ -314,7 +327,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     function quitButtonSubdivision(obj) {
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
     let objId = obj.id;
-    alert('Document successfully deleted! '+ (objId));
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Document successfully deleted!'+ (objId));
+    } else {
+      alert('Документ успешно удален!'+ (objId));
+    }
     docRef.collection("Subdivision").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
           window.location.reload();
@@ -335,13 +352,21 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        var position_Title = document.getElementById("exampleInputModalPositionTitle").value;
        if (position_Title.length < 1)
        {
-        alert('Please enter an position name.');
+         if(translation_JS == null && translation_JS == 'en'){
+           alert('Please enter an position name.');
+         } else {
+           alert('Пожалуйста, введите название должности.');
+         }
         return;
        }
        var position_Comment = document.getElementById("exampleInputModalPositionСomment").value;
        if (position_Comment.length < 1)
        {
-        alert('Please enter an comments.');
+         if(translation_JS == null && translation_JS == 'en'){
+           alert('Please enter an comments.');
+         } else {
+           alert('Пожалуйста, введите комментарий.');
+         }
         return;
        }
        var positionOfManager = document.getElementById("exampleInputModalPositionOfManager").value;
@@ -360,7 +385,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        })
        .catch(function(error) {
            console.error("Error adding document: ", error);
-           alert("Error adding document: ", error);
+           if(translation_JS == null && translation_JS == 'en'){
+             alert("Error adding document: ", error);
+           } else {
+             alert('Ошибка добавления документа:');
+           }
        });
      };
 
@@ -391,7 +420,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
      function quitButtonPosition(obj)
      {
        let objId = obj.id;
-       alert('Document successfully deleted! '+ (objId));
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Document successfully deleted!'+ (objId));
+       } else {
+         alert('Документ успешно удален!'+ (objId));
+       }
        docRef.collection("Subdivision").doc(localStorageSubdivision).collection("Position").doc(objId).delete().then(function() {
              console.log("Document successfully deleted!");
              window.location.reload();

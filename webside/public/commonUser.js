@@ -11,17 +11,17 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
+ // Получаем переменную для распознавания языка пользователя
+ var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
  var db = firebase.firestore();
  //
-let items=[];
-let idDocShiftUser="";
-let idActivButtonUser="";
-let idDocActivButtonUser="";
+var items=[];
+var idDocShiftUser="";
+var idActivButtonUser="";
+var idDocActivButtonUser="";
 
 
  /**
@@ -45,13 +45,17 @@ const EmailPositionUserLocalStorage = (LocalStorageValueObjectUser[0]).OwnerEmai
   * @return {string}
   *  Получение данных для шапки таблицы List Of Posts In Which You Are Involved As A User из firestore.
   */
-let organizationDocName = ParentHierarchyPositionUserlocalStorage.NameOrganization;
-let subdivisionDocName = ParentHierarchyPositionUserlocalStorage.NameSubdivision;
-let positionDocName = ParentHierarchyPositionUserlocalStorage.NamePosition;
-let organizationDocId = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
-let subdivisionDocId = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
-let positionDocId = ParentHierarchyPositionUserlocalStorage.idDocPosition;
-let li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organization - "+(organizationDocName);
+var organizationDocName = ParentHierarchyPositionUserlocalStorage.NameOrganization;
+var subdivisionDocName = ParentHierarchyPositionUserlocalStorage.NameSubdivision;
+var positionDocName = ParentHierarchyPositionUserlocalStorage.NamePosition;
+var organizationDocId = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
+var subdivisionDocId = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
+var positionDocId = ParentHierarchyPositionUserlocalStorage.idDocPosition;
+if(translation_JS == null && translation_JS == 'en'){
+  var li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organization - "+(organizationDocName);
+} else {
+  var li = (positionDocName)+", Подразделение - "+(subdivisionDocName)+", Организация - "+(organizationDocName);
+}
 
 /**
 * @return {string}
@@ -69,7 +73,11 @@ querySnapshot.forEach(function(doc) {
    var articleDivOn = '';
    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
    my_div = document.getElementById("buttonTableProcessesUser");
-   let lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
+   if(translation_JS == null && translation_JS == 'en'){
+     var lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
+   } else {
+     var lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> Закрыть смену </button>';
+   }
    my_div.insertAdjacentHTML("afterend", lit);
   // Получить активный процесс и активировать кнопку на экране.
    var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
@@ -83,7 +91,7 @@ querySnapshot.forEach(function(doc) {
                idActivButtonUser = doc.data().IdDocProcessButton;
               // console.log(idDocActivButtonUser);
               // console.log(idActivButtonUser);
-               let elem = document.getElementById(idActivButtonUser);
+               var elem = document.getElementById(idActivButtonUser);
                elem.classList.toggle('active');
            });
        }).catch(function(error) {
@@ -106,12 +114,12 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
         items.push({...doc.data(),...{idDocPositionSettings: doc.id}});
-        let nameButton = doc.data().SettingsTitle;
+        var nameButton = doc.data().SettingsTitle;
         my_div = document.getElementById("idButtons");
-        let lit = '<button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="idButtonsX" onclick ="toRegisterProcessUser(this)"></button>';
+        var lit = '<button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="idButtonsX" onclick ="toRegisterProcessUser(this)"></button>';
         my_div.insertAdjacentHTML("beforeend", lit);
         my_div = document.getElementById("idButtonsX");
-        let li = '<p class="text">'+(nameButton)+'</p>';
+        var li = '<p class="text">'+(nameButton)+'</p>';
         my_div.insertAdjacentHTML("beforeend", li);
         document.getElementById('idButtonsX').id = doc.id;
     });
@@ -122,7 +130,7 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
 *  Открытие рабочей смены.
 */
 function AddShiftUser() {
-  let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+  var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
   db.collection("WorkShift").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
     IdDocPosition: positionDocId,
@@ -144,7 +152,7 @@ function AddShiftUser() {
 *  Закрытие рабочей смены.
 */
  function CloseShiftUser() {
-  let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+  var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
   var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
   // Set the "capital" field of the city 'DC'
   return docRefWorkShift.update({
@@ -153,9 +161,9 @@ function AddShiftUser() {
   })
   .then(function() {
       console.log("Document successfully updated!");
-      let elem = document.getElementById(idActivButtonUser);
+      var elem = document.getElementById(idActivButtonUser);
       elem.classList.toggle('active');
-      let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+      var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
       var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
       var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
       // Set the "capital" field of the city 'DC'
@@ -188,7 +196,11 @@ function AddShiftUser() {
     }).catch(function(error) {
       // An error happened.
       // Произошла ошибка.
-      alert ("An error happened!");
+      if(translation_JS == null && translation_JS == 'en'){
+        alert ("An error happened!");
+      } else {
+        alert ("Произошла ошибка!");
+      }
     });
  }
 
@@ -200,24 +212,32 @@ function toRegisterProcessUser(obj) {
     // Проверяем открыта ли смена.
    if (idDocShiftUser == "")
    {
-   alert("Open work shift!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert("Open work shift!");
+     } else {
+       alert ("Рабочая смена открыта!");
+     }
    }
    else
    {
      // Получить активный процесс и закрыть его.
    if (idDocActivButtonUser == "")
    {
-   alert("Good luck Go!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert("Good luck Go!");
+     } else {
+       alert ("Удачи Вам!");
+     }
    }
    else
    {
-         let elemExit = document.getElementById(idActivButtonUser);
+         var elemExit = document.getElementById(idActivButtonUser);
          elemExit.classList.toggle('active');
          idActivButtonUser = obj.id;
          objDoc = obj.innerText;
-         let elem = document.getElementById(idActivButtonUser);
+         var elem = document.getElementById(idActivButtonUser);
          elem.classList.toggle('active');
-         let timestampStop = firebase.firestore.FieldValue.serverTimestamp();
+         var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
          var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
          var docRefWorkShiftProcessUser = docRefWorkShift.collection("ProcessUser").doc(idDocActivButtonUser);
          // Set the "capital" field of the city 'DC'
@@ -249,7 +269,7 @@ function toRegisterProcessUser(obj) {
        // Записываем процесс, регистрируем время.
     idActivButtonUser = obj.id;
     objDoc = obj.innerText;
-    let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+    var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
     var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
     docRefWorkShift.collection("ProcessUser").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
@@ -262,7 +282,7 @@ function toRegisterProcessUser(obj) {
     }).then(function(docRef) {
         // console.log("Document written with ID: ", docRef.id);
         idDocActivButtonUser = docRef.id;
-        let elem = document.getElementById(idActivButtonUser);
+        var elem = document.getElementById(idActivButtonUser);
         elem.classList.toggle('active');
     }).catch(function(error) {
         console.error("Error adding document: ", error);

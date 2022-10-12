@@ -11,7 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -112,8 +113,12 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                  statusUserColumn.innerHTML = item.UserEmail;
 
                  var toComeInUserName = document.createElement('button');
-                 toComeInUserName.innerHTML = "To come in";
-                 toComeInUserName.className = 'badge badge-gradient-success';
+                 if(translation_JS == null && translation_JS == 'en'){
+                   toComeInUserName.innerHTML = "To come in";
+                 } else {
+                   toComeInUserName.innerHTML = "Перейти";
+                 }
+                 toComeInUserName.className = 'badge badge-gradient-success lang';
                  toComeInUserName.id = item.idDocPositionUser;
                  toComeInUserName.item = item;
                  toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
@@ -210,8 +215,12 @@ parentHierarchy.get().then(function (querySnapshot) {
         statusUserColumn.innerHTML = item.UserEmail;
 
         var toComeInUserName = document.createElement('button');
-        toComeInUserName.innerHTML = "To come in";
-        toComeInUserName.className = 'badge badge-gradient-success';
+        if(translation_JS == null && translation_JS == 'en'){
+          toComeInUserName.innerHTML = "To come in";
+        } else {
+          toComeInUserName.innerHTML = "Перейти";
+        }
+        toComeInUserName.className = 'badge badge-gradient-success lang';
         toComeInUserName.id = item.idDocPositionUser;
         toComeInUserName.item = item;
         toComeInUserName.setAttribute('onclick', 'toComeInButtonUser(this)');
@@ -247,7 +256,11 @@ parentHierarchy.get().then(function (querySnapshot) {
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     alert ("An error happened!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert ("An error happened!");
+     } else {
+       alert ("Произошла ошибка!");
+     }
    });
  }
 
@@ -264,12 +277,20 @@ parentHierarchy.get().then(function (querySnapshot) {
     var iconOrganization = document.getElementById("exampleInputUpload2").value;
     if (Organization.length < 1)
     {
-     alert('Please enter the name of the organization.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please enter the name of the organization.');
+      } else {
+        alert ("Пожалуйста, введите название организации.");
+      }
      return;
     };
     if (Position.length < 1)
     {
-     alert('Please enter the name of the position.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please enter the name of the position.');
+      } else {
+        alert ("Пожалуйста, введите название подразделения.");
+      }
      return;
     };
    //  Add a new document with a generated id.
@@ -386,8 +407,12 @@ parentHierarchy.get().then(function (querySnapshot) {
           statusUserColumn.innerHTML = item.StatusUser;
 
           var toComeInUserName = document.createElement('button');
-          toComeInUserName.innerHTML = "To come in";
-          toComeInUserName.className = 'badge badge-gradient-success';
+          if(translation_JS == null && translation_JS == 'en'){
+            toComeInUserName.innerHTML = "To come in";
+          } else {
+            toComeInUserName.innerHTML = "Перейти";
+          }
+          toComeInUserName.className = 'badge badge-gradient-success lang';
           toComeInUserName.id = item.idOrganization;
           toComeInUserName.setAttribute('onclick', 'toComeInButton(this)');
 
@@ -395,8 +420,12 @@ parentHierarchy.get().then(function (querySnapshot) {
           toComeInUserColumn.appendChild(toComeInUserName);
 
           var quitName = document.createElement('button');
-          quitName.innerHTML = "Quit";
-          quitName.className = 'badge badge-gradient-danger';
+          if(translation_JS == null && translation_JS == 'en'){
+            quitName.innerHTML = "Quit";
+          } else {
+            quitName.innerHTML = "Выйти";
+          }
+          quitName.className = 'badge badge-gradient-danger lang';
           quitName.id = item.idOrganization;
           quitName.setAttribute('onclick', 'quitButton(this)');
 
@@ -443,7 +472,12 @@ parentHierarchy.get().then(function (querySnapshot) {
 
     function quitButton(obj) {
     let objId = obj.id;
-    alert('Document successfully deleted! '+ (objId));
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Document successfully deleted! '+ (objId));
+    } else {
+      alert('Документ успешно удален! '+ (objId));
+    }
+
       db.collection("Organization").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
           window.location.reload();

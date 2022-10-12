@@ -15,7 +15,8 @@
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
   /**
   * @return {string}
@@ -28,7 +29,11 @@
         window.location.replace("../../index.html")
      }).catch(function(error) {
         // An error happened.
-        alert ("An error happened!");
+        if(translation_JS == null && translation_JS == 'en'){
+          alert ("An error happened!");
+        } else {
+          alert ("Произошла ошибка!");
+        }
      });
    }
 
@@ -44,17 +49,29 @@
 
      if (email.length < 4)
      {
-      alert('Please enter an email address.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Please enter an email address.');
+       } else {
+         alert ("Пожалуйста, введите адрес электронной почты.");
+       }
       return;
      }
     if (password.length < 4)
      {
-     alert('Please enter a password.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Please enter a password.');
+       } else {
+         alert ("Пожалуйста, введите пароль.");
+       }
      return;
      }
     if (termsConditions == false)
      {
-     alert('Need to confirm consent all Terms & Conditions.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Need to confirm consent all Terms & Conditions.');
+       } else {
+         alert ("Необходимо подтвердить согласие со всеми Положениями и условиями.");
+       }
      return;
      }
        // sign up the Username
@@ -62,7 +79,11 @@
        // регистрируем имя пользователя
        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result) {
        // result.user.tenantId should be ‘TENANT_PROJECT_ID’.
-       alert (" You are registered! ");
+       if(translation_JS == null && translation_JS == 'en'){
+         alert (" You are registered! ");
+       } else {
+         alert (" Вы зарегистрированы! ");
+       }
        window.location.replace("../../widget.html")
 
      }).catch(function(error)
@@ -72,7 +93,11 @@
        var errorMessage = error.message;
        // [START_EXCLUDE]
        if (errorCode == 'auth/weak-password') {
-         alert('The password is too weak.');
+         if(translation_JS == null && translation_JS == 'en'){
+           alert('The password is too weak.');
+         } else {
+           alert ("Пароль слишком слабый.");
+         }
        } else {
          alert(errorMessage);
        }

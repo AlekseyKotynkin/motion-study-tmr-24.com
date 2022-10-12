@@ -122,5 +122,25 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="../../assets/js/file-upload.js"></script>
+    <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
+    <script type="text/javascript">
+     if (localStorage.length > 0)
+     {
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'TMR::translation')
+            {
+              var key_translation = localStorage.getItem('TMR::translation');
+              if(key_translation == 'en'){
+                translation_EN ()
+              }else {
+                translation_RU ()
+              }
+            }
+          }
+     }
+    </script>
   </body>
 </html>

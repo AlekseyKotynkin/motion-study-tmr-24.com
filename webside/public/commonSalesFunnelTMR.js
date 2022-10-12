@@ -11,16 +11,17 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 var db = firebase.firestore();
 var storage = firebase.storage();
 //
-let nameOrganization = "";
-let nameSubdivision = "";
-let namePosition = "";
+var nameOrganization = "";
+var nameSubdivision = "";
+var namePosition = "";
 
 
 
@@ -35,17 +36,17 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 ////
 var docRefPosition = "";
 //массив с настройками кнопок
-let itemSettingsButton = [];
+var itemSettingsButton = [];
 
-let itemsOrganizationName = [];
+var itemsOrganizationName = [];
 //переменные для диаграммы на страницы
-let LABELS = [];
-let dataNotAvailable = [];
-let dataPerhaps = [];
-let dataAvailable = [];
+var LABELS = [];
+var dataNotAvailable = [];
+var dataPerhaps = [];
+var dataAvailable = [];
 //переменные для диаграммы на страницы
- let labels_FS = [];
- let data_FS = [];
+ var labels_FS = [];
+ var data_FS = [];
 
 //////////////////////////////////////////////////////////////////////////////////
 function gridDisplayOrganizationOwner() {
@@ -84,8 +85,8 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            let idDocOrganization = doc.id;
-            let nameOrganization = doc.data().Organization;
+            var idDocOrganization = doc.id;
+            var nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
             // * начало получаем коллекции которые относятся к Организации найденых по запросу выше
             var docRef = db.collection("Organization").doc(idDocOrganization);
@@ -97,7 +98,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
                             // console.log(doc.id, " => ", doc.data());
-                            let idDocSubdivision = doc.id;
+                            var idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
@@ -109,19 +110,19 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                            // doc.data() is never undefined for query doc snapshots
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
-                                             let parentHierarchyDoc = doc.ref.path;
-                                             let organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             let positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var parentHierarchyDoc = doc.ref.path;
+                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
+                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                                             var positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               let organizationDocId = element.idDocOrganization ;
-                                               let subdivisionDocId = element.idDocSubdivision ;
-                                               let positionDocId = element.idDocPosition ;
-                                               let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var organizationDocId = element.idDocOrganization ;
+                                               var subdivisionDocId = element.idDocSubdivision ;
+                                               var positionDocId = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -132,7 +133,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    // console.log("Error getting document:", error);
                                                });
-                                               let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -143,7 +144,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    // console.log("Error getting document:", error);
                                                });
-                                               let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -251,8 +252,8 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            let idDocOrganization = doc.id;
-            let nameOrganization = doc.data().Organization;
+            var idDocOrganization = doc.id;
+            var nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
             // * начало получаем коллекции которые относятся к Организации найденых по запросу выше
             var docRef = db.collection("Organization").doc(idDocOrganization);
@@ -264,7 +265,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
                             // console.log(doc.id, " => ", doc.data());
-                            let idDocSubdivision = doc.id;
+                            var idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
@@ -276,19 +277,19 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                            // doc.data() is never undefined for query doc snapshots
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
-                                             let parentHierarchyDoc = doc.ref.path;
-                                             let organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             let positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var parentHierarchyDoc = doc.ref.path;
+                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
+                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                                             var positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               let organizationDocId = element.idDocOrganization ;
-                                               let subdivisionDocId = element.idDocSubdivision ;
-                                               let positionDocId = element.idDocPosition ;
-                                               let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var organizationDocId = element.idDocOrganization ;
+                                               var subdivisionDocId = element.idDocSubdivision ;
+                                               var positionDocId = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -299,7 +300,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    // console.log("Error getting document:", error);
                                                });
-                                               let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -310,7 +311,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    // console.log("Error getting document:", error);
                                                });
-                                               let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -418,7 +419,7 @@ function gridDisplayManagerSubdivision() {
       querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           // console.log(doc.id, " => ", doc.data());
-          let idDocSubdivision = doc.id;
+          var idDocSubdivision = doc.id;
           // начало* получаем id документов Subdivision найденых по запросу выше
           var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
           docRefSubdivision.get().then(function(doc) {
@@ -430,19 +431,19 @@ function gridDisplayManagerSubdivision() {
                          // doc.data() is never undefined for query doc snapshots
                          // console.log(doc.id, " => ", doc.data());
                          // начало* получаем документы Position найденых по запросу выше
-                           let parentHierarchyDoc = doc.ref.path;
-                           let organizationDocId = parentHierarchyDoc.split("/")[1];
-                           let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                           let positionDocId = parentHierarchyDoc.split("/")[5];
+                           var parentHierarchyDoc = doc.ref.path;
+                           var organizationDocId = parentHierarchyDoc.split("/")[1];
+                           var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                           var positionDocId = parentHierarchyDoc.split("/")[5];
                            itemsOrganizationName = [];
                            itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                            // console.log("1.1 => ",itemsOrganizationName);
 
                            itemsOrganizationName.forEach(function(element){
-                             let organizationDocId = element.idDocOrganization ;
-                             let subdivisionDocId = element.idDocSubdivision ;
-                             let positionDocId = element.idDocPosition ;
-                             let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                             var organizationDocId = element.idDocOrganization ;
+                             var subdivisionDocId = element.idDocSubdivision ;
+                             var positionDocId = element.idDocPosition ;
+                             var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                  docRefOrganization.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameOrganization = doc.data().Organization;
@@ -453,7 +454,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  // console.log("Error getting document:", error);
                              });
-                             let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                  docRefSubdivision.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameSubdivision = doc.data().Subdivision;
@@ -464,7 +465,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  // console.log("Error getting document:", error);
                              });
-                             let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                             var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                  docRefPosition.get().then(function(doc) {
                                  if (doc.exists) {
                                      namePosition = doc.data().Position;
@@ -557,18 +558,18 @@ function gridDisplayManagerPosition() {
   var parentHierarchy = db.collectionGroup('PositionUser').where('PositionOfManager', '==', EmailLocalStorage);
   parentHierarchy.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-     let parentHierarchyDoc = doc.ref.path;
-     let organizationDocId = parentHierarchyDoc.split("/")[1];
-     let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-     let positionDocId = parentHierarchyDoc.split("/")[5];
+     var parentHierarchyDoc = doc.ref.path;
+     var organizationDocId = parentHierarchyDoc.split("/")[1];
+     var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+     var positionDocId = parentHierarchyDoc.split("/")[5];
      itemsOrganizationName = [];
      itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
     });
     itemsOrganizationName.forEach(function(element){
-      let organizationDocId = element.idDocOrganization ;
-      let subdivisionDocId = element.idDocSubdivision ;
-      let positionDocId = element.idDocPosition ;
-      let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+      var organizationDocId = element.idDocOrganization ;
+      var subdivisionDocId = element.idDocSubdivision ;
+      var positionDocId = element.idDocPosition ;
+      var docRefOrganization = db.collection("Organization").doc(organizationDocId);
          docRefOrganization.get().then(function(doc) {
           if (doc.exists) {
               nameOrganization = doc.data().Organization;
@@ -579,7 +580,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           // console.log("Error getting document:", error);
       });
-      let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
          docRefSubdivision.get().then(function(doc) {
           if (doc.exists) {
               nameSubdivision = doc.data().Subdivision;
@@ -590,7 +591,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           // console.log("Error getting document:", error);
       });
-      let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+      var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
          docRefPosition.get().then(function(doc) {
           if (doc.exists) {
               namePosition = doc.data().Position;
@@ -648,9 +649,9 @@ function gridDisplayManagerPosition() {
    */
 
   function toComeInButtonPositionsListUser(obj) {
-    let itemsPositionUser = [];
+    var itemsPositionUser = [];
     //перменная для активации кнопки в конце кода
-    let button_Control = "";
+    var button_Control = "";
     //очищаю таблицу tableAvalablePositionsList
     $('#tableAvalablePositionsListUser tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
@@ -670,10 +671,10 @@ function gridDisplayManagerPosition() {
      $('#tableResultTable tbody').empty();
      itemSettingsButton = [];
     //обработка редактирования строки...
-      let objId = obj.id;
-      let objItem = obj.item;
-      let idDocOrganization = objItem.idDocOrganization;
-      let idDocSubdivision = objItem.idDocSubdivision;
+      var objId = obj.id;
+      var objItem = obj.item;
+      var idDocOrganization = objItem.idDocOrganization;
+      var idDocSubdivision = objItem.idDocSubdivision;
     //заполняем таблицу список пользователей tableAvalablePositionsListUser
       var docRef = db.collection("Organization").doc(idDocOrganization);
       var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
@@ -801,7 +802,7 @@ function gridDisplayManagerPosition() {
       {
         my_div_User = document.getElementById("headerGridDisplay");
         // const ul_User = my_div_User.querySelector("h4");
-        let li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Display </button>';
+        var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Display </button>';
         my_div_User.insertAdjacentHTML("afterbegin", li);
         button_Control = "activ";
       }
@@ -831,46 +832,78 @@ function gridDisplay()
   var getAnalysisStartDate = document.getElementById("exampleInputAnalysisStartDate").value;
   if (getAnalysisStartDate.length < 1)
   {
-   alert('Please fill in the date!.');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date!.');
+    } else {
+      alert ("Пожалуйста, укажите дату!");
+    }
    return;
   }
-  let dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
-  let monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
-  let yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
+  var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
+  var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
+  var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
   if (dayAnalysisStartDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (monthAnalysisStartDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (yearAnalysisStartDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (dayAnalysisStartDate > 31)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (monthAnalysisStartDate > 12)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (yearAnalysisStartDate.length < 4)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   var getAnalysisExpirationDate = document.getElementById("exampleInputAnalysisExpirationDate").value;
   if (getAnalysisExpirationDate.length < 1)
   {
-   alert('Please fill in the date!.');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date!.');
+    } else {
+      alert ("Пожалуйста, укажите дату!");
+    }
    return;
   }
   let dayAnalysisExpirationDate = getAnalysisExpirationDate.split("/")[0];
@@ -878,32 +911,56 @@ function gridDisplay()
   let yearAnalysisExpirationDate = getAnalysisExpirationDate.split("/")[2];
   if (dayAnalysisExpirationDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (monthAnalysisStartDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (yearAnalysisExpirationDate == undefined)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (dayAnalysisExpirationDate > 31)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (monthAnalysisExpirationDate > 12)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   if (yearAnalysisExpirationDate.length < 4)
   {
-    alert('Please fill in the date according to the template!');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
     return;
   }
   var getComparisonCheckbox = document.getElementById("exampleInputComparisonCheckbox").checked;
@@ -912,79 +969,135 @@ function gridDisplay()
     var getComparisonStartDate = document.getElementById("exampleInputComparisonStartDate").value;
     if (getComparisonStartDate.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let dayComparisonStartDate = getComparisonStartDate.split("/")[0];
-    let monthComparisonStartDate = getComparisonStartDate.split("/")[1];
-    let yearComparisonStartDate = getComparisonStartDate.split("/")[2];
+    var dayComparisonStartDate = getComparisonStartDate.split("/")[0];
+    var monthComparisonStartDate = getComparisonStartDate.split("/")[1];
+    var yearComparisonStartDate = getComparisonStartDate.split("/")[2];
     if (dayComparisonStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (monthComparisonStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (yearComparisonStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (dayComparisonStartDate > 31)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (monthComparisonStartDate > 12)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (yearComparisonStartDate.length < 4)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     var getComparisonExpirationDate = document.getElementById("exampleInputComparisonExpirationDate").value;
     if (getComparisonExpirationDate.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let dayComparisonExpirationDate = getComparisonExpirationDate.split("/")[0];
-    let monthComparisonExpirationDate = getComparisonExpirationDate.split("/")[1];
-    let yearComparisonExpirationDate = getComparisonExpirationDate.split("/")[2];
+    var dayComparisonExpirationDate = getComparisonExpirationDate.split("/")[0];
+    var monthComparisonExpirationDate = getComparisonExpirationDate.split("/")[1];
+    var yearComparisonExpirationDate = getComparisonExpirationDate.split("/")[2];
     if (dayComparisonExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (monthComparisonExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (yearComparisonExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (dayComparisonExpirationDate > 31)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (monthComparisonExpirationDate > 12)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     if (yearComparisonExpirationDate.length < 4)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
       return;
     }
     //собираем формат времени
@@ -1002,8 +1115,8 @@ function gridDisplay()
   var tablePositionsListUser = document.getElementById('tableAvalablePositionsListUser');
   //удалил шапку таблицы
   // для Analytics "Free Sales Consultant"
-  let itemPositionsListUser =[];
-  let itemPositionsListUser_ResultTable =[];
+  var itemPositionsListUser =[];
+  var itemPositionsListUser_ResultTable =[];
   var rowLength = tablePositionsListUser.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListUser.rows.item(i).cells;
@@ -1017,29 +1130,29 @@ function gridDisplay()
   }
 
   //переменные для запуска команды формирования отчета
-  let length_itemShiftInterval = "";
-  let length_itemShiftInterval_1 = 0;
+  var length_itemShiftInterval = "";
+  var length_itemShiftInterval_1 = 0;
   // получаем документы смен подходящие данному отбору
-  let itemShiftInterval = [];
-  let itemDocShiftList = [];
-  let itemDocShiftList_PK = [];
-  let itemShiftInterval_baza = [];
+  var itemShiftInterval = [];
+  var itemDocShiftList = [];
+  var itemDocShiftList_PK = [];
+  var itemShiftInterval_baza = [];
   docRefPosition.collection("PositionShift").where("WorkShiftPositionStart", ">", dateAnalysisStart)
                                             .where("WorkShiftPositionStart", "<", dateAnalysisExpiration)
       .get()
       .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-              let docShift = doc.data();
-              let massListPositionUser = docShift.ListPositionUser;
-              let idDocPosition = docShift.IdDocPosition;
-              let workShiftPositionExpiration = docShift.WorkShiftPositionExpiration;
-              let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
-              let k = workShiftPositionExpirationMiliseconds+43200000;
+              var docShift = doc.data();
+              var massListPositionUser = docShift.ListPositionUser;
+              var idDocPosition = docShift.IdDocPosition;
+              var workShiftPositionExpiration = docShift.WorkShiftPositionExpiration;
+              var workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+              var k = workShiftPositionExpirationMiliseconds+43200000;
               //для увеличения обхвата на 12 часов при поиске документов интервала смены
-              let workShiftPositionExpirationGetProcessUser = new Date (k);
-              let workShiftPositionStart = docShift.WorkShiftPositionStart;
-              let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
-              let idDocShiftPosition = doc.id;
+              var workShiftPositionExpirationGetProcessUser = new Date (k);
+              var workShiftPositionStart = docShift.WorkShiftPositionStart;
+              var workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+              var idDocShiftPosition = doc.id;
               //начало проверяем совпадения интервала в шапки документа
               if(workShiftPositionExpirationMiliseconds < dateAnalysisExpirationMilisecond)
               {
@@ -1047,8 +1160,8 @@ function gridDisplay()
                 itemShiftInterval_baza.push({...doc.data(),...{IdDocShiftPosition: doc.id},...{numerDocShiftPosition: workShiftPositionStartMiliseconds}});
                 //начало проверяем список сотрудников по смене со списком сотрудников включенных в отчет
                 massListPositionUser.forEach(function(item, i, arr) {
-                  let userPositionUser = massListPositionUser[i];
-                  let resuitUserList = itemPositionsListUser.includes(userPositionUser);
+                  var userPositionUser = massListPositionUser[i];
+                  var resuitUserList = itemPositionsListUser.includes(userPositionUser);
                     if (resuitUserList == true)
                     {
                       // //окончание отбора документов по сменам должности с привязкой к сотруднику
@@ -1073,16 +1186,16 @@ function gridDisplay()
 function processArray_itemDocShiftList()
 {
   itemShiftInterval.forEach(function(item, i, arr) {
-  let userPositionUser = item.userActiveShift;
-  let idDocPosition = item.IdDocPosition;
-  let idDocShiftPosition = item.IdDocShiftPosition;
-  let workShiftPositionStart = item.WorkShiftPositionStart;
-  let workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
-  let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
-  let workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
-  let k = workShiftPositionExpirationMiliseconds+43200000;
+  var userPositionUser = item.userActiveShift;
+  var idDocPosition = item.IdDocPosition;
+  var idDocShiftPosition = item.IdDocShiftPosition;
+  var workShiftPositionStart = item.WorkShiftPositionStart;
+  var workShiftPositionStartMiliseconds = workShiftPositionStart.seconds*1000;
+  var workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+  var workShiftPositionExpirationMiliseconds = workShiftPositionExpiration.seconds*1000;
+  var k = workShiftPositionExpirationMiliseconds+43200000;
   //для увеличения обхвата на 12 часов при поиске документов интервала смены
-  let workShiftPositionExpirationGetProcessUser = new Date (k);
+  var workShiftPositionExpirationGetProcessUser = new Date (k);
     //начало отбора документов по сменам должности с привязкой к сотруднику
     var museums = db.collectionGroup('ProcessUser').where("EmailPositionUser", "==", userPositionUser)
                                                     .where("IdDocPosition", "==", idDocPosition)
@@ -1091,11 +1204,11 @@ function processArray_itemDocShiftList()
                                                     .where("ProcessUserEndTime", "<", workShiftPositionExpirationGetProcessUser);
     museums.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            let docShiftUser = doc.data();
-            let processUserStartTime = docShiftUser.ProcessUserStartTime;
-            let processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
-            let processUserEndTime = docShiftUser.ProcessUserEndTime;
-            let processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
+            var docShiftUser = doc.data();
+            var processUserStartTime = docShiftUser.ProcessUserStartTime;
+            var processUserStartTimeMiliseconds = processUserStartTime.seconds*1000;
+            var processUserEndTime = docShiftUser.ProcessUserEndTime;
+            var processUserEndTimeMiliseconds = processUserEndTime.seconds*1000;
             if (processUserStartTimeMiliseconds <= workShiftPositionExpirationMiliseconds)
             {
             // начало обрезаем документы чьи показатели заходят за рамки смены только для отчета
@@ -1109,13 +1222,13 @@ function processArray_itemDocShiftList()
               }
               // окончание обрезаем документы чьи показатели заходят за рамки смены только для отчета
             // начало получение статуса кнопки
-            let nameDocProcessButton = docShiftUser.NameDocProcessButton;
+            var nameDocProcessButton = docShiftUser.NameDocProcessButton;
             itemSettingsButton.forEach(function(item, i, arr) {
-              let settingsTitle = item.SettingsTitle;
+              var settingsTitle = item.SettingsTitle;
               if (settingsTitle == nameDocProcessButton)
               {
-                let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
-                let processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
+                var settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+                var processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
                 itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
                 itemDocShiftList_PK.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
                 itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
@@ -1142,18 +1255,18 @@ function processArray_itemShiftInterval()
 
    itemShiftInterval.forEach(function(item, i, arr) {
       // начало заполняес интервалы смен недоступностью
-      let idDocShiftPosition = item.IdDocShiftPosition;
-      let userActiveShift = item.userActiveShift;
-      let workShiftPositionStart = item.WorkShiftPositionStart;
-      let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
-      let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
-      let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
-      let itemDocShiftList_idDocShiftPosition_User = [];
+      var idDocShiftPosition = item.IdDocShiftPosition;
+      var userActiveShift = item.userActiveShift;
+      var workShiftPositionStart = item.WorkShiftPositionStart;
+      var workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
+      var workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+      var workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
+      var itemDocShiftList_idDocShiftPosition_User = [];
       itemDocShiftList_PK.forEach(function(item, i, arr) {
-        let idDocShiftPosition_1 = item.IdDocShiftPosition;
+        var idDocShiftPosition_1 = item.IdDocShiftPosition;
         if (idDocShiftPosition_1 == idDocShiftPosition)
         {
-          let emailPositionUser_1 = item.EmailPositionUser;
+          var emailPositionUser_1 = item.EmailPositionUser;
           if (emailPositionUser_1 == userActiveShift)
           {
             itemDocShiftList_idDocShiftPosition_User.push(item);
@@ -1161,45 +1274,45 @@ function processArray_itemShiftInterval()
         }
       });
       itemDocShiftList_idDocShiftPosition_User.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
-      let length_itemDocShiftList_idDocShiftPosition_User =itemDocShiftList_idDocShiftPosition_User.length;
+      var length_itemDocShiftList_idDocShiftPosition_User =itemDocShiftList_idDocShiftPosition_User.length;
       if (length_itemDocShiftList_idDocShiftPosition_User == 0)
       {
-        let processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
-        let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
+        var processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
+        var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
         itemDocShiftList_PK.unshift(object);
       } else {
         //начало прорабатываем и дополняем массив
          //добавляю документ в начало
-         let itemDocShiftList_idDocShiftPosition_User_0 = itemDocShiftList_idDocShiftPosition_User[0];
-         let processUserStartTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_0.ProcessUserStartTimeMiliseconds;
+         var itemDocShiftList_idDocShiftPosition_User_0 = itemDocShiftList_idDocShiftPosition_User[0];
+         var processUserStartTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_0.ProcessUserStartTimeMiliseconds;
          if (processUserStartTimeMiliseconds > workShiftPositionStartMiliseconds)
          {
            // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
-           let processDurationMiliseconds_1 = processUserStartTimeMiliseconds - workShiftPositionStartMiliseconds;
-           let object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
+           var processDurationMiliseconds_1 = processUserStartTimeMiliseconds - workShiftPositionStartMiliseconds;
+           var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
            itemDocShiftList_PK.unshift(object);
          };
          //добавляю документ в конец
-         let length = itemDocShiftList_idDocShiftPosition_User.length;
-         let length_finall_0 = length - 1;
-         let itemDocShiftList_idDocShiftPosition_User_finall_0 = itemDocShiftList_idDocShiftPosition_User[length_finall_0];
-         let processUserEndTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_finall_0.ProcessUserEndTimeMiliseconds;
+         var length = itemDocShiftList_idDocShiftPosition_User.length;
+         var length_finall_0 = length - 1;
+         var itemDocShiftList_idDocShiftPosition_User_finall_0 = itemDocShiftList_idDocShiftPosition_User[length_finall_0];
+         var processUserEndTimeMiliseconds = itemDocShiftList_idDocShiftPosition_User_finall_0.ProcessUserEndTimeMiliseconds;
          if (processUserEndTimeMiliseconds < workShiftPositionExpirationMiliseconds)
          {
-           let processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
-           let object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
+           var processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
+           var object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
            itemDocShiftList_PK.push(object_1);
          };
          //проверяем интервалы между документами
-         let processUserEndTimeMiliseconds_3 = "";
+         var processUserEndTimeMiliseconds_3 = "";
          itemDocShiftList_idDocShiftPosition_User.forEach(function(item, index, array) {
            if (index != 0)
            {
-             let processUserStartTimeMiliseconds_3 = item.ProcessUserStartTimeMiliseconds;
+             var processUserStartTimeMiliseconds_3 = item.ProcessUserStartTimeMiliseconds;
                if (processUserStartTimeMiliseconds_3 > processUserEndTimeMiliseconds_3)
                {
-                 let processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
-                 let object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
+                 var processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
+                 var object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
                  itemDocShiftList_PK.push(object_2);
                }
            }
@@ -1210,22 +1323,22 @@ function processArray_itemShiftInterval()
       // окончание проверки пользователь входящих  ListPositionUser
   });
 //обрабатываем массив для диограммы
-let listDataDiogramma = [];
+var listDataDiogramma = [];
 itemShiftInterval_baza.sort(( a, b ) => a.numerDocShiftPosition - b.numerDocShiftPosition);
 itemShiftInterval_baza.forEach(function(item, i, arr) {
-  let idDocShiftPosition_Baza = item.IdDocShiftPosition;
-  let listPositionUser = item.ListPositionUser;
-  let workShiftPositionStart = item.WorkShiftPositionStart;
-  let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
-  let listPositionUser_length = listPositionUser.length;
-  let settingsSalesFunnel_Stage_Green = 0;
-  let settingsSalesFunnel_Stage_Yellow = 0;
-  let settingsSalesFunnel_Stage_Red = 0;
-  let itemDocShiftList_length = itemDocShiftList_PK.length - 1;
+  var idDocShiftPosition_Baza = item.IdDocShiftPosition;
+  var listPositionUser = item.ListPositionUser;
+  var workShiftPositionStart = item.WorkShiftPositionStart;
+  var workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+  var listPositionUser_length = listPositionUser.length;
+  var settingsSalesFunnel_Stage_Green = 0;
+  var settingsSalesFunnel_Stage_Yellow = 0;
+  var settingsSalesFunnel_Stage_Red = 0;
+  var itemDocShiftList_length = itemDocShiftList_PK.length - 1;
   itemDocShiftList_PK.forEach(function(item, l, arr) {
-    let idDocShiftPosition = item.IdDocShiftPosition;
-    let settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
-    let processDurationMiliseconds = item.ProcessDurationMiliseconds;
+    var idDocShiftPosition = item.IdDocShiftPosition;
+    var settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+    var processDurationMiliseconds = item.ProcessDurationMiliseconds;
     if (idDocShiftPosition_Baza == idDocShiftPosition)
     {
       if (settingsSalesFunnel_Stage === "Available green")
@@ -1243,32 +1356,32 @@ itemShiftInterval_baza.forEach(function(item, i, arr) {
     }
     if (itemDocShiftList_length === l)
     {
-        let workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
-        let dataStart = new Date(workShiftPositionStartMiliseconds);
-        let date_Pos = dataStart.toString();
-        let getDay = date_Pos.split(" ")[0];
-        let getMonth = date_Pos.split(" ")[1];
-        let getDate = date_Pos.split(" ")[2];
-        let workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth);
-        let workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
-        let processShiftDurationMiliseconds = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
-        let processShiftDurationMilisecondsSum = processShiftDurationMiliseconds*listPositionUser_length;
-        let settingsSalesFunnel_Stage_Green_T = (settingsSalesFunnel_Stage_Green*100)/processShiftDurationMilisecondsSum;
-        let settingsSalesFunnel_Stage_Yellow_T = (settingsSalesFunnel_Stage_Yellow*100)/processShiftDurationMilisecondsSum;
-        let settingsSalesFunnel_Stage_Red_T = (settingsSalesFunnel_Stage_Red*100)/processShiftDurationMilisecondsSum;
-        let settingsSalesFunnel_Stage_Green_Percent = settingsSalesFunnel_Stage_Green_T.toFixed(1);
-        let settingsSalesFunnel_Stage_Yellow_Percent = settingsSalesFunnel_Stage_Yellow_T.toFixed(1);
-        let settingsSalesFunnel_Stage_Red_Percent = settingsSalesFunnel_Stage_Red_T.toFixed(1);
-        let object = {LABELS: workShiftPositionStartString, DataNotAvailable: settingsSalesFunnel_Stage_Red_Percent, DataPerhaps: settingsSalesFunnel_Stage_Yellow_Percent, DataAvailable: settingsSalesFunnel_Stage_Green_Percent};
+        var workShiftPositionStartMiliseconds = (workShiftPositionStart.seconds)*1000;
+        var dataStart = new Date(workShiftPositionStartMiliseconds);
+        var date_Pos = dataStart.toString();
+        var getDay = date_Pos.split(" ")[0];
+        var getMonth = date_Pos.split(" ")[1];
+        var getDate = date_Pos.split(" ")[2];
+        var workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth);
+        var workShiftPositionExpirationMiliseconds = (workShiftPositionExpiration.seconds)*1000;
+        var processShiftDurationMiliseconds = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
+        var processShiftDurationMilisecondsSum = processShiftDurationMiliseconds*listPositionUser_length;
+        var settingsSalesFunnel_Stage_Green_T = (settingsSalesFunnel_Stage_Green*100)/processShiftDurationMilisecondsSum;
+        var settingsSalesFunnel_Stage_Yellow_T = (settingsSalesFunnel_Stage_Yellow*100)/processShiftDurationMilisecondsSum;
+        var settingsSalesFunnel_Stage_Red_T = (settingsSalesFunnel_Stage_Red*100)/processShiftDurationMilisecondsSum;
+        var settingsSalesFunnel_Stage_Green_Percent = settingsSalesFunnel_Stage_Green_T.toFixed(1);
+        var settingsSalesFunnel_Stage_Yellow_Percent = settingsSalesFunnel_Stage_Yellow_T.toFixed(1);
+        var settingsSalesFunnel_Stage_Red_Percent = settingsSalesFunnel_Stage_Red_T.toFixed(1);
+        var object = {LABELS: workShiftPositionStartString, DataNotAvailable: settingsSalesFunnel_Stage_Red_Percent, DataPerhaps: settingsSalesFunnel_Stage_Yellow_Percent, DataAvailable: settingsSalesFunnel_Stage_Green_Percent};
         listDataDiogramma.push(object);
     }
   });
 });
 listDataDiogramma.forEach(function(item, i, arr) {
-  let labels_l = item.LABELS;
-  let dataNotAvailable_l = item.DataNotAvailable;
-  let dataPerhaps_l = item.DataPerhaps;
-  let dataAvailable_1 = item.DataAvailable;
+  var labels_l = item.LABELS;
+  var dataNotAvailable_l = item.DataNotAvailable;
+  var dataPerhaps_l = item.DataPerhaps;
+  var dataAvailable_1 = item.DataAvailable;
   LABELS.push(labels_l);
   dataNotAvailable.push(dataNotAvailable_l);
   dataPerhaps.push(dataPerhaps_l);
@@ -1276,14 +1389,14 @@ listDataDiogramma.forEach(function(item, i, arr) {
   display_Chart();
  });
  // получаем документы за данный период зафиксированные по сменам пользователями участвующих в смене и отборе itemShiftInterval
- let itemDocNoteTraffic = [];
- let length_G = itemShiftInterval.length - 1;
+ var itemDocNoteTraffic = [];
+ var length_G = itemShiftInterval.length - 1;
  itemShiftInterval.forEach(function(item, k, arr) {
- let userActiveShift = item.userActiveShift;
- let idDocPosition = item.IdDocPosition;
- let idDocShiftPosition = item.IdDocShiftPosition;
- let workShiftPositionStart = item.WorkShiftPositionStart;
- let workShiftPositionExpiration = item.WorkShiftPositionExpiration;
+ var userActiveShift = item.userActiveShift;
+ var idDocPosition = item.IdDocPosition;
+ var idDocShiftPosition = item.IdDocShiftPosition;
+ var workShiftPositionStart = item.WorkShiftPositionStart;
+ var workShiftPositionExpiration = item.WorkShiftPositionExpiration;
  db.collection("Note") .where("NoteSource", "==", "note_traffic")
                        .where("NoteIdDocPosition", "==", idDocPosition)
                        .where("NoteUser", "==", userActiveShift)
@@ -1302,14 +1415,14 @@ listDataDiogramma.forEach(function(item, i, arr) {
        if (length_G === k)
        {
          //начало заполняем таблицу Traffic Sources Analytics
-         let listNoteTraffic_Table = [];
-         let numer_Array = 0;
+         var listNoteTraffic_Table = [];
+         var numer_Array = 0;
          listNoteTrsffic.forEach(function(item, i, arr) {
-           let name_Traffic = item.SettingsNoteTrafficOption;
-           let numer = 0;
-           let length_itemDocNoteTraffic = itemDocNoteTraffic.length - 1;
+           var name_Traffic = item.SettingsNoteTrafficOption;
+           var numer = 0;
+           var length_itemDocNoteTraffic = itemDocNoteTraffic.length - 1;
            itemDocNoteTraffic.forEach(function(item, v, arr) {
-             let l = item.NoteText;
+             var l = item.NoteText;
              if (name_Traffic === l)
              {
                numer = numer + 1;
@@ -1323,12 +1436,12 @@ listDataDiogramma.forEach(function(item, i, arr) {
            });
           });
           // расчитать процентные соотношения listNoteTraffic_Table
-          let listNoteTraffic_Table_Percent = [];
+          var listNoteTraffic_Table_Percent = [];
           listNoteTraffic_Table.forEach(function(item, i, arr) {
-            let element_Sum = item.Sum;
-            let element_Name = item.Name;
-            let element_Sum_Percent = (element_Sum*100)/numer_Array;
-            let element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
+            var element_Sum = item.Sum;
+            var element_Name = item.Name;
+            var element_Sum_Percent = (element_Sum*100)/numer_Array;
+            var element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
             listNoteTraffic_Table_Percent.push({Name:element_Name, Sum: element_Sum, SumPercent: element_Sum_Percent_Okr});
           });
 
@@ -1380,49 +1493,49 @@ listDataDiogramma.forEach(function(item, i, arr) {
  // окончание заполняем таблицу Traffic Sources Analytics
  // начало подготавливаем данные для таблицы Result Table
 
-let item_ResultTable = [];
+var item_ResultTable = [];
 itemSettingsButton.forEach(function(item, i, arr) {
-let settingsSalesFunnel_Result = item.SettingsSalesFunnel_Result;
+var settingsSalesFunnel_Result = item.SettingsSalesFunnel_Result;
 if (settingsSalesFunnel_Result === "Take account of" )
 {
-  let settingsTitle = item.SettingsTitle;
-  let object = [];
-  let settingsResultControlOption1 = item.SettingsResultControlOption1;
+  var settingsTitle = item.SettingsTitle;
+  var object = [];
+  var settingsResultControlOption1 = item.SettingsResultControlOption1;
   if (settingsResultControlOption1 !== "")
   {
     object.push(settingsResultControlOption1);
   }
-  let settingsResultControlOption2 = item.SettingsResultControlOption2;
+  var settingsResultControlOption2 = item.SettingsResultControlOption2;
   if (settingsResultControlOption2 !== "")
   {
     object.push(settingsResultControlOption2);
   }
-  let settingsResultControlOption3 = item.SettingsResultControlOption3;
+  var settingsResultControlOption3 = item.SettingsResultControlOption3;
   if (settingsResultControlOption3 !== "")
   {
     object.push(settingsResultControlOption3);
   }
-  let settingsResultControlOption4 = item.SettingsResultControlOption4;
+  var settingsResultControlOption4 = item.SettingsResultControlOption4;
   if (settingsResultControlOption4 !== "")
   {
     object.push(settingsResultControlOption4);
   }
-  let settingsResultControlOption5 = item.SettingsResultControlOption5;
+  var settingsResultControlOption5 = item.SettingsResultControlOption5;
   if (settingsResultControlOption5 !== "")
   {
     object.push(settingsResultControlOption5);
   }
-  let settingsResultControlOption6 = item.SettingsResultControlOption6;
+  var settingsResultControlOption6 = item.SettingsResultControlOption6;
   if (settingsResultControlOption6 !== "")
   {
     object.push(settingsResultControlOption6);
   }
-  let settingsResultControlOption7 = item.SettingsResultControlOption7;
+  var settingsResultControlOption7 = item.SettingsResultControlOption7;
   if (settingsResultControlOption7 !== "")
   {
     object.push(settingsResultControlOption7);
   }
-  let settingsResultControlOption8 = item.SettingsResultControlOption8;
+  var settingsResultControlOption8 = item.SettingsResultControlOption8;
   if (settingsResultControlOption8 !== "")
   {
     object.push(settingsResultControlOption8);
@@ -1430,17 +1543,17 @@ if (settingsSalesFunnel_Result === "Take account of" )
   item_ResultTable.push({SettingsTitle: settingsTitle, SettingsResultControlOption: object});
  }
 });
-let item_ResultTable_Play = [];
+var item_ResultTable_Play = [];
 item_ResultTable.forEach(function(item, i, arr) {
-let settingsTitle = item.SettingsTitle;
-let settingsResultControlOption = item.SettingsResultControlOption;
+var settingsTitle = item.SettingsTitle;
+var settingsResultControlOption = item.SettingsResultControlOption;
   settingsResultControlOption.forEach(function(item, i, arr) {
-     let settingsResultControlOption_Result = settingsResultControlOption[i];
-     let length_itemDocShiftList = itemDocShiftList.length - 1;
-     let numerElement = 0;
+     var settingsResultControlOption_Result = settingsResultControlOption[i];
+     var length_itemDocShiftList = itemDocShiftList.length - 1;
+     var numerElement = 0;
      itemDocShiftList.forEach(function(item, l, arr) {
-       let nameDocProcessButton = item.NameDocProcessButton;
-       let resultControlButton = item.ResultControlButton;
+       var nameDocProcessButton = item.NameDocProcessButton;
+       var resultControlButton = item.ResultControlButton;
        if (settingsTitle === nameDocProcessButton && settingsResultControlOption_Result === resultControlButton)
        {
          numerElement = numerElement + 1;
@@ -1453,16 +1566,16 @@ let settingsResultControlOption = item.SettingsResultControlOption;
     });
   });
 // расчитываем процент Result Table
-  let sumElement = 0;
+  var sumElement = 0;
   item_ResultTable_Play.forEach(function(item, i, arr) {
-    let element_Sum = item.SumElement;
+    var element_Sum = item.SumElement;
     sumElement = sumElement + element_Sum;
   });
   //вывожу в таблицу
   item_ResultTable_Play.forEach(function(item, i, arr) {
-      let element_Sum = item.SumElement;
-      let element_Sum_Percent = (element_Sum*100)/sumElement;
-      let element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
+      var element_Sum = item.SumElement;
+      var element_Sum_Percent = (element_Sum*100)/sumElement;
+      var element_Sum_Percent_Okr = element_Sum_Percent.toFixed(1);
 
      var tr = document.createElement("tr");
 
@@ -1508,25 +1621,25 @@ let settingsResultControlOption = item.SettingsResultControlOption;
   });
  // окончание подготавливаем данные для таблицы Result Table
  // начало подготавливаем данные для Sales Funnel
- let item_SalesFunnel = [];
- let item_SalesFunnel_SF = [];
- let item_SalesFunnel_SF_Sum = [];
+ var item_SalesFunnel = [];
+ var item_SalesFunnel_SF = [];
+ var item_SalesFunnel_SF_Sum = [];
  itemSettingsButton.forEach(function(item, i, arr) {
- let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+ var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
  if (settingsSalesFunnel_Availability === "Stage 1 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 2 of the sales funnel"  || settingsSalesFunnel_Availability === "Stage 3 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 4 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 5 of the sales funnel")
  {
-   let settingsTitle = item.SettingsTitle;
+   var settingsTitle = item.SettingsTitle;
      item_SalesFunnel.push({SettingsTitle: settingsTitle, SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability});
      item_SalesFunnel.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
   }
  });
  item_SalesFunnel.forEach(function(item, i, arr) {
- let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
- let settingsTitle = item.SettingsTitle;
- let sum_item_SalesFunnel_Element = 0;
- let length_itemDocShiftList = itemDocShiftList.length - 1;
+ var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+ var settingsTitle = item.SettingsTitle;
+ var sum_item_SalesFunnel_Element = 0;
+ var length_itemDocShiftList = itemDocShiftList.length - 1;
    itemDocShiftList.forEach(function(item, l, arr) {
-     let settingsTitle_Doc = item.NameDocProcessButton;
+     var settingsTitle_Doc = item.NameDocProcessButton;
      if (settingsTitle === settingsTitle_Doc)
      {
        sum_item_SalesFunnel_Element = sum_item_SalesFunnel_Element + 1;
@@ -1537,16 +1650,16 @@ let settingsResultControlOption = item.SettingsResultControlOption;
      }
    });
  });
- let settingsSalesFunnel_Availability_List = ["Stage 1 of the sales funnel", "Stage 2 of the sales funnel", "Stage 3 of the sales funnel", "Stage 4 of the sales funnel", "Stage 5 of the sales funnel"];
+ var settingsSalesFunnel_Availability_List = ["Stage 1 of the sales funnel", "Stage 2 of the sales funnel", "Stage 3 of the sales funnel", "Stage 4 of the sales funnel", "Stage 5 of the sales funnel"];
    settingsSalesFunnel_Availability_List.forEach(function(item, i, arr) {
-   let settingsSalesFunnel_Availability_Element = settingsSalesFunnel_Availability_List[i];
-   let length_item_SalesFunnel_SF = item_SalesFunnel_SF.length - 1;
-   let sum_SalesFunnel_SF = 0;
+   var settingsSalesFunnel_Availability_Element = settingsSalesFunnel_Availability_List[i];
+   var length_item_SalesFunnel_SF = item_SalesFunnel_SF.length - 1;
+   var sum_SalesFunnel_SF = 0;
    item_SalesFunnel_SF.forEach(function(item, l, arr) {
-     let settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+     var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
      if (settingsSalesFunnel_Availability_Element === settingsSalesFunnel_Availability)
      {
-       let sumElementFS = item.SumElementFS;
+       var sumElementFS = item.SumElementFS;
        sum_SalesFunnel_SF = sum_SalesFunnel_SF + sumElementFS;
      }
      if (length_item_SalesFunnel_SF === l)
@@ -1558,9 +1671,9 @@ let settingsResultControlOption = item.SettingsResultControlOption;
   item_SalesFunnel_SF_Sum.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
   // let length_item_SalesFunnel_SF_Sum = item_SalesFunnel_SF_Sum.length - 1;
     item_SalesFunnel_SF_Sum.forEach(function(item, i, arr) {
-    let settingsSalesFunnel_Availability_Element = item.SettingsSalesFunnel_Availability;
-    let settingsSalesFunnel_Availability = settingsSalesFunnel_Availability_Element.substring(7, -7);
-    let sumElementFS = item.SumElementFS;
+    var settingsSalesFunnel_Availability_Element = item.SettingsSalesFunnel_Availability;
+    var settingsSalesFunnel_Availability = settingsSalesFunnel_Availability_Element.substring(7, -7);
+    var sumElementFS = item.SumElementFS;
     if (sumElementFS > 0)
     {
       labels_FS.push(settingsSalesFunnel_Availability);
@@ -1572,22 +1685,22 @@ let settingsResultControlOption = item.SettingsResultControlOption;
 
  // окончание подготавливаем данные для Sales Funnel
 }
-let listNoteTrsffic = [];
+var listNoteTrsffic = [];
 docRefPosition.collection("PositionSettingsNoteTrafic").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
-        let document = doc.data();
-        let settingsNoteTrafficOption1 = document.SettingsNoteTrafficOption1;
-        let settingsNoteTrafficOption2 = document.SettingsNoteTrafficOption2;
-        let settingsNoteTrafficOption3 = document.SettingsNoteTrafficOption3;
-        let settingsNoteTrafficOption4 = document.SettingsNoteTrafficOption4;
-        let settingsNoteTrafficOption5 = document.SettingsNoteTrafficOption5;
-        let settingsNoteTrafficOption6 = document.SettingsNoteTrafficOption6;
-        let settingsNoteTrafficOption7 = document.SettingsNoteTrafficOption7;
-        let settingsNoteTrafficOption8 = document.SettingsNoteTrafficOption8;
-        let settingsNoteTrafficOption9 = document.SettingsNoteTrafficOption9;
-        let settingsNoteTrafficOption10 = document.SettingsNoteTrafficOption10;
+        var document = doc.data();
+        var settingsNoteTrafficOption1 = document.SettingsNoteTrafficOption1;
+        var settingsNoteTrafficOption2 = document.SettingsNoteTrafficOption2;
+        var settingsNoteTrafficOption3 = document.SettingsNoteTrafficOption3;
+        var settingsNoteTrafficOption4 = document.SettingsNoteTrafficOption4;
+        var settingsNoteTrafficOption5 = document.SettingsNoteTrafficOption5;
+        var settingsNoteTrafficOption6 = document.SettingsNoteTrafficOption6;
+        var settingsNoteTrafficOption7 = document.SettingsNoteTrafficOption7;
+        var settingsNoteTrafficOption8 = document.SettingsNoteTrafficOption8;
+        var settingsNoteTrafficOption9 = document.SettingsNoteTrafficOption9;
+        var settingsNoteTrafficOption10 = document.SettingsNoteTrafficOption10;
         if (settingsNoteTrafficOption1 !== "")
         {
           listNoteTrsffic.push({SettingsNoteTrafficOption: settingsNoteTrafficOption1});

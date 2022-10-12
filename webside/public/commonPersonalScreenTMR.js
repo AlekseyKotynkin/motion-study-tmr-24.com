@@ -11,7 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -64,7 +65,7 @@ displayListOpenNotes();
 
         var parent_Column = document.createElement('td');
         var parent = item.NoteSource;
-        let noteSource = "";
+        var noteSource = "";
         if (parent === "note_traffic" )
         {
            noteSource = "Note Traffic";
@@ -87,18 +88,18 @@ displayListOpenNotes();
         userСommentColumn.innerHTML = item.NoteText;
 
          var time_Column = document.createElement('td');
-         let workShiftPositionExpiration = item.NoteTime;
-         let secondsExpiration = workShiftPositionExpiration.seconds*1000;
-         let dataExpiration = new Date(secondsExpiration);
-         let lE = dataExpiration.toString();
-         let getDayExpiration = lE.split(" ")[0];
-         let getMonthExpiration = lE.split(" ")[1];
-         let getDateExpiration = lE.split(" ")[2];
-         let getFullYearExpiration = lE.split(" ")[3];
-         let getTimeExpiration = lE.split(" ")[4];
-         let getHoursExpiration = getTimeExpiration.split(":")[0];
-         let getMinutesExpiration = getTimeExpiration.split(":")[1];
-         let workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _  "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
+         var workShiftPositionExpiration = item.NoteTime;
+         var secondsExpiration = workShiftPositionExpiration.seconds*1000;
+         var dataExpiration = new Date(secondsExpiration);
+         var lE = dataExpiration.toString();
+         var getDayExpiration = lE.split(" ")[0];
+         var getMonthExpiration = lE.split(" ")[1];
+         var getDateExpiration = lE.split(" ")[2];
+         var getFullYearExpiration = lE.split(" ")[3];
+         var getTimeExpiration = lE.split(" ")[4];
+         var getHoursExpiration = getTimeExpiration.split(":")[0];
+         var getMinutesExpiration = getTimeExpiration.split(":")[1];
+         var workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _  "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
 
          time_Column.innerHTML = workShiftPositionExpirationString;
 
@@ -143,7 +144,7 @@ displayListOpenNotes();
 
 function toCloseNote(obj)
 {
-  let objId = obj.id;
+  var objId = obj.id;
   var washingtonRef = db.collection("Note").doc(objId);
   // Set the "capital" field of the city 'DC'
   return washingtonRef.update({

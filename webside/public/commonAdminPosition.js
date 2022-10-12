@@ -11,7 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -136,7 +137,11 @@ if (doc.exists) {
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     alert ("An error happened!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert ("An error happened!");
+     } else {
+       alert ("Произошла ошибка!");
+     }
    });
  };
 
@@ -468,13 +473,21 @@ function gridSystemModalNewUserSubmit()
   var userTitle = document.getElementById("exampleInputModalUserTitle").value;
   if (userTitle.length < 1)
   {
-   alert('Please enter an user name.');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please enter an user name.');
+    } else {
+      alert ("Пожалуйста, введите имя пользователя.");
+    }
    return;
   }
   var userСomment = document.getElementById("exampleInputModalUserСomment").value;
   if (userСomment.length < 1)
   {
-   alert('Please enter an comments.');
+    if(translation_JS == null && translation_JS == 'en'){
+      alert('Please enter an comments.');
+    } else {
+      alert ("Пожалуйста, введите комментарий.");
+    }
    return;
   }
   docRefPosition.collection("PositionUser").add({
@@ -489,7 +502,11 @@ function gridSystemModalNewUserSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      alert("Error adding document: ", error);
+      if(translation_JS == null && translation_JS == 'en'){
+        alert("Error adding document: ", error);
+      } else {
+        alert("Ошибка при добавлении документа: ", error);
+      }
   });
 };
 
@@ -541,7 +558,11 @@ function gridSystemModalNewSettingsSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      alert("Error adding document: ", error);
+      if(translation_JS == null && translation_JS == 'en'){
+        alert("Error adding document: ", error);
+      } else {
+        alert("Ошибка при добавлении документа: ", error);
+      }
   });
 };
 
@@ -552,7 +573,11 @@ function gridSystemModalNewSettingsSubmit()
 function toDismissButtonUser(obj)
 {
   let objId = obj.id;
-  alert('Document successfully deleted! '+ (objId));
+  if(translation_JS == null && translation_JS == 'en'){
+    alert('Document successfully deleted!'+ (objId));
+  } else {
+    alert('Документ успешно удален!'+ (objId));
+  }
   docRefPosition.collection("PositionUser").doc(objId).delete().then(function()
   {
       console.log("Document successfully deleted!");
@@ -570,7 +595,11 @@ function toDismissButtonUser(obj)
 function deleteButtonSettings(obj)
 {
   let objId = obj.id;
-  alert('Document successfully deleted! '+ (objId));
+  if(translation_JS == null && translation_JS == 'en'){
+    alert('Document successfully deleted!'+ (objId));
+  } else {
+    alert('Документ успешно удален!'+ (objId));
+  }
   docRefPosition.collection("PositionSettings").doc(objId).delete().then(function()
   {
        console.log("Document successfully deleted!");
@@ -843,7 +872,11 @@ function editGridSystemModalNewPositionTrafficSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      alert("Error adding document: ", error);
+      if(translation_JS == null && translation_JS == 'en'){
+        alert("Error adding document: ", error);
+      } else {
+        alert("Ошибка при добавлении документа: ", error);
+      }
   });
 };
 
@@ -881,7 +914,11 @@ function editGridSystemModalNewUserNoteSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      alert("Error adding document: ", error);
+      if(translation_JS == null && translation_JS == 'en'){
+        alert("Error adding document: ", error);
+      } else {
+        alert("Ошибка при добавлении документа: ", error);
+      }
   });
 };
 
@@ -1175,7 +1212,11 @@ function editButtonNoteTraffic(obj)
 function toDismissButtonNoteList(obj)
 {
   let objId = obj.id;
-  alert('Document successfully deleted! '+ (objId));
+  if(translation_JS == null && translation_JS == 'en'){
+    alert('Document successfully deleted!'+ (objId));
+  } else {
+    alert('Документ успешно удален!'+ (objId));
+  }
   docRefPosition.collection("PositionSettingsNoteList").doc(objId).delete().then(function()
   {
       console.log("Document successfully deleted!");
@@ -1193,7 +1234,11 @@ function toDismissButtonNoteList(obj)
 function toDismissButtonNoteTraffic(obj)
 {
   let objId = obj.id;
-  alert('Document successfully deleted! '+ (objId));
+  if(translation_JS == null && translation_JS == 'en'){
+    alert('Document successfully deleted!'+ (objId));
+  } else {
+    alert('Документ успешно удален!'+ (objId));
+  }
   docRefPosition.collection("PositionSettingsNoteTrafic").doc(objId).delete().then(function()
   {
       console.log("Document successfully deleted!");

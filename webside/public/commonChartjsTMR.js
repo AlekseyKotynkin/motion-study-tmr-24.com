@@ -11,7 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -52,7 +53,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
               // console.log(doc.id, " => ", doc.data());
               let idDocOrganization = doc.id;
               let nameOrganization = doc.data().Organization;
-              alert('Compiling a list of users of your organization '+nameOrganization+'.');
+              if(translation_JS == null && translation_JS == 'en'){
+                alert('Compiling a list of users of your organization '+nameOrganization+'.');
+              } else {
+                alert('Составление списка пользователей вашей организации '+nameOrganization+'.');
+              }
               var groupPositionUser = db.collectionGroup('PositionUser').where('idDocOrganization', '==', idDocOrganization);
               groupPositionUser.get().then(function (querySnapshot) {
                   querySnapshot.forEach(function (doc) {
@@ -477,7 +482,11 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     alert ("An error happened!");
+     if(translation_JS == null && translation_JS == 'en'){
+       alert ("An error happened!");
+     } else {
+       alert ("Произошла ошибка!");
+     }
    });
  }
 

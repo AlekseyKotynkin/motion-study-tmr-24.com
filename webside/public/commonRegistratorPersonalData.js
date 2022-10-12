@@ -13,7 +13,8 @@
  */
 var storage = firebase.storage();
   // Get the default bucket from a custom firebase.app.App
-
+  // Получаем переменную для распознавания языка пользователя
+ var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
@@ -39,7 +40,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      }).catch(function(error) {
        // An error happened.
        // Произошла ошибка.
-       alert ("An error happened!");
+       if(translation_JS == null && translation_JS == 'en'){
+         alert ("An error happened!");
+       } else {
+         alert ("Произошла ошибка!");
+       }
      });
    }
    /**
@@ -53,17 +58,29 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      var photoName = document.getElementById("exampleInputUpload1").value;
      if (name.length < 1)
      {
-      alert('Please enter an name.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Please enter an name.');
+       } else {
+         alert ("Пожалуйста, введите имя.");
+       }
       return;
      }
      if (phone.length < 11)
      {
-     alert('Please enter a phone number.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Please enter a phone number.');
+       } else {
+         alert ("Пожалуйста, введите номер телефона.");
+       }
      return;
      }
      if (photoName.length < 4)
      {
-      alert('Please upload a photo file.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('Please upload a photo file.');
+       } else {
+         alert ("Пожалуйста, загрузите файл с фотографией.");
+       }
       return;
      }
      firebase.auth().onAuthStateChanged(function(user) {
@@ -82,7 +99,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
            }).catch(function(error) {
              // An error happened.
              // Произошла ошибка.
-             alert ("An error happened!");
+             if(translation_JS == null && translation_JS == 'en'){
+               alert ("An error happened!");
+             } else {
+               alert ("Произошла ошибка!");
+             }
              window.location.replace()
            });
          }else
@@ -137,7 +158,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                    PhoneNumber: phone
                  }).then(function() {
                    // Update successful.
-                   alert ("Update successful.");
+                   if(translation_JS == null && translation_JS == 'en'){
+                     alert ("Update successful.");
+                   } else {
+                     alert ("Обновление прошло успешно.");
+                   }
                    localStorage.clear();
                    let itemsArray = [{
                      displayName: name,
@@ -156,7 +181,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
        } else {
        // No user is signed in.
        // Ни один пользователь не вошел в систему.
-       alert('No user is signed in.');
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('No user is signed in.');
+       } else {
+         alert ("Ни один пользователь не вошел в систему.");
+       }
        window.location.replace("widget.html")
        }
      });

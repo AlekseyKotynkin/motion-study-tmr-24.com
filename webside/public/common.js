@@ -11,13 +11,15 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 var db = firebase.firestore();
 var database = firebase.database();
 /**
+
 * @return {string}
  *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
  */
@@ -30,9 +32,13 @@ var database = firebase.database();
     }).catch(function(error) {
       // An error happened.
       // Произошла ошибка.
-      alert ("An error happened!");
+      if(translation_JS == null && translation_JS == 'en'){
+        alert ("An error happened!");
+      } else {
+        alert ("Произошла ошибка!");
+      }
     });
-  };
+  }
 /**
 * @return {string}
 //  Вход пользователя через форму.
@@ -43,12 +49,20 @@ var database = firebase.database();
     var password = document.getElementById("inputPassword1").value;
     if (email.length < 4)
     {
-     alert('Please enter an email address.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please enter an email address.');
+      } else {
+        alert ("Пожалуйста, введите адрес электронной почты!");
+      }
      return;
     }
     if (password.length < 4)
     {
-    alert('Please enter a password.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please enter a password.');
+      } else {
+        alert ("Пожалуйста, введите пароль!");
+      }
     return;
     }
     firebase.auth().onAuthStateChanged(function(user) {
@@ -65,18 +79,26 @@ var database = firebase.database();
            // Sign-out successful.
            // Выход выполнен успешно.
            localStorage.clear();
-           window.location.replace()
+           window.location.replace();
          }).catch(function(error) {
            // An error happened.
            // Произошла ошибка.
-           alert ("An error happened!");
+           if(translation_JS == null && translation_JS == 'en'){
+             alert ("An error happened!");
+           } else {
+             alert ("Произошла ошибка!");
+           }
          });
        }
-       alert('User is signed in. ' + email);
+       if(translation_JS == null && translation_JS == 'en'){
+         alert('User is signed in. ' + email);
+       } else {
+         alert('Пользователь вошел в систему. ' + email);
+       }
        name = user.displayName;
        if (name === null)
        {
-         let itemsArray = [{
+         var itemsArray = [{
            displayName: name,
            email: email,
            photoUrl: photoUrl
@@ -87,7 +109,7 @@ var database = firebase.database();
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         uid = user.uid;
-          let itemsArray = [{
+          var itemsArray = [{
           displayName: name,
           email: email,
           photoUrl: photoUrl
@@ -111,7 +133,7 @@ var database = firebase.database();
         });
       }
     });
-  };
+  }
 
 
      //  Вход пользователя через форму Google.
@@ -128,13 +150,17 @@ var database = firebase.database();
           var email = user.email;
           var photoUrl = user.photoUrl;
 
-          let itemsArray = [{
+          var itemsArray = [{
             displayName: name,
             email: email,
             photoUrl: photoUrl
           }];
           localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-          alert (" Welcome! ");
+          if(translation_JS == null && translation_JS == 'en'){
+            alert ("Welcome!");
+          } else {
+            alert ("Здравствуйте!");
+          }
           window.location.replace("index.html")
     }).catch(function(error) {
       // Handle Errors here.
@@ -149,4 +175,4 @@ var database = firebase.database();
       var credential = error.credential;
       // ...
     });
-  };
+  }

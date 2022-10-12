@@ -11,6 +11,8 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 
 /**
  * * Инициализация FirebaseUI для использования в контексте одной страницы приложения.
@@ -178,7 +180,11 @@ var deleteAccount = function() {
         // The timeout allows the message to be displayed after the UI has
         // changed to the signed out state.
         setTimeout(function() {
-          alert('Please sign in again to delete your account.');
+          if(translation_JS == null && translation_JS == 'en'){
+            alert('Please sign in again to delete your account.');
+          } else {
+            alert ("Пожалуйста, войдите в систему еще раз, чтобы удалить свою учетную запись.");
+          }
         }, 1);
       });
     }

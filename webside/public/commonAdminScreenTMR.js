@@ -11,18 +11,19 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ // Получаем переменную для распознавания языка пользователя
+var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
 var db = firebase.firestore();
 var storage = firebase.storage();
 //
-let nameOrganization = "";
-let nameSubdivision = "";
-let namePosition = "";
+var nameOrganization = "";
+var nameSubdivision = "";
+var namePosition = "";
 //переменная для понимания обновления кнопки
-let buttonNumber = "";
+var buttonNumber = "";
 
 
  /**
@@ -35,11 +36,11 @@ const EmailLocalStorage = (LocalStorageValueObject[0]).email;
 const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
 
-let itemsOrganizationName = [];
-let idDocPosition = "";
-let idDocOrganization = "";
-let idDocSubdivision = "";
-let positionShift = "";
+var itemsOrganizationName = [];
+var idDocPosition = "";
+var idDocOrganization = "";
+var idDocSubdivision = "";
+var positionShift = "";
 
 
 
@@ -51,7 +52,7 @@ function gridDisplayOrganizationOwner() {
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
   // обнуляем позицию
-  let positionShift = "";
+  var positionShift = "";
   //убрать кнопку из таблицыц
    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
@@ -66,8 +67,8 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            let idDocOrganization = doc.id;
-            let nameOrganization = doc.data().Organization;
+            var idDocOrganization = doc.id;
+            var nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
             // * начало получаем коллекции которые относятся к Организации найденых по запросу выше
             var docRef = db.collection("Organization").doc(idDocOrganization);
@@ -79,7 +80,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
                             // console.log(doc.id, " => ", doc.data());
-                            let idDocSubdivision = doc.id;
+                            var idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
@@ -91,19 +92,19 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                            // doc.data() is never undefined for query doc snapshots
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
-                                             let parentHierarchyDoc = doc.ref.path;
-                                             let organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             let positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var parentHierarchyDoc = doc.ref.path;
+                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
+                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                                             var positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               let organizationDocId = element.idDocOrganization ;
-                                               let subdivisionDocId = element.idDocSubdivision ;
-                                               let positionDocId = element.idDocPosition ;
-                                               let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var organizationDocId = element.idDocOrganization ;
+                                               var subdivisionDocId = element.idDocSubdivision ;
+                                               var positionDocId = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -114,7 +115,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -125,7 +126,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -208,7 +209,7 @@ function gridDisplayManagerOrganization() {
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
   // обнуляем позицию
-  let positionShift = "";
+  var positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -224,8 +225,8 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            let idDocOrganization = doc.id;
-            let nameOrganization = doc.data().Organization;
+            var idDocOrganization = doc.id;
+            var nameOrganization = doc.data().Organization;
             // alert('Compiling a list of users of your organization '+nameOrganization+'.');
             // * начало получаем коллекции которые относятся к Организации найденых по запросу выше
             var docRef = db.collection("Organization").doc(idDocOrganization);
@@ -237,7 +238,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                         querySnapshot.forEach(function(doc) {
                             // doc.data() is never undefined for query doc snapshots
                             // console.log(doc.id, " => ", doc.data());
-                            let idDocSubdivision = doc.id;
+                            var idDocSubdivision = doc.id;
                             // начало* получаем id документов Subdivision найденых по запросу выше
                             var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
                             docRefSubdivision.get().then(function(doc) {
@@ -249,19 +250,19 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                            // doc.data() is never undefined for query doc snapshots
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
-                                             let parentHierarchyDoc = doc.ref.path;
-                                             let organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             let positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var parentHierarchyDoc = doc.ref.path;
+                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
+                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                                             var positionDocId = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
                                              itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               let organizationDocId = element.idDocOrganization ;
-                                               let subdivisionDocId = element.idDocSubdivision ;
-                                               let positionDocId = element.idDocPosition ;
-                                               let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var organizationDocId = element.idDocOrganization ;
+                                               var subdivisionDocId = element.idDocSubdivision ;
+                                               var positionDocId = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -272,7 +273,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -283,7 +284,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -366,7 +367,7 @@ function gridDisplayManagerSubdivision() {
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
   // обнуляем позицию
-  let positionShift = "";
+  var positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -382,7 +383,7 @@ function gridDisplayManagerSubdivision() {
       querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           // console.log(doc.id, " => ", doc.data());
-          let idDocSubdivision = doc.id;
+          var idDocSubdivision = doc.id;
           // начало* получаем id документов Subdivision найденых по запросу выше
           var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
           docRefSubdivision.get().then(function(doc) {
@@ -394,19 +395,19 @@ function gridDisplayManagerSubdivision() {
                          // doc.data() is never undefined for query doc snapshots
                          console.log(doc.id, " => ", doc.data());
                          // начало* получаем документы Position найденых по запросу выше
-                           let parentHierarchyDoc = doc.ref.path;
-                           let organizationDocId = parentHierarchyDoc.split("/")[1];
-                           let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                           let positionDocId = parentHierarchyDoc.split("/")[5];
+                           var parentHierarchyDoc = doc.ref.path;
+                           var organizationDocId = parentHierarchyDoc.split("/")[1];
+                           var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+                           var positionDocId = parentHierarchyDoc.split("/")[5];
                            itemsOrganizationName = [];
                            itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
                            // console.log("1.1 => ",itemsOrganizationName);
 
                            itemsOrganizationName.forEach(function(element){
-                             let organizationDocId = element.idDocOrganization ;
-                             let subdivisionDocId = element.idDocSubdivision ;
-                             let positionDocId = element.idDocPosition ;
-                             let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                             var organizationDocId = element.idDocOrganization ;
+                             var subdivisionDocId = element.idDocSubdivision ;
+                             var positionDocId = element.idDocPosition ;
+                             var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                                  docRefOrganization.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameOrganization = doc.data().Organization;
@@ -417,7 +418,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  console.log("Error getting document:", error);
                              });
-                             let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                                  docRefSubdivision.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameSubdivision = doc.data().Subdivision;
@@ -428,7 +429,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  console.log("Error getting document:", error);
                              });
-                             let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                             var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                                  docRefPosition.get().then(function(doc) {
                                  if (doc.exists) {
                                      namePosition = doc.data().Position;
@@ -497,7 +498,7 @@ function gridDisplayManagerPosition() {
   //очищаю таблицу tableAvalablePositionsList
   $('#tablePositionShift tbody').empty();
   // обнуляем позицию
-  let positionShift = "";
+  var positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
@@ -510,18 +511,18 @@ function gridDisplayManagerPosition() {
   var parentHierarchy = db.collectionGroup('PositionUser').where('PositionOfManager', '==', EmailLocalStorage);
   parentHierarchy.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-     let parentHierarchyDoc = doc.ref.path;
-     let organizationDocId = parentHierarchyDoc.split("/")[1];
-     let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-     let positionDocId = parentHierarchyDoc.split("/")[5];
+     var parentHierarchyDoc = doc.ref.path;
+     var organizationDocId = parentHierarchyDoc.split("/")[1];
+     var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+     var positionDocId = parentHierarchyDoc.split("/")[5];
      itemsOrganizationName = [];
      itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
     });
     itemsOrganizationName.forEach(function(element){
-      let organizationDocId = element.idDocOrganization ;
-      let subdivisionDocId = element.idDocSubdivision ;
-      let positionDocId = element.idDocPosition ;
-      let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+      var organizationDocId = element.idDocOrganization ;
+      var subdivisionDocId = element.idDocSubdivision ;
+      var positionDocId = element.idDocPosition ;
+      var docRefOrganization = db.collection("Organization").doc(organizationDocId);
          docRefOrganization.get().then(function(doc) {
           if (doc.exists) {
               nameOrganization = doc.data().Organization;
@@ -532,7 +533,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
-      let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
          docRefSubdivision.get().then(function(doc) {
           if (doc.exists) {
               nameSubdivision = doc.data().Subdivision;
@@ -543,7 +544,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
-      let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+      var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
          docRefPosition.get().then(function(doc) {
           if (doc.exists) {
               namePosition = doc.data().Position;
@@ -602,7 +603,7 @@ function gridDisplayManagerPosition() {
 
   function toComeInButtonPositionsListUser(obj) {
 
-    let itemsPositionUser = [];
+    var itemsPositionUser = [];
     //очищаю таблицу tableAvalablePositionsList
     $('#tablePositionShift tbody').empty();
     //очищаю таблицу tableAvalablePositionsList
@@ -610,10 +611,10 @@ function gridDisplayManagerPosition() {
     //очищаю таблицу tableAvalablePositionsList
     $('#tableShiftPositionsListUser_Edit tbody').empty();
     // обнуляем позицию
-    let positionShift = "";
+    var positionShift = "";
     //обработка редактирования строки...
       idDocPosition = obj.id;
-      let objItem = obj.item;
+      var objItem = obj.item;
       idDocOrganization = objItem.idDocOrganization;
       idDocSubdivision = objItem.idDocSubdivision;
     //заполняем таблицу список пользователей tableAvalablePositionsListUser
@@ -666,7 +667,7 @@ function gridDisplayManagerPosition() {
           buttonNumber = "yes";
           my_div_User = document.getElementById("addButtonShiftPosition");
           const ul_User = my_div_User.querySelector("h4");
-          let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+          var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
           ul_User.insertAdjacentHTML("afterend", li);
         }
 
@@ -683,44 +684,44 @@ function gridDisplayManagerPosition() {
 
   function fillTablePositionShift() {
     $('#tablePositionShift tbody').empty();
-    let itemsPositionShift = [];
-    let docRef = db.collection("Organization").doc(idDocOrganization);
-    let docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
-    let docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+    var itemsPositionShift = [];
+    var docRef = db.collection("Organization").doc(idDocOrganization);
+    var docRefSubdivision = docRef.collection("Subdivision").doc(idDocSubdivision);
+    var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
     docRefPosition.collection("PositionShift")
     .get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         ///
-        let documents = doc.data();
-        let workShiftPositionStart = documents.WorkShiftPositionStart;
-        let secondsStart = workShiftPositionStart.seconds*1000;
-        let dataStart = new Date(secondsStart);
-        let l = dataStart.toString();
-        let getDay = l.split(" ")[0];
-        let getMonth = l.split(" ")[1];
-        let getDate = l.split(" ")[2];
-        let getFullYear = l.split(" ")[3];
-        let getTime = l.split(" ")[4];
-        let getHours = getTime.split(":")[0];
-        let getMinutes = getTime.split(":")[1];
-        let workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth)+" "+(getFullYear)+" _ "+(getHours)+":"+(getMinutes);
+        var documents = doc.data();
+        var workShiftPositionStart = documents.WorkShiftPositionStart;
+        var secondsStart = workShiftPositionStart.seconds*1000;
+        var dataStart = new Date(secondsStart);
+        var l = dataStart.toString();
+        var getDay = l.split(" ")[0];
+        var getMonth = l.split(" ")[1];
+        var getDate = l.split(" ")[2];
+        var getFullYear = l.split(" ")[3];
+        var getTime = l.split(" ")[4];
+        var getHours = getTime.split(":")[0];
+        var getMinutes = getTime.split(":")[1];
+        var workShiftPositionStartString = (getDay)+" "+(getDate)+" "+(getMonth)+" "+(getFullYear)+" _ "+(getHours)+":"+(getMinutes);
         ///
-        let workShiftPositionExpiration = documents.WorkShiftPositionExpiration;
-        let secondsExpiration = workShiftPositionExpiration.seconds*1000;
-        let dataExpiration = new Date(secondsExpiration);
-        let lE = dataExpiration.toString();
-        let getDayExpiration = lE.split(" ")[0];
-        let getMonthExpiration = lE.split(" ")[1];
-        let getDateExpiration = lE.split(" ")[2];
-        let getFullYearExpiration = lE.split(" ")[3];
-        let getTimeExpiration = lE.split(" ")[4];
-        let getHoursExpiration = getTimeExpiration.split(":")[0];
-        let getMinutesExpiration = getTimeExpiration.split(":")[1];
-        let workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _  "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
+        var workShiftPositionExpiration = documents.WorkShiftPositionExpiration;
+        var secondsExpiration = workShiftPositionExpiration.seconds*1000;
+        var dataExpiration = new Date(secondsExpiration);
+        var lE = dataExpiration.toString();
+        var getDayExpiration = lE.split(" ")[0];
+        var getMonthExpiration = lE.split(" ")[1];
+        var getDateExpiration = lE.split(" ")[2];
+        var getFullYearExpiration = lE.split(" ")[3];
+        var getTimeExpiration = lE.split(" ")[4];
+        var getHoursExpiration = getTimeExpiration.split(":")[0];
+        var getMinutesExpiration = getTimeExpiration.split(":")[1];
+        var workShiftPositionExpirationString = (getHoursExpiration)+":"+(getMinutesExpiration)+" _  "+(getDayExpiration)+" "+(getDateExpiration)+" "+(getMonthExpiration)+" "+(getFullYearExpiration);
         ///
-        let listPositionUser = documents.ListPositionUser;
-        let numberUsers = listPositionUser.length;
+        var listPositionUser = documents.ListPositionUser;
+        var numberUsers = listPositionUser.length;
         ///
         itemsPositionShift.push({...doc.data(),...{idPositionShift: doc.id},...{WorkShiftPositionStartString: workShiftPositionStartString},...{WorkShiftPositionExpirationString: workShiftPositionExpirationString},...{NumberUsers: numberUsers},...{NumberPositionTable: secondsStart}});
         itemsPositionShift.sort(( a, b ) => b.NumberPositionTable - a.NumberPositionTable);
@@ -805,136 +806,232 @@ function gridDisplayManagerPosition() {
     var getInputShiftStartDate = document.getElementById("exampleInputShiftStartDate").value;
     if (getInputShiftStartDate.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let dayShiftStartDate = getInputShiftStartDate.split("/")[0];
-    let monthShiftStartDate = getInputShiftStartDate.split("/")[1];
-    let yearShiftStartDate = getInputShiftStartDate.split("/")[2];
+    var dayShiftStartDate = getInputShiftStartDate.split("/")[0];
+    var monthShiftStartDate = getInputShiftStartDate.split("/")[1];
+    var yearShiftStartDate = getInputShiftStartDate.split("/")[2];
     if (dayShiftStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (monthShiftStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (yearShiftStartDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (dayShiftStartDate > 31)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (monthShiftStartDate > 12)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (yearShiftStartDate.length < 4)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     var getInputShiftStartTime = document.getElementById("exampleInputShiftStartTime").value;
     if (getInputShiftStartTime.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let hourShiftStartTime = getInputShiftStartTime.split("/")[0];
-    let minutesShiftStartTime = getInputShiftStartTime.split("/")[1];
+    var hourShiftStartTime = getInputShiftStartTime.split("/")[0];
+    var minutesShiftStartTime = getInputShiftStartTime.split("/")[1];
     if (hourShiftStartTime == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (minutesShiftStartTime == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (hourShiftStartTime > 23)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (minutesShiftStartTime > 59)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     ///
     var getInputShiftExpirationDate = document.getElementById("exampleInputShiftExpirationDate").value;
     if (getInputShiftExpirationDate.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let dayShiftExpirationDate = getInputShiftExpirationDate.split("/")[0];
-    let monthShiftExpirationDate = getInputShiftExpirationDate.split("/")[1];
-    let yearShiftExpirationDate = getInputShiftExpirationDate.split("/")[2];
+    var dayShiftExpirationDate = getInputShiftExpirationDate.split("/")[0];
+    var monthShiftExpirationDate = getInputShiftExpirationDate.split("/")[1];
+    var yearShiftExpirationDate = getInputShiftExpirationDate.split("/")[2];
     if (dayShiftExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (monthShiftExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (yearShiftExpirationDate == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (dayShiftExpirationDate > 31)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (monthShiftExpirationDate > 12)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (yearShiftExpirationDate.length < 4)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     var getInputShiftExpirationTime = document.getElementById("exampleInputShiftExpirationTime").value;
     if (getInputShiftExpirationTime.length < 1)
     {
-     alert('Please fill in the date!.');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date!.');
+      } else {
+        alert ("Пожалуйста, укажите дату!");
+      }
      return;
     }
-    let hourShiftExpirationTime = getInputShiftExpirationTime.split("/")[0];
-    let minutesShiftExpirationTime = getInputShiftExpirationTime.split("/")[1];
+    var hourShiftExpirationTime = getInputShiftExpirationTime.split("/")[0];
+    var minutesShiftExpirationTime = getInputShiftExpirationTime.split("/")[1];
     if (hourShiftExpirationTime == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (minutesShiftExpirationTime == undefined)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (hourShiftExpirationTime > 23)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     if (minutesShiftExpirationTime > 59)
     {
-      alert('Please fill in the date according to the template!');
+      if(translation_JS == null && translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
+      }
       return;
     }
     //собираем формат времени
@@ -944,7 +1041,7 @@ function gridDisplayManagerPosition() {
     //читаем данные с таблицы
     var tableShiftPositions = document.getElementById('tableShiftPositionsListUser');
     //удалил шапку таблицы
-    let itemShiftPositions =[];
+    var itemShiftPositions =[];
     tableShiftPositions.deleteRow(0);
     var rowLength = tableShiftPositions.rows.length;
     for (i = 0; i < rowLength; i++){
@@ -989,7 +1086,7 @@ function gridDisplayManagerPosition() {
    */
    function deleteShiftDataButton (obj)
    {
-     let objId = obj.id;
+     var objId = obj.id;
      var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
      var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
@@ -1009,8 +1106,8 @@ function editShiftDataButton (obj)
 {
   // обнуляем позицию
   positionShift = obj.id;
-  let listPositionUser = [];
-  let itemsPositionUser_Edit =[];
+  var listPositionUser = [];
+  var itemsPositionUser_Edit =[];
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
   var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
@@ -1037,10 +1134,10 @@ function editShiftDataButton (obj)
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          let docyment_Item = doc.data();
-          let userEmail = docyment_Item.UserEmail;
-          let checkedStatus = false;
-          let resuitUserList = listPositionUser.includes(userEmail);
+          var docyment_Item = doc.data();
+          var userEmail = docyment_Item.UserEmail;
+          var checkedStatus = false;
+          var resuitUserList = listPositionUser.includes(userEmail);
             if (resuitUserList == true)
             {
               checkedStatus = true;
@@ -1051,7 +1148,7 @@ function editShiftDataButton (obj)
           .catch(function(error) {
               console.log("Error getting documents: ", error);
           }).finally(() => {itemsPositionUser_Edit;
-            let length_itemsPositionUser_Edit = itemsPositionUser_Edit.length - 1;
+            var length_itemsPositionUser_Edit = itemsPositionUser_Edit.length - 1;
             itemsPositionUser_Edit.forEach(function(item, i, arr){
             var tr = document.createElement("tr");
 
@@ -1092,24 +1189,24 @@ function editShiftDataButton (obj)
  function gridSystemModalShiftPositionsListSubmit_Edit()
  {
    //читаем данные с таблицы
-   let tableShiftPositions_Edit = document.getElementById('tableShiftPositionsListUser_Edit');
+   var tableShiftPositions_Edit = document.getElementById('tableShiftPositionsListUser_Edit');
    //удалил шапку таблицы
-   let itemShiftPositions_Edit =[];
+   var itemShiftPositions_Edit =[];
    tableShiftPositions_Edit.deleteRow(0);
-   let rowLength_Edit = tableShiftPositions_Edit.rows.length;
+   var rowLength_Edit = tableShiftPositions_Edit.rows.length;
    for (i = 0; i < rowLength_Edit; i++){
-      let cells = tableShiftPositions_Edit.rows.item(i).cells;
-      let cellVal_0 = cells.item(0).lastChild.checked;
+      var cells = tableShiftPositions_Edit.rows.item(i).cells;
+      var cellVal_0 = cells.item(0).lastChild.checked;
       if (cellVal_0 == true)
       {
-        let cellVal_1 = cells.item(1).innerHTML;
-        let cellVal_2 = cells.item(2).innerHTML;
+        var cellVal_1 = cells.item(1).innerHTML;
+        var cellVal_2 = cells.item(2).innerHTML;
         itemShiftPositions_Edit.push(cellVal_1)
       }
    }
-   let docRefOrganization = db.collection("Organization").doc(idDocOrganization);
-   let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
-   let docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+   var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+   var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
    var washingtonRef = docRefPosition.collection("PositionShift").doc(positionShift);
    // Set the "capital" field of the city 'DC'
    return washingtonRef.update({
@@ -1134,17 +1231,17 @@ function editShiftDataButton (obj)
 */
 function changeShiftDataButton (obj)
 {
-  let objId = obj.id;
-  let objId_item = obj.item;
-  let itemsShiftDataButton = [];
-  let control_Play = 0;
-  let listPositionUser = objId_item.ListPositionUser;
-  let length_listPositionUser = listPositionUser.length;
+  var objId = obj.id;
+  var objId_item = obj.item;
+  var itemsShiftDataButton = [];
+  var control_Play = 0;
+  var listPositionUser = objId_item.ListPositionUser;
+  var length_listPositionUser = listPositionUser.length;
   listPositionUser.forEach(function(item, i, arr) {
-   let email = listPositionUser[i];
-   let idDocWorkShift = "";
-   let workShiftPositionStartString ="";
-   let workShiftPositionStartString_P ="";
+   var email = listPositionUser[i];
+   var idDocWorkShift = "";
+   var workShiftPositionStartString ="";
+   var workShiftPositionStartString_P ="";
    // начало поиск открытых смен у пользователей
    db.collection("WorkShift").where("EmailPositionUser", "==", email)
                              .where("IdDocPosition", "==", idDocPosition)
@@ -1154,18 +1251,18 @@ function changeShiftDataButton (obj)
            querySnapshot.forEach((doc) => {
                // doc.data() is never undefined for query doc snapshots
                // console.log(doc.id, " => ", doc.data());
-               let docyment =  doc.data();
-               let workShiftStartTime = docyment.WorkShiftStartTime;
-               let secondsStart = workShiftStartTime.seconds*1000;
-               let dataStart = new Date(secondsStart);
-               let l = dataStart.toString();
-               // let getDay = l.split(" ")[0];
-               let getMonth = l.split(" ")[1];
-               let getDate = l.split(" ")[2];
-               // let getFullYear = l.split(" ")[3];
-               let getTime = l.split(" ")[4];
-               let getHours = getTime.split(":")[0];
-               let getMinutes = getTime.split(":")[1];
+               var docyment =  doc.data();
+               var workShiftStartTime = docyment.WorkShiftStartTime;
+               var secondsStart = workShiftStartTime.seconds*1000;
+               var dataStart = new Date(secondsStart);
+               var l = dataStart.toString();
+               // var getDay = l.split(" ")[0];
+               var getMonth = l.split(" ")[1];
+               var getDate = l.split(" ")[2];
+               // var getFullYear = l.split(" ")[3];
+               var getTime = l.split(" ")[4];
+               var getHours = getTime.split(":")[0];
+               var getMinutes = getTime.split(":")[1];
                workShiftPositionStartString ="From "+(getDate)+" "+(getMonth)+" _ "+(getHours)+":"+(getMinutes);
                // console.log(workShiftPositionStartString);
                idDocWorkShift = doc.id;
@@ -1176,26 +1273,26 @@ function changeShiftDataButton (obj)
            console.log("Error getting documents: ", error);
        }).finally(() => {
        // начало отбираем открытый документ смены пользователя
-         let docWorkShift = db.collection("WorkShift").doc(idDocWorkShift);
+         var docWorkShift = db.collection("WorkShift").doc(idDocWorkShift);
          docWorkShift.collection("ProcessUser").where("ProcessUserEnd", "==", "")
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 // console.log(doc.id, " => ", doc.data());
-                let docyment_Element =  doc.data();
-                let nameDocProcessButton = docyment_Element.NameDocProcessButton;
-                let processUserStartTime_P = docyment_Element.ProcessUserStartTime;
-                let secondsStart_P = processUserStartTime_P.seconds*1000;
-                let dataStart_P = new Date(secondsStart_P);
-                let l = dataStart_P.toString();
-                // let getDay = l.split(" ")[0];
-                let getMonth_P = l.split(" ")[1];
-                let getDate_P = l.split(" ")[2];
-                // let getFullYear = l.split(" ")[3];
-                let getTime_P = l.split(" ")[4];
-                let getHours_P = getTime_P.split(":")[0];
-                let getMinutes_P = getTime_P.split(":")[1];
+                var docyment_Element =  doc.data();
+                var nameDocProcessButton = docyment_Element.NameDocProcessButton;
+                var processUserStartTime_P = docyment_Element.ProcessUserStartTime;
+                var secondsStart_P = processUserStartTime_P.seconds*1000;
+                var dataStart_P = new Date(secondsStart_P);
+                var l = dataStart_P.toString();
+                // var getDay = l.split(" ")[0];
+                var getMonth_P = l.split(" ")[1];
+                var getDate_P = l.split(" ")[2];
+                // var getFullYear = l.split(" ")[3];
+                var getTime_P = l.split(" ")[4];
+                var getHours_P = getTime_P.split(":")[0];
+                var getMinutes_P = getTime_P.split(":")[1];
                 workShiftPositionStartString_P ="From "+(getDate_P)+" "+(getMonth_P)+" _ "+(getHours_P)+":"+(getMinutes_P);
                 itemsShiftDataButton.push({Email: email, PersonalChange: workShiftPositionStartString, Status: workShiftPositionStartString_P});
             });
@@ -1217,8 +1314,8 @@ function changeShiftDataButton (obj)
 function showShiftDataButton()
 {
   listPositionUser.forEach(function(item, i, arr) {
-    let email_Play = listPositionUser[i];
-    let obj = itemsShiftDataButton.find(o => o.Email === email_Play);
+    var email_Play = listPositionUser[i];
+    var obj = itemsShiftDataButton.find(o => o.Email === email_Play);
       if (obj == undefined)
       {
         itemsShiftDataButton.push({Email: email_Play, PersonalChange: "Shift is not open", Status: "No open events"});
