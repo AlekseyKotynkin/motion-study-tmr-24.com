@@ -29,7 +29,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
         window.location.replace("../../index.html")
      }).catch(function(error) {
         // An error happened.
-        if(translation_JS == null && translation_JS == 'en'){
+        if(translation_JS == null || translation_JS == 'en'){
           alert ("An error happened!");
         } else {
           alert ("Произошла ошибка!");
@@ -49,7 +49,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
 
      if (email.length < 4)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Please enter an email address.');
        } else {
          alert ("Пожалуйста, введите адрес электронной почты.");
@@ -58,7 +58,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
      }
     if (password.length < 4)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Please enter a password.');
        } else {
          alert ("Пожалуйста, введите пароль.");
@@ -67,7 +67,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
      }
     if (termsConditions == false)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Need to confirm consent all Terms & Conditions.');
        } else {
          alert ("Необходимо подтвердить согласие со всеми Положениями и условиями.");
@@ -79,7 +79,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
        // регистрируем имя пользователя
        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(result) {
        // result.user.tenantId should be ‘TENANT_PROJECT_ID’.
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert (" You are registered! ");
        } else {
          alert (" Вы зарегистрированы! ");
@@ -93,7 +93,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
        var errorMessage = error.message;
        // [START_EXCLUDE]
        if (errorCode == 'auth/weak-password') {
-         if(translation_JS == null && translation_JS == 'en'){
+         if(translation_JS == null || translation_JS == 'en'){
            alert('The password is too weak.');
          } else {
            alert ("Пароль слишком слабый.");

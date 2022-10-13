@@ -53,7 +53,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
               // console.log(doc.id, " => ", doc.data());
               let idDocOrganization = doc.id;
               let nameOrganization = doc.data().Organization;
-              if(translation_JS == null && translation_JS == 'en'){
+              if(translation_JS == null || translation_JS == 'en'){
                 alert('Compiling a list of users of your organization '+nameOrganization+'.');
               } else {
                 alert('Составление списка пользователей вашей организации '+nameOrganization+'.');
@@ -482,7 +482,7 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert ("An error happened!");
      } else {
        alert ("Произошла ошибка!");

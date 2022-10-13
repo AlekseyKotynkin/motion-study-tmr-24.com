@@ -40,7 +40,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      }).catch(function(error) {
        // An error happened.
        // Произошла ошибка.
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert ("An error happened!");
        } else {
          alert ("Произошла ошибка!");
@@ -58,7 +58,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      var photoName = document.getElementById("exampleInputUpload1").value;
      if (name.length < 1)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Please enter an name.');
        } else {
          alert ("Пожалуйста, введите имя.");
@@ -67,7 +67,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      }
      if (phone.length < 11)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Please enter a phone number.');
        } else {
          alert ("Пожалуйста, введите номер телефона.");
@@ -76,7 +76,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      }
      if (photoName.length < 4)
      {
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Please upload a photo file.');
        } else {
          alert ("Пожалуйста, загрузите файл с фотографией.");
@@ -99,7 +99,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
            }).catch(function(error) {
              // An error happened.
              // Произошла ошибка.
-             if(translation_JS == null && translation_JS == 'en'){
+             if(translation_JS == null || translation_JS == 'en'){
                alert ("An error happened!");
              } else {
                alert ("Произошла ошибка!");
@@ -158,7 +158,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                    PhoneNumber: phone
                  }).then(function() {
                    // Update successful.
-                   if(translation_JS == null && translation_JS == 'en'){
+                   if(translation_JS == null || translation_JS == 'en'){
                      alert ("Update successful.");
                    } else {
                      alert ("Обновление прошло успешно.");
@@ -181,7 +181,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
        } else {
        // No user is signed in.
        // Ни один пользователь не вошел в систему.
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('No user is signed in.');
        } else {
          alert ("Ни один пользователь не вошел в систему.");

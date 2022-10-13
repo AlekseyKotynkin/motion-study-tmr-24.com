@@ -806,7 +806,7 @@ function gridDisplayManagerPosition() {
     var getInputShiftStartDate = document.getElementById("exampleInputShiftStartDate").value;
     if (getInputShiftStartDate.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -818,7 +818,7 @@ function gridDisplayManagerPosition() {
     var yearShiftStartDate = getInputShiftStartDate.split("/")[2];
     if (dayShiftStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -827,7 +827,7 @@ function gridDisplayManagerPosition() {
     }
     if (monthShiftStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -836,7 +836,7 @@ function gridDisplayManagerPosition() {
     }
     if (yearShiftStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -845,7 +845,7 @@ function gridDisplayManagerPosition() {
     }
     if (dayShiftStartDate > 31)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -854,7 +854,7 @@ function gridDisplayManagerPosition() {
     }
     if (monthShiftStartDate > 12)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -863,7 +863,7 @@ function gridDisplayManagerPosition() {
     }
     if (yearShiftStartDate.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -873,7 +873,7 @@ function gridDisplayManagerPosition() {
     var getInputShiftStartTime = document.getElementById("exampleInputShiftStartTime").value;
     if (getInputShiftStartTime.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -884,7 +884,7 @@ function gridDisplayManagerPosition() {
     var minutesShiftStartTime = getInputShiftStartTime.split("/")[1];
     if (hourShiftStartTime == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -893,7 +893,7 @@ function gridDisplayManagerPosition() {
     }
     if (minutesShiftStartTime == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -902,7 +902,7 @@ function gridDisplayManagerPosition() {
     }
     if (hourShiftStartTime > 23)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -911,7 +911,7 @@ function gridDisplayManagerPosition() {
     }
     if (minutesShiftStartTime > 59)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -922,7 +922,7 @@ function gridDisplayManagerPosition() {
     var getInputShiftExpirationDate = document.getElementById("exampleInputShiftExpirationDate").value;
     if (getInputShiftExpirationDate.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -934,7 +934,7 @@ function gridDisplayManagerPosition() {
     var yearShiftExpirationDate = getInputShiftExpirationDate.split("/")[2];
     if (dayShiftExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -943,7 +943,7 @@ function gridDisplayManagerPosition() {
     }
     if (monthShiftExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -952,7 +952,7 @@ function gridDisplayManagerPosition() {
     }
     if (yearShiftExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -961,7 +961,7 @@ function gridDisplayManagerPosition() {
     }
     if (dayShiftExpirationDate > 31)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -970,7 +970,7 @@ function gridDisplayManagerPosition() {
     }
     if (monthShiftExpirationDate > 12)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -979,7 +979,7 @@ function gridDisplayManagerPosition() {
     }
     if (yearShiftExpirationDate.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -989,7 +989,7 @@ function gridDisplayManagerPosition() {
     var getInputShiftExpirationTime = document.getElementById("exampleInputShiftExpirationTime").value;
     if (getInputShiftExpirationTime.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -1000,7 +1000,7 @@ function gridDisplayManagerPosition() {
     var minutesShiftExpirationTime = getInputShiftExpirationTime.split("/")[1];
     if (hourShiftExpirationTime == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -1009,7 +1009,7 @@ function gridDisplayManagerPosition() {
     }
     if (minutesShiftExpirationTime == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -1018,7 +1018,7 @@ function gridDisplayManagerPosition() {
     }
     if (hourShiftExpirationTime > 23)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");
@@ -1027,7 +1027,7 @@ function gridDisplayManagerPosition() {
     }
     if (minutesShiftExpirationTime > 59)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert ("Пожалуйста, заполните дату в соответствии с шаблоном!");

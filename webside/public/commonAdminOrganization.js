@@ -18,12 +18,12 @@ var translation_JS = localStorage.getItem('TMR::translation');
  */
  var db = firebase.firestore();
  //
-let documentData=[];
-let documentDataSubdivision=[];
-let items=[];
-let itemsPosition=[];
-let localStorageSubdivision = 0;
-let docRefFull=[];
+var documentData=[];
+var documentDataSubdivision=[];
+var items=[];
+var itemsPosition=[];
+var localStorageSubdivision = 0;
+var docRefFull=[];
 
 
  /**
@@ -66,8 +66,8 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     .finally(() => {documentData;
      documentData.forEach(item => {
         my_div = document.getElementById("headerTableSubdivision");
-        const ul = my_div.querySelector("h4");
-        let li = item.Organization;
+        var ul = my_div.querySelector("h4");
+        var li = item.Organization;
         ul.insertAdjacentHTML("beforeend", li);
     });
   });
@@ -86,7 +86,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert ("An error happened!");
      } else {
        alert ("Произошла ошибка!");
@@ -103,7 +103,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     var subdivisionTitle = document.getElementById("exampleInputModalSubdivisionTitle").value;
     if (subdivisionTitle.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please enter an subdivision name.');
       } else {
         alert('Пожалуйста, введите название подразделения.');
@@ -128,13 +128,13 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
-        if(translation_JS == null && translation_JS == 'en'){
+        if(translation_JS == null || translation_JS == 'en'){
           alert("Error adding document: ", error);
         } else {
           alert('Ошибка добавления документа:');
         }
     });
-  };
+  }
 
 
     /**
@@ -172,7 +172,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           theNumberOfEmployeesColumn.innerHTML = item.StatusUser;
 
           var toComeInUserName = document.createElement('button');
-          toComeInUserName.innerHTML = "To come in";
+          if(translation_JS == null || translation_JS == 'en'){
+            toComeInUserName.innerHTML = "To come in";
+          } else {
+            toComeInUserName.innerHTML = "Перейти";
+          }
           toComeInUserName.className = 'badge badge-gradient-success';
           toComeInUserName.id = item.idSubdivision;
           toComeInUserName.setAttribute('onclick', 'toComeInButtonSubdivision(this)');
@@ -181,7 +185,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           toComeInUserColumn.appendChild(toComeInUserName);
 
           var quitName = document.createElement('button');
-          quitName.innerHTML = "Quit";
+          if(translation_JS == null || translation_JS == 'en'){
+            quitName.innerHTML = "Quit";
+          } else {
+            quitName.innerHTML = "Выйти";
+          }
           quitName.className = 'badge badge-gradient-danger';
           quitName.id = item.idSubdivision;
           quitName.setAttribute('onclick', 'quitButtonSubdivision(this)');
@@ -199,7 +207,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           container.appendChild(tr);
         });
       });
-  };
+  }
 
 
 
@@ -218,7 +226,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
 
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
+    if(translation_JS == null || translation_JS == 'en'){
+      xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
+    } else {
+      xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition_RU.html', true);
+    }
     xhr.send();
     xhr.onreadystatechange= function() {
     if (this.readyState!==4) return;
@@ -238,17 +250,24 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
       })
       .finally(() => {documentDataSubdivision;
        documentDataSubdivision.forEach(item => {
-          document.body.innerHTML = document.body.innerHTML.replace('- Select subdivision', '- ');
+          if(translation_JS == null || translation_JS == 'en'){
+           document.body.innerHTML = document.body.innerHTML.replace('- Select subdivision', '- ');
+          } else {
+           document.body.innerHTML = document.body.innerHTML.replace('- Выберите подразделение', '- ');
+          }
           my_div = document.getElementById("headerTablePosition");
-          const ul = my_div.querySelector("h4");
-          let li = item.Subdivision;
-
-          let lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>';
+          var ul = my_div.querySelector("h4");
+          var li = item.Subdivision;
+          if(translation_JS == null || translation_JS == 'en'){
+            var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>';
+          } else {
+            var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Добавить должность</button>';
+          }
           ul.insertAdjacentHTML("beforeend", li);
           ul.insertAdjacentHTML("afterend", lit);
 
           localStorageSubdivision = item.idSubdivision;
-            let itemsArray = [{
+            var itemsArray = [{
               SubdivisionId: localStorageSubdivision,
               OwnerEmail: EmailLocalStorage,
               ProviderId: "TMR-24.com"
@@ -283,7 +302,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            theNumberOfEmployeesColumn.innerHTML = item.StatusUser;
 
            var toComeInUserName = document.createElement('button');
-           toComeInUserName.innerHTML = "To come in";
+           if(translation_JS == null || translation_JS == 'en'){
+             toComeInUserName.innerHTML = "To come in";
+           } else {
+             toComeInUserName.innerHTML = "Перейти";
+           }
            toComeInUserName.className = 'badge badge-gradient-success';
            toComeInUserName.id = item.idPosition;
            toComeInUserName.setAttribute('onclick', 'toComeInButtonPosition(this)');
@@ -292,7 +315,11 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            toComeInUserColumn.appendChild(toComeInUserName);
 
            var quitName = document.createElement('button');
-           quitName.innerHTML = "Quit";
+           if(translation_JS == null || translation_JS == 'en'){
+             quitName.innerHTML = "Quit";
+           } else {
+             quitName.innerHTML = "Выйти";
+           }
            quitName.className = 'badge badge-gradient-danger';
            quitName.id = item.idPosition;
            quitName.setAttribute('onclick', 'quitButtonPosition(this)');
@@ -310,14 +337,12 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 
            container.appendChild(tr);
 
-
            itemsPosition=[];
            documentDataSubdivision=[];
          });
        });
     });
-  };
-
+  }
 
     /**
     * @return {string}
@@ -326,8 +351,8 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 
     function quitButtonSubdivision(obj) {
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
-    let objId = obj.id;
-    if(translation_JS == null && translation_JS == 'en'){
+    var objId = obj.id;
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Document successfully deleted!'+ (objId));
     } else {
       alert('Документ успешно удален!'+ (objId));
@@ -339,8 +364,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           console.error("Error removing document: ", error);
       });
 
-    };
-
+    }
 
     /**
     * @return {string}
@@ -352,7 +376,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        var position_Title = document.getElementById("exampleInputModalPositionTitle").value;
        if (position_Title.length < 1)
        {
-         if(translation_JS == null && translation_JS == 'en'){
+         if(translation_JS == null || translation_JS == 'en'){
            alert('Please enter an position name.');
          } else {
            alert('Пожалуйста, введите название должности.');
@@ -362,7 +386,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        var position_Comment = document.getElementById("exampleInputModalPositionСomment").value;
        if (position_Comment.length < 1)
        {
-         if(translation_JS == null && translation_JS == 'en'){
+         if(translation_JS == null || translation_JS == 'en'){
            alert('Please enter an comments.');
          } else {
            alert('Пожалуйста, введите комментарий.');
@@ -385,13 +409,13 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
        })
        .catch(function(error) {
            console.error("Error adding document: ", error);
-           if(translation_JS == null && translation_JS == 'en'){
+           if(translation_JS == null || translation_JS == 'en'){
              alert("Error adding document: ", error);
            } else {
              alert('Ошибка добавления документа:');
            }
        });
-     };
+     }
 
    /**
    // * @return {string}
@@ -400,10 +424,10 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 
    function toComeInButtonPosition(obj) {
      //обработка редактирования строки...
-       let objId = obj.id;
+       var objId = obj.id;
        console.log(obj);
 
-         let itemsArray = [{
+         var itemsArray = [{
            PositionId: objId,
            OwnerEmail: EmailLocalStorage,
            ProviderId: "TMR-24.com"
@@ -419,8 +443,8 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 
      function quitButtonPosition(obj)
      {
-       let objId = obj.id;
-       if(translation_JS == null && translation_JS == 'en'){
+       var objId = obj.id;
+       if(translation_JS == null || translation_JS == 'en'){
          alert('Document successfully deleted!'+ (objId));
        } else {
          alert('Документ успешно удален!'+ (objId));

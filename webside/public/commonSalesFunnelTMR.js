@@ -832,7 +832,7 @@ function gridDisplay()
   var getAnalysisStartDate = document.getElementById("exampleInputAnalysisStartDate").value;
   if (getAnalysisStartDate.length < 1)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date!.');
     } else {
       alert ("Пожалуйста, укажите дату!");
@@ -844,7 +844,7 @@ function gridDisplay()
   var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
   if (dayAnalysisStartDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -853,7 +853,7 @@ function gridDisplay()
   }
   if (monthAnalysisStartDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -862,7 +862,7 @@ function gridDisplay()
   }
   if (yearAnalysisStartDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -871,7 +871,7 @@ function gridDisplay()
   }
   if (dayAnalysisStartDate > 31)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -880,7 +880,7 @@ function gridDisplay()
   }
   if (monthAnalysisStartDate > 12)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -889,7 +889,7 @@ function gridDisplay()
   }
   if (yearAnalysisStartDate.length < 4)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -899,7 +899,7 @@ function gridDisplay()
   var getAnalysisExpirationDate = document.getElementById("exampleInputAnalysisExpirationDate").value;
   if (getAnalysisExpirationDate.length < 1)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date!.');
     } else {
       alert ("Пожалуйста, укажите дату!");
@@ -911,7 +911,7 @@ function gridDisplay()
   let yearAnalysisExpirationDate = getAnalysisExpirationDate.split("/")[2];
   if (dayAnalysisExpirationDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -920,7 +920,7 @@ function gridDisplay()
   }
   if (monthAnalysisStartDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -929,7 +929,7 @@ function gridDisplay()
   }
   if (yearAnalysisExpirationDate == undefined)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -938,7 +938,7 @@ function gridDisplay()
   }
   if (dayAnalysisExpirationDate > 31)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -947,7 +947,7 @@ function gridDisplay()
   }
   if (monthAnalysisExpirationDate > 12)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -956,7 +956,7 @@ function gridDisplay()
   }
   if (yearAnalysisExpirationDate.length < 4)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in the date according to the template!');
     } else {
       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -969,7 +969,7 @@ function gridDisplay()
     var getComparisonStartDate = document.getElementById("exampleInputComparisonStartDate").value;
     if (getComparisonStartDate.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -981,7 +981,7 @@ function gridDisplay()
     var yearComparisonStartDate = getComparisonStartDate.split("/")[2];
     if (dayComparisonStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -990,7 +990,7 @@ function gridDisplay()
     }
     if (monthComparisonStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -999,7 +999,7 @@ function gridDisplay()
     }
     if (yearComparisonStartDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1008,7 +1008,7 @@ function gridDisplay()
     }
     if (dayComparisonStartDate > 31)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1017,7 +1017,7 @@ function gridDisplay()
     }
     if (monthComparisonStartDate > 12)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1026,7 +1026,7 @@ function gridDisplay()
     }
     if (yearComparisonStartDate.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1036,7 +1036,7 @@ function gridDisplay()
     var getComparisonExpirationDate = document.getElementById("exampleInputComparisonExpirationDate").value;
     if (getComparisonExpirationDate.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date!.');
       } else {
         alert ("Пожалуйста, укажите дату!");
@@ -1048,7 +1048,7 @@ function gridDisplay()
     var yearComparisonExpirationDate = getComparisonExpirationDate.split("/")[2];
     if (dayComparisonExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1057,7 +1057,7 @@ function gridDisplay()
     }
     if (monthComparisonExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1066,7 +1066,7 @@ function gridDisplay()
     }
     if (yearComparisonExpirationDate == undefined)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1075,7 +1075,7 @@ function gridDisplay()
     }
     if (dayComparisonExpirationDate > 31)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1084,7 +1084,7 @@ function gridDisplay()
     }
     if (monthComparisonExpirationDate > 12)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
@@ -1093,7 +1093,7 @@ function gridDisplay()
     }
     if (yearComparisonExpirationDate.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
         alert('Пожалуйста, заполните дату в соответствии с шаблоном!');

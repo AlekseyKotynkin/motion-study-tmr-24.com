@@ -137,7 +137,7 @@ if (doc.exists) {
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert ("An error happened!");
      } else {
        alert ("Произошла ошибка!");
@@ -473,7 +473,7 @@ function gridSystemModalNewUserSubmit()
   var userTitle = document.getElementById("exampleInputModalUserTitle").value;
   if (userTitle.length < 1)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please enter an user name.');
     } else {
       alert ("Пожалуйста, введите имя пользователя.");
@@ -483,7 +483,7 @@ function gridSystemModalNewUserSubmit()
   var userСomment = document.getElementById("exampleInputModalUserСomment").value;
   if (userСomment.length < 1)
   {
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Please enter an comments.');
     } else {
       alert ("Пожалуйста, введите комментарий.");
@@ -502,7 +502,7 @@ function gridSystemModalNewUserSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert("Error adding document: ", error);
       } else {
         alert("Ошибка при добавлении документа: ", error);
@@ -558,7 +558,7 @@ function gridSystemModalNewSettingsSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert("Error adding document: ", error);
       } else {
         alert("Ошибка при добавлении документа: ", error);
@@ -573,7 +573,7 @@ function gridSystemModalNewSettingsSubmit()
 function toDismissButtonUser(obj)
 {
   let objId = obj.id;
-  if(translation_JS == null && translation_JS == 'en'){
+  if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
     alert('Документ успешно удален!'+ (objId));
@@ -595,7 +595,7 @@ function toDismissButtonUser(obj)
 function deleteButtonSettings(obj)
 {
   let objId = obj.id;
-  if(translation_JS == null && translation_JS == 'en'){
+  if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
     alert('Документ успешно удален!'+ (objId));
@@ -872,7 +872,7 @@ function editGridSystemModalNewPositionTrafficSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert("Error adding document: ", error);
       } else {
         alert("Ошибка при добавлении документа: ", error);
@@ -914,7 +914,7 @@ function editGridSystemModalNewUserNoteSubmit()
       window.location.reload();
   }).catch(function(error) {
       console.error("Error adding document: ", error);
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert("Error adding document: ", error);
       } else {
         alert("Ошибка при добавлении документа: ", error);
@@ -1212,7 +1212,7 @@ function editButtonNoteTraffic(obj)
 function toDismissButtonNoteList(obj)
 {
   let objId = obj.id;
-  if(translation_JS == null && translation_JS == 'en'){
+  if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
     alert('Документ успешно удален!'+ (objId));
@@ -1234,7 +1234,7 @@ function toDismissButtonNoteList(obj)
 function toDismissButtonNoteTraffic(obj)
 {
   let objId = obj.id;
-  if(translation_JS == null && translation_JS == 'en'){
+  if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
     alert('Документ успешно удален!'+ (objId));

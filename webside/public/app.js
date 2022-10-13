@@ -180,7 +180,7 @@ var deleteAccount = function() {
         // The timeout allows the message to be displayed after the UI has
         // changed to the signed out state.
         setTimeout(function() {
-          if(translation_JS == null && translation_JS == 'en'){
+          if(translation_JS == null || translation_JS == 'en'){
             alert('Please sign in again to delete your account.');
           } else {
             alert ("Пожалуйста, войдите в систему еще раз, чтобы удалить свою учетную запись.");

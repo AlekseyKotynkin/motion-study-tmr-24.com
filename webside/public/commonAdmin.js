@@ -19,15 +19,15 @@ var translation_JS = localStorage.getItem('TMR::translation');
 var db = firebase.firestore();
 var storage = firebase.storage();
 //
-let items=[];
-let itemsUserName=[];
-let itemsActiveUserName=[];
-let nameOrganization = "";
-let nameSubdivision = "";
-let namePosition = "";
-let nameActiveUserOrganization = "";
-let nameActiveUserSubdivision = "";
-let nameActiveUserPosition = "";
+var items=[];
+var itemsUserName=[];
+var itemsActiveUserName=[];
+var nameOrganization = "";
+var nameSubdivision = "";
+var namePosition = "";
+var nameActiveUserOrganization = "";
+var nameActiveUserSubdivision = "";
+var nameActiveUserPosition = "";
 
 
  /**
@@ -50,17 +50,17 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      .then(function(querySnapshot) {
          querySnapshot.forEach(function(doc) {
              // doc.data() is never undefined for query doc snapshots
-            let parentHierarchyDoc = doc.data().ParentHierarchyPositionUser;
-            let organizationDocId = parentHierarchyDoc.idDocOrganization;
-            let subdivisionDocId = parentHierarchyDoc.idDocSubdivision;
-            let positionDocId = parentHierarchyDoc.idDocPosition;
+            var parentHierarchyDoc = doc.data().ParentHierarchyPositionUser;
+            var organizationDocId = parentHierarchyDoc.idDocOrganization;
+            var subdivisionDocId = parentHierarchyDoc.idDocSubdivision;
+            var positionDocId = parentHierarchyDoc.idDocPosition;
             itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
          });
            itemsActiveUserName.forEach(function(element){
-             let organizationDocId = element.idDocOrganization ;
-             let subdivisionDocId = element.idDocSubdivision ;
-             let positionDocId = element.idDocPosition ;
-             let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+             var organizationDocId = element.idDocOrganization ;
+             var subdivisionDocId = element.idDocSubdivision ;
+             var positionDocId = element.idDocPosition ;
+             var docRefOrganization = db.collection("Organization").doc(organizationDocId);
                 docRefOrganization.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserOrganization = doc.data().Organization;
@@ -71,7 +71,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
              }).catch(function(error) {
                  console.log("Error getting document:", error);
              });
-             let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
                 docRefSubdivision.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserSubdivision = doc.data().Subdivision;
@@ -82,7 +82,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
              }).catch(function(error) {
                  console.log("Error getting document:", error);
              });
-             let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+             var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
                 docRefPosition.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserPosition = doc.data().Position;
@@ -113,7 +113,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                  statusUserColumn.innerHTML = item.UserEmail;
 
                  var toComeInUserName = document.createElement('button');
-                 if(translation_JS == null && translation_JS == 'en'){
+                 if(translation_JS == null || translation_JS == 'en'){
                    toComeInUserName.innerHTML = "To come in";
                  } else {
                    toComeInUserName.innerHTML = "Перейти";
@@ -215,7 +215,7 @@ parentHierarchy.get().then(function (querySnapshot) {
         statusUserColumn.innerHTML = item.UserEmail;
 
         var toComeInUserName = document.createElement('button');
-        if(translation_JS == null && translation_JS == 'en'){
+        if(translation_JS == null || translation_JS == 'en'){
           toComeInUserName.innerHTML = "To come in";
         } else {
           toComeInUserName.innerHTML = "Перейти";
@@ -256,7 +256,7 @@ parentHierarchy.get().then(function (querySnapshot) {
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert ("An error happened!");
      } else {
        alert ("Произошла ошибка!");
@@ -277,7 +277,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     var iconOrganization = document.getElementById("exampleInputUpload2").value;
     if (Organization.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please enter the name of the organization.');
       } else {
         alert ("Пожалуйста, введите название организации.");
@@ -286,7 +286,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     };
     if (Position.length < 1)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please enter the name of the position.');
       } else {
         alert ("Пожалуйста, введите название подразделения.");
@@ -407,7 +407,7 @@ parentHierarchy.get().then(function (querySnapshot) {
           statusUserColumn.innerHTML = item.StatusUser;
 
           var toComeInUserName = document.createElement('button');
-          if(translation_JS == null && translation_JS == 'en'){
+          if(translation_JS == null || translation_JS == 'en'){
             toComeInUserName.innerHTML = "To come in";
           } else {
             toComeInUserName.innerHTML = "Перейти";
@@ -420,7 +420,7 @@ parentHierarchy.get().then(function (querySnapshot) {
           toComeInUserColumn.appendChild(toComeInUserName);
 
           var quitName = document.createElement('button');
-          if(translation_JS == null && translation_JS == 'en'){
+          if(translation_JS == null || translation_JS == 'en'){
             quitName.innerHTML = "Quit";
           } else {
             quitName.innerHTML = "Выйти";
@@ -464,7 +464,6 @@ parentHierarchy.get().then(function (querySnapshot) {
       window.location.replace("indexAdminOrganization.html");
     };
 
-
     /**
     * @return {string}
      *  Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
@@ -472,24 +471,18 @@ parentHierarchy.get().then(function (querySnapshot) {
 
     function quitButton(obj) {
     let objId = obj.id;
-    if(translation_JS == null && translation_JS == 'en'){
+    if(translation_JS == null || translation_JS == 'en'){
       alert('Document successfully deleted! '+ (objId));
     } else {
       alert('Документ успешно удален! '+ (objId));
     }
-
       db.collection("Organization").doc(objId).delete().then(function() {
           console.log("Document successfully deleted!");
           window.location.reload();
       }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
-
     };
-
-
-
-
 /**
 * @return {string}
  *  Обработчик кнопки toComeInUserColumn из таблицы List of posts in which you are involved as a User из firestore.
@@ -506,7 +499,6 @@ function toComeInButtonUser(obj) {
     localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
     window.location.replace("indexUser.html");
   };
-
 
   /**
   * @return {string}

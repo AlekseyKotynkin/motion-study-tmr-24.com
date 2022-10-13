@@ -32,7 +32,7 @@ var database = firebase.database();
     }).catch(function(error) {
       // An error happened.
       // Произошла ошибка.
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert ("An error happened!");
       } else {
         alert ("Произошла ошибка!");
@@ -49,7 +49,7 @@ var database = firebase.database();
     var password = document.getElementById("inputPassword1").value;
     if (email.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please enter an email address.');
       } else {
         alert ("Пожалуйста, введите адрес электронной почты!");
@@ -58,7 +58,7 @@ var database = firebase.database();
     }
     if (password.length < 4)
     {
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert('Please enter a password.');
       } else {
         alert ("Пожалуйста, введите пароль!");
@@ -83,14 +83,14 @@ var database = firebase.database();
          }).catch(function(error) {
            // An error happened.
            // Произошла ошибка.
-           if(translation_JS == null && translation_JS == 'en'){
+           if(translation_JS == null || translation_JS == 'en'){
              alert ("An error happened!");
            } else {
              alert ("Произошла ошибка!");
            }
          });
        }
-       if(translation_JS == null && translation_JS == 'en'){
+       if(translation_JS == null || translation_JS == 'en'){
          alert('User is signed in. ' + email);
        } else {
          alert('Пользователь вошел в систему. ' + email);
@@ -156,7 +156,7 @@ var database = firebase.database();
             photoUrl: photoUrl
           }];
           localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-          if(translation_JS == null && translation_JS == 'en'){
+          if(translation_JS == null || translation_JS == 'en'){
             alert ("Welcome!");
           } else {
             alert ("Здравствуйте!");

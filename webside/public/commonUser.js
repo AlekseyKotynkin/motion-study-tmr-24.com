@@ -51,7 +51,7 @@ var positionDocName = ParentHierarchyPositionUserlocalStorage.NamePosition;
 var organizationDocId = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
 var subdivisionDocId = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
 var positionDocId = ParentHierarchyPositionUserlocalStorage.idDocPosition;
-if(translation_JS == null && translation_JS == 'en'){
+if(translation_JS == null || translation_JS == 'en'){
   var li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organization - "+(organizationDocName);
 } else {
   var li = (positionDocName)+", Подразделение - "+(subdivisionDocName)+", Организация - "+(organizationDocName);
@@ -73,7 +73,7 @@ querySnapshot.forEach(function(doc) {
    var articleDivOn = '';
    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
    my_div = document.getElementById("buttonTableProcessesUser");
-   if(translation_JS == null && translation_JS == 'en'){
+   if(translation_JS == null || translation_JS == 'en'){
      var lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> - Close Shift </button>';
    } else {
      var lit = '<button type="button" class="btn btn-inverse-success btn-fw" onclick = "CloseShiftUser()"> Закрыть смену </button>';
@@ -196,7 +196,7 @@ function AddShiftUser() {
     }).catch(function(error) {
       // An error happened.
       // Произошла ошибка.
-      if(translation_JS == null && translation_JS == 'en'){
+      if(translation_JS == null || translation_JS == 'en'){
         alert ("An error happened!");
       } else {
         alert ("Произошла ошибка!");
@@ -212,10 +212,10 @@ function toRegisterProcessUser(obj) {
     // Проверяем открыта ли смена.
    if (idDocShiftUser == "")
    {
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert("Open work shift!");
      } else {
-       alert ("Рабочая смена открыта!");
+       alert ("Откройте pабочую смену!");
      }
    }
    else
@@ -223,7 +223,7 @@ function toRegisterProcessUser(obj) {
      // Получить активный процесс и закрыть его.
    if (idDocActivButtonUser == "")
    {
-     if(translation_JS == null && translation_JS == 'en'){
+     if(translation_JS == null || translation_JS == 'en'){
        alert("Good luck Go!");
      } else {
        alert ("Удачи Вам!");
@@ -245,7 +245,7 @@ function toRegisterProcessUser(obj) {
             ProcessUserEndTime: timestampStop,
             ProcessUserEnd: "false",
             }).then(function() {
-            let timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+            var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
             var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
             docRefWorkShift.collection("ProcessUser").add({
             EmailPositionUser: EmailPositionUserLocalStorage,
