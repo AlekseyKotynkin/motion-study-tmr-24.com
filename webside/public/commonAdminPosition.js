@@ -16,10 +16,10 @@ var translation_JS = localStorage.getItem('TMR::translation');
 /**
  * Общие методы для главной страницы приложения и автономного виджета.
  */
- var db = firebase.firestore();
+var db = firebase.firestore();
  //
-let items=[];
-let itemsPositionUser=[];
+var items=[];
+var itemsPositionUser=[];
 
 /**
 * @return {string}
@@ -38,8 +38,8 @@ const LocalStorageValueObjectOrganization = JSON.parse(localStorage.getItem('TMR
 const LocalStorageOrganizationId = (LocalStorageValueObjectOrganization[0]).OrganizationId;
 const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).OwnerEmail;
 var docRefOrganization = db.collection("Organization").doc(LocalStorageOrganizationId);
-let nameOrganization = "";
-let documentDataOrganization=[];
+var nameOrganization = "";
+var documentDataOrganization=[];
 
 /**
 * @return {string}
@@ -48,8 +48,8 @@ let documentDataOrganization=[];
 const LocalStorageValueObjectSubdivision = JSON.parse(localStorage.getItem('TMR::rememberedAdminSubdivision'));
 const LocalStorageSubdivision = (LocalStorageValueObjectSubdivision[0]).SubdivisionId;
 var docRefSubdivisio = docRefOrganization.collection("Subdivision").doc(LocalStorageSubdivision);
-let nameSubdivision = "";
-let documentDataSubdivision=[];
+var nameSubdivision = "";
+var documentDataSubdivision=[];
 
 /**
 * @return {string}
@@ -58,14 +58,14 @@ let documentDataSubdivision=[];
 const LocalStorageValueObjectPosition = JSON.parse(localStorage.getItem('TMR::rememberedAdminPosition'));
 const LocalStoragePosition = (LocalStorageValueObjectPosition[0]).PositionId;
 var docRefPosition = docRefSubdivisio.collection("Position").doc(LocalStoragePosition);
-let namePosition = "";
-let documentDataPosition=[];
+var namePosition = "";
+var documentDataPosition=[];
 
-let objIdDocUser ="";
-let objIdDocSettings ="";
-let objActiveModal = "";
+var objIdDocUser ="";
+var objIdDocSettings ="";
+var objActiveModal = "";
 
-let itemsPositionSalesFunnel = [];
+var itemsPositionSalesFunnel = [];
 
 
 /**
@@ -114,12 +114,16 @@ if (doc.exists) {
 .finally(() => {documentDataPosition;
  documentDataPosition.forEach(item => {
     my_div_User = document.getElementById("headerTableUser");
-    const ul_User = my_div_User.querySelector("h4");
+    var ul_User = my_div_User.querySelector("h4");
     namePosition =item.Position;
-    let li = "Organization - "+(nameOrganization)+", Subdivision - "+(nameSubdivision)+", Position - "+(namePosition);
+    if(translation_JS == null || translation_JS == 'en'){
+      var li = "Organization - "+(nameOrganization)+", Subdivision - "+(nameSubdivision)+", Position - "+(namePosition);
+    } else {
+      var li = "Организация - "+(nameOrganization)+", Подразделение - "+(nameSubdivision)+", Должность - "+(namePosition);
+    }
     ul_User.insertAdjacentHTML("beforeend", li);
     my_div = document.getElementById("headerTableSettings");
-    const ul = my_div.querySelector("h4");
+    var ul = my_div.querySelector("h4");
     ul.insertAdjacentHTML("beforeend", li);
    });
 });
@@ -143,7 +147,7 @@ if (doc.exists) {
        alert ("Произошла ошибка!");
      }
    });
- };
+ }
 
  /**
  * @return {string}
@@ -173,7 +177,11 @@ function createATableOfClientUser()
        userСommentColumn.innerHTML = item.UserСomment;
 
        var editUserName = document.createElement('button');
-       editUserName.innerHTML = "Edit";
+       if(translation_JS == null || translation_JS == 'en'){
+         editUserName.innerHTML = "Edit";
+       } else {
+         editUserName.innerHTML = "Редактировать";
+       }
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionUser;
        editUserName.setAttribute('onclick', 'editButtonUser(this)');
@@ -182,7 +190,11 @@ function createATableOfClientUser()
        editUserNameColumn.appendChild(editUserName);
 
        var toDismissName = document.createElement('button');
-       toDismissName.innerHTML = "To dismiss";
+       if(translation_JS == null || translation_JS == 'en'){
+         toDismissName.innerHTML = "To dismiss";
+       } else {
+         toDismissName.innerHTML = "Отклонить";
+       }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionUser;
        toDismissName.setAttribute('onclick', 'toDismissButtonUser(this)');
@@ -240,7 +252,11 @@ docRefPosition.collection("PositionSettings")
       settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
 
       var editSettings = document.createElement('button');
-      editSettings.innerHTML = "Edit";
+      if(translation_JS == null || translation_JS == 'en'){
+        editSettings.innerHTML = "Edit";
+      } else {
+        editSettings.innerHTML = "Редактировать";
+      }
       editSettings.className = 'badge badge-gradient-success';
       editSettings.id = item.idPositionSettings;
       editSettings.SettingsTitle = item.SettingsTitle;
@@ -250,7 +266,11 @@ docRefPosition.collection("PositionSettings")
       editSettingsColumn.appendChild(editSettings);
 
       var deleteSettings = document.createElement('button');
-      deleteSettings.innerHTML = "Delete";
+      if(translation_JS == null || translation_JS == 'en'){
+        deleteSettings.innerHTML = "Delete";
+      } else {
+        deleteSettings.innerHTML = "Удалить";
+      }
       deleteSettings.className = 'badge badge-gradient-danger';
       deleteSettings.id = item.idPositionSettings;
       deleteSettings.setAttribute('onclick', 'deleteButtonSettings(this)');
@@ -272,7 +292,7 @@ docRefPosition.collection("PositionSettings")
       container.appendChild(tr);
     });
   });
-};
+}
 
 /**
 * @return {string}
@@ -327,7 +347,7 @@ docRefPosition.collection("PositionSettings")
       container.appendChild(tr);
     });
   });
-};
+}
 
 
 /**
@@ -391,7 +411,7 @@ docRefPosition.collection("PositionSettings")
       container.appendChild(tr);
     });
   });
-};
+}
 
 /**
 * @return {string}
@@ -572,7 +592,7 @@ function gridSystemModalNewSettingsSubmit()
 */
 function toDismissButtonUser(obj)
 {
-  let objId = obj.id;
+  var objId = obj.id;
   if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
@@ -594,7 +614,7 @@ function toDismissButtonUser(obj)
 */
 function deleteButtonSettings(obj)
 {
-  let objId = obj.id;
+  var objId = obj.id;
   if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
@@ -644,17 +664,21 @@ function editButtonUser(obj)
   */
  function editButtonSettings(obj)
  {
-   let settingsTitleOBJ = obj.SettingsTitle;
+   var settingsTitleOBJ = obj.SettingsTitle;
 
    var articleDiv = document.getElementById("exampleInputModalSettingsActiveTransition").innerHTML;
-   var articleDivOn = '<option>No button</option>';
+   if(translation_JS == null || translation_JS == 'en'){
+     var articleDivOn = '<option>No button</option>';
+   } else {
+     var articleDivOn = '<option>Нет кнопки</option>';
+   }
    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
 
      docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-          let settingsTitle = doc.data().SettingsTitle;
+          var settingsTitle = doc.data().SettingsTitle;
           if (settingsTitle != settingsTitleOBJ){
-            let liLast = document.createElement('option');
+            var liLast = document.createElement('option');
             liLast.innerHTML = settingsTitle;
             exampleInputModalSettingsActiveTransition.prepend(liLast);
           }
@@ -665,36 +689,36 @@ function editButtonUser(obj)
    washingtonRef.get().then(function(doc) {
      if (doc.exists)
    {
-       let settingsTitle = doc.data().SettingsTitle;
-       let settingsСomment = doc.data().SettingsСomment;
-       let settingsActiveControl = doc.data().SettingsActiveControl;
-       let settingsActiveIntervalMinutes = doc.data().SettingsActiveIntervalMinutes;
-       let settingsActiveDurationSeconds = doc.data().SettingsActiveDurationSeconds;
-       let settingsActiveTransition = doc.data().SettingsActiveTransition;
-       let settingsActiveSignal = doc.data().SettingsActiveSignal;
-       let settingsPassiveControl = doc.data().SettingsPassiveControl;
-       let settingsPassiveIntervalMinutes = doc.data().SettingsPassiveIntervalMinutes;
-       let settingsPassiveDurationSeconds = doc.data().SettingsPassiveDurationSeconds;
-       let settingsPassiveAudio = doc.data().SettingsPassiveAudio;
-       let settingsPassivePhoto = doc.data().SettingsPassivePhoto;
-       let settingsPassivePhotoSmartphoneCamera = doc.data().SettingsPassivePhotoSmartphoneCamera;
-       let settingsPassivePhotoCameraIP = doc.data().SettingsPassivePhotoCameraIP;
-       let settingsPassivePhotoInterval = doc.data().SettingsPassivePhotoInterval;
-       let settingsPassivePhotoCaptureEventOnClick = doc.data().SettingsPassivePhotoCaptureEventOnClick;
-       let settingsPassiveVideo = doc.data().SettingsPassiveVideo;
-       let settingsPassiveGeolocation = doc.data().SettingsPassiveGeolocation;
-       let settingsPassiveGeolocationInterval = doc.data().SettingsPassiveGeolocationInterval;
-       let settingsPassiveGeolocationCaptureEventOnClick = doc.data().SettingsPassiveGeolocationCaptureEventOnClick;
-       let settingsCommitDescription = doc.data().SettingsCommitDescription;
-       let settingsResultCapture = doc.data().SettingsResultCapture;
-       let settingsResultControlOption1 = doc.data().SettingsResultControlOption1;
-       let settingsResultControlOption2 = doc.data().SettingsResultControlOption2;
-       let settingsResultControlOption3 = doc.data().SettingsResultControlOption3;
-       let settingsResultControlOption4 = doc.data().SettingsResultControlOption4;
-       let settingsResultControlOption5 = doc.data().SettingsResultControlOption5;
-       let settingsResultControlOption6 = doc.data().SettingsResultControlOption6;
-       let settingsResultControlOption7 = doc.data().SettingsResultControlOption7;
-       let settingsResultControlOption8 = doc.data().SettingsResultControlOption8;
+       var settingsTitle = doc.data().SettingsTitle;
+       var settingsСomment = doc.data().SettingsСomment;
+       var settingsActiveControl = doc.data().SettingsActiveControl;
+       var settingsActiveIntervalMinutes = doc.data().SettingsActiveIntervalMinutes;
+       var settingsActiveDurationSeconds = doc.data().SettingsActiveDurationSeconds;
+       var settingsActiveTransition = doc.data().SettingsActiveTransition;
+       var settingsActiveSignal = doc.data().SettingsActiveSignal;
+       var settingsPassiveControl = doc.data().SettingsPassiveControl;
+       var settingsPassiveIntervalMinutes = doc.data().SettingsPassiveIntervalMinutes;
+       var settingsPassiveDurationSeconds = doc.data().SettingsPassiveDurationSeconds;
+       var settingsPassiveAudio = doc.data().SettingsPassiveAudio;
+       var settingsPassivePhoto = doc.data().SettingsPassivePhoto;
+       var settingsPassivePhotoSmartphoneCamera = doc.data().SettingsPassivePhotoSmartphoneCamera;
+       var settingsPassivePhotoCameraIP = doc.data().SettingsPassivePhotoCameraIP;
+       var settingsPassivePhotoInterval = doc.data().SettingsPassivePhotoInterval;
+       var settingsPassivePhotoCaptureEventOnClick = doc.data().SettingsPassivePhotoCaptureEventOnClick;
+       var settingsPassiveVideo = doc.data().SettingsPassiveVideo;
+       var settingsPassiveGeolocation = doc.data().SettingsPassiveGeolocation;
+       var settingsPassiveGeolocationInterval = doc.data().SettingsPassiveGeolocationInterval;
+       var settingsPassiveGeolocationCaptureEventOnClick = doc.data().SettingsPassiveGeolocationCaptureEventOnClick;
+       var settingsCommitDescription = doc.data().SettingsCommitDescription;
+       var settingsResultCapture = doc.data().SettingsResultCapture;
+       var settingsResultControlOption1 = doc.data().SettingsResultControlOption1;
+       var settingsResultControlOption2 = doc.data().SettingsResultControlOption2;
+       var settingsResultControlOption3 = doc.data().SettingsResultControlOption3;
+       var settingsResultControlOption4 = doc.data().SettingsResultControlOption4;
+       var settingsResultControlOption5 = doc.data().SettingsResultControlOption5;
+       var settingsResultControlOption6 = doc.data().SettingsResultControlOption6;
+       var settingsResultControlOption7 = doc.data().SettingsResultControlOption7;
+       var settingsResultControlOption8 = doc.data().SettingsResultControlOption8;
        document.getElementById('exampleInputModalSettingsTitle').value = settingsTitle;
        document.getElementById('exampleInputModalSettingsСomment').value = settingsСomment;
        document.getElementById('exampleInputModalSettingsActiveControl').checked  = settingsActiveControl;
@@ -744,36 +768,36 @@ function editButtonUser(obj)
   */
  function  gridSystemModalEditSettingsSubmit()
 {
-  let settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
-  let settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
-  let settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
-  let settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
-  let settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
-  let settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
-  let settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
-  let settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
-  let settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
-  let settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
-  let settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
-  let settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
-  let settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
-  let settingsPassivePhotoCameraIP = document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked;
-  let settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
-  let settingsPassivePhotoCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked;
-  let settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
-  let settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
-  let settingsPassiveGeolocationInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
-  let settingsPassiveGeolocationCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked;
-  let settingsCommitDescription = document.getElementById('exampleInputModalSettingsCommitDescription').checked;
-  let settingsResultCapture = document.getElementById('exampleInputModalSettingsResultControl').checked;
-  let settingsResultControlOption1 = document.getElementById('exampleInputModalSettingsResultControlOption1').value;
-  let settingsResultControlOption2 = document.getElementById('exampleInputModalSettingsResultControlOption2').value;
-  let settingsResultControlOption3 = document.getElementById('exampleInputModalSettingsResultControlOption3').value;
-  let settingsResultControlOption4 = document.getElementById('exampleInputModalSettingsResultControlOption4').value;
-  let settingsResultControlOption5 = document.getElementById('exampleInputModalSettingsResultControlOption5').value;
-  let settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
-  let settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
-  let settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
+  var settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
+  var settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
+  var settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
+  var settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
+  var settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
+  var settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
+  var settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
+  var settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
+  var settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
+  var settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
+  var settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
+  var settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
+  var settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
+  var settingsPassivePhotoCameraIP = document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked;
+  var settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
+  var settingsPassivePhotoCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked;
+  var settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
+  var settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
+  var settingsPassiveGeolocationInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
+  var settingsPassiveGeolocationCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked;
+  var settingsCommitDescription = document.getElementById('exampleInputModalSettingsCommitDescription').checked;
+  var settingsResultCapture = document.getElementById('exampleInputModalSettingsResultControl').checked;
+  var settingsResultControlOption1 = document.getElementById('exampleInputModalSettingsResultControlOption1').value;
+  var settingsResultControlOption2 = document.getElementById('exampleInputModalSettingsResultControlOption2').value;
+  var settingsResultControlOption3 = document.getElementById('exampleInputModalSettingsResultControlOption3').value;
+  var settingsResultControlOption4 = document.getElementById('exampleInputModalSettingsResultControlOption4').value;
+  var settingsResultControlOption5 = document.getElementById('exampleInputModalSettingsResultControlOption5').value;
+  var settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
+  var settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
+  var settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
 
   docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
     SettingsTitle: settingsTitle,
@@ -976,7 +1000,11 @@ function createATableOfPositionTraffic()
        settingsNoteTrafficOption10.innerHTML = item.SettingsNoteTrafficOption10;
 
        var editUserName = document.createElement('button');
-       editUserName.innerHTML = "Edit";
+       if(translation_JS == null || translation_JS == 'en'){
+         editUserName.innerHTML = "Edit";
+       } else {
+         editUserName.innerHTML = "Редактировать";
+       }
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionSettingsTrafic;
        editUserName.setAttribute('onclick', 'editButtonNoteTraffic(this)');
@@ -985,7 +1013,11 @@ function createATableOfPositionTraffic()
        editUserNameColumn.appendChild(editUserName);
 
        var toDismissName = document.createElement('button');
-       toDismissName.innerHTML = "To dismiss";
+       if(translation_JS == null || translation_JS == 'en'){
+         toDismissName.innerHTML = "To dismiss";
+       } else {
+         toDismissName.innerHTML = "Отклонить";
+       }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionSettingsTrafic;
        toDismissName.setAttribute('onclick', 'toDismissButtonNoteTraffic(this)');
@@ -1014,7 +1046,11 @@ function createATableOfPositionTraffic()
        {
          my_div_UserPositionTraffic = document.getElementById("headerTablePositionTraffic");
          const ul_UserPositionTraffic = my_div_UserPositionTraffic.querySelector("h4");
-         let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic"> + Add a list of traffic positions </button>';
+         if(translation_JS == null || translation_JS == 'en'){
+           var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic"> + Add a list of traffic positions </button>';
+         } else {
+           var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic"> + Добавить список позиций трафика </button>';
+         }
          ul_UserPositionTraffic.insertAdjacentHTML("afterend", li);
        }
    });
@@ -1072,7 +1108,11 @@ function createATableOfPositionNote()
        settingsNoteListOption10.innerHTML = item.SettingsNoteListOption10;
 
        var editUserName = document.createElement('button');
-       editUserName.innerHTML = "Edit";
+       if(translation_JS == null || translation_JS == 'en'){
+         editUserName.innerHTML = "Edit";
+       } else {
+         editUserName.innerHTML = "Редактировать";
+       }
        editUserName.className = 'badge badge-gradient-success';
        editUserName.id = item.idPositionNoteList;
        editUserName.setAttribute('onclick', 'editButtonNoteListr(this)');
@@ -1081,7 +1121,11 @@ function createATableOfPositionNote()
        editUserNameColumn.appendChild(editUserName);
 
        var toDismissName = document.createElement('button');
-       toDismissName.innerHTML = "To dismiss";
+       if(translation_JS == null || translation_JS == 'en'){
+         toDismissName.innerHTML = "To dismiss";
+       } else {
+         toDismissName.innerHTML = "Отклонить";
+       }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionNoteList;
        toDismissName.setAttribute('onclick', 'toDismissButtonNoteList(this)');
@@ -1110,7 +1154,11 @@ function createATableOfPositionNote()
          {
            my_div_User = document.getElementById("headerTablePositionNote");
            const ul_User = my_div_User.querySelector("h4");
-           let li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote"> + Add a list of note positions </button>';
+           if(translation_JS == null || translation_JS == 'en'){
+             var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote"> + Add a list of note positions </button>';
+           } else {
+             var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote"> + Добавьте список позиций заметок </button>';
+           }
            ul_User.insertAdjacentHTML("afterend", li);
          }
    });
@@ -1127,16 +1175,16 @@ function editButtonNoteListr(obj)
   washingtonRef.get().then(function(doc) {
     if (doc.exists)
   {
-      let updateExampleInputModalUserNote1 = doc.data().SettingsNoteListOption1;
-      let updateExampleInputModalUserNote2 = doc.data().SettingsNoteListOption2;
-      let updateExampleInputModalUserNote3 = doc.data().SettingsNoteListOption3;
-      let updateExampleInputModalUserNote4 = doc.data().SettingsNoteListOption4;
-      let updateExampleInputModalUserNote5 = doc.data().SettingsNoteListOption5;
-      let updateExampleInputModalUserNote6 = doc.data().SettingsNoteListOption6;
-      let updateExampleInputModalUserNote7 = doc.data().SettingsNoteListOption7;
-      let updateExampleInputModalUserNote8 = doc.data().SettingsNoteListOption8;
-      let updateExampleInputModalUserNote9 = doc.data().SettingsNoteListOption9;
-      let updateExampleInputModalUserNote10 = doc.data().SettingsNoteListOption10;
+      var updateExampleInputModalUserNote1 = doc.data().SettingsNoteListOption1;
+      var updateExampleInputModalUserNote2 = doc.data().SettingsNoteListOption2;
+      var updateExampleInputModalUserNote3 = doc.data().SettingsNoteListOption3;
+      var updateExampleInputModalUserNote4 = doc.data().SettingsNoteListOption4;
+      var updateExampleInputModalUserNote5 = doc.data().SettingsNoteListOption5;
+      var updateExampleInputModalUserNote6 = doc.data().SettingsNoteListOption6;
+      var updateExampleInputModalUserNote7 = doc.data().SettingsNoteListOption7;
+      var updateExampleInputModalUserNote8 = doc.data().SettingsNoteListOption8;
+      var updateExampleInputModalUserNote9 = doc.data().SettingsNoteListOption9;
+      var updateExampleInputModalUserNote10 = doc.data().SettingsNoteListOption10;
       document.getElementById('updateExampleInputModalUserNote1').value = updateExampleInputModalUserNote1;
       document.getElementById('updateExampleInputModalUserNote2').value = updateExampleInputModalUserNote2;
       document.getElementById('updateExampleInputModalUserNote3').value = updateExampleInputModalUserNote3;
@@ -1171,16 +1219,16 @@ function editButtonNoteTraffic(obj)
   washingtonRef.get().then(function(doc) {
     if (doc.exists)
   {
-    let updateGridSystemModalNewPositionTraffic1 = doc.data().SettingsNoteTrafficOption1;
-    let updateGridSystemModalNewPositionTraffic2 = doc.data().SettingsNoteTrafficOption2;
-    let updateGridSystemModalNewPositionTraffic3 = doc.data().SettingsNoteTrafficOption3;
-    let updateGridSystemModalNewPositionTraffic4 = doc.data().SettingsNoteTrafficOption4;
-    let updateGridSystemModalNewPositionTraffic5 = doc.data().SettingsNoteTrafficOption5;
-    let updateGridSystemModalNewPositionTraffic6 = doc.data().SettingsNoteTrafficOption6;
-    let updateGridSystemModalNewPositionTraffic7 = doc.data().SettingsNoteTrafficOption7;
-    let updateGridSystemModalNewPositionTraffic8 = doc.data().SettingsNoteTrafficOption8;
-    let updateGridSystemModalNewPositionTraffic9 = doc.data().SettingsNoteTrafficOption9;
-    let updateGridSystemModalNewPositionTraffic10 = doc.data().SettingsNoteTrafficOption10;
+    var updateGridSystemModalNewPositionTraffic1 = doc.data().SettingsNoteTrafficOption1;
+    var updateGridSystemModalNewPositionTraffic2 = doc.data().SettingsNoteTrafficOption2;
+    var updateGridSystemModalNewPositionTraffic3 = doc.data().SettingsNoteTrafficOption3;
+    var updateGridSystemModalNewPositionTraffic4 = doc.data().SettingsNoteTrafficOption4;
+    var updateGridSystemModalNewPositionTraffic5 = doc.data().SettingsNoteTrafficOption5;
+    var updateGridSystemModalNewPositionTraffic6 = doc.data().SettingsNoteTrafficOption6;
+    var updateGridSystemModalNewPositionTraffic7 = doc.data().SettingsNoteTrafficOption7;
+    var updateGridSystemModalNewPositionTraffic8 = doc.data().SettingsNoteTrafficOption8;
+    var updateGridSystemModalNewPositionTraffic9 = doc.data().SettingsNoteTrafficOption9;
+    var updateGridSystemModalNewPositionTraffic10 = doc.data().SettingsNoteTrafficOption10;
     document.getElementById('updateGridSystemModalNewPositionTraffic1').value = updateGridSystemModalNewPositionTraffic1;
     document.getElementById('updateGridSystemModalNewPositionTraffic2').value = updateGridSystemModalNewPositionTraffic2;
     document.getElementById('updateGridSystemModalNewPositionTraffic3').value = updateGridSystemModalNewPositionTraffic3;
@@ -1211,7 +1259,7 @@ function editButtonNoteTraffic(obj)
 */
 function toDismissButtonNoteList(obj)
 {
-  let objId = obj.id;
+  var objId = obj.id;
   if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
@@ -1233,7 +1281,7 @@ function toDismissButtonNoteList(obj)
 */
 function toDismissButtonNoteTraffic(obj)
 {
-  let objId = obj.id;
+  var objId = obj.id;
   if(translation_JS == null || translation_JS == 'en'){
     alert('Document successfully deleted!'+ (objId));
   } else {
@@ -1375,7 +1423,7 @@ docRefPosition.collection("PositionSettings")
       editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
       editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-      let x = item.SettingsSalesFunnel_Availability;
+      var x = item.SettingsSalesFunnel_Availability;
       for (i = 0; i < 6; i++){
          var cells = editSettings.options[i].innerHTML;
          editSettings.options[i].selected=false;
@@ -1394,7 +1442,7 @@ docRefPosition.collection("PositionSettings")
       deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
       deleteSettings.options[2] = new Option("Available green", "str2");
       deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-      let y = item.SettingsSalesFunnel_Stage;
+      var y = item.SettingsSalesFunnel_Stage;
       for (l = 0; l < 3; l++){
          var cells1 = deleteSettings.options[l].innerHTML;
          deleteSettings.options[l].selected=false;
@@ -1411,7 +1459,7 @@ docRefPosition.collection("PositionSettings")
       resultButton.options[0] = new Option("Ignore", "str0");
       resultButton.options[1] = new Option("Take account of", "str1");
       resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-      let z = item.SettingsSalesFunnel_Result;
+      var z = item.SettingsSalesFunnel_Result;
       for (k = 0; k < 2; k++){
          var cells2 = resultButton.options[k].innerHTML;
          resultButton.options[k].selected=false;
@@ -1438,7 +1486,11 @@ docRefPosition.collection("PositionSettings")
   //добавляем кнопку сохранения измененых настроек
   my_div_UserSaveSettingsShiftPosition = document.getElementById("titleSaveSettingsShiftPosition");
   const ul_UserSaveSettingsShiftPosition = my_div_UserSaveSettingsShiftPosition.querySelector("h4");
-  let li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemSaveSettingsShiftPosition()">Save settings</button>';
+  if(translation_JS == null || translation_JS == 'en'){
+    var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemSaveSettingsShiftPosition()">Save settings</button>';
+  } else {
+    var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemSaveSettingsShiftPosition()">Сохранить настройки</button>';
+  }
   ul_UserSaveSettingsShiftPosition.insertAdjacentHTML("afterend", li);
 }
 
@@ -1452,7 +1504,7 @@ function gridSystemSaveSettingsShiftPosition()
   //читаем данные с таблицы
   var tablePositionsListSettings = document.getElementById('tableAvalablePositionsListSettings');
   //удалил шапку таблицы
-  let itemPositionsListSettings =[];
+  var itemPositionsListSettings =[];
   tablePositionsListSettings.deleteRow(0);
   var rowLength = tablePositionsListSettings.rows.length;
   for (i = 0; i < rowLength; i++){
@@ -1471,13 +1523,13 @@ function gridSystemSaveSettingsShiftPosition()
   itemPositionsListSettings.splice(0, 3);
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
-  let namePosition = itemPositionsListSettings[i].namePosition;
-  let settingsSalesFunnel_Availability = itemPositionsListSettings[i].SettingsSalesFunnel_Availability;
-  let settingsSalesFunnel_Stage = itemPositionsListSettings[i].SettingsSalesFunnel_Stage;
-  let settingsSalesFunnel_Result = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
+  var namePosition = itemPositionsListSettings[i].namePosition;
+  var settingsSalesFunnel_Availability = itemPositionsListSettings[i].SettingsSalesFunnel_Availability;
+  var settingsSalesFunnel_Stage = itemPositionsListSettings[i].SettingsSalesFunnel_Stage;
+  var settingsSalesFunnel_Result = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
-  let settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
-  let idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
+  var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
+  var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
   if (namePosition == settingsTitle)
     {
       docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
@@ -1490,5 +1542,4 @@ function gridSystemSaveSettingsShiftPosition()
     }
   });
 });
-
 }

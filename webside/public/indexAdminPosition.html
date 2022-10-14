@@ -350,8 +350,8 @@
              <div class="col-12 grid-margin">
                <div class="card">
                  <div id='headerTableUser' class="card-body">
-                   <h4 class="card-title">A list of users : </h4>
-                   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewUser">
+                   <h4 class="card-title lang" key="list_uers">A list of users : </h4>
+                   <button type="button" class="btn btn-primary btn-lg lang" key="add_user" data-toggle="modal" data-target="#gridSystemModalNewUser">
                      + Add User
                    </button>
                    <div class="table-responsive">
@@ -359,8 +359,8 @@
                       <script type="text/javascript">createATableOfClientUser()</script>
                        <thead>
                          <tr>
-                           <th> Users email </th>
-                           <th> Сomment </th>
+                           <th class="lang" key="users_email"> Users email </th>
+                           <th class="lang" key="comment"> Сomment </th>
                            <th></th>
                            <th></th>
                          </tr>
@@ -381,8 +381,8 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableSettings' class="card-body">
-                    <h4 class="card-title">Settings for : </h4>
-                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewSettings">
+                    <h4 class="card-title lang" key="settings_for">Settings for : </h4>
+                      <button type="button" class="btn btn-primary btn-lg lang" key="add_settings_button" data-toggle="modal" data-target="#gridSystemModalNewSettings">
                         + Add settings for button
                       </button>
                       <!-- Окно выбора Подразделения. -->
@@ -391,12 +391,12 @@
                         <table id="tableSettings"class="table">
                           <thead>
                             <tr>
-                              <th>Button name</th>
-                              <th>Сomment</th>
-                              <th>Active Control</th>
-                              <th>Passive Control</th>
-                              <th>Commit Description</th>
-                              <th>Result Control</th>
+                              <th class="lang" key="button_name">Button name</th>
+                              <th class="lang" key="comment">Сomment</th>
+                              <th class="lang" key="button_active_control">Active Control</th>
+                              <th class="lang" key="button_passive_control">Passive Control</th>
+                              <th class="lang" key="button_description">Commit Description</th>
+                              <th class="lang" key="button_result_control">Result Control</th>
                               <th></th>
                               <th></th>
                             </tr>
@@ -414,18 +414,18 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableActiveActivityControl' class="card-body">
-                    <h4 class="card-title">Active activity control</h4>
+                    <h4 class="card-title lang" key="active_activity_control">Active activity control</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTableActiveActivityControl()</script>
                         <table id="tableActiveActivityControl"class="table">
                           <thead>
                             <tr>
-                              <th>Button name</th>
-                              <th>Active Control</th>
-                              <th>Interval</th>
-                              <th>Duration</th>
-                              <th>Transition</th>
-                              <th>Signal</th>
+                              <th class="lang" key="button_name">Button name</th>
+                              <th class="lang" key="button_active_control">Active Control</th>
+                              <th class="lang" key="button_settings_interval">Interval</th>
+                              <th class="lang" key="button_settings_duration">Duration</th>
+                              <th class="lang" key="button_settings_transition">Transition</th>
+                              <th class="lang" key="button_settings_signal">Signal</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -441,20 +441,20 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTablePassiveActivityControl' class="card-body">
-                    <h4 class="card-title">Passive activity control</h4>
+                    <h4 class="card-title lang" key="passive_activity_control">Passive activity control</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTablePassiveActivityControl()</script>
                         <table id="tablePassiveActivityControl"class="table">
                           <thead>
                             <tr>
-                              <th>Button name</th>
-                              <th>Passive Control</th>
-                              <th>Interval</th>
-                              <th>Duration</th>
-                              <th>Audio</th>
-                              <th>Photo</th>
-                              <th>Video</th>
-                              <th>Geolocation</th>
+                              <th class="lang" key="button_name">Button name</th>
+                              <th class="lang" key="button_passive_control">Passive Control</th>
+                              <th class="lang" key="button_settings_interval">Interval</th>
+                              <th class="lang" key="button_settings_duration">Duration</th>
+                              <th class="lang" key="button_settings_audio">Audio</th>
+                              <th class="lang" key="button_settings_photo">Photo</th>
+                              <th class="lang" key="button_settings_video">Video</th>
+                              <th class="lang" key="button_settings_geolocation">Geolocation</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -470,23 +470,23 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableResultСapture' class="card-body">
-                    <h4 class="card-title">Result capture</h4>
+                    <h4 class="card-title lang" key="result_capture">Result capture</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTableResultСapture()</script>
                         <table id="tableResultСapture"class="table">
                           <thead>
                             <tr>
-                              <th>Button name</th>
-                              <th>Commit Description</th>
-                              <th>Result Control</th>
-                              <th>Option 1</th>
-                              <th>Option 2</th>
-                              <th>Option 3</th>
-                              <th>Option 4</th>
-                              <th>Option 5</th>
-                              <th>Option 6</th>
-                              <th>Option 7</th>
-                              <th>Option 8</th>
+                              <th class="lang" key="button_name">Button name</th>
+                              <th class="lang" key="button_description">Commit Description</th>
+                              <th class="lang" key="button_result_control">Result Control</th>
+                              <th class="lang" key="button_result_option_1">Option 1</th>
+                              <th class="lang" key="button_result_option_2">Option 2</th>
+                              <th class="lang" key="button_result_option_3">Option 3</th>
+                              <th class="lang" key="button_result_option_4">Option 4</th>
+                              <th class="lang" key="button_result_option_5">Option 5</th>
+                              <th class="lang" key="button_result_option_6">Option 6</th>
+                              <th class="lang" key="button_result_option_7">Option 7</th>
+                              <th class="lang" key="button_result_option_8">Option 8</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -502,7 +502,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id='headerTablePositionNote' class="card-body">
-                  <h4 class="card-title">List of notes: </h4>
+                  <h4 class="card-title lang" key="list_notes">List of notes: </h4>
                     <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote">
                       + Add a list of note positions
                     </button> -->
@@ -539,7 +539,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id='headerTablePositionTraffic' class="card-body">
-                  <h4 class="card-title">List of traffic channels: </h4>
+                  <h4 class="card-title lang" key="list_traffic">List of traffic channels: </h4>
                     <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic">
                       + Add a list of traffic positions
                     </button> -->
@@ -576,18 +576,18 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id="titleSaveSettingsShiftPosition" class="card-body">
-                  <h4 class="card-title"> Settings for displaying "Sales funnels" </h4>
+                  <h4 class="card-title lang" key="settings_sales_funnels"> Settings for displaying "Sales funnels" </h4>
                   <!-- <button type="button" class="btn btn-primary btn-lg" onclick="#gridSystemSaveSettingsShiftPosition()"> Save settings </button> -->
                   <div class="table-responsive">
                     <script type="text/javascript">createSaveSettingsShiftPosition()</script>
                     <table id="tableAvalablePositionsListSettings" class="table table-bordered">
                       <thead>
                         <tr>
-                          <th> Button name </th>
-                          <th> Button comments </th>
-                          <th> Sales funnel stage </th>
-                          <th> Employee availability </th>
-                          <th> Result button </th>
+                          <th class="lang" key="button_name"> Button name </th>
+                          <th class="lang" key="comment"> Button comments </th>
+                          <th class="lang" key="button_result_sales"> Sales funnel stage </th>
+                          <th class="lang" key="button_result_employee"> Employee availability </th>
+                          <th class="lang" key="button_result_button"> Result button </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -598,9 +598,7 @@
               </div>
             </div>
           </div>
-
         </div>
-
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -637,19 +635,19 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">+ Add User</h4>
-                      <p class="card-description"> Create a new user account </p>
+                      <h4 class="card-title lang" key="add_user">+ Add User</h4>
+                      <p class="card-description lang" key="create_account_user"> Create a new user account </p>
                       <form class="forms-sample">
                         <div class="form-group">
-                          <label for="exampleInputModalUserTitle">User</label>
+                          <label for="exampleInputModalUserTitle" class="lang" key="user">User</label>
                           <input type="text" class="form-control" id="exampleInputModalUserTitle" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserСomment">Сomment</label>
+                          <label for="exampleInputModalUserСomment" class="lang" key="comment">Сomment</label>
                           <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="сomment">
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewUserSubmit()">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewUserSubmit()">Submit</button>
+                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
@@ -671,23 +669,23 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">+ Add Settings</h4>
-                      <p class="card-description">Add settings account </p>
+                      <h4 class="card-title lang" key="add_settings_button">+ Add Settings</h4>
+                      <p class="card-description lang" key="create_account_settings_button"> Create a new settings account </p>
                       <form class="forms-sample">
                         <div class="form-group">
-                          <label for="exampleInputModalSettingsTitle">Name</label>
+                          <label for="exampleInputModalSettingsTitle" class="lang" key="user">User</label>
                           <input type="text" class="form-control" id="exampleInputModalNewSettingsTitle" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalSettingsСomment">Сomment</label>
+                          <label for="exampleInputModalSettingsСomment" class="lang" key="comment">Сomment</label>
                           <input type="text" class="form-control" id="exampleInputModalNewSettingsСomment" placeholder="Сomment">
                         </div>
                         <div>
                           <br>
                           <br>
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewSettingsSubmit()">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSettingsSubmit()">Submit</button>
+                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
@@ -709,75 +707,75 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Edit Settings</h4>
-                      <p class="card-description">Edit settings account </p>
+                      <h4 class="card-title lang" key="edit_settings_button">Edit Settings</h4>
+                      <p class="card-description lang" key="edit_account_settings_button settings account ">Edit a new settings account</p>
                       <form class="forms-sample">
                         <div class="form-group">
-                          <label for="exampleInputModalSettingsTitle">Name</label>
+                          <label for="exampleInputModalSettingsTitle" class="lang" key="user">User</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsTitle" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalSettingsСomment">Сomment</label>
+                          <label for="exampleInputModalSettingsСomment" class="lang" key="comment">Сomment</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
                         </div>
                         <div class="card-body">
-                          <h4 class="card-description">Active Activity Control</h4>
+                          <h4 class="card-description lang" key="active_activity_control">Active Activity Control</h4>
                         <!-- </div>
                         <div class="form-check"> -->
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_active_control" id="exampleInputModalSettingsActiveControl">Active Control</label>
                         </div>
                         <div class="form-check">
-                         <p class="card-description">Interval</p>
+                         <p class="card-description lang" key="button_settings_interval">Interval</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveInterval">
-                            <option>5 seconds</option>
-                            <option>10 seconds</option>
-                            <option>15 seconds</option>
-                            <option>20 seconds</option>
-                            <option>25 seconds</option>
-                            <option>30 seconds</option>
-                            <option>35 seconds</option>
-                            <option>40 seconds</option>
-                            <option>45 seconds</option>
-                            <option>50 seconds</option>
-                            <option>55 seconds</option>
-                            <option>1 minutes</option>
-                            <option>3 minutes</option>
-                            <option>5 minutes</option>
-                            <option>10 minutes</option>
-                            <option>15 minutes</option>
+                            <option class="lang" key="5_seconds">5 seconds</option>
+                            <option class="lang" key="10_seconds">10 seconds</option>
+                            <option class="lang" key="15_seconds">15 seconds</option>
+                            <option class="lang" key="20_seconds">20 seconds</option>
+                            <option class="lang" key="25_seconds">25 seconds</option>
+                            <option class="lang" key="30_seconds">30 seconds</option>
+                            <option class="lang" key="35_seconds">35 seconds</option>
+                            <option class="lang" key="40_seconds">40 seconds</option>
+                            <option class="lang" key="45_seconds">45 seconds</option>
+                            <option class="lang" key="50_seconds">50 seconds</option>
+                            <option class="lang" key="55_seconds">55 seconds</option>
+                            <option class="lang" key="1_minutes">1 minutes</option>
+                            <option class="lang" key="3_minutes">3 minutes</option>
+                            <option class="lang" key="5_minutes">5 minutes</option>
+                            <option class="lang" key="10_minutes">10 minutes</option>
+                            <option class="lang" key="15_minutes">15 minutes</option>
                             <option>0</option>
                           </select>
                         </div>
                         <div class="form-check">
-                         <p class="card-description">Duration</p>
+                         <p class="card-description lang" key="button_settings_duration">Duration</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveDuration">
-                           <option>1 seconds</option>
-                           <option>2 seconds</option>
-                           <option>3 seconds</option>
-                           <option>5 seconds</option>
-                           <option>10 seconds</option>
-                           <option>15 seconds</option>
-                           <option>20 seconds</option>
+                           <option class="lang" key="1_seconds">1 seconds</option>
+                           <option class="lang" key="2_seconds">2 seconds</option>
+                           <option class="lang" key="3_seconds">3 seconds</option>
+                           <option class="lang" key="5_seconds">5 seconds</option>
+                           <option class="lang" key="10_seconds">10 seconds</option>
+                           <option class="lang" key="15_seconds">15 seconds</option>
+                           <option class="lang" key="20_seconds">20 seconds</option>
                            <option>0</option>
                           </select>
                         </div>
                         <div class="form-check">
-                         <p class="card-description">Transition</p>
+                         <p class="card-description lang" key="button_settings_transition">Transition</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsActiveTransition">
-                           <option>No button</option>
+                           <option class="lang" key="button_no">No button</option>
                           </select>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_settings_signal" id="exampleInputModalSettingsActiveSignal">Signal</label>
                         </div>
                         <div class="card-body">
-                          <h4 class="card-description">Passive Activity Control</h4>
+                          <h4 class="card-description lang" key="passive_activity_control">Passive Activity Control</h4>
                         <!-- </div>
                         <div class="form-check"> -->
                            <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_passive_control" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
                         </div>
                         <!-- <div class="form-check">
                          <p class="card-description" >Interval</p>
@@ -816,164 +814,164 @@
                         </div> -->
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Audio</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_settings_audio" id="exampleInputModalSettingsPassiveAudio">Audio</label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Photo</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_settings_photo" id="exampleInputModalSettingsPassivePhoto">Photo</label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>
+                            <input type="checkbox" class="form-check-input lang" key="capture_event_click" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>
                         </div>
                         <div class="form-check">
-                         <p class="card-description" >The interval between photo events</p>
+                         <p class="card-description lang" key="capture_event_click_interval_foto" >The interval between photo events</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalFoto">
-                            <option>5 seconds</option>
-                            <option>10 seconds</option>
-                            <option>15 seconds</option>
-                            <option>20 seconds</option>
-                            <option>25 seconds</option>
-                            <option>30 seconds</option>
-                            <option>35 seconds</option>
-                            <option>40 seconds</option>
-                            <option>45 seconds</option>
-                            <option>50 seconds</option>
-                            <option>55 seconds</option>
-                            <option>1 minutes</option>
-                            <option>3 minutes</option>
-                            <option>5 minutes</option>
-                            <option>10 minutes</option>
-                            <option>15 minutes</option>
+                            <option class="lang" key="5_seconds">5 seconds</option>
+                            <option class="lang" key="10_seconds">10 seconds</option>
+                            <option class="lang" key="15_seconds">15 seconds</option>
+                            <option class="lang" key="20_seconds">20 seconds</option>
+                            <option class="lang" key="25_seconds">25 seconds</option>
+                            <option class="lang" key="30_seconds">30 seconds</option>
+                            <option class="lang" key="35_seconds">35 seconds</option>
+                            <option class="lang" key="40_seconds">40 seconds</option>
+                            <option class="lang" key="45_seconds">45 seconds</option>
+                            <option class="lang" key="50_seconds">50 seconds</option>
+                            <option class="lang" key="55_seconds">55 seconds</option>
+                            <option class="lang" key="1_minutes">1 minutes</option>
+                            <option class="lang" key="3_minutes">3 minutes</option>
+                            <option class="lang" key="5_minutes">5 minutes</option>
+                            <option class="lang" key="10_minutes">10 minutes</option>
+                            <option class="lang" key="15_minutes">15 minutes</option>
                             <option>0</option>
                           </select>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Smartphone camera</label>
+                            <input type="checkbox" class="form-check-input lang" key="camera_smartphone" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Smartphone camera</label>
                           </div>
                           <div class="form-check">
                             <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">External IP camera</label>
+                            <input type="checkbox" class="form-check-input lang" key="camera_ip" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">External IP camera</label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveVideo">Video</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_settings_video" id="exampleInputModalSettingsPassiveVideo">Video</label>
                         </div>
                         <div class="form-check">
-                         <p class="card-description" >Interval</p>
+                         <p class="card-description lang" key="button_settings_interval" >Interval</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveInterval">
-                            <option>5 seconds</option>
-                            <option>10 seconds</option>
-                            <option>15 seconds</option>
-                            <option>20 seconds</option>
-                            <option>25 seconds</option>
-                            <option>30 seconds</option>
-                            <option>35 seconds</option>
-                            <option>40 seconds</option>
-                            <option>45 seconds</option>
-                            <option>50 seconds</option>
-                            <option>55 seconds</option>
-                            <option>1 minutes</option>
-                            <option>3 minutes</option>
-                            <option>5 minutes</option>
-                            <option>10 minutes</option>
-                            <option>15 minutes</option>
+                            <option class="lang" key="5_seconds">5 seconds</option>
+                            <option class="lang" key="10_seconds">10 seconds</option>
+                            <option class="lang" key="15_seconds">15 seconds</option>
+                            <option class="lang" key="20_seconds">20 seconds</option>
+                            <option class="lang" key="25_seconds">25 seconds</option>
+                            <option class="lang" key="30_seconds">30 seconds</option>
+                            <option class="lang" key="35_seconds">35 seconds</option>
+                            <option class="lang" key="40_seconds">40 seconds</option>
+                            <option class="lang" key="45_seconds">45 seconds</option>
+                            <option class="lang" key="50_seconds">50 seconds</option>
+                            <option class="lang" key="55_seconds">55 seconds</option>
+                            <option class="lang" key="1_minutes">1 minutes</option>
+                            <option class="lang" key="3_minutes">3 minutes</option>
+                            <option class="lang" key="5_minutes">5 minutes</option>
+                            <option class="lang" key="10_minutes">10 minutes</option>
+                            <option class="lang" key="15_minutes">15 minutes</option>
                             <option>0</option>
                           </select>
                         </div>
                         <div class="form-check">
-                         <p class="card-description" >Duration</p>
+                         <p class="card-description lang" key="button_settings_duration" >Duration</p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveDuration">
-                            <option>1 seconds</option>
-                            <option>2 seconds</option>
-                            <option>3 seconds</option>
-                            <option>5 seconds</option>
-                            <option>10 seconds</option>
-                            <option>15 seconds</option>
-                            <option>20 seconds</option>
+                            <option class="lang" key="1_seconds">1 seconds</option>
+                            <option class="lang" key="2_seconds">2 seconds</option>
+                            <option class="lang" key="3_seconds">3 seconds</option>
+                            <option class="lang" key="5_seconds">5 seconds</option>
+                            <option class="lang" key="10_seconds">10 seconds</option>
+                            <option class="lang" key="15_seconds">15 seconds</option>
+                            <option class="lang" key="20_seconds">20 seconds</option>
                             <option>0</option>
                           </select>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocation">Geolocation</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_settings_geolocation" id="exampleInputModalSettingsPassiveGeolocation">Geolocation</label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Capture event on click</label>
+                            <input type="checkbox" class="form-check-input lang" key="capture_event_click" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Capture event on click</label>
                         </div>
                         <div class="form-check">
-                         <p class="card-description" >The interval between GEO events </p>
+                         <p class="card-description lang" key="capture_event_click_interval_GEO" >The interval between GEO events </p>
                           <select class="btn btn-sm btn-outline-primary dropdown-toggle" id="exampleInputModalSettingsPassiveIntervalGEO">
-                            <option>5 seconds</option>
-                            <option>10 seconds</option>
-                            <option>15 seconds</option>
-                            <option>20 seconds</option>
-                            <option>25 seconds</option>
-                            <option>30 seconds</option>
-                            <option>35 seconds</option>
-                            <option>40 seconds</option>
-                            <option>45 seconds</option>
-                            <option>50 seconds</option>
-                            <option>55 seconds</option>
-                            <option>1 minutes</option>
-                            <option>3 minutes</option>
-                            <option>5 minutes</option>
-                            <option>10 minutes</option>
-                            <option>15 minutes</option>
+                            <option class="lang" key="5_seconds">5 seconds</option>
+                            <option class="lang" key="10_seconds">10 seconds</option>
+                            <option class="lang" key="15_seconds">15 seconds</option>
+                            <option class="lang" key="20_seconds">20 seconds</option>
+                            <option class="lang" key="25_seconds">25 seconds</option>
+                            <option class="lang" key="30_seconds">30 seconds</option>
+                            <option class="lang" key="35_seconds">35 seconds</option>
+                            <option class="lang" key="40_seconds">40 seconds</option>
+                            <option class="lang" key="45_seconds">45 seconds</option>
+                            <option class="lang" key="50_seconds">50 seconds</option>
+                            <option class="lang" key="55_seconds">55 seconds</option>
+                            <option class="lang" key="1_minutes">1 minutes</option>
+                            <option class="lang" key="3_minutes">3 minutes</option>
+                            <option class="lang" key="5_minutes">5 minutes</option>
+                            <option class="lang" key="10_minutes">10 minutes</option>
+                            <option class="lang" key="15_minutes">15 minutes</option>
                             <option>0</option>
                           </select>
                         </div>
                         <div class="card-body">
-                          <h4 class="card-description">Result Capture</h4>
+                          <h4 class="card-description lang" key="result_capture">Result Capture</h4>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsCommitDescription">Commit Description</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_description" id="exampleInputModalSettingsCommitDescription">Commit Description</label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="exampleInputModalSettingsResultControl">Result Control</label>
+                            <input type="checkbox" class="form-check-input lang" key="button_result_control" id="exampleInputModalSettingsResultControl">Result Control</label>
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption1">Option 1</label>
+                          <label for="exampleInputModalSettingsOption1" class="lang" key="option_1">Option 1</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption1" placeholder="Name 1">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption2">Option 2</label>
+                          <label for="exampleInputModalSettingsOption2" class="lang" key="option_2">Option 2</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption2" placeholder="Name 2">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption3">Option 3</label>
+                          <label for="exampleInputModalSettingsOption3" class="lang" key="option_3">Option 3</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption3" placeholder="Name 3">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption4">Option 4</label>
+                          <label for="exampleInputModalSettingsOption4" class="lang" key="option_4">Option 4</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption4" placeholder="Name 4">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption5">Option 5</label>
+                          <label for="exampleInputModalSettingsOption5" class="lang" key="option_5">Option 5</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption5" placeholder="Name 5">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption6">Option 6</label>
+                          <label for="exampleInputModalSettingsOption6" class="lang" key="option_6">Option 6</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption6" placeholder="Name 6">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption7">Option 7</label>
+                          <label for="exampleInputModalSettingsOption7" class="lang" key="option_7">Option 7</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption7" placeholder="Name 7">
                         </div>
                         <div>
-                          <label for="exampleInputModalSettingsOption8">Option 8</label>
+                          <label for="exampleInputModalSettingsOption8" class="lang" key="option_8">Option 8</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsResultControlOption8" placeholder="Name 8">
                         </div>
                         <div>
                           <br>
                           <br>
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalEditSettingsSubmit()">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalEditSettingsSubmit()">Submit</button>
+                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
@@ -995,19 +993,19 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Edit User</h4>
-                      <p class="card-description">Edit user account</p>
+                      <h4 class="card-title lang" key="edit_user">Edit User</h4>
+                      <p class="card-description lang" key="edit_account_user">Edit user account</p>
                       <form class="forms-sample">
                         <div class="form-group">
-                          <label for="exampleInputModalUserTitle">User</label>
+                          <label for="exampleInputModalUserTitle" class="lang" key="user">User</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserTitle" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserСomment">Сomment</label>
+                          <label for="exampleInputModalUserСomment" class="lang" key="comment">Сomment</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserСomment" placeholder="сomment">
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserSubmit()">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="editGridSystemModalNewUserSubmit()">Submit</button>
+                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
@@ -1029,51 +1027,51 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">List of notes</h4>
-                      <p class="card-description">List of notes</p>
+                      <h4 class="card-title lang" key="list_notes">List of notes</h4>
+                      <p class="card-description lang" key="list_notes_title">List of notes</p>
                       <form class="forms-sample">
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote1">Note 1</label>
+                          <label for="exampleInputModalUserNote1" class="lang" key="note_1">Note 1</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote1" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote2">Note 2</label>
+                          <label for="exampleInputModalUserNote2" class="lang" key="note_2">Note 2</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote2" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote3">Note 3</label>
+                          <label for="exampleInputModalUserNote3" class="lang" key="note_3">Note 3</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote3" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote4">Note 4</label>
+                          <label for="exampleInputModalUserNote4" class="lang" key="note_4">Note 4</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote4" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote5">Note 5</label>
+                          <label for="exampleInputModalUserNote5" class="lang" key="note_5">Note 5</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote5" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote6">Note 6</label>
+                          <label for="exampleInputModalUserNote6" class="lang" key="note_6">Note 6</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote6" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote7">Note 7</label>
+                          <label for="exampleInputModalUserNote7" class="lang" key="note_7">Note 7</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote7" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote8">Note 8</label>
+                          <label for="exampleInputModalUserNote8" class="lang" key="note_8">Note 8</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote8" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote9">Note 9</label>
+                          <label for="exampleInputModalUserNote9" class="lang" key="note_9">Note 9</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote9" placeholder="Name">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputModalUserNote10">Note 10</label>
+                          <label for="exampleInputModalUserNote10" class="lang" key="note_10">Note 10</label>
                           <input type="text" class="form-control" id="editExampleInputModalUserNote10" placeholder="Name">
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewUserNoteSubmit()">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="editGridSystemModalNewUserNoteSubmit()">Submit</button>
+                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
@@ -1095,51 +1093,51 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title">List of traffic channels</h4>
-                        <p class="card-description">Traffic channel</p>
+                        <h4 class="card-title lang" key="list_traffic">List of traffic channels:</h4>
+                        <p class="card-description lang" key="list_traffic_title">Traffic channel</p>
                         <form class="forms-sample">
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic1">Channel 1</label>
+                            <label for="exampleInputModalPositionTraffic1" class="lang" key="channel_1">Channel 1</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic1" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic2">Channel 2</label>
+                            <label for="exampleInputModalPositionTraffic2" class="lang" key="channel_2">Channel 2</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic2" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic3">Channel 3</label>
+                            <label for="exampleInputModalPositionTraffic3" class="lang" key="channel_3">Channel 3</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic3" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic4">Channel 4</label>
+                            <label for="exampleInputModalPositionTraffic4" class="lang" key="channel_4">Channel 4</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic4" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic5">Channel 5</label>
+                            <label for="exampleInputModalPositionTraffic5" class="lang" key="channel_5">Channel 5</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic5" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic6">Channel 6</label>
+                            <label for="exampleInputModalPositionTraffic6" class="lang" key="channel_6">Channel 6</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic6" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic7">Channel 7</label>
+                            <label for="exampleInputModalPositionTraffic7" class="lang" key="channel_1">Channel 7</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic7" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic8">Channel 8</label>
+                            <label for="exampleInputModalPositionTraffic8" class="lang" key="channel_8">Channel 8</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic8" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic9">Channel 9</label>
+                            <label for="exampleInputModalPositionTraffic9" class="lang" key="channel_9">Channel 9</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic9" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputModalPositionTraffic10">Channel 10</label>
+                            <label for="exampleInputModalPositionTraffic10" class="lang" key="channel_10">Channel 10</label>
                             <input type="text" class="form-control" id="editGridSystemModalNewPositionTraffic10" placeholder="Name">
                           </div>
-                          <button type="button" class="btn btn-gradient-primary mr-2" onclick="editGridSystemModalNewPositionTrafficSubmit()">Submit</button>
-                          <button class="btn btn-light">Cancel</button>
+                          <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="editGridSystemModalNewPositionTrafficSubmit()">Submit</button>
+                          <button class="btn btn-light lang" key="cancel">Cancel</button>
                         </form>
                       </div>
                     </div>
@@ -1161,51 +1159,51 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title">List of notes</h4>
-                        <p class="card-description">List of notes</p>
+                        <h4 class="card-title lang" key="list_notes">List of notes</h4>
+                        <p class="card-description lang" key="list_notes_title">List of notes</p>
                         <form class="forms-sample">
                           <div class="form-group">
-                            <label for="updateInputModalUserNote1">Note 1</label>
+                            <label for="updateInputModalUserNote1" class="lang" key="note_1">Note 1</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote1" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote2">Note 2</label>
+                            <label for="updateInputModalUserNote2" class="lang" key="note_2">Note 2</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote2" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote3">Note 3</label>
+                            <label for="updateInputModalUserNote3" class="lang" key="note_3">Note 3</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote3" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote4">Note 4</label>
+                            <label for="updateInputModalUserNote4" class="lang" key="note_4">Note 4</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote4" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote5">Note 5</label>
+                            <label for="updateInputModalUserNote5" class="lang" key="note_5">Note 5</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote5" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote6">Note 6</label>
+                            <label for="updateInputModalUserNote6" class="lang" key="note_6">Note 6</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote6" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote7">Note 7</label>
+                            <label for="updateInputModalUserNote7" class="lang" key="note_7">Note 7</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote7" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote8">Note 8</label>
+                            <label for="updateInputModalUserNote8" class="lang" key="note_8">Note 8</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote8" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote9">Note 9</label>
+                            <label for="updateInputModalUserNote9" class="lang" key="note_9">Note 9</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote9" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalUserNote10">Note 10</label>
+                            <label for="updateInputModalUserNote10" class="lang" key="note_10">Note 10</label>
                             <input type="text" class="form-control" id="updateExampleInputModalUserNote10" placeholder="Name">
                           </div>
-                          <button type="button" class="btn btn-gradient-primary mr-2" onclick="updateGridSystemModalNewUserNoteSubmit()">Submit</button>
-                          <button class="btn btn-light">Cancel</button>
+                          <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="updateGridSystemModalNewUserNoteSubmit()">Submit</button>
+                          <button class="btn btn-light lang" key="cancel">Cancel</button>
                         </form>
                       </div>
                     </div>
@@ -1227,51 +1225,51 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title">List of traffic channels</h4>
-                        <p class="card-description">Traffic channel</p>
+                        <h4 class="card-title lang" key="list_traffic">List of traffic channels</h4>
+                        <p class="card-description lang" key="list_traffic_title">Traffic channel</p>
                         <form class="forms-sample">
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic1">Channel 1</label>
+                            <label for="updateInputModalPositionTraffic1" class="lang" key="channel_1">Channel 1</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic1" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic2">Channel 2</label>
+                            <label for="updateInputModalPositionTraffic2" class="lang" key="channel_2">Channel 2</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic2" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic3">Channel 3</label>
+                            <label for="updateInputModalPositionTraffic3" class="lang" key="channel_3">Channel 3</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic3" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic4">Channel 4</label>
+                            <label for="updateInputModalPositionTraffic4" class="lang" key="channel_4">Channel 4</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic4" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic5">Channel 5</label>
+                            <label for="updateInputModalPositionTraffic5" class="lang" key="channel_5">Channel 5</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic5" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic6">Channel 6</label>
+                            <label for="updateInputModalPositionTraffic6" class="lang" key="channel_6">Channel 6</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic6" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic7">Channel 7</label>
+                            <label for="updateInputModalPositionTraffic7" class="lang" key="channel_7">Channel 7</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic7" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic8">Channel 8</label>
+                            <label for="updateInputModalPositionTraffic8" class="lang" key="channel_8">Channel 8</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic8" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic9">Channel 9</label>
+                            <label for="updateInputModalPositionTraffic9" class="lang" key="channel_9">Channel 9</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic9" placeholder="Name">
                           </div>
                           <div class="form-group">
-                            <label for="updateInputModalPositionTraffic10">Channel 10</label>
+                            <label for="updateInputModalPositionTraffic10" class="lang" key="channel_10">Channel 10</label>
                             <input type="text" class="form-control" id="updateGridSystemModalNewPositionTraffic10" placeholder="Name">
                           </div>
-                          <button type="button" class="btn btn-gradient-primary mr-2" onclick="updateGridSystemModalNewPositionTrafficSubmit()">Submit</button>
-                          <button class="btn btn-light">Cancel</button>
+                          <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="updateGridSystemModalNewPositionTrafficSubmit()">Submit</button>
+                          <button class="btn btn-light lang" key="cancel">Cancel</button>
                         </form>
                       </div>
                     </div>
