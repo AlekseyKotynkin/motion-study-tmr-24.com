@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-functions.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -26,6 +26,8 @@
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
+    <!-- Файл с текстами на разных языках -->
+    <script src="../../js/translation.js"></script>
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
@@ -76,12 +78,12 @@
             <ul class="navbar-nav navbar-nav">
               <li class="nav-item d-none d-lg-block full-screen-link">
                 <button class="navbar-translation" id="ru" onclick="translation_RU ()">
-                  <img src="images\russia_flag.jpg" alt="image" width="30px" height="20px">
+                  <img src="../../images\russia_flag.jpg" alt="image" width="30px" height="20px">
                 </button>
               </li>
               <li class="nav-item d-none d-lg-block full-screen-link">
                 <button class="navbar-translation" id="en" onclick="translation_EN ()">
-                  <img src="images\brit_flag.jpg" alt="image" width="30px" height="20px">
+                  <img src="../../images\brit_flag.jpg" alt="image" width="30px" height="20px">
                 </button>
               </li>
             </ul>
@@ -111,7 +113,7 @@
                               //does nothing and quits the function
                               //if the url does not exist
                               hiddenImg= new Image();
-                              hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
+                              hiddenImg.src= "../../svg/logo TMR Systems 192 80.svg";
                               document.IDFotoUrlLocalStorage.src=hiddenImg.src;
                               return;
                             }
@@ -136,7 +138,7 @@
                     <i class="mdi mdi-logout mr-2 text-primary"></i> Sign out </a>
                 </div>
               </li>
-            <li class="nav-item d-none d-lg-block full-screen-link">
+            <!-- <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
                 <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
               </a>
@@ -238,7 +240,7 @@
               <a class="nav-link" href="#">
                 <i class="mdi mdi-format-line-spacing"></i>
               </a>
-            </li>
+            </li> -->
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -272,7 +274,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../../indexAdmin.html">
-                <span class="menu-title">Settings</span>
+                <span class="menu-title lang" key="settings">Settings</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
@@ -284,10 +286,10 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a class="nav-link lang" key="personal_dashboard" href="pages/charts/personalScreenTMR.html">Personal dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="admin_dashboard" href="pages/charts/adminScreenTMR.html">Admin dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="documents_detail" href="pages/charts/chartjsTMR.html">Documents in detail</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="sales_funnel" href="pages/charts/salesFunnelTMR.html">Sales funnel</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="personal_dashboard" href="../../pages/charts/personalScreenTMR.html">Personal dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="admin_dashboard" href="../../pages/charts/adminScreenTMR.html">Admin dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="documents_detail" href="../../pages/charts/chartjsTMR.html">Documents in detail</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="sales_funnel" href="../../pages/charts/salesFunnelTMR.html">Sales funnel</a></li>
                 </ul>
               </div>
             </li>
@@ -364,16 +366,16 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of open notes</h4>
+                    <h4 class="card-title lang" key="list_notes_open">List of open notes</h4>
                     <div class="table-responsive">
                       <table id="tableNoteUser"class="table">
                         <thead>
                           <tr>
                             <th> # </th>
-                            <th> Parent </th>
-                            <th> Сomment </th>
-                            <th> Time of creation </th>
-                            <th> Parent document title </th>
+                            <th class="lang" key="parent"> Parent </th>
+                            <th class="lang" key="comment"> Сomment </th>
+                            <th class="lang" key="time_creation"> Time of creation </th>
+                            <th class="lang" key="parent_doc"> Parent document title </th>
                             <th></th>
                             <th></th>
                           </tr>
@@ -520,8 +522,15 @@
           </div> -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span> -->
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
+              <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center">
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/VK.png" onclick="location.href='https://vk.com/tmr24'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/Telegram.png" onclick="location.href='https://t.me/TMR24_admin'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/WhatsApp.png" onclick="location.href='https://wa.me/79623722014?text=Привет!%20Настроим%20приложение.'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/YouTube.png" onclick="location.href='https://www.youtube.com/channel/UC2Jw3DZT-1vxz4vSIgBbZHg'"></input>
+              </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i class="mdi mdi-responsive lang" key="to_together"> to perfection together! </i> </span>
             </div>
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><a class="lang" key="personal_policy" href="https://www.tmr-24.com/privacy" target="_blank"> Personal data processing policy. </a></span>
@@ -548,5 +557,25 @@
     <!-- Custom js for this page -->
     <script src="../../assets/js/chart.js"></script>
     <!-- End custom js for this page -->
+    <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
+    <script type="text/javascript">
+     if (localStorage.length > 0)
+     {
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'TMR::translation')
+            {
+              var key_translation = localStorage.getItem('TMR::translation');
+              if(key_translation == 'en'){
+                translation_EN ()
+              }else {
+                translation_RU ()
+              }
+            }
+          }
+     }
+    </script>
   </body>
 </html>

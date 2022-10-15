@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-functions.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -26,6 +26,8 @@
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
+    <!-- Файл с текстами на разных языках -->
+    <script src="../../js/translation.js"></script>
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
@@ -57,12 +59,12 @@
           <ul class="navbar-nav navbar-nav">
             <li class="nav-item d-none d-lg-block full-screen-link">
               <button class="navbar-translation" id="ru" onclick="translation_RU ()">
-                <img src="images\russia_flag.jpg" alt="image" width="30px" height="20px">
+                <img src="../../images\russia_flag.jpg" alt="image" width="30px" height="20px">
               </button>
             </li>
             <li class="nav-item d-none d-lg-block full-screen-link">
               <button class="navbar-translation" id="en" onclick="translation_EN ()">
-                <img src="images\brit_flag.jpg" alt="image" width="30px" height="20px">
+                <img src="../../images\brit_flag.jpg" alt="image" width="30px" height="20px">
               </button>
             </li>
           </ul>
@@ -92,7 +94,7 @@
                               //does nothing and quits the function
                               //if the url does not exist
                               hiddenImg= new Image();
-                              hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
+                              hiddenImg.src= "../../svg/logo TMR Systems 192 80.svg";
                               document.IDFotoUrlLocalStorage.src=hiddenImg.src;
                               return;
                             }
@@ -117,7 +119,7 @@
                     <i class="mdi mdi-logout mr-2 text-primary"></i> Sign out </a>
                 </div>
               </li>
-            <li class="nav-item d-none d-lg-block full-screen-link">
+            <!-- <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
                 <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
               </a>
@@ -219,7 +221,7 @@
               <a class="nav-link" href="#">
                 <i class="mdi mdi-format-line-spacing"></i>
               </a>
-            </li>
+            </li> -->
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -238,7 +240,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../../indexAdmin.html">
-                <span class="menu-title">Settings</span>
+                <span class="menu-title lang" key="settings">Settings</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
@@ -250,10 +252,10 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a class="nav-link lang" key="personal_dashboard" href="pages/charts/personalScreenTMR.html">Personal dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="admin_dashboard" href="pages/charts/adminScreenTMR.html">Admin dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="documents_detail" href="pages/charts/chartjsTMR.html">Documents in detail</a></li>
-                  <li class="nav-item"><a class="nav-link lang" key="sales_funnel" href="pages/charts/salesFunnelTMR.html">Sales funnel</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="personal_dashboard" href="../../pages/charts/personalScreenTMR.html">Personal dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="admin_dashboard" href="../../pages/charts/adminScreenTMR.html">Admin dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="documents_detail" href="../../pages/charts/chartjsTMR.html">Documents in detail</a></li>
+                  <li class="nav-item"><a class="nav-link lang" key="sales_funnel" href="../../pages/charts/salesFunnelTMR.html">Sales funnel</a></li>
                 </ul>
               </div>
             </li>
@@ -272,11 +274,11 @@
             <div class="row" id="proBanner">
               <div class="col-12">
                 <span class="d-flex align-items-center purchase-popup">
-                  <p>Select a source of management positions.</p>
-                  <button onclick="gridDisplayOrganizationOwner()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw" >Organization owner</button>
-                  <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Organization</button>
-                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Subdivision</button>
-                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw" >Manager of the Position</button>
+                  <p class="lang" key="select_management_positions">Select a source of management positions.</p>
+                  <button onclick="gridDisplayOrganizationOwner()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="organization_owner" >Organization owner</button>
+                  <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_organization" >Manager of the Organization</button>
+                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_subdivision" >Manager of the Subdivision</button>
+                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_position" >Manager of the Position</button>
                 </span>
               </div>
             </div>
@@ -285,14 +287,14 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of available positions</h4>
+                    <h4 class="card-title lang" key="list_position">List of available positions</h4>
                     <div class="table-responsive">
                       <table id="tableAvalablePositionsList"class="table">
                         <thead>
                           <tr>
-                            <th> Position </th>
-                            <th> Subdivision </th>
-                            <th> Organization </th>
+                            <th class="lang" key="position"> Position </th>
+                            <th class="lang" key="subdivision"> Subdivision </th>
+                            <th class="lang" key="organization"> Organization </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -309,14 +311,14 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of employees with the selected position</h4>
+                    <h4 class="card-title lang" key="list_position_employees">List of employees with the selected position</h4>
                     <div class="table-responsive">
                       <table id="tableAvalablePositionsListUser"class="table">
                         <thead>
                           <tr>
                             <th> # </th>
-                            <th> User </th>
-                            <th> Comments </th>
+                            <th class="lang" key="user"> User </th>
+                            <th class="lang" key="comment"> Comment </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -333,16 +335,16 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"> Settings for displaying "Sales funnels" </h4>
+                    <h4 class="card-title lang" key="settings_sales_funnels"> Settings for displaying "Sales funnels" </h4>
                     <div class="table-responsive">
                       <table id="tableAvalablePositionsListSettings" class="table table-bordered">
                         <thead>
                           <tr>
-                            <th> Button name </th>
-                            <th> Button comments </th>
-                            <th> Sales funnel stage </th>
-                            <th> Employee availability </th>
-                            <th> Result button </th>
+                            <th class="lang" key="button_name"> Button name </th>
+                            <th class="lang" key="button_comment"> Button comments </th>
+                            <th class="lang" key="button_result_sales"> Sales funnel stage </th>
+                            <th class="lang" key="button_result_employee"> Employee availability </th>
+                            <th class="lang" key="button_result_button"> Result button </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -360,11 +362,11 @@
                   <div class="card-body">
                     <div class="d-flex align-items-center purchase-popup">
                       <form class="form-sample">
-                        <p class="card-description"> Analysis interval </p>
+                        <p class="card-description lang" key="analysis_interval"> Analysis interval </p>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label"> Start date </label>
+                              <label class="col-sm-6 col-form-label lang" key="data_elementary"> Elementary date  </label>
                               <div class="col-sm-6">
                                 <input class="form-control" id="exampleInputAnalysisStartDate" placeholder="dd/mm/yyyy" />
                               </div>
@@ -372,18 +374,18 @@
                           </div>
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label"> Expiration date </label>
+                              <label class="col-sm-6 col-form-label lang" key="data_expiration"> Expiration date </label>
                               <div class="col-sm-6">
                                 <input class="form-control" id="exampleInputAnalysisExpirationDate" placeholder="dd/mm/yyyy" />
                               </div>
                             </div>
                           </div>
                         </div>
-                        <p class="card-description"> Comparison interval </p>
+                        <p class="card-description lang" key="analysis_comparison"> Comparison interval </p>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label"> Start date </label>
+                              <label class="col-sm-6 col-form-label lang" key="data_elementary"> Elementary date </label>
                               <div class="col-sm-6">
                                 <input class="form-control" id="exampleInputComparisonStartDate" placeholder="dd/mm/yyyy" />
                               </div>
@@ -391,7 +393,7 @@
                           </div>
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label"> Expiration date </label>
+                              <label class="col-sm-6 col-form-label lang" key="data_expiration"> Expiration date </label>
                               <div class="col-sm-6">
                                 <input class="form-control" id="exampleInputComparisonExpirationDate" placeholder="dd/mm/yyyy" />
                               </div>
@@ -402,7 +404,7 @@
                           <div class="col-md-6">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" id="exampleInputComparisonCheckbox"> Use comparison </label>
+                                <input type="checkbox" class="form-check-input lang" key="use_comparison" id="exampleInputComparisonCheckbox"> Use comparison </label>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -425,7 +427,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="clearfix">
-                      <h4 class="card-title float-left"> Analytics "Free Sales Consultant" </h4>
+                      <h4 class="card-title float-left lang" key="analytics_free_sales_consultant"> Analytics "Free Sales Consultant" </h4>
                       <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
                     </div>
                     <canvas id="visit-sale-chart" class="mt-4"></canvas>
@@ -438,15 +440,15 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"> Traffic Sources analytics </h4>
+                    <h4 class="card-title lang" key="analysis_traffic"> Traffic Sources analytics </h4>
                     <div class="table-responsive">
                       <table id="tableTrafficSourcesAnalytics" class="table table-bordered">
                         <thead>
                           <tr>
                             <th> # </th>
-                            <th> First name </th>
-                            <th> Quantity </th>
-                            <th> Progress </th>
+                            <th class="lang" key="traffic_name"> First name </th>
+                            <th class="lang" key="quantity"> Quantity </th>
+                            <th class="lang" key="progress"> Progress </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -462,7 +464,7 @@
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"> "Sales funnel" </h4>
+                    <h4 class="card-title lang" key="sales_funnel"> Sales funnel </h4>
                     <canvas id="barChart" style="height:230px"></canvas>
                   </div>
                 </div>
@@ -471,17 +473,17 @@
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"> Result table </h4>
+                    <h4 class="card-title lang" key="result_table"> Result table </h4>
                     <!-- <p class="card-description"> Add class <code>.table</code> -->
                     <!-- </p> -->
                     <table id="tableResultTable" class="table">
                       <thead>
                         <tr>
                           <th> # </th>
-                          <th> Name Button </th>
-                          <th> Result </th>
-                          <th> Quantity </th>
-                          <th> Progress </th>
+                          <th class="lang" key="button_name"> Name Button </th>
+                          <th class="lang" key="result"> Result </th>
+                          <th class="lang" key="quantity"> Quantity </th>
+                          <th class="lang" key="progress"> Progress </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -495,8 +497,15 @@
           </div>
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
+              <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center">
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/VK.png" onclick="location.href='https://vk.com/tmr24'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/Telegram.png" onclick="location.href='https://t.me/TMR24_admin'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/WhatsApp.png" onclick="location.href='https://wa.me/79623722014?text=Привет!%20Настроим%20приложение.'"></input>
+                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="../../images/YouTube.png" onclick="location.href='https://www.youtube.com/channel/UC2Jw3DZT-1vxz4vSIgBbZHg'"></input>
+              </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i class="mdi mdi-responsive lang" key="to_together"> to perfection together! </i> </span>
             </div>
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><a class="lang" key="personal_policy" href="https://www.tmr-24.com/privacy" target="_blank"> Personal data processing policy. </a></span>
@@ -525,7 +534,25 @@
     <!-- <script src="../../assets/js/chartSalesFunnelTMR.js"></script> -->
     <script src="../../assets/js/todolist.js"></script>
     <!-- End custom js for this page -->
-
-
+    <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
+    <script type="text/javascript">
+     if (localStorage.length > 0)
+     {
+       for(let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+          }
+            if (key === 'TMR::translation')
+            {
+              var key_translation = localStorage.getItem('TMR::translation');
+              if(key_translation == 'en'){
+                translation_EN ()
+              }else {
+                translation_RU ()
+              }
+            }
+          }
+     }
+    </script>
   </body>
 </html>

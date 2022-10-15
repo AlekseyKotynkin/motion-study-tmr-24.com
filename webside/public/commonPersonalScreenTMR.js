@@ -60,32 +60,32 @@ displayListOpenNotes();
          items_Note.forEach(function(item, i, arr){
          var tr = document.createElement("tr");
 
-        var numer_Column = document.createElement('td');
-        numer_Column.innerHTML = i + 1;
+         var numer_Column = document.createElement('td');
+         numer_Column.innerHTML = i + 1;
 
-        var parent_Column = document.createElement('td');
-        var parent = item.NoteSource;
-        var noteSource = "";
-        if (parent === "note_traffic" )
-        {
-           noteSource = "Note Traffic";
-        }
-        if (parent === "note_text")
-        {
-           noteSource = "Note Text";
-        }
-        if (parent === "note_list")
-        {
-           noteSource = "Note List";
-        }
-        if (parent === "note_geo")
-        {
-           noteSource = "Note GEO";
-        }
-        parent_Column.innerHTML = noteSource;
+         var parent_Column = document.createElement('td');
+         var parent = item.NoteSource;
+         var noteSource = "";
+         if (parent === "note_traffic" )
+         {
+            noteSource = "Note Traffic";
+         }
+         if (parent === "note_text")
+         {
+            noteSource = "Note Text";
+         }
+         if (parent === "note_list")
+         {
+            noteSource = "Note List";
+         }
+         if (parent === "note_geo")
+         {
+            noteSource = "Note GEO";
+         }
+         parent_Column.innerHTML = noteSource;
 
-        var userСommentColumn = document.createElement('td');
-        userСommentColumn.innerHTML = item.NoteText;
+         var userСommentColumn = document.createElement('td');
+         userСommentColumn.innerHTML = item.NoteText;
 
          var time_Column = document.createElement('td');
          var workShiftPositionExpiration = item.NoteTime;
@@ -105,9 +105,12 @@ displayListOpenNotes();
 
          var parentDocColumn = document.createElement('td');
          parentDocColumn.innerHTML = item.NoteParentName;
-
          var toComeInUserName = document.createElement('button');
-         toComeInUserName.innerHTML = "Close";
+         if(translation_JS == null || translation_JS == 'en'){
+           toComeInUserName.innerHTML = "Close";
+         } else {
+           toComeInUserName.innerHTML = "Закрывать";
+         }
          toComeInUserName.className = 'badge badge-gradient-success';
          toComeInUserName.id = item.idDocNote;
          toComeInUserName.item = item;
