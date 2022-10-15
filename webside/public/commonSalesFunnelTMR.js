@@ -1943,4 +1943,26 @@ $(function () {
     });
   }
  });
-};
+}
+
+
+/**
+* @return {string}
+ *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+ */
+  function SignoutAdmin() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      // Выход выполнен успешно.
+      localStorage.clear();
+      window.location.replace("index.html")
+    }).catch(function(error) {
+      // An error happened.
+      // Произошла ошибка.
+      if(translation_JS == null || translation_JS == 'en'){
+        alert ("An error happened!");
+      } else {
+        alert ("Произошла ошибка!");
+      }
+    });
+ }
