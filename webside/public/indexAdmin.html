@@ -327,7 +327,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title lang" key ="list_active_user_sessions">List of Active User Sessions</h4>
+                    <h4 class="card-description lang" key ="list_active_user_sessions">List of Active User Sessions</h4>
                     <!-- Окно выбора Организации. -->
                     <div class="table-responsive">
                       <table id="tableActiveUser"class="table">
@@ -354,7 +354,7 @@
                 <div class="col-12 grid-margin">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="list_post_involver_user">List of posts in which you are involved as a User</h4>
+                      <h4 class="card-description lang" key="list_post_involver_user">List of posts in which you are involved as a User</h4>
                       <!-- Окно выбора Организации. -->
                       <div class="table-responsive">
                         <table id="tablePostsUser"class="table">
@@ -380,7 +380,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title lang" key="list_organizations_involver_owner">List of organizations you are involved in as Owner</h4>
+                    <h4 class="card-description lang" key="list_organizations_involver_owner">List of organizations you are involved in as Owner</h4>
                       <button type="button" class="btn btn-primary btn-lg lang" key="add_organization" data-toggle="modal" data-target="#gridSystemModalNewOrganization">
                         + Add Organization
                       </button>
@@ -418,7 +418,25 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
               <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center">
-                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                <script type="text/javascript">
+                 if (localStorage.length > 0)
+                 {
+                   for(let key in localStorage) {
+                    if (!localStorage.hasOwnProperty(key)) {
+                    continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+                      }
+                        if (key === 'TMR::translation')
+                        {
+                          var key_translation = localStorage.getItem('TMR::translation');
+                          if(key_translation == 'en'){
+                            <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                          }
+                        }
+                      }
+                 }else{
+                   <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                 }
+                </script>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/VK.png" onclick="location.href='https://vk.com/tmr24'"></input>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Telegram.png" onclick="location.href='https://t.me/TMR24_admin'"></input>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/WhatsApp.png" onclick="location.href='https://wa.me/79623722014?text=Привет!%20Настроим%20приложение.'"></input>
@@ -447,7 +465,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="add_organization">+ Add Organization</h4>
+                      <h4 class="card-description lang" key="add_organization">+ Add Organization</h4>
                       <p class="card-description lang" key="create_account_organization"> Create a new organization account </p>
                       <form class="forms-sample">
                         <div class="form-group">

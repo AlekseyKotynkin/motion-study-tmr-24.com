@@ -350,7 +350,7 @@
              <div class="col-12 grid-margin">
                <div class="card">
                  <div id='headerTableUser' class="card-body">
-                   <h4 class="card-title lang" key="list_users">A list of users : </h4>
+                   <h4 class="card-description lang" key="list_users">A list of users : </h4>
                    <button type="button" class="btn btn-primary btn-lg lang" key="add_user" data-toggle="modal" data-target="#gridSystemModalNewUser">
                      + Add User
                    </button>
@@ -381,7 +381,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableSettings' class="card-body">
-                    <h4 class="card-title lang" key="settings_for">Settings for : </h4>
+                    <h4 class="card-description lang" key="settings_for">Settings for : </h4>
                       <button type="button" class="btn btn-primary btn-lg lang" key="add_settings_button" data-toggle="modal" data-target="#gridSystemModalNewSettings">
                         + Add settings for button
                       </button>
@@ -414,7 +414,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableActiveActivityControl' class="card-body">
-                    <h4 class="card-title lang" key="active_activity_control">Active activity control</h4>
+                    <h4 class="card-description lang" key="active_activity_control">Active activity control</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTableActiveActivityControl()</script>
                         <table id="tableActiveActivityControl"class="table">
@@ -441,7 +441,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTablePassiveActivityControl' class="card-body">
-                    <h4 class="card-title lang" key="passive_activity_control">Passive activity control</h4>
+                    <h4 class="card-description lang" key="passive_activity_control">Passive activity control</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTablePassiveActivityControl()</script>
                         <table id="tablePassiveActivityControl"class="table">
@@ -470,7 +470,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id='headerTableResultСapture' class="card-body">
-                    <h4 class="card-title lang" key="result_capture">Result capture</h4>
+                    <h4 class="card-description lang" key="result_capture">Result capture</h4>
                     <div class="table-responsive">
                        <script type="text/javascript">createTableResultСapture()</script>
                         <table id="tableResultСapture"class="table">
@@ -502,7 +502,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id='headerTablePositionNote' class="card-body">
-                  <h4 class="card-title lang" key="list_notes">List of notes: </h4>
+                  <h4 class="card-description lang" key="list_notes">List of notes: </h4>
                     <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionNote">
                       + Add a list of note positions
                     </button> -->
@@ -539,7 +539,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id='headerTablePositionTraffic' class="card-body">
-                  <h4 class="card-title lang" key="list_traffic">List of traffic channels: </h4>
+                  <h4 class="card-description lang" key="list_traffic">List of traffic channels: </h4>
                     <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editGridSystemModalNewPositionTraffic">
                       + Add a list of traffic positions
                     </button> -->
@@ -576,7 +576,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div id="titleSaveSettingsShiftPosition" class="card-body">
-                  <h4 class="card-title lang" key="settings_sales_funnels"> Settings for displaying "Sales funnels" </h4>
+                  <h4 class="card-description lang" key="settings_sales_funnels"> Settings for displaying "Sales funnels" </h4>
                   <!-- <button type="button" class="btn btn-primary btn-lg" onclick="#gridSystemSaveSettingsShiftPosition()"> Save settings </button> -->
                   <div class="table-responsive">
                     <script type="text/javascript">createSaveSettingsShiftPosition()</script>
@@ -604,7 +604,25 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
               <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center">
-                <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                <script type="text/javascript">
+                 if (localStorage.length > 0)
+                 {
+                   for(let key in localStorage) {
+                    if (!localStorage.hasOwnProperty(key)) {
+                    continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+                      }
+                        if (key === 'TMR::translation')
+                        {
+                          var key_translation = localStorage.getItem('TMR::translation');
+                          if(key_translation == 'en'){
+                            <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                          }
+                        }
+                      }
+                 }else{
+                   <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Facebook.png" onclick="location.href='https://www.facebook.com/TMR24Systems/'"></input>
+                 }
+                </script>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/VK.png" onclick="location.href='https://vk.com/tmr24'"></input>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/Telegram.png" onclick="location.href='https://t.me/TMR24_admin'"></input>
                 <input type="image" class="btn btn-gradient-primary btn-rounded btn-icon" src="images/WhatsApp.png" onclick="location.href='https://wa.me/79623722014?text=Привет!%20Настроим%20приложение.'"></input>
@@ -635,7 +653,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="add_user">+ Add User</h4>
+                      <h4 class="card-description lang" key="add_user">+ Add User</h4>
                       <p class="card-description lang" key="create_account_user"> Create a new user account </p>
                       <form class="forms-sample">
                         <div class="form-group">
@@ -669,7 +687,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="add_settings_button">+ Add Settings</h4>
+                      <h4 class="card-description lang" key="add_settings_button">+ Add Settings</h4>
                       <p class="card-description lang" key="create_account_settings_button"> Create a new settings account </p>
                       <form class="forms-sample">
                         <div class="form-group">
@@ -707,7 +725,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="edit_settings_button">Edit Settings</h4>
+                      <h4 class="card-description lang" key="edit_settings_button">Edit Settings</h4>
                       <p class="card-description lang" key="edit_account_settings_button settings account ">Edit a new settings account</p>
                       <form class="forms-sample">
                         <div class="form-group">
@@ -993,7 +1011,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="edit_user">Edit User</h4>
+                      <h4 class="card-description lang" key="edit_user">Edit User</h4>
                       <p class="card-description lang" key="edit_account_user">Edit user account</p>
                       <form class="forms-sample">
                         <div class="form-group">
@@ -1027,7 +1045,7 @@
                 <div class="col-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title lang" key="list_notes">List of notes</h4>
+                      <h4 class="card-description lang" key="list_notes">List of notes</h4>
                       <p class="card-description lang" key="list_notes_title">List of notes</p>
                       <form class="forms-sample">
                         <div class="form-group">
@@ -1093,7 +1111,7 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title lang" key="list_traffic">List of traffic channels:</h4>
+                        <h4 class="card-description lang" key="list_traffic">List of traffic channels:</h4>
                         <p class="card-description lang" key="list_traffic_title">Traffic channel</p>
                         <form class="forms-sample">
                           <div class="form-group">
@@ -1159,7 +1177,7 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title lang" key="list_notes">List of notes</h4>
+                        <h4 class="card-description lang" key="list_notes">List of notes</h4>
                         <p class="card-description lang" key="list_notes_title">List of notes</p>
                         <form class="forms-sample">
                           <div class="form-group">
@@ -1225,7 +1243,7 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h4 class="card-title lang" key="list_traffic">List of traffic channels</h4>
+                        <h4 class="card-description lang" key="list_traffic">List of traffic channels</h4>
                         <p class="card-description lang" key="list_traffic_title">Traffic channel</p>
                         <form class="forms-sample">
                           <div class="form-group">

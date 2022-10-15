@@ -423,7 +423,7 @@ parentHierarchy.get().then(function (querySnapshot) {
           if(translation_JS == null || translation_JS == 'en'){
             quitName.innerHTML = "Quit";
           } else {
-            quitName.innerHTML = "Выйти";
+            quitName.innerHTML = "Удалить";
           }
           quitName.className = 'badge badge-gradient-danger lang';
           quitName.id = item.idOrganization;

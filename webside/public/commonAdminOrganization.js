@@ -188,7 +188,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
           if(translation_JS == null || translation_JS == 'en'){
             quitName.innerHTML = "Quit";
           } else {
-            quitName.innerHTML = "Выйти";
+            quitName.innerHTML = "Удалить";
           }
           quitName.className = 'badge badge-gradient-danger';
           quitName.id = item.idSubdivision;
@@ -318,7 +318,7 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
            if(translation_JS == null || translation_JS == 'en'){
              quitName.innerHTML = "Quit";
            } else {
-             quitName.innerHTML = "Выйти";
+             quitName.innerHTML = "Удалить";
            }
            quitName.className = 'badge badge-gradient-danger';
            quitName.id = item.idPosition;
