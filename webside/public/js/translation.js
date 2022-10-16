@@ -255,6 +255,12 @@ var arrLang = {
     'tmr_client_text_2': ' A prerequisite for working with the SMART system is its maximum concreteness and unambiguity. In order for a dream to turn into a goal, it is necessary to clearly analyze and prescribe tactical and strategic objectives, while defining priorities and criteria. Solving a problem is always a phased sequence of targeted actions that will result in the achievement of the main goal. ',
     'tmr_client_text_3': ' Trust is a positive relationship between people, allowing each of the parties to be confident in the decency, openness, benevolence and honesty of the other party with which it is in one or another relationship. ',
     'tmr_client_text_4': ' Whoever trusts quickly is frivolous, and he who sins sins against his soul. ',
+    'new_here': ' New here? ',
+    'new_here_title': ' Signing up is easy. It only takes a few steps ',
+    'terms_conditions': ' I agree to all Terms & Conditions ',
+    'registration': ' Registration ',
+    'account_an': ' Already have an account? ',
+
 
 
 
@@ -475,8 +481,11 @@ var arrLang = {
     'tmr_client_text_2': ' Обязательным условием для работы с SMART системой является ее максимальная конкретность и неоднозначность. Для того чтобы мечта превратилась в цель, необходимо четко проанализировать и прописать тактические и стратегические задачи, определив при этом приоритеты и критерии. Решение проблемы - это всегда поэтапная последовательность целенаправленных действий, которые приведут к достижению главной цели. ',
     'tmr_client_text_3': ' Доверие - это позитивные отношения между людьми, позволяющие каждой из сторон быть уверенной в порядочности, открытости, доброжелательности и честности другой стороны, с которой она находится в тех или иных отношениях. ',
     'tmr_client_text_4': ' Тот, кто быстро доверяет, легкомыслен, а тот, кто грешит, грешит против своей души. ',
-
-
+    'new_here': ' Новенький здесь? ',
+    'new_here_title': ' Зарегистрироваться очень просто. Это займет всего несколько шагов. ',
+    'terms_conditions': ' Я согласен со всеми положениями и условиями ',
+    'registration': ' Регистрация ',
+    'account_an': ' У вас уже есть учетная запись? ',
 
 
 

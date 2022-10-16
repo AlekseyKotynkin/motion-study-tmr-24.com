@@ -137,42 +137,42 @@ var database = firebase.database();
 
 
      //  Вход пользователя через форму Google.
-  function signInWathGoogle()
-  {
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // Это дает вам токен доступа Google. Вы можете использовать его для доступа к Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      // Информация о вошедшем в систему пользователе.
-      var user = result.user;
-          var name = user.displayName;
-          var email = user.email;
-          var photoUrl = user.photoUrl;
-
-          var itemsArray = [{
-            displayName: name,
-            email: email,
-            photoUrl: photoUrl
-          }];
-          localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-          if(translation_JS == null || translation_JS == 'en'){
-            alert ("Welcome!");
-          } else {
-            alert ("Здравствуйте!");
-          }
-          window.location.replace("index.html")
-    }).catch(function(error) {
-      // Handle Errors here.
-      // Здесь обрабатываются ошибки.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      // Электронная почта используемой учетной записи пользователя.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      // Используемый тип firebase.auth.AuthCredential.
-      var credential = error.credential;
-      // ...
-    });
-  }
+  // function signInWathGoogle()
+  // {
+  //   firebase.auth().signInWithPopup(provider).then(function(result) {
+  //     // This gives you a Google Access Token. You can use it to access the Google API.
+  //     // Это дает вам токен доступа Google. Вы можете использовать его для доступа к Google API.
+  //     var token = result.credential.accessToken;
+  //     // The signed-in user info.
+  //     // Информация о вошедшем в систему пользователе.
+  //     var user = result.user;
+  //         var name = user.displayName;
+  //         var email = user.email;
+  //         var photoUrl = user.photoUrl;
+  //
+  //         var itemsArray = [{
+  //           displayName: name,
+  //           email: email,
+  //           photoUrl: photoUrl
+  //         }];
+  //         localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
+  //         if(translation_JS == null || translation_JS == 'en'){
+  //           alert ("Welcome!");
+  //         } else {
+  //           alert ("Здравствуйте!");
+  //         }
+  //         window.location.replace("index.html")
+  //   }).catch(function(error) {
+  //     // Handle Errors here.
+  //     // Здесь обрабатываются ошибки.
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     // Электронная почта используемой учетной записи пользователя.
+  //     var email = error.email;
+  //     // The firebase.auth.AuthCredential type that was used.
+  //     // Используемый тип firebase.auth.AuthCredential.
+  //     var credential = error.credential;
+  //     // ...
+  //   });
+  // }
