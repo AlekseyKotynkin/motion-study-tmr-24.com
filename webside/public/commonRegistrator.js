@@ -104,3 +104,8 @@ var translation_JS = localStorage.getItem('TMR::translation');
        console.log(error);
     })
    }
+
+   // открыть окно Фейсбука
+   function location_Href(){
+     window.open('https://www.facebook.com/TMR24Systems/');
+   }

@@ -161,6 +161,9 @@ function toCloseNote(obj)
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
   });
+}
 
-
+// открыть окно Фейсбука
+function location_Href(){
+  window.open('https://www.facebook.com/TMR24Systems/');
 }

@@ -289,3 +289,8 @@ function toRegisterProcessUser(obj) {
     });
   }
 }
+
+// открыть окно Фейсбука
+function location_Href(){
+  window.open('https://www.facebook.com/TMR24Systems/');
+}

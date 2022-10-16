@@ -189,4 +189,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
        window.location.replace("widget.html")
        }
      });
-  };
+  }
+
+  // открыть окно Фейсбука
+  function location_Href(){
+    window.open('https://www.facebook.com/TMR24Systems/');
+  }

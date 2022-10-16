@@ -515,3 +515,8 @@ function toComeInButtonUser(obj) {
   //   });
   //   window.location.reload();
   // }
+
+  // открыть окно Фейсбука
+  function location_Href(){
+    window.open('https://www.facebook.com/TMR24Systems/');
+  }
