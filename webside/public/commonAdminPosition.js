@@ -117,9 +117,9 @@ if (doc.exists) {
     var ul_User = my_div_User.querySelector("h4");
     namePosition =item.Position;
     if(translation_JS == null || translation_JS == 'en'){
-      var li = "Organization - "+(nameOrganization)+", Subdivision - "+(nameSubdivision)+", Position - "+(namePosition);
+      var li =" " +"Organization - "+(nameOrganization)+", Subdivision - "+(nameSubdivision)+", Position - "+(namePosition);
     } else {
-      var li = "Организация - "+(nameOrganization)+", Подразделение - "+(nameSubdivision)+", Должность - "+(namePosition);
+      var li =" " + " Организация - "+(nameOrganization)+", Подразделение - "+(nameSubdivision)+", Должность - "+(namePosition);
     }
     ul_User.insertAdjacentHTML("beforeend", li);
     my_div = document.getElementById("headerTableSettings");
@@ -518,6 +518,26 @@ function gridSystemModalNewUserSubmit()
   idDocOrganization: LocalStorageOrganizationId,
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
+      db.collection("OrganizationTable").add({
+        organizationDocId: LocalStorageOrganizationId,
+        organizationDocName:  nameOrganization,
+        positionDocId: LocalStoragePosition,
+        positionDocName: namePosition,
+        positionUserDocId: docRef.id,
+        subdivisionDocId: LocalStorageSubdivision,
+        subdivisionDocName: nameSubdivision,
+        userNameEmail: userTitle,
+        userСomment: userСomment,
+      }).then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      }).catch(function(error) {
+          console.error("Error adding document: ", error);
+          if(translation_JS == null || translation_JS == 'en'){
+            alert("Error adding document: ", error);
+          } else {
+            alert("Ошибка при добавлении документа: ", error);
+          }
+      });
       $('#gridSystemModalNewUser').modal('toggle');
       window.location.reload();
   }).catch(function(error) {
@@ -528,7 +548,7 @@ function gridSystemModalNewUserSubmit()
         alert("Ошибка при добавлении документа: ", error);
       }
   });
-};
+}
 
 /**
 * @return {string}
