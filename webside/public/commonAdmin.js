@@ -152,17 +152,17 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '==', EmailLocalStorage);
 parentHierarchy.get().then(function (querySnapshot) {
   querySnapshot.forEach(function (doc) {
-   let parentHierarchyDoc = doc.ref.path;
-   let organizationDocId = parentHierarchyDoc.split("/")[1];
-   let subdivisionDocId = parentHierarchyDoc.split("/")[3];
-   let positionDocId = parentHierarchyDoc.split("/")[5];
+   var parentHierarchyDoc = doc.ref.path;
+   var organizationDocId = parentHierarchyDoc.split("/")[1];
+   var subdivisionDocId = parentHierarchyDoc.split("/")[3];
+   var positionDocId = parentHierarchyDoc.split("/")[5];
    itemsUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
   });
   itemsUserName.forEach(function(element){
-    let organizationDocId = element.idDocOrganization ;
-    let subdivisionDocId = element.idDocSubdivision ;
-    let positionDocId = element.idDocPosition ;
-    let docRefOrganization = db.collection("Organization").doc(organizationDocId);
+    var organizationDocId = element.idDocOrganization ;
+    var subdivisionDocId = element.idDocSubdivision ;
+    var positionDocId = element.idDocPosition ;
+    var docRefOrganization = db.collection("Organization").doc(organizationDocId);
        docRefOrganization.get().then(function(doc) {
         if (doc.exists) {
             nameOrganization = doc.data().Organization;
@@ -173,7 +173,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-    let docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+    var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
        docRefSubdivision.get().then(function(doc) {
         if (doc.exists) {
             nameSubdivision = doc.data().Subdivision;
@@ -184,7 +184,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-    let docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+    var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
        docRefPosition.get().then(function(doc) {
         if (doc.exists) {
             namePosition = doc.data().Position;
@@ -272,8 +272,8 @@ parentHierarchy.get().then(function (querySnapshot) {
   function gridSystemModalNewOrganizationSubmit()
   {
     //exampleInputUpload2
-    let Organization = document.getElementById("exampleInputNameOrganization").value;
-    let Position = document.getElementById("exampleInputPosition").value;
+    var Organization = document.getElementById("exampleInputNameOrganization").value;
+    var Position = document.getElementById("exampleInputPosition").value;
     var iconOrganization = document.getElementById("exampleInputUpload2").value;
     if (Organization.length < 1)
     {
@@ -283,7 +283,7 @@ parentHierarchy.get().then(function (querySnapshot) {
         alert ("Пожалуйста, введите название организации.");
       }
      return;
-    };
+    }
     if (Position.length < 1)
     {
       if(translation_JS == null || translation_JS == 'en'){
@@ -444,7 +444,7 @@ parentHierarchy.get().then(function (querySnapshot) {
           container.appendChild(tr);
         });
       });
-  };
+  }
 
   /**
   * @return {string}
@@ -453,16 +453,16 @@ parentHierarchy.get().then(function (querySnapshot) {
 
   function toComeInButton(obj) {
     //обработка редактирования строки...
-      let objId = obj.id;
+      var objId = obj.id;
 
-        let itemsArray = [{
+        var itemsArray = [{
           OrganizationId: objId,
           OwnerEmail: EmailLocalStorage,
           ProviderId: "TMR-24.com"
         }];
       localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
       window.location.replace("indexAdminOrganization.html");
-    };
+    }
 
     /**
     * @return {string}
@@ -470,7 +470,7 @@ parentHierarchy.get().then(function (querySnapshot) {
      */
 
     function quitButton(obj) {
-    let objId = obj.id;
+    var objId = obj.id;
     if(translation_JS == null || translation_JS == 'en'){
       alert('Document successfully deleted! '+ (objId));
     } else {
@@ -482,7 +482,7 @@ parentHierarchy.get().then(function (querySnapshot) {
       }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
-    };
+    }
 /**
 * @return {string}
  *  Обработчик кнопки toComeInUserColumn из таблицы List of posts in which you are involved as a User из firestore.
@@ -490,15 +490,15 @@ parentHierarchy.get().then(function (querySnapshot) {
 
 function toComeInButtonUser(obj) {
   //обработка редактирования строки...
-    let objItem = obj.item;
-      let itemsArray = [{
+    var objItem = obj.item;
+      var itemsArray = [{
         OwnerEmail: EmailLocalStorage,
         ProviderId: "TMR-24.com",
         ParentHierarchy: objItem
       }];
     localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
     window.location.replace("indexUser.html");
-  };
+  }
 
   /**
   * @return {string}
