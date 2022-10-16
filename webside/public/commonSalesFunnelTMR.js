@@ -169,7 +169,11 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                    organizationColumn.innerHTML = item.NameOrganization;
 
                                                    var toComeInUserName = document.createElement('button');
-                                                   toComeInUserName.innerHTML = "To come in";
+                                                   if(translation_JS == null || translation_JS == 'en'){
+                                                     toComeInUserName.innerHTML = "To come in";
+                                                   } else {
+                                                     toComeInUserName.innerHTML = "Перейти";
+                                                   }
                                                    toComeInUserName.className = 'badge badge-gradient-success';
                                                    toComeInUserName.id = item.idDocPositionUser;
                                                    toComeInUserName.item = item;
@@ -177,7 +181,6 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 
                                                    var toComeInUserColumn = document.createElement('td');
                                                    toComeInUserColumn.appendChild(toComeInUserName);
-
 
                                                    tr.appendChild(positionColumn);
                                                    tr.appendChild(subdivisionColumn);
@@ -336,7 +339,11 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                    organizationColumn.innerHTML = item.NameOrganization;
 
                                                    var toComeInUserName = document.createElement('button');
-                                                   toComeInUserName.innerHTML = "To come in";
+                                                   if(translation_JS == null || translation_JS == 'en'){
+                                                     toComeInUserName.innerHTML = "To come in";
+                                                   } else {
+                                                     toComeInUserName.innerHTML = "Перейти";
+                                                   }
                                                    toComeInUserName.className = 'badge badge-gradient-success';
                                                    toComeInUserName.id = item.idDocPositionUser;
                                                    toComeInUserName.item = item;
@@ -490,7 +497,11 @@ function gridDisplayManagerSubdivision() {
                                  organizationColumn.innerHTML = item.NameOrganization;
 
                                  var toComeInUserName = document.createElement('button');
-                                 toComeInUserName.innerHTML = "To come in";
+                                 if(translation_JS == null || translation_JS == 'en'){
+                                   toComeInUserName.innerHTML = "To come in";
+                                 } else {
+                                   toComeInUserName.innerHTML = "Перейти";
+                                 }
                                  toComeInUserName.className = 'badge badge-gradient-success';
                                  toComeInUserName.id = item.idDocPositionUser;
                                  toComeInUserName.item = item;
@@ -616,7 +627,11 @@ function gridDisplayManagerPosition() {
         organizationColumn.innerHTML = item.NameOrganization;
 
         var toComeInUserName = document.createElement('button');
-        toComeInUserName.innerHTML = "To come in";
+        if(translation_JS == null || translation_JS == 'en'){
+          toComeInUserName.innerHTML = "To come in";
+        } else {
+          toComeInUserName.innerHTML = "Перейти";
+        }
         toComeInUserName.className = 'badge badge-gradient-success';
         toComeInUserName.id = item.idDocPositionUser;
         toComeInUserName.item = item;
@@ -802,7 +817,11 @@ function gridDisplayManagerPosition() {
       {
         my_div_User = document.getElementById("headerGridDisplay");
         // const ul_User = my_div_User.querySelector("h4");
-        var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Display </button>';
+        if(translation_JS == null || translation_JS == 'en'){
+          var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Display </button>';
+        } else {
+          var li = '<button type="button" class="btn btn-gradient-primary mr-2" onclick="gridDisplay()"> Монитор </button>';
+        }
         my_div_User.insertAdjacentHTML("afterbegin", li);
         button_Control = "activ";
       }

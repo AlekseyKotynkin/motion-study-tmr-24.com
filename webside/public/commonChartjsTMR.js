@@ -125,7 +125,6 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                            organizationColumn.innerHTML = item.NameOrganization;
 
                            var toComeInUserName = document.createElement('button');
-                           var toComeInUserName = document.createElement('button');
                            if(translation_JS == null || translation_JS == 'en'){
                              toComeInUserName.innerHTML = "To come in";
                            } else {
@@ -229,7 +228,6 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
         var organizationColumn = document.createElement('td');
         organizationColumn.innerHTML = item.NameOrganization;
 
-        var toComeInUserName = document.createElement('button');
         var toComeInUserName = document.createElement('button');
         if(translation_JS == null || translation_JS == 'en'){
           toComeInUserName.innerHTML = "To come in";
@@ -370,7 +368,6 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
                  formattedColumn.innerHTML = formatted;
 
                  var toComeInUserName = document.createElement('button');
-                 var toComeInUserName = document.createElement('button');
                  if(translation_JS == null || translation_JS == 'en'){
                    toComeInUserName.innerHTML = "To come in";
                  } else {
@@ -461,7 +458,6 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
              var formatted = hours + ':' + minutes + ':' + seconds;
              formattedColumn.innerHTML = formatted;
 
-             var toComeInUserName = document.createElement('button');
              var toComeInUserName = document.createElement('button');
              if(translation_JS == null || translation_JS == 'en'){
                toComeInUserName.innerHTML = "To come in";

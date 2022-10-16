@@ -53,9 +53,15 @@ function gridDisplayOrganizationOwner() {
   $('#tablePositionShift tbody').empty();
   // обнуляем позицию
   var positionShift = "";
-  //убрать кнопку из таблицыц
-   var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
-   document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  //убрать кнопку из таблицы
+  if(translation_JS == null || translation_JS == 'en'){
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  } else {
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  }
+
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром собственник организации
@@ -151,7 +157,11 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                    organizationColumn.innerHTML = item.NameOrganization;
 
                                                    var toComeInUserName = document.createElement('button');
-                                                   toComeInUserName.innerHTML = "To come in";
+                                                   if(translation_JS == null || translation_JS == 'en'){
+                                                     toComeInUserName.innerHTML = "To come in";
+                                                   } else {
+                                                     toComeInUserName.innerHTML = "Перейти";
+                                                   }
                                                    toComeInUserName.className = 'badge badge-gradient-success';
                                                    toComeInUserName.id = item.idDocPositionUser;
                                                    toComeInUserName.item = item;
@@ -212,9 +222,15 @@ function gridDisplayManagerOrganization() {
   var positionShift = "";
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
-  //убрать кнопку из таблицыц
-   var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
-   document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  //убрать кнопку из таблицы
+  if(translation_JS == null || translation_JS == 'en'){
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  } else {
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  }
+
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер организации
@@ -309,7 +325,11 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                    organizationColumn.innerHTML = item.NameOrganization;
 
                                                    var toComeInUserName = document.createElement('button');
-                                                   toComeInUserName.innerHTML = "To come in";
+                                                   if(translation_JS == null || translation_JS == 'en'){
+                                                     toComeInUserName.innerHTML = "To come in";
+                                                   } else {
+                                                     toComeInUserName.innerHTML = "Перейти";
+                                                   }
                                                    toComeInUserName.className = 'badge badge-gradient-success';
                                                    toComeInUserName.id = item.idDocPositionUser;
                                                    toComeInUserName.item = item;
@@ -317,7 +337,6 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
 
                                                    var toComeInUserColumn = document.createElement('td');
                                                    toComeInUserColumn.appendChild(toComeInUserName);
-
 
                                                    tr.appendChild(positionColumn);
                                                    tr.appendChild(subdivisionColumn);
@@ -371,8 +390,14 @@ function gridDisplayManagerSubdivision() {
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
-   var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
-   document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  if(translation_JS == null || translation_JS == 'en'){
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  } else {
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  }
+
 /**
 * @return {string}
 * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер подразделения
@@ -454,7 +479,11 @@ function gridDisplayManagerSubdivision() {
                                  organizationColumn.innerHTML = item.NameOrganization;
 
                                  var toComeInUserName = document.createElement('button');
-                                 toComeInUserName.innerHTML = "To come in";
+                                 if(translation_JS == null || translation_JS == 'en'){
+                                   toComeInUserName.innerHTML = "To come in";
+                                 } else {
+                                   toComeInUserName.innerHTML = "Перейти";
+                                 }
                                  toComeInUserName.className = 'badge badge-gradient-success';
                                  toComeInUserName.id = item.idDocPositionUser;
                                  toComeInUserName.item = item;
@@ -502,8 +531,15 @@ function gridDisplayManagerPosition() {
   //очищаю таблицу tableAvalablePositionsList
   // $('#tableAvalablePositionsListSettings tbody').empty();
   //убрать кнопку из таблицыц
-   var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
-   document.body.innerHTML = document.body.innerHTML.replace(regex, '');  /**
+  if(translation_JS == null || translation_JS == 'en'){
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  } else {
+    var regex = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+    document.body.innerHTML = document.body.innerHTML.replace(regex, '');
+  }
+
+    /**
   * @return {string}
   * Получение данных для таблицы List of own organizations из firestore с фильтром менеджер должности
   */
@@ -569,7 +605,11 @@ function gridDisplayManagerPosition() {
         organizationColumn.innerHTML = item.NameOrganization;
 
         var toComeInUserName = document.createElement('button');
-        toComeInUserName.innerHTML = "To come in";
+        if(translation_JS == null || translation_JS == 'en'){
+          toComeInUserName.innerHTML = "To come in";
+        } else {
+          toComeInUserName.innerHTML = "Перейти";
+        }
         toComeInUserName.className = 'badge badge-gradient-success';
         toComeInUserName.id = item.idDocPositionUser;
         toComeInUserName.item = item;
@@ -667,7 +707,11 @@ function gridDisplayManagerPosition() {
           buttonNumber = "yes";
           my_div_User = document.getElementById("addButtonShiftPosition");
           const ul_User = my_div_User.querySelector("h4");
-          var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+          if(translation_JS == null || translation_JS == 'en'){
+            var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+          } else {
+            var li = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button>';
+          }
           ul_User.insertAdjacentHTML("afterend", li);
         }
 
@@ -747,7 +791,11 @@ function gridDisplayManagerPosition() {
           numberUsersColumn.innerHTML = item.NumberUsers;
 
           var changeShiftData = document.createElement('button');
-          changeShiftData.innerHTML = "To come in";
+          if(translation_JS == null || translation_JS == 'en'){
+            changeShiftData.innerHTML = "To come in";
+          } else {
+            changeShiftData.innerHTML = "Перейти";
+          }
           changeShiftData.className = 'badge badge-gradient-success';
           changeShiftData.id = item.idPositionShift;
           changeShiftData.item = item;
@@ -757,7 +805,11 @@ function gridDisplayManagerPosition() {
           changeShiftDataColumn.appendChild(changeShiftData);
 
           var editShiftData = document.createElement('button');
-          editShiftData.innerHTML = "Edit";
+          if(translation_JS == null || translation_JS == 'en'){
+            editShiftData.innerHTML = "Edit";
+          } else {
+            editShiftData.innerHTML = "Редактировать";
+          }
           editShiftData.className = 'badge badge-gradient-warning';
           editShiftData.id = item.idPositionShift;
           editShiftData.item = item;
@@ -767,7 +819,11 @@ function gridDisplayManagerPosition() {
           editShiftDataColumn.appendChild(editShiftData);
 
           var deleteShiftData = document.createElement('button');
-          deleteShiftData.innerHTML = "Delete";
+          if(translation_JS == null || translation_JS == 'en'){
+            deleteShiftData.innerHTML = "Delete";
+          } else {
+            deleteShiftData.innerHTML = "Удалить";
+          }
           deleteShiftData.className = 'badge badge-gradient-danger';
           deleteShiftData.id = item.idPositionShift;
           deleteShiftData.item = item;
