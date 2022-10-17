@@ -120,6 +120,15 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
               // File or Blob named mountains.jpg
               var file = document.querySelector("#exampleInputUpload1").files[0];
               if(file !== undefined){
+                if (file.size > 2097152) // 2 MiB for bytes.
+                {
+                  if(translation_JS == null || translation_JS == 'en'){
+                    alert("File size must under 2MiB!");
+                  } else {
+                    alert("Размер файла не должен превышать 2 Мбайт!");
+                  }
+                  return;
+                }
                 // Create the file metadata
                 var metadata = {contentType: 'image/jpeg'};
                 // Upload file and metadata to the object 'images/mountains.jpg'
