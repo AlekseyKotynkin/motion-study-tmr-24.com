@@ -109,3 +109,26 @@ var translation_JS = localStorage.getItem('TMR::translation');
    function location_Href(){
      window.open('https://www.facebook.com/TMR24Systems/');
    }
+   // заполняем строки с русскими значениями
+   function translationCommon_RU (){
+     //
+     var element = document.getElementById("registration_check");
+     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions"> Я согласен со всеми положениями и условиями </label>'
+     element.insertAdjacentHTML( 'afterbegin', newElement );
+     //
+     var element_1 = document.getElementById("registration_account_an");
+     var newElement_1 = '<div class="text-center mt-4 font-weight-light"> У вас уже есть учетная запись? <a href="../../widget.html" class="text-primary">Вход</a></div>'
+     element_1.insertAdjacentHTML( 'afterbegin', newElement_1 )
+
+   }
+   // заполняем строки с английскими значениями
+   function translationCommon_EN (){
+     var element = document.getElementById("registration_check");
+     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions"> I agree to all Terms & Conditions </label>'
+     element.insertAdjacentHTML( 'afterbegin', newElement );
+     //
+     var element_1 = document.getElementById("registration_account_an");
+     var newElement_1 = '<div class="text-center mt-4 font-weight-light"> Already have an account? <a href="../../widget.html" class="text-primary">Login</a></div>'
+     element_1.insertAdjacentHTML( 'afterbegin', newElement_1 );
+
+   }

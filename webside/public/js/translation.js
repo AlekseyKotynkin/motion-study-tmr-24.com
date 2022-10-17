@@ -1,6 +1,6 @@
 function translation_RU (){
+  translationCommon_RU ();
   var lang = 'ru';
-
   $('.lang').each(function(index, item) {
     $(this).text(arrLang[lang][$(this).attr('key')]);
   });
@@ -19,8 +19,8 @@ function translation_RU (){
 }
 
 function translation_EN (){
+  translationCommon_EN ();
   var lang = 'en';
-
   $('.lang').each(function(index, item) {
     $(this).text(arrLang[lang][$(this).attr('key')]);
   });
@@ -257,9 +257,7 @@ var arrLang = {
     'tmr_client_text_4': ' Whoever trusts quickly is frivolous, and he who sins sins against his soul. ',
     'new_here': ' New here? ',
     'new_here_title': ' Signing up is easy. It only takes a few steps ',
-    'terms_conditions': ' I agree to all Terms & Conditions ',
     'registration': ' Registration ',
-    'account_an': ' Already have an account? ',
 
 
 
@@ -483,9 +481,7 @@ var arrLang = {
     'tmr_client_text_4': ' Тот, кто быстро доверяет, легкомыслен, а тот, кто грешит, грешит против своей души. ',
     'new_here': ' Новенький здесь? ',
     'new_here_title': ' Зарегистрироваться очень просто. Это займет всего несколько шагов. ',
-    'terms_conditions': ' Я согласен со всеми положениями и условиями ',
     'registration': ' Регистрация ',
-    'account_an': ' У вас уже есть учетная запись? ',
 
 
 

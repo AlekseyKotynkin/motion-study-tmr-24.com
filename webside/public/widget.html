@@ -125,6 +125,9 @@
     <!-- endinject -->
     <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
     <script type="text/javascript">
+      if (localStorage.getItem('TMR::translation') == null) {
+        localStorage.setItem('TMR::translation', 'en');
+      };
      if (localStorage.length > 0)
      {
        for(let key in localStorage) {

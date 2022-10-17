@@ -56,3 +56,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
  function location_Href(){
    window.open('https://www.facebook.com/TMR24Systems/');
  }
+
+ // заполняем строки с русскими значениями
+ function translationCommon_RU (){
+   //
+ }
+ // заполняем строки с английскими значениями
+ function translationCommon_EN (){
+ }
