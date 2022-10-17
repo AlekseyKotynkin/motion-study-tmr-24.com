@@ -27,7 +27,12 @@ var database = firebase.database();
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       // Выход выполнен успешно.
+      if (localStorage.getItem('TMR::translation') == null) {
+        localStorage.setItem('TMR::translation', 'en');
+      }
+      var translation_JS = localStorage.getItem('TMR::translation');
       localStorage.clear();
+      localStorage.setItem('TMR::translation', translation_JS);
       window.location.replace("index.html")
     }).catch(function(error) {
       // An error happened.
@@ -52,7 +57,12 @@ var database = firebase.database();
       }
      return;
     }
-    firebase.auth().sendPasswordResetEmail(email)
+    firebase.auth().sendPasswordResetEmail(email);
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('An email has been sent to you to restore your password!');
+    } else {
+      alert ("Вам отправлено письмо для восстановления пароля!");
+    }
   }
 
 /**
@@ -85,7 +95,7 @@ var database = firebase.database();
       if (user) {
       // User is signed in.
       // Пользователь вошел в систему.
-    //  var user = firebase.auth().currentUser;
+      //  var user = firebase.auth().currentUser;
       var name, emailData, photoUrl, uid, emailVerified;
        if (user != null) {
        emailData = user.email;
@@ -94,7 +104,12 @@ var database = firebase.database();
          firebase.auth().signOut().then(function() {
            // Sign-out successful.
            // Выход выполнен успешно.
+           if (localStorage.getItem('TMR::translation') == null) {
+             localStorage.setItem('TMR::translation', 'en');
+           }
+           var translation_JS = localStorage.getItem('TMR::translation');
            localStorage.clear();
+           localStorage.setItem('TMR::translation', translation_JS);
            window.location.replace();
          }).catch(function(error) {
            // An error happened.
@@ -146,6 +161,11 @@ var database = firebase.database();
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
+        if(translation_JS == null || translation_JS == 'en'){
+          alert ('The user '+ email+' is not registered!' );
+        } else {
+          alert ('Пользователь '+ email+' не зарегистрирован!');
+        }
         });
       }
     });

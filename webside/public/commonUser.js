@@ -191,7 +191,12 @@ function AddShiftUser() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       // Выход выполнен успешно.
+      if (localStorage.getItem('TMR::translation') == null) {
+        localStorage.setItem('TMR::translation', 'en');
+      }
+      var translation_JS = localStorage.getItem('TMR::translation');
       localStorage.clear();
+      localStorage.setItem('TMR::translation', translation_JS);
       window.location.replace("index.html")
     }).catch(function(error) {
       // An error happened.

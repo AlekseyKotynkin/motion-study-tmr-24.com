@@ -25,7 +25,12 @@ var translation_JS = localStorage.getItem('TMR::translation');
    function SignoutAdmin() {
      firebase.auth().signOut().then(function() {
         // Sign-out successful.
+        if (localStorage.getItem('TMR::translation') == null) {
+          localStorage.setItem('TMR::translation', 'en');
+        }
+        var translation_JS = localStorage.getItem('TMR::translation');
         localStorage.clear();
+        localStorage.setItem('TMR::translation', translation_JS);
         window.location.replace("../../index.html")
      }).catch(function(error) {
         // An error happened.
