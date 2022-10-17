@@ -126,7 +126,7 @@
                             // }
                           // }//end of if (reader.readyState === 4
                         }// end of checkReadyState()
-
+                        reader.send(null);
                       }else{
                         reader.onreadystatechange = checkReadyState;
                         function checkReadyState() {
@@ -149,8 +149,8 @@
                             }
                           }//end of if (reader.readyState === 4
                         }// end of checkReadyState()
+                        reader.send(null);
                       }
-                      reader.send(null);
                     </script>
                     <!-- end заполняем блок пользователя -->
                   <span class="availability-status online"></span>
