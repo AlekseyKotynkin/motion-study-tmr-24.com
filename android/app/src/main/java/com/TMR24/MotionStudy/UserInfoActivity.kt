@@ -38,7 +38,7 @@ class UserInfoActivity : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     private var mFunctions: FirebaseFunctions? = null
     private val TAG: String? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private val parentHierarchyPositionUser: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class UserInfoActivity : AppCompatActivity() {
         intentMain
         currentDate
         dataFromDB
-        addMessage(userNameEmail)
+        addMessage(UserEmail)
         setOnClickItemPosts()
         setOnClickItemSesions()
     }
@@ -80,7 +80,7 @@ class UserInfoActivity : AppCompatActivity() {
     private val dataFromDB: Unit
         private get() {             // Заполняем табличную часть с Активными сменами
             db!!.collection("WorkShift")
-                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("EmailPositionUser", UserEmail)
                 .whereEqualTo("WorkShiftEnd", "")
                 .get()
                 .addOnCompleteListener { task ->
@@ -149,10 +149,10 @@ class UserInfoActivity : AppCompatActivity() {
                                     stringDocPosts.split(delimeter.toRegex()).toTypedArray()[5]
                                 val idDocPositionUser =
                                     stringDocPosts.split(delimeter.toRegex()).toTypedArray()[6]
-                                val userСomment =
+                                val UserСomment =
                                     stringDocPosts.split(delimeter.toRegex()).toTypedArray()[7]
                                 listDataPosts!!.add("$nameOrganization > $nameSubdivision > $namePosition")
-                                listDataPostsItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$userСomment")
+                                listDataPostsItem!!.add("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$UserСomment")
                                 adapterPosts!!.notifyDataSetChanged()
                             }
                             db!!.collection("messages").document(idDocPosts)
@@ -184,7 +184,7 @@ class UserInfoActivity : AppCompatActivity() {
         listPosts!!.onItemClickListener = OnItemClickListener { parent, view, position, id ->
             val parentHierarchyPositionUser = listDataPostsItem!![position]
             val i = Intent(this@UserInfoActivity, UserShiftActivity::class.java)
-            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+            i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
             i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser)
             startActivity(i)
         }
@@ -194,7 +194,7 @@ class UserInfoActivity : AppCompatActivity() {
         listSessions!!.onItemClickListener = OnItemClickListener { parent, view, position, id ->
             val parentHierarchyShiftUser = listDataItem!![position]
             val i = Intent(this@UserInfoActivity, UserProcessActivity::class.java)
-            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+            i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
             i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser)
             startActivity(i)
         }
@@ -204,8 +204,8 @@ class UserInfoActivity : AppCompatActivity() {
         private get() {
             val i = intent
             if (i != null) {
-                userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
-                println(userNameEmail)
+                UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+                println(UserEmail)
             }
         }
 }

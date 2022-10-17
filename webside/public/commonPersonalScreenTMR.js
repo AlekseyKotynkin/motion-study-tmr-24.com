@@ -84,8 +84,8 @@ displayListOpenNotes();
          }
          parent_Column.innerHTML = noteSource;
 
-         var userСommentColumn = document.createElement('td');
-         userСommentColumn.innerHTML = item.NoteText;
+         var UserСommentColumn = document.createElement('td');
+         UserСommentColumn.innerHTML = item.NoteText;
 
          var time_Column = document.createElement('td');
          var workShiftPositionExpiration = item.NoteTime;
@@ -131,7 +131,7 @@ displayListOpenNotes();
 
          tr.appendChild(numer_Column);
          tr.appendChild(parent_Column);
-         tr.appendChild(userСommentColumn);
+         tr.appendChild(UserСommentColumn);
          tr.appendChild(time_Column);
          tr.appendChild(parentDocColumn);
          tr.appendChild(toComeInUserColumn);

@@ -44,14 +44,14 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
     //parentHierarchyDoc = doc.id;
     // Add a new document with a generated id.
     const parentHierarchyDoc = doc.ref.path;
-    const organizationDocId = parentHierarchyDoc.split("/")[1];
-    const subdivisionDocId = parentHierarchyDoc.split("/")[3];
-    const positionDocId = parentHierarchyDoc.split("/")[5];
+    const idDocOrganization = parentHierarchyDoc.split("/")[1];
+    const idDocSubdivision = parentHierarchyDoc.split("/")[3];
+    const idDocPosition = parentHierarchyDoc.split("/")[5];
     var GodObj = {};
     GodObj.idDoc = doc.id;
     const userDocComment = doc.data().UserСomment;
     GodObj.userDocComment = userDocComment;
-    const docRefOrganization = db.collection('Organization').doc(organizationDocId);
+    const docRefOrganization = db.collection('Organization').doc(idDocOrganization);
     const docOrg = await docRefOrganization.get();
     if (!docOrg.exists) {
       console.log('No such document!');
@@ -59,9 +59,9 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
       console.log('Document data:', docOrg.data());
       const nameOrganization = docOrg.data().Organization;
       GodObj.nameOrganization = nameOrganization;
-      GodObj.organizationDocId = organizationDocId;
+      GodObj.idDocOrganization = idDocOrganization;
     }
-    const docRefSubdivision = docRefOrganization.collection('Subdivision').doc(subdivisionDocId);
+    const docRefSubdivision = docRefOrganization.collection('Subdivision').doc(idDocSubdivision);
     const docSub = await docRefSubdivision.get();
     if (!docSub.exists) {
       console.log('No such document!');
@@ -69,16 +69,16 @@ exports.addDocListPosts = functions.https.onCall(async (data, context) => {
       console.log('Document data:', docSub.data());
       const nameSubdivision = docSub.data().Subdivision;
       GodObj.nameSubdivision = nameSubdivision;
-      GodObj.subdivisionDocId = subdivisionDocId;
+      GodObj.idDocSubdivision = idDocSubdivision;
     }
-    const docRefPosition = docRefSubdivision.collection('Position').doc(positionDocId);
+    const docRefPosition = docRefSubdivision.collection('Position').doc(idDocPosition);
     const docPos = await docRefPosition.get();
     if (!docPos.exists) {
       console.log('No such document!');
     } else {
       console.log('Document data:', docPos.data());
       const namePosition = docPos.data().Position;
-      arrayListObject.push(GodObj.organizationDocId+'>'+GodObj.nameOrganization+'>'+GodObj.subdivisionDocId+'>'+GodObj.nameSubdivision+'>'+positionDocId+'>'+namePosition+'>'+GodObj.idDoc+'>'+GodObj.userDocComment);
+      arrayListObject.push(GodObj.idDocOrganization+'>'+GodObj.nameOrganization+'>'+GodObj.idDocSubdivision+'>'+GodObj.nameSubdivision+'>'+idDocPosition+'>'+namePosition+'>'+GodObj.idDoc+'>'+GodObj.userDocComment);
 
       const cityRef = db.collection('messages').doc(writeResult.id);
       const res = await cityRef.update({ gerDoc: arrayListObject});

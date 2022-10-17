@@ -25,7 +25,7 @@ import java.util.*
 class UserInfoProject : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserInfoProjectBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var projectDocId: String? = null
     private val db = Firebase.firestore
     private val TAG: String? = null
@@ -46,7 +46,7 @@ class UserInfoProject : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         val i = intent
-        userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+        UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
         projectDocId = i.getStringExtra(Constant.ID_DOC_PROJECT)
         //
         val titleDialogProgectName = binding.titleDialogProgectName
@@ -64,7 +64,7 @@ class UserInfoProject : AppCompatActivity() {
         //
         if (i != null && projectDocId == null ) {
             //intentMain
-            titleDialogProgectOriginator.text = userNameEmail
+            titleDialogProgectOriginator.text = UserEmail
             // заполняю поле Название и Id организации title_dialog_progect_nameOrganization и title_dialog_progect_idOrganization
             titleDialogProgectNameOrganization.setOnClickListener {
                 Toast.makeText(applicationContext, "Button has been Executor", Toast.LENGTH_SHORT)
@@ -73,7 +73,7 @@ class UserInfoProject : AppCompatActivity() {
                 titleDialogProgectNameOrganization.setError(null)
                 // получить список Организаций для поиска коллег
                 db.collection("User")
-                    .whereEqualTo("userNameEmail", userNameEmail)
+                    .whereEqualTo("UserEmail", UserEmail)
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -136,7 +136,7 @@ class UserInfoProject : AppCompatActivity() {
                     .show()
                 // получить список Организаций для поиска коллег
                 db.collection("User")
-                    .whereEqualTo("userNameEmail", userNameEmail)
+                    .whereEqualTo("UserEmail", UserEmail)
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -203,7 +203,7 @@ class UserInfoProject : AppCompatActivity() {
                         .addOnSuccessListener { documentReference ->
                             Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
                             val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                            b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                            b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                             startActivity(b)
                         }
                         .addOnFailureListener { e ->
@@ -231,7 +231,7 @@ class UserInfoProject : AppCompatActivity() {
                         .addOnSuccessListener { documentReference ->
                             Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
                             val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                            b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                            b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                             startActivity(b)
                         }
                         .addOnFailureListener { e ->
@@ -245,7 +245,7 @@ class UserInfoProject : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
             // активируем Clik окна выбора Планируемой даты завершения title_dialog_project_data_stop_plan
@@ -308,7 +308,7 @@ class UserInfoProject : AppCompatActivity() {
                         titleDialogProgectOriginator.text = originatorProject
                         titleDialogProgectAssessmentComment.setText(assessmentProject_comment)
                         //
-                        if(originatorProject == userNameEmail && dataProject_stop == "/--/--/----/"){
+                        if(originatorProject == UserEmail && dataProject_stop == "/--/--/----/"){
                             val buttonEditProject = binding.buttonEditProject
                             buttonEditProject.visibility = View.VISIBLE
                         }
@@ -390,7 +390,7 @@ class UserInfoProject : AppCompatActivity() {
             buttonEditProject.setOnClickListener {
                 //
                 val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
@@ -414,7 +414,7 @@ class UserInfoProject : AppCompatActivity() {
                         .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                     val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                    b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     startActivity(b)
                 }else if (statusProject == "В работе" || statusProject == "Проектируется"){
                     //
@@ -429,7 +429,7 @@ class UserInfoProject : AppCompatActivity() {
                         .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                     val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                    b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     startActivity(b)
                 }
             }
@@ -439,7 +439,7 @@ class UserInfoProject : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoProject, UserInfoMyProject::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
         }

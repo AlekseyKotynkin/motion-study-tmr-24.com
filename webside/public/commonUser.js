@@ -45,16 +45,16 @@ const EmailPositionUserLocalStorage = (LocalStorageValueObjectUser[0]).OwnerEmai
   * @return {string}
   *  Получение данных для шапки таблицы List Of Posts In Which You Are Involved As A User из firestore.
   */
-var organizationDocName = ParentHierarchyPositionUserlocalStorage.NameOrganization;
-var subdivisionDocName = ParentHierarchyPositionUserlocalStorage.NameSubdivision;
-var positionDocName = ParentHierarchyPositionUserlocalStorage.NamePosition;
-var organizationDocId = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
-var subdivisionDocId = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
-var positionDocId = ParentHierarchyPositionUserlocalStorage.idDocPosition;
+var nameOrganization = ParentHierarchyPositionUserlocalStorage.NameOrganization;
+var nameSubdivision = ParentHierarchyPositionUserlocalStorage.NameSubdivision;
+var namePosition = ParentHierarchyPositionUserlocalStorage.NamePosition;
+var idDocOrganization = ParentHierarchyPositionUserlocalStorage.idDocOrganization;
+var idDocSubdivision = ParentHierarchyPositionUserlocalStorage.idDocSubdivision;
+var idDocPosition = ParentHierarchyPositionUserlocalStorage.idDocPosition;
 if(translation_JS == null || translation_JS == 'en'){
-  var li = (positionDocName)+", Subdivision - "+(subdivisionDocName)+", Organization - "+(organizationDocName);
+  var li = (namePosition)+", Subdivision - "+(nameSubdivision)+", Organization - "+(nameOrganization);
 } else {
-  var li = (positionDocName)+", Подразделение - "+(subdivisionDocName)+", Организация - "+(organizationDocName);
+  var li = (namePosition)+", Подразделение - "+(nameSubdivision)+", Организация - "+(nameOrganization);
 }
 
 /**
@@ -62,7 +62,7 @@ if(translation_JS == null || translation_JS == 'en'){
  *  Проверяем есть ли активный сеанс.
  */
 
- db.collection("WorkShift").where('IdDocPosition', '==', positionDocId).where("WorkShiftEnd", "==", "")
+ db.collection("WorkShift").where('IdDocPosition', '==', idDocPosition).where("WorkShiftEnd", "==", "")
 .get()
 .then(function(querySnapshot) {
 querySnapshot.forEach(function(doc) {
@@ -106,9 +106,9 @@ querySnapshot.forEach(function(doc) {
 * @return {string}
 *  Получить настройки процессов для данной Дожности.
 */
-var docRefOrganization = db.collection("Organization").doc(organizationDocId);
-var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
-var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
 docRefPosition.collection("PositionSettings").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
@@ -133,7 +133,7 @@ function AddShiftUser() {
   var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
   db.collection("WorkShift").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
-    IdDocPosition: positionDocId,
+    IdDocPosition: idDocPosition,
     ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
     WorkShiftEnd: "",
     WorkShiftStartTime: timestampStart,
@@ -249,7 +249,7 @@ function toRegisterProcessUser(obj) {
             var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
             docRefWorkShift.collection("ProcessUser").add({
             EmailPositionUser: EmailPositionUserLocalStorage,
-            IdDocPosition: positionDocId,
+            IdDocPosition: idDocPosition,
             ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
             ProcessUserEnd: "",
             ProcessUserStartTime: timestampStart,
@@ -273,7 +273,7 @@ function toRegisterProcessUser(obj) {
     var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
     docRefWorkShift.collection("ProcessUser").add({
     EmailPositionUser: EmailPositionUserLocalStorage,
-    IdDocPosition: positionDocId,
+    IdDocPosition: idDocPosition,
     ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
     ProcessUserEnd: "",
     ProcessUserStartTime: timestampStart,

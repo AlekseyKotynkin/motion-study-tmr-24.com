@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var analytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +51,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             textLogIn.visibility = View.VISIBLE
             textUserName.visibility = View.VISIBLE
             buttonExit.visibility = View.VISIBLE
-            val userNameEmail: String? = (currentUser.email)
-            textUserName.text = userNameEmail
+            val UserEmail: String? = (currentUser.email)
+            textUserName.text = UserEmail
 
 
             buttonGo.setOnClickListener {
                Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                    .show()
                val i = Intent(this@MainActivity, UserInfoOperativActivity::class.java)
-               i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+               i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                startActivity(i)
             }
             buttonExit.setOnClickListener {

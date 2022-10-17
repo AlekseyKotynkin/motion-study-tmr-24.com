@@ -51,16 +51,16 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
          querySnapshot.forEach(function(doc) {
              // doc.data() is never undefined for query doc snapshots
             var parentHierarchyDoc = doc.data().ParentHierarchyPositionUser;
-            var organizationDocId = parentHierarchyDoc.idDocOrganization;
-            var subdivisionDocId = parentHierarchyDoc.idDocSubdivision;
-            var positionDocId = parentHierarchyDoc.idDocPosition;
-            itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+            var idDocOrganization = parentHierarchyDoc.idDocOrganization;
+            var idDocSubdivision = parentHierarchyDoc.idDocSubdivision;
+            var idDocPosition = parentHierarchyDoc.idDocPosition;
+            itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
          });
            itemsActiveUserName.forEach(function(element){
-             var organizationDocId = element.idDocOrganization ;
-             var subdivisionDocId = element.idDocSubdivision ;
-             var positionDocId = element.idDocPosition ;
-             var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+             var idDocOrganization = element.idDocOrganization ;
+             var idDocSubdivision = element.idDocSubdivision ;
+             var idDocPosition = element.idDocPosition ;
+             var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
                 docRefOrganization.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserOrganization = doc.data().Organization;
@@ -71,7 +71,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
              }).catch(function(error) {
                  console.log("Error getting document:", error);
              });
-             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
                 docRefSubdivision.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserSubdivision = doc.data().Subdivision;
@@ -82,7 +82,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
              }).catch(function(error) {
                  console.log("Error getting document:", error);
              });
-             var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+             var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
                 docRefPosition.get().then(function(doc) {
                  if (doc.exists) {
                      nameActiveUserPosition = doc.data().Position;
@@ -153,16 +153,16 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
 parentHierarchy.get().then(function (querySnapshot) {
   querySnapshot.forEach(function (doc) {
    var parentHierarchyDoc = doc.ref.path;
-   var organizationDocId = parentHierarchyDoc.split("/")[1];
-   var subdivisionDocId = parentHierarchyDoc.split("/")[3];
-   var positionDocId = parentHierarchyDoc.split("/")[5];
-   itemsUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+   var idDocOrganization = parentHierarchyDoc.split("/")[1];
+   var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+   var idDocPosition = parentHierarchyDoc.split("/")[5];
+   itemsUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
   });
   itemsUserName.forEach(function(element){
-    var organizationDocId = element.idDocOrganization ;
-    var subdivisionDocId = element.idDocSubdivision ;
-    var positionDocId = element.idDocPosition ;
-    var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+    var idDocOrganization = element.idDocOrganization ;
+    var idDocSubdivision = element.idDocSubdivision ;
+    var idDocPosition = element.idDocPosition ;
+    var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
        docRefOrganization.get().then(function(doc) {
         if (doc.exists) {
             nameOrganization = doc.data().Organization;
@@ -173,7 +173,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-    var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+    var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
        docRefSubdivision.get().then(function(doc) {
         if (doc.exists) {
             nameSubdivision = doc.data().Subdivision;
@@ -184,7 +184,7 @@ parentHierarchy.get().then(function (querySnapshot) {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-    var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+    var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
        docRefPosition.get().then(function(doc) {
         if (doc.exists) {
             namePosition = doc.data().Position;

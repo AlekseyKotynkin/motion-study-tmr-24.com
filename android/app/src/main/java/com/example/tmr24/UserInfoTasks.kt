@@ -22,7 +22,7 @@ import java.util.*
 
 class UserInfoTasks : AppCompatActivity() {
     private lateinit var binding: ActivityUserInfoTasksBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var taskTypeNames: String? = null
     private var tasksDocId: String? = null
     private val db = Firebase.firestore
@@ -52,7 +52,7 @@ class UserInfoTasks : AppCompatActivity() {
         val i = intent
         if (i != null) {
             //intentMain
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             taskTypeNames = i.getStringExtra(Constant.TASKS_TYPE_NAMES)
             tasksDocId = i.getStringExtra(Constant.ID_DOC_TASKS)
             //
@@ -81,7 +81,7 @@ class UserInfoTasks : AppCompatActivity() {
             if (tasksDocId == null) {
                 // получить список Организаций доступных данному пользователю
                 db.collection("User")
-                    .whereEqualTo("userNameEmail", userNameEmail)
+                    .whereEqualTo("UserEmail", UserEmail)
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -101,7 +101,7 @@ class UserInfoTasks : AppCompatActivity() {
                     }
 
                 // заполняю поле Поручитель - title_dialog_tasks_guarantor
-                titleDialogTasksQuarantor.text = userNameEmail
+                titleDialogTasksQuarantor.text = UserEmail
 
                 // заполняю поле Исполнитель - title_dialog_tasks_executor
                 titleDialogTasksExecutor.setOnClickListener {
@@ -474,7 +474,7 @@ class UserInfoTasks : AppCompatActivity() {
                                     "DocumentSnapshot written with ID: ${documentReference.id}"
                                 )
                                 val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                                 b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                                 startActivity(b)
                             }
@@ -512,7 +512,7 @@ class UserInfoTasks : AppCompatActivity() {
                                     "DocumentSnapshot written with ID: ${documentReference.id}"
                                 )
                                 val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                                 b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                                 startActivity(b)
                             }
@@ -576,7 +576,7 @@ class UserInfoTasks : AppCompatActivity() {
                             titleDialogTasksTopic.visibility = View.GONE
                             titleDialogTasksTopicView.visibility = View.VISIBLE
                             titleDialogTasksTopicView.text = nameTasks
-                            //if(originatorProject == userNameEmail && dataProject_stop == "--/--/----"){
+                            //if(originatorProject == UserEmail && dataProject_stop == "--/--/----"){
                             //    val buttonEditProject = binding.buttonEditProject
                             //    buttonEditProject.visibility = View.VISIBLE
                             //}
@@ -698,7 +698,7 @@ class UserInfoTasks : AppCompatActivity() {
                                     dialog.show()
                                 }
                                 //проверяем кто автор сообщения
-                                if (quarantorTasks == userNameEmail){
+                                if (quarantorTasks == UserEmail){
                                     // активируем текстовое поле Статус - title_dialog_tasks_status
                                     titleDialogTasksStatus.setOnClickListener {
                                         Toast.makeText(applicationContext, "Button has been Status", Toast.LENGTH_SHORT)
@@ -742,7 +742,7 @@ class UserInfoTasks : AppCompatActivity() {
                                     //открываем кнопку Редактировать
                                     val buttonDialogTasksEdit = binding.buttonDialogTasksEdit
                                     buttonDialogTasksEdit.visibility = View.VISIBLE
-                                } else if (executorTasks == userNameEmail) {
+                                } else if (executorTasks == UserEmail) {
                                     // активируем текстовое поле Статус - title_dialog_tasks_status
                                     titleDialogTasksStatus.setOnClickListener {
                                         Toast.makeText(applicationContext, "Button has been Status", Toast.LENGTH_SHORT)
@@ -925,7 +925,7 @@ class UserInfoTasks : AppCompatActivity() {
                         .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                     val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                    b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                     startActivity(b)
                 } else if (statusTasks_edit == "Оценить") {
@@ -943,7 +943,7 @@ class UserInfoTasks : AppCompatActivity() {
                                 .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                                 .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                             val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                            b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                            b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                             b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                             startActivity(b)
                         } else {
@@ -957,7 +957,7 @@ class UserInfoTasks : AppCompatActivity() {
                                 .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                                 .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                             val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                            b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                            b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                             b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                             startActivity(b)
                         }
@@ -982,7 +982,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     } else {
@@ -999,7 +999,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     }
@@ -1029,7 +1029,7 @@ class UserInfoTasks : AppCompatActivity() {
                         .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                     val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                    b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                     startActivity(b)
                 } else if (statusTasks_done == "Оценить") {
@@ -1046,7 +1046,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     } else {
@@ -1060,7 +1060,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     }
@@ -1106,7 +1106,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     } else {
@@ -1121,7 +1121,7 @@ class UserInfoTasks : AppCompatActivity() {
                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
                         val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                        b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                        b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                         b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                         startActivity(b)
                     }
@@ -1134,7 +1134,7 @@ class UserInfoTasks : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoTasks, UserInfoMyTasks::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                 startActivity(b)
             }
@@ -1162,7 +1162,7 @@ class UserInfoTasks : AppCompatActivity() {
 
                     //
                     val b = Intent(this@UserInfoTasks, UserInfoTasks::class.java)
-                    b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     b.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                     startActivity(b)
 
@@ -1369,21 +1369,21 @@ class UserInfoTasks : AppCompatActivity() {
             checkedItem_executor = animals_executor_E.indexOf(titleDialogTasksExecutor_Aktual)
             val fff = animals_executor_E_N[checkedItem_executor] as String
             val delimeter = "%"
-            val userNameEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
-            titleDialogTasksExecutor.text = userNameEmail_colleague
+            val UserEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
+            titleDialogTasksExecutor.text = UserEmail_colleague
         }else{
             val fff = animals_executor_E_N[checkedItem_executor] as String
             val delimeter = "%"
-            val userNameEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
-            titleDialogTasksExecutor.text = userNameEmail_colleague
+            val UserEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
+            titleDialogTasksExecutor.text = UserEmail_colleague
         }
         // add a radio button list
         builder_executor.setSingleChoiceItems(animals_executor_E_N, checkedItem_executor) { dialog, which ->
             // user checked an item
             val fff = animals_executor_E_N[which] as String
             val delimeter = "%"
-            val userNameEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
-            titleDialogTasksExecutor.text = userNameEmail_colleague
+            val UserEmail_colleague = fff.split(delimeter.toRegex()).toTypedArray()[0]
+            titleDialogTasksExecutor.text = UserEmail_colleague
         }
         // add OK and Cancel buttons
         builder_executor.setPositiveButton("OK") { dialog, which ->
@@ -1412,10 +1412,10 @@ class UserInfoTasks : AppCompatActivity() {
                     for (document in documents) {
                         Log.d(TAG, "${document.id} => ${document.data}")
                         val doc = document.data
-                        val userNameEmail_colleague = doc["userNameEmail"]
+                        val UserEmail_colleague = doc["UserEmail"]
                         val userName_colleague = doc["userName"]
-                        val colleague: String = ("$userNameEmail_colleague%$userName_colleague")
-                        listColleague_Email.add(userNameEmail_colleague as String?)
+                        val colleague: String = ("$UserEmail_colleague%$userName_colleague")
+                        listColleague_Email.add(UserEmail_colleague as String?)
                         listColleague_Email_Name.add(colleague as String?)
                     }
                     choosingTaskPerformer()
@@ -1501,7 +1501,7 @@ class UserInfoTasks : AppCompatActivity() {
                 data["NoteParent"] = "Tasks"
                 data["NoteTime"] = FieldValue.serverTimestamp()
                 data["NoteText"] = noteText
-                data["NoteUser"] = userNameEmail
+                data["NoteUser"] = UserEmail
                 data["NoteStatus"] = ""
                 data["NoteComment"] = ""
                 data["NoteParentName"] = "Tasks"

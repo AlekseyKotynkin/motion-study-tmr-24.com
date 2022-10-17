@@ -110,7 +110,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
     private var settingsPassiveGeolocationIntervalSecondsFigure: String? = null
     ////
     private val TAG: String? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var parentHierarchyShiftUser: String? = null
     private var idPosition: String? = null
     private var buttonCloseShift: Button? = null
@@ -408,7 +408,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
             buttonGone?.setOnClickListener(mCorkyListener)
             buttonGone?.let { ButtonMap.add(it) }
             // получили строку данных с предидущего Активити
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             parentHierarchyShiftUser = i.getStringExtra(Constant.PARENT_HIERARCHY_SHIFT_USER)
             val delimeter = ">"
             val idOrganization = parentHierarchyShiftUser!!.split(delimeter.toRegex()).toTypedArray()[0]
@@ -565,7 +565,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
        // создаем массив документа по умолчанию
        // Create a new user with a first and last name
        val dataProcessUser = hashMapOf(
-           "EmailPositionUser" to userNameEmail,
+           "EmailPositionUser" to UserEmail,
            "IdDocPosition" to idPosition,
            "IdDocProcessButton" to "buttonGone",
            "NameDocProcessButton" to "Gone",
@@ -618,7 +618,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
         val updatesProcessUser = hashMapOf<String, Any>("ProcessUserEndTime" to FieldValue.serverTimestamp())
         docRefProcessUser.update(updatesProcessUser).addOnCompleteListener { }
         val i = Intent(this@UserProcessActivity, UserInfoActivity::class.java)
-        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         startActivity(i)
     }
 
@@ -769,7 +769,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 NameDocProcessButton = dataSettingsButton["SettingsTitle"] as String?
                 //активизируем процесс по нажатию кнопки
                 val dataProcessUser: MutableMap<String, Any?> = HashMap()
-                dataProcessUser["EmailPositionUser"] = userNameEmail
+                dataProcessUser["EmailPositionUser"] = UserEmail
                 dataProcessUser["IdDocPosition"] = idPosition
                 dataProcessUser["IdDocProcessButton"] = idSettingsButton
                 dataProcessUser["NameDocProcessButton"] = NameDocProcessButton
@@ -1056,7 +1056,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 if (activeButtonControl != null) {
                     val dataProcessUser: MutableMap<String, Any?> = HashMap()
                     dataProcessUser["ButtonActivationMethod"] = buttonActivationMethod
-                    dataProcessUser["EmailPositionUser"] = userNameEmail
+                    dataProcessUser["EmailPositionUser"] = UserEmail
                     dataProcessUser["IdDocPosition"] = idPosition
                     dataProcessUser["IdDocProcessButton"] = idSettingsButton
                     dataProcessUser["NameDocProcessButton"] = NameDocProcessButton
@@ -1640,7 +1640,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     data["NoteParent"] = idDocActivButtonUser
                     data["NoteTime"] = FieldValue.serverTimestamp()
                     data["NoteText"] = resultControlButton
-                    data["NoteUser"] = userNameEmail
+                    data["NoteUser"] = UserEmail
                     data["NoteStatus"] = "false"
                     data["NoteComment"] = ""
                     data["NoteParentName"] = NameDocProcessButton
@@ -1684,7 +1684,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                 data["NoteParent"] = idDocActivButtonUser
                 data["NoteTime"] = FieldValue.serverTimestamp()
                 data["NoteText"] = noteText
-                data["NoteUser"] = userNameEmail
+                data["NoteUser"] = UserEmail
                 data["NoteStatus"] = ""
                 data["NoteComment"] = ""
                 data["NoteParentName"] = NameDocProcessButton
@@ -1772,7 +1772,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                     data["NoteParent"] = idDocActivButtonUser
                     data["NoteTime"] = FieldValue.serverTimestamp()
                     data["NoteText"] = resultControlButton
-                    data["NoteUser"] = userNameEmail
+                    data["NoteUser"] = UserEmail
                     data["NoteStatus"] = ""
                     data["NoteComment"] = ""
                     data["NoteParentName"] = NameDocProcessButton
@@ -2122,7 +2122,7 @@ class UserProcessActivity : AppCompatActivity(), LifecycleOwner {
                             data["NoteParent"] = idDocActivButtonUser
                             data["NoteTime"] = FieldValue.serverTimestamp()
                             data["NoteText"] = locationCoordinates
-                            data["NoteUser"] = userNameEmail
+                            data["NoteUser"] = UserEmail
                             data["NoteStatus"] = "false"
                             data["NoteComment"] = ""
                             data["NoteParentName"] = NameDocProcessButton

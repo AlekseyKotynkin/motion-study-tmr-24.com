@@ -173,8 +173,8 @@ function createATableOfClientUser()
        var userEmailColumn = document.createElement('td');
        userEmailColumn.innerHTML = item.UserEmail;
 
-       var userСommentColumn = document.createElement('td');
-       userСommentColumn.innerHTML = item.UserСomment;
+       var UserСommentColumn = document.createElement('td');
+       UserСommentColumn.innerHTML = item.UserСomment;
 
        var editUserName = document.createElement('button');
        if(translation_JS == null || translation_JS == 'en'){
@@ -203,7 +203,7 @@ function createATableOfClientUser()
        toDismissColumn.appendChild(toDismissName);
 
        tr.appendChild(userEmailColumn);
-       tr.appendChild(userСommentColumn);
+       tr.appendChild(UserСommentColumn);
        tr.appendChild(editUserNameColumn);
        tr.appendChild(toDismissColumn);
 
@@ -500,8 +500,8 @@ function gridSystemModalNewUserSubmit()
     }
    return;
   }
-  var userСomment = document.getElementById("exampleInputModalUserСomment").value;
-  if (userСomment.length < 1)
+  var UserСomment = document.getElementById("exampleInputModalUserСomment").value;
+  if (UserСomment.length < 1)
   {
     if(translation_JS == null || translation_JS == 'en'){
       alert('Please enter an comments.');
@@ -512,22 +512,22 @@ function gridSystemModalNewUserSubmit()
   }
   docRefPosition.collection("PositionUser").add({
   UserEmail: userTitle,
-  UserСomment: userСomment,
+  UserСomment: UserСomment,
   idDocPosition: LocalStoragePosition,
   idDocSubdivision: LocalStorageSubdivision,
   idDocOrganization: LocalStorageOrganizationId,
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       db.collection("OrganizationTable").add({
-        organizationDocId: LocalStorageOrganizationId,
-        organizationDocName:  nameOrganization,
-        positionDocId: LocalStoragePosition,
-        positionDocName: namePosition,
+        idDocOrganization: LocalStorageOrganizationId,
+        nameOrganization:  nameOrganization,
+        idDocPosition: LocalStoragePosition,
+        namePosition: namePosition,
         positionUserDocId: docRef.id,
-        subdivisionDocId: LocalStorageSubdivision,
-        subdivisionDocName: nameSubdivision,
-        userNameEmail: userTitle,
-        userСomment: userСomment,
+        idDocSubdivision: LocalStorageSubdivision,
+        nameSubdivision: nameSubdivision,
+        UserEmail: userTitle,
+        UserСomment: UserСomment,
       }).then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
       }).catch(function(error) {
@@ -626,7 +626,7 @@ function toDismissButtonUser(obj)
   {
       console.error("Error removing document: ", error);
   });
-  db.collection("OrganizationTable").where("positionUserDocId", "==", objId).where("userNameEmail", "==", UserNamelocalStorage)
+  db.collection("OrganizationTable").where("positionUserDocId", "==", objId).where("UserEmail", "==", UserNamelocalStorage)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -678,9 +678,9 @@ function editButtonUser(obj)
     if (doc.exists)
   {
       let userEmail = doc.data().UserEmail;
-      let userСomment = doc.data().UserСomment;
+      let UserСomment = doc.data().UserСomment;
       document.getElementById('editExampleInputModalUserTitle').value = userEmail;
-      document.getElementById('editExampleInputModalUserСomment').value = userСomment;
+      document.getElementById('editExampleInputModalUserСomment').value = UserСomment;
       var modal = document.getElementById('editGridSystemModalNewUser');
       $(document).ready(function(){
         $("#editGridSystemModalNewUser").modal('show');
@@ -883,10 +883,10 @@ function editButtonUser(obj)
 function  editGridSystemModalNewUserSubmit()
 {
   var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
-  var userСomment = document.getElementById("editExampleInputModalUserСomment").value;
+  var UserСomment = document.getElementById("editExampleInputModalUserСomment").value;
   docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
       UserTitle: userTitle,
-      UserСomment: userСomment,
+      UserСomment: UserСomment,
   })
   .then(function() {
       console.log("Document successfully written!");

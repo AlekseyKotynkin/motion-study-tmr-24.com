@@ -24,7 +24,7 @@ class UserInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserInfoBinding
     private val db = Firebase.firestore
     private val TAG: String? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private val listData = ArrayList<String>()
     private val listDataItem = ArrayList<String>()
     private val functions = Firebase.functions
@@ -109,14 +109,14 @@ class UserInfoActivity : AppCompatActivity() {
         val i = intent
         if (i != null) {
             //intentMain
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             listData.clear()
             listDataItem.clear()
             listDataPosts.clear()
             listDataPostsItem.clear()
             dataFromDB
-            //addMessage(userNameEmail)
-            addMessageHelp(userNameEmail)
+            //addMessage(UserEmail)
+            addMessageHelp(UserEmail)
             //currentDate
             // активируем кнопку Выход
             val buttonExitMyProject = binding.buttonToReturn
@@ -124,7 +124,7 @@ class UserInfoActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoActivity, UserInfoOperativActivity::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
 
@@ -156,7 +156,7 @@ class UserInfoActivity : AppCompatActivity() {
     private val dataFromDB: Unit
         get() {             // Заполняем табличную часть с Активными сменами
             db.collection("WorkShift")
-                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("EmailPositionUser", UserEmail)
                 .whereEqualTo("WorkShiftEnd", "")
                 .get()
                 .addOnCompleteListener { task ->
@@ -190,7 +190,7 @@ class UserInfoActivity : AppCompatActivity() {
     // обход функции addMessage
     private fun addMessageHelp(text: String?) {
         db.collection("OrganizationTable")
-            .whereEqualTo("userNameEmail", text)
+            .whereEqualTo("UserEmail", text)
             .get()
             .addOnSuccessListener { documents ->
                 val h = documents.size()
@@ -198,16 +198,16 @@ class UserInfoActivity : AppCompatActivity() {
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     val doc = document.data
-                    val idOrganization = doc["organizationDocId"]
-                    val nameOrganization = doc["organizationDocName"]
-                    val idSubdivision = doc["subdivisionDocId"]
-                    val nameSubdivision = doc["subdivisionDocName"]
-                    val idPosition = doc["positionDocId"]
-                    val namePosition = doc["positionDocName"]
+                    val idOrganization = doc["idDocOrganization"]
+                    val nameOrganization = doc["nameOrganization"]
+                    val idSubdivision = doc["idDocSubdivision"]
+                    val nameSubdivision = doc["nameSubdivision"]
+                    val idPosition = doc["idDocPosition"]
+                    val namePosition = doc["namePosition"]
                     val idDocPositionUser = doc["positionUserDocId"]
-                    val userСomment = doc["userСomment"]
+                    val UserСomment = doc["UserСomment"]
                     val poleListDataPosts: String = ("$nameOrganization > $nameSubdivision > $namePosition")
-                    val poleListDataPostsItem: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$userСomment")
+                    val poleListDataPostsItem: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$UserСomment")
                     listDataPosts.add(poleListDataPosts)
                     listDataPostsItem.add(poleListDataPostsItem)
                     val nameAdapterPost = ArrayAdapter<String>(this@UserInfoActivity, android.R.layout.simple_list_item_1, listDataPosts )
@@ -263,9 +263,9 @@ class UserInfoActivity : AppCompatActivity() {
                                 val idPosition = stringDocPosts.split(delimeter.toRegex()).toTypedArray()[4]
                                 val namePosition = stringDocPosts.split(delimeter.toRegex()).toTypedArray()[5]
                                 val idDocPositionUser = stringDocPosts.split(delimeter.toRegex()).toTypedArray()[6]
-                                val userСomment = stringDocPosts.split(delimeter.toRegex()).toTypedArray()[7]
+                                val UserСomment = stringDocPosts.split(delimeter.toRegex()).toTypedArray()[7]
                                 val poleListDataPosts: String = ("$nameOrganization > $nameSubdivision > $namePosition")
-                                val poleListDataPostsItem: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$userСomment")
+                                val poleListDataPostsItem: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$UserСomment")
                                 listDataPosts.add(poleListDataPosts)
                                 listDataPostsItem.add(poleListDataPostsItem)
                                 val nameAdapterPost = ArrayAdapter<String>(this@UserInfoActivity, android.R.layout.simple_list_item_1, listDataPosts )
@@ -296,7 +296,7 @@ class UserInfoActivity : AppCompatActivity() {
         listPosts.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                 val parentHierarchyPositionUser = listDataPostsItem[position]
                 val i = Intent(this@UserInfoActivity, UserShiftActivity::class.java)
-                i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser)
                 startActivity(i)
             }
@@ -308,7 +308,7 @@ class UserInfoActivity : AppCompatActivity() {
         listSessions.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                 val parentHierarchyShiftUser = listDataItem[position]
                 val i = Intent(this@UserInfoActivity, UserProcessActivity::class.java)
-                i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser)
                 startActivity(i)
             }
@@ -319,10 +319,10 @@ class UserInfoActivity : AppCompatActivity() {
         get() {
             val i = intent
             if (i != null) {
-                userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
-                println(userNameEmail)
+                UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+                println(UserEmail)
                 dataFromDB
-                addMessage(userNameEmail)
+                addMessage(UserEmail)
 
             }
         }

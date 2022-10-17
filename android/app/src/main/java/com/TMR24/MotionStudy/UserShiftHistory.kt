@@ -22,7 +22,7 @@ import java.util.ArrayList
 class UserShiftHistory : AppCompatActivity() {
     private var db: FirebaseFirestore? = null
     private val TAG: String? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var parentHierarchyPositionUser: String? = null
     private var nameOrganization: String? = null
     private var nameSubdivision: String? = null
@@ -31,7 +31,7 @@ class UserShiftHistory : AppCompatActivity() {
     private var idOrganization: String? = null
     private var idSubdivision: String? = null
     private var idDocPositionUser: String? = null
-    private var userСomment: String? = null
+    private var UserСomment: String? = null
     private val textActivPositionHistori: TextView? = null
     private var buttonToReturnHistori: Button? = null
     private var listViewHistoriButton: ListView? = null
@@ -66,7 +66,7 @@ class UserShiftHistory : AppCompatActivity() {
             listHistoriButton!!.clear()
             listHistoriButtonItem!!.clear()
             // получили строку данных с предидущего Активити
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             parentHierarchyPositionUser = i.getStringExtra(Constant.PARENT_HIERARCHY_POSITION_USER)
             val delimeter = ">"
             idOrganization =
@@ -82,13 +82,13 @@ class UserShiftHistory : AppCompatActivity() {
                 parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[5]
             idDocPositionUser =
                 parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[6]
-            userСomment = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[7]
+            UserСomment = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[7]
             //вывели на экран Должность Подразделение Организацию в которой планируем работать
             val textActivPosition = findViewById<TextView>(R.id.textActivPositionHistori)
             textActivPosition.text = "$nameOrganization > $nameSubdivision > $namePosition"
             //проверили нет ли активной смены
             db!!.collection("WorkShift")
-                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("EmailPositionUser", UserEmail)
                 .whereEqualTo("WorkShiftEnd", "false")
                 .whereEqualTo("IdDocPosition", idPosition)
                 .get()
@@ -150,7 +150,7 @@ class UserShiftHistory : AppCompatActivity() {
 
     fun buttonToReturnClik(view: View?) {
         val i = Intent(this@UserShiftHistory, UserShiftActivity::class.java)
-        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser)
         startActivity(i)
     }

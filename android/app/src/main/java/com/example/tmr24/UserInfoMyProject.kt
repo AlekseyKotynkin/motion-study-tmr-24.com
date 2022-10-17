@@ -23,7 +23,7 @@ import java.time.ZoneOffset
 
 open class UserInfoMyProject : AppCompatActivity() {
     private lateinit var binding: ActivityUserInfoMyProjectBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private val db = Firebase.firestore
     private val TAG: String? = null
     //
@@ -49,11 +49,11 @@ open class UserInfoMyProject : AppCompatActivity() {
         val i = intent
         if (i != null) {
             //intentMain
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
 
             // получаем список организаций доступных данному пользователю
             db.collection("User")
-                .whereEqualTo("userNameEmail", userNameEmail)
+                .whereEqualTo("UserEmail", UserEmail)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -76,7 +76,7 @@ open class UserInfoMyProject : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoMyProject, UserInfoOperativActivity::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
 
@@ -86,7 +86,7 @@ open class UserInfoMyProject : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoMyProject, UserInfoProject::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
         }
@@ -211,7 +211,7 @@ open class UserInfoMyProject : AppCompatActivity() {
         val projectDocId = view_Click.transitionName
         //передаем параметры в UserInfoProject
         val f = Intent(this, UserInfoProject::class.java)
-        f.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        f.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         f.putExtra(Constant.ID_DOC_PROJECT, projectDocId)
         startActivity(f)
     }

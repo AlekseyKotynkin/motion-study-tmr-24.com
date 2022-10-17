@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var analytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
@@ -124,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val currentUser = auth.currentUser
         val userName = currentUser?.displayName
-        val userNameEmail = currentUser?.email
+        val UserEmail = currentUser?.email
 
         // TODO : initiate successful logged in experience
         // ЧТО НУЖНО СДЕЛАТЬ: инициировать успешный вход в систему
@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
         //переход в новую активити
         val i = Intent(this@LoginActivity, UserInfoOperativActivity::class.java)
         i.putExtra(Constant.USER_NAME, userName)
-        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         startActivity(i)
     }
 

@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var buttonExit: Button? = null
     private var signInButton: SignInButton? = null
     private var textHello: TextView? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var gso: GoogleSignInOptions? = null
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private var account: GoogleSignInAccount? = null
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             editTextPassword!!.visibility = View.GONE
             buttonComeIn!!.visibility = View.GONE
             signInButton!!.visibility = View.GONE
-            userNameEmail = currentUser.email
+            UserEmail = currentUser.email
             val userEmail = "You are logged in as - " + currentUser.email
             textHello!!.text = userEmail
             Toast.makeText(this, "User not null", Toast.LENGTH_SHORT).show()
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun buttonToBegin(view: View?) {
         val i = Intent(this@MainActivity, UserInfoActivity::class.java)
-        i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         startActivity(i)
     }
 

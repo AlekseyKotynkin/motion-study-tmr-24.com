@@ -25,7 +25,7 @@ class UserShiftActivity : AppCompatActivity() {
     private var nameOrganization: String? = null
     private var nameSubdivision: String? = null
     private var namePosition: String? = null
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var parentHierarchyShiftUser: String? = null
     private var parentHierarchyPositionUser: String? = null
     private var idPosition: String? = null
@@ -35,7 +35,7 @@ class UserShiftActivity : AppCompatActivity() {
     private var idDocOrganization: String? = null
     private var idDocPosition: String? = null
     private var idDocSubdivision: String? = null
-    private var userСomment: String? = null
+    private var UserСomment: String? = null
     private var parentHierarchyPositionUserMap: MutableMap<*, *>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,7 @@ class UserShiftActivity : AppCompatActivity() {
             listInfoButton.clear()
             listInfoButtonItem.clear()
             // получили строку данных с предидущего Активити
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             parentHierarchyPositionUser = i.getStringExtra(Constant.PARENT_HIERARCHY_POSITION_USER)
             val delimeter = ">"
             idOrganization = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[0]
@@ -63,7 +63,7 @@ class UserShiftActivity : AppCompatActivity() {
             idPosition = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[4]
             namePosition = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[5]
             idDocPositionUser = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[6]
-            userСomment = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[7]
+            UserСomment = parentHierarchyPositionUser!!.split(delimeter.toRegex()).toTypedArray()[7]
             //вывели на экран Должность Подразделение Организацию в которой планируем работать
             //val textActivPosition = findViewById<TextView>(R.id.textActivPosition)
             val textActivPosition = binding.textActivPosition
@@ -71,7 +71,7 @@ class UserShiftActivity : AppCompatActivity() {
             textActivPosition.text = poleActivPosition
             //проверили нет ли активной смены
             db.collection("WorkShift")
-                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("EmailPositionUser", UserEmail)
                 .whereEqualTo("WorkShiftEnd", "")
                 .whereEqualTo("IdDocPosition", idPosition)
                 .get()
@@ -92,7 +92,7 @@ class UserShiftActivity : AppCompatActivity() {
                             val poleParentHierarchyShiftUser: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$activShiftDocId")
                             parentHierarchyShiftUser = poleParentHierarchyShiftUser
                             val iI = Intent(this@UserShiftActivity, UserProcessActivity::class.java)
-                            iI.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                            iI.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                             iI.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser)
                             startActivity(iI)
                         }
@@ -143,8 +143,8 @@ class UserShiftActivity : AppCompatActivity() {
                 "NameOrganization" to nameOrganization,
                 "NameSubdivision" to nameSubdivision,
                 "NamePosition" to namePosition,
-                "UserEmail" to userNameEmail,
-                "UserСomment" to userСomment,
+                "UserEmail" to UserEmail,
+                "UserСomment" to UserСomment,
                 "idDocOrganization" to idOrganization,
                 "idDocPosition" to idPosition,
                 "idDocPositionUser" to idDocPositionUser,
@@ -154,15 +154,15 @@ class UserShiftActivity : AppCompatActivity() {
             //parentHierarchyPositionUserMap["NameOrganization"] = nameOrganization!!
             //parentHierarchyPositionUserMap["NameSubdivision"] = nameSubdivision!!
             //parentHierarchyPositionUserMap["NamePosition"] = namePosition!!
-            //parentHierarchyPositionUserMap["UserEmail"] = userNameEmail!!
-            //parentHierarchyPositionUserMap["UserСomment"] = userСomment!!
+            //parentHierarchyPositionUserMap["UserEmail"] = UserEmail!!
+            //parentHierarchyPositionUserMap["UserСomment"] = UserСomment!!
             //parentHierarchyPositionUserMap["idDocOrganization"] = idOrganization!!
             //parentHierarchyPositionUserMap["idDocPosition"] = idPosition!!
             //parentHierarchyPositionUserMap["idDocPositionUser"] = idDocPositionUser!!
             //parentHierarchyPositionUserMap["idDocSubdivision"] = idSubdivision!!
             // Открываем новую смену при нажатии кнопки
             val data: MutableMap<String, Any?> = HashMap()
-            data["EmailPositionUser"] = userNameEmail
+            data["EmailPositionUser"] = UserEmail
             data["IdDocPosition"] = idPosition
             data["ParentHierarchyPositionUser"] = parentHierarchyPositionUserMap
             data["WorkShiftEnd"] = ""
@@ -173,7 +173,7 @@ class UserShiftActivity : AppCompatActivity() {
                     Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.id)
                     //активизируем процесс Expect
                     val data: MutableMap<String, Any?> = HashMap()
-                    data["EmailPositionUser"] = userNameEmail
+                    data["EmailPositionUser"] = UserEmail
                     data["IdDocPosition"] = idPosition
                     data["IdDocProcessButton"] = "buttonExpect"
                     data["NameDocProcessButton"] = "Expect"
@@ -184,7 +184,7 @@ class UserShiftActivity : AppCompatActivity() {
                     val poleParentHierarchyShiftUser: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$activShiftDocId")
                     parentHierarchyShiftUser = poleParentHierarchyShiftUser
                     val i = Intent(this@UserShiftActivity, UserProcessActivity::class.java)
-                    i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                    i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                     i.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser)
                     startActivity(i)
                 }
@@ -193,13 +193,13 @@ class UserShiftActivity : AppCompatActivity() {
 
         buttonToReturn.setOnClickListener {
             val i = Intent(this@UserShiftActivity, UserInfoActivity::class.java)
-            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+            i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
             startActivity(i)
         }
 
         buttonShiftHistory.setOnClickListener {
             val i = Intent(this@UserShiftActivity, UserShiftHistory::class.java)
-            i.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+            i.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
             i.putExtra(Constant.PARENT_HIERARCHY_POSITION_USER, parentHierarchyPositionUser)
             startActivity(i)
         }

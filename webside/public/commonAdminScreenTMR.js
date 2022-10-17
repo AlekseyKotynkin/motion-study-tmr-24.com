@@ -99,18 +99,18 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              var parentHierarchyDoc = doc.ref.path;
-                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             var positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var idDocOrganization = parentHierarchyDoc.split("/")[1];
+                                             var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+                                             var idDocPosition = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
-                                             itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+                                             itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               var organizationDocId = element.idDocOrganization ;
-                                               var subdivisionDocId = element.idDocSubdivision ;
-                                               var positionDocId = element.idDocPosition ;
-                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var idDocOrganization = element.idDocOrganization ;
+                                               var idDocSubdivision = element.idDocSubdivision ;
+                                               var idDocPosition = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -121,7 +121,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -132,7 +132,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -267,18 +267,18 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                            // console.log(doc.id, " => ", doc.data());
                                            // начало* получаем документы Position найденых по запросу выше
                                              var parentHierarchyDoc = doc.ref.path;
-                                             var organizationDocId = parentHierarchyDoc.split("/")[1];
-                                             var subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                                             var positionDocId = parentHierarchyDoc.split("/")[5];
+                                             var idDocOrganization = parentHierarchyDoc.split("/")[1];
+                                             var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+                                             var idDocPosition = parentHierarchyDoc.split("/")[5];
                                              itemsOrganizationName = [];
-                                             itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+                                             itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
                                              // console.log("1.1 => ",itemsOrganizationName);
 
                                              itemsOrganizationName.forEach(function(element){
-                                               var organizationDocId = element.idDocOrganization ;
-                                               var subdivisionDocId = element.idDocSubdivision ;
-                                               var positionDocId = element.idDocPosition ;
-                                               var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                                               var idDocOrganization = element.idDocOrganization ;
+                                               var idDocSubdivision = element.idDocSubdivision ;
+                                               var idDocPosition = element.idDocPosition ;
+                                               var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
                                                    docRefOrganization.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameOrganization = doc.data().Organization;
@@ -289,7 +289,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                                               var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
                                                    docRefSubdivision.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        nameSubdivision = doc.data().Subdivision;
@@ -300,7 +300,7 @@ db.collection("Organization").where("PositionOfYourManager", "==", EmailLocalSto
                                                }).catch(function(error) {
                                                    console.log("Error getting document:", error);
                                                });
-                                               var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                                               var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
                                                    docRefPosition.get().then(function(doc) {
                                                    if (doc.exists) {
                                                        namePosition = doc.data().Position;
@@ -421,18 +421,18 @@ function gridDisplayManagerSubdivision() {
                          console.log(doc.id, " => ", doc.data());
                          // начало* получаем документы Position найденых по запросу выше
                            var parentHierarchyDoc = doc.ref.path;
-                           var organizationDocId = parentHierarchyDoc.split("/")[1];
-                           var subdivisionDocId = parentHierarchyDoc.split("/")[3];
-                           var positionDocId = parentHierarchyDoc.split("/")[5];
+                           var idDocOrganization = parentHierarchyDoc.split("/")[1];
+                           var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+                           var idDocPosition = parentHierarchyDoc.split("/")[5];
                            itemsOrganizationName = [];
-                           itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+                           itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
                            // console.log("1.1 => ",itemsOrganizationName);
 
                            itemsOrganizationName.forEach(function(element){
-                             var organizationDocId = element.idDocOrganization ;
-                             var subdivisionDocId = element.idDocSubdivision ;
-                             var positionDocId = element.idDocPosition ;
-                             var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+                             var idDocOrganization = element.idDocOrganization ;
+                             var idDocSubdivision = element.idDocSubdivision ;
+                             var idDocPosition = element.idDocPosition ;
+                             var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
                                  docRefOrganization.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameOrganization = doc.data().Organization;
@@ -443,7 +443,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  console.log("Error getting document:", error);
                              });
-                             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+                             var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
                                  docRefSubdivision.get().then(function(doc) {
                                  if (doc.exists) {
                                      nameSubdivision = doc.data().Subdivision;
@@ -454,7 +454,7 @@ function gridDisplayManagerSubdivision() {
                              }).catch(function(error) {
                                  console.log("Error getting document:", error);
                              });
-                             var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+                             var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
                                  docRefPosition.get().then(function(doc) {
                                  if (doc.exists) {
                                      namePosition = doc.data().Position;
@@ -548,17 +548,17 @@ function gridDisplayManagerPosition() {
   parentHierarchy.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
      var parentHierarchyDoc = doc.ref.path;
-     var organizationDocId = parentHierarchyDoc.split("/")[1];
-     var subdivisionDocId = parentHierarchyDoc.split("/")[3];
-     var positionDocId = parentHierarchyDoc.split("/")[5];
+     var idDocOrganization = parentHierarchyDoc.split("/")[1];
+     var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+     var idDocPosition = parentHierarchyDoc.split("/")[5];
      itemsOrganizationName = [];
-     itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: positionDocId},...{idDocSubdivision: subdivisionDocId},...{idDocOrganization: organizationDocId}});
+     itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
     });
     itemsOrganizationName.forEach(function(element){
-      var organizationDocId = element.idDocOrganization ;
-      var subdivisionDocId = element.idDocSubdivision ;
-      var positionDocId = element.idDocPosition ;
-      var docRefOrganization = db.collection("Organization").doc(organizationDocId);
+      var idDocOrganization = element.idDocOrganization ;
+      var idDocSubdivision = element.idDocSubdivision ;
+      var idDocPosition = element.idDocPosition ;
+      var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
          docRefOrganization.get().then(function(doc) {
           if (doc.exists) {
               nameOrganization = doc.data().Organization;
@@ -569,7 +569,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
-      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(subdivisionDocId);
+      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
          docRefSubdivision.get().then(function(doc) {
           if (doc.exists) {
               nameSubdivision = doc.data().Subdivision;
@@ -580,7 +580,7 @@ function gridDisplayManagerPosition() {
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
-      var docRefPosition = docRefSubdivision.collection("Position").doc(positionDocId);
+      var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
          docRefPosition.get().then(function(doc) {
           if (doc.exists) {
               namePosition = doc.data().Position;
@@ -687,12 +687,12 @@ function gridDisplayManagerPosition() {
             var userEmailColumn = document.createElement('td');
             userEmailColumn.innerHTML = item.UserEmail;
 
-            var userСommentColumn = document.createElement('td');
-            userСommentColumn.innerHTML = item.UserСomment;
+            var UserСommentColumn = document.createElement('td');
+            UserСommentColumn.innerHTML = item.UserСomment;
 
             tr.appendChild(toDismissColumn);
             tr.appendChild(userEmailColumn);
-            tr.appendChild(userСommentColumn);
+            tr.appendChild(UserСommentColumn);
 
             var container = document.getElementById("tableShiftPositionsListUser").getElementsByTagName("tbody")[0];
             // var container = document.getElementById("tableShiftPositionsListUser_Edit").getElementsByTagName("tbody")[0];
@@ -1221,12 +1221,12 @@ function editShiftDataButton (obj)
             var userEmailColumn = document.createElement('td');
             userEmailColumn.innerHTML = item.UserEmail;
 
-            var userСommentColumn = document.createElement('td');
-            userСommentColumn.innerHTML = item.UserСomment;
+            var UserСommentColumn = document.createElement('td');
+            UserСommentColumn.innerHTML = item.UserСomment;
 
             tr.appendChild(toDismissColumn);
             tr.appendChild(userEmailColumn);
-            tr.appendChild(userСommentColumn);
+            tr.appendChild(UserСommentColumn);
 
             var container = document.getElementById("tableShiftPositionsListUser_Edit").getElementsByTagName("tbody")[0];
             container.appendChild(tr);

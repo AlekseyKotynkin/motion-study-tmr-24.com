@@ -33,7 +33,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityUserInfoOperativBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private val db = Firebase.firestore
     private val TAG: String? = null
     private val listData = ArrayList<String>()
@@ -57,7 +57,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
         val i = intent
         if (i != null) {
             //intentMain
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
 
             // активируем поле Событие Календаря для выбора
             val buttonVoqealarCalendar = binding.buttonVoqealarCalendar
@@ -65,7 +65,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 //val a = Intent(this@UserInfoOperativActivity, UserInfoOperativActivity::class.java)
-                //a.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                //a.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 //startActivity(a)
             }
 
@@ -77,7 +77,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
 
 
                 val b = Intent(this@UserInfoOperativActivity, UserInfoMyTasks::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 b.putExtra(Constant.TASKS_TYPE_NAMES, "MyTasks")
                 startActivity(b)
             }
@@ -88,7 +88,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val c = Intent(this@UserInfoOperativActivity, UserInfoMyTasks::class.java)
-                c.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                c.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 c.putExtra(Constant.TASKS_TYPE_NAMES, "IncomingTasks")
                 startActivity(c)
             }
@@ -99,7 +99,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val d = Intent(this@UserInfoOperativActivity, UserInfoMyTasks::class.java)
-                d.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                d.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 d.putExtra(Constant.TASKS_TYPE_NAMES, "OutgoingTasks")
                 startActivity(d)
             }
@@ -110,7 +110,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val d = Intent(this@UserInfoOperativActivity, UserInfoMyProject::class.java)
-                d.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                d.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(d)
             }
 
@@ -120,7 +120,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val f = Intent(this@UserInfoOperativActivity, UserInfoActivity::class.java)
-                f.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                f.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(f)
             }
 
@@ -157,7 +157,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
     private val dataFromDB: Unit
         get() {             // Заполняем табличную часть с Активными сменами
             db.collection("WorkShift")
-                .whereEqualTo("EmailPositionUser", userNameEmail)
+                .whereEqualTo("EmailPositionUser", UserEmail)
                 .whereEqualTo("WorkShiftEnd", "")
                 .get()
                 .addOnCompleteListener { task ->
@@ -194,7 +194,7 @@ class UserInfoOperativActivity : AppCompatActivity() {
         listSessions.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val parentHierarchyShiftUser = listDataItem[position]
             val g = Intent(this@UserInfoOperativActivity, UserProcessActivity::class.java)
-            g.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+            g.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
             g.putExtra(Constant.PARENT_HIERARCHY_SHIFT_USER, parentHierarchyShiftUser)
             startActivity(g)
         }

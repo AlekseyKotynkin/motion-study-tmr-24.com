@@ -29,7 +29,7 @@ import java.util.*
 
 open class UserInfoMyTasks : AppCompatActivity() {
     private lateinit var binding: ActivityUserInfoMyTasksBinding
-    private var userNameEmail: String? = null
+    private var UserEmail: String? = null
     private var taskTypeNames: String? = null
     private var tasksDocId: String? = null
     private val db = Firebase.firestore
@@ -53,8 +53,8 @@ open class UserInfoMyTasks : AppCompatActivity() {
         super.onStart()
         val i = intent
         if (i != null) {
-            //получаем параметры userNameEmail и taskTypeNames "MyTasks" "IncomingTasks" "OutgoingTasks"
-            userNameEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
+            //получаем параметры UserEmail и taskTypeNames "MyTasks" "IncomingTasks" "OutgoingTasks"
+            UserEmail = i.getStringExtra(Constant.USER_NAME_EMAIL)
             taskTypeNames = i.getStringExtra(Constant.TASKS_TYPE_NAMES)
             //запускаем цепочку функций для заполнения активити
             listOfOrganizationsAvailableToTheUser()
@@ -64,7 +64,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val w = Intent(this@UserInfoMyTasks, UserInfoTasks::class.java)
-                w.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                w.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 w.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
                 w.putExtra(Constant.ID_DOC_TASKS, tasksDocId)
                 startActivity(w)
@@ -76,7 +76,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Button has been clicked", Toast.LENGTH_SHORT)
                     .show()
                 val b = Intent(this@UserInfoMyTasks, UserInfoOperativActivity::class.java)
-                b.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+                b.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
                 startActivity(b)
             }
         }
@@ -90,7 +90,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
         //передаем параметры в UserInfoProject
         val f = Intent(this, UserInfoTasks::class.java)
         f.putExtra(Constant.TASKS_TYPE_NAMES, taskTypeNames)
-        f.putExtra(Constant.USER_NAME_EMAIL, userNameEmail)
+        f.putExtra(Constant.USER_NAME_EMAIL, UserEmail)
         f.putExtra(Constant.ID_DOC_TASKS, tasksDocId)
         startActivity(f)
     }
@@ -100,7 +100,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
         // получаем список организаций доступных данному пользователю
         listOrganization_id = mutableListOf()
         db.collection("User")
-            .whereEqualTo("userNameEmail", userNameEmail)
+            .whereEqualTo("UserEmail", UserEmail)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
@@ -124,13 +124,13 @@ open class UserInfoMyTasks : AppCompatActivity() {
         val titleDialogMyTasksTypeNames = binding.titleDialogMyTasksTypeNames
         if (taskTypeNames == "MyTasks"){
             titleDialogMyTasksTypeNames.text = "Мои задачи"
-            gettingListTasks(userNameEmail!!,userNameEmail!!)
+            gettingListTasks(UserEmail!!,UserEmail!!)
         } else if (taskTypeNames == "IncomingTasks"){
             titleDialogMyTasksTypeNames.text = "Входящие задачи"
-            gettingListTasks("",userNameEmail!!)
+            gettingListTasks("",UserEmail!!)
         } else if (taskTypeNames == "OutgoingTasks"){
             titleDialogMyTasksTypeNames.text = "Исходящие задачи"
-            gettingListTasks(userNameEmail!!,"")
+            gettingListTasks(UserEmail!!,"")
         }
     }
 
@@ -199,7 +199,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
 
         }
         //запускаем отбор Исходящие задачи
-        if (executorTasks == "" && quarantorTasks == userNameEmail){
+        if (executorTasks == "" && quarantorTasks == UserEmail){
             val listOrganization_id_size = listOrganization_id.size
             var number_of_cycles_listTasks_id = 0
             listOrganization_id.forEach { element ->
@@ -266,7 +266,7 @@ open class UserInfoMyTasks : AppCompatActivity() {
             }
         }
         //запускаем отбор Входящие задачи
-        if (executorTasks == userNameEmail && quarantorTasks == ""){
+        if (executorTasks == UserEmail && quarantorTasks == ""){
             //скрываем кнопку добавления задачи
             val buttonAddTasksColleague = binding.buttonAddTasksColleague
             buttonAddTasksColleague.visibility = View.GONE
