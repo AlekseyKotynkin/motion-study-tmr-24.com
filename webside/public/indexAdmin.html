@@ -33,13 +33,6 @@
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
-    <!-- Проверяем наличие localStorage -->
-    <script type="text/javascript">
-      if (localStorage.getItem('firebaseui::rememberedAccounts') === null)
-      {
-      window.location.replace("widget.html");
-      }
-    </script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -47,6 +40,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <!-- Проверяем наличие localStorage -->
+    <script type="text/javascript">
+      if (localStorage.getItem('firebaseui::rememberedAccounts') === null)
+      {
+      window.location.replace("widget.html");
+    }
+    </script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>

@@ -193,7 +193,7 @@ function createATableOfClientUser()
        if(translation_JS == null || translation_JS == 'en'){
          toDismissName.innerHTML = "To dismiss";
        } else {
-         toDismissName.innerHTML = "Отклонить";
+         toDismissName.innerHTML = "Уволить";
        }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionUser;
@@ -626,6 +626,22 @@ function toDismissButtonUser(obj)
   {
       console.error("Error removing document: ", error);
   });
+  db.collection("OrganizationTable").where("positionUserDocId", "==", objId).where("userNameEmail", "==", UserNamelocalStorage)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            db.collection("OrganizationTable").doc(doc.id).delete().then(() => {
+                console.log("Document successfully deleted!");
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
+            });
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
 }
 
 /**
