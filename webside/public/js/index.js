@@ -11,3 +11,11 @@ var firebaseConfig = {
  // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
  var CLIENT_ID = '475611275877-4osmsrcpem3upcg8omh9a56lvbfldb1b.apps.googleusercontent.com';
+ 
+   // заполняем строки с русскими значениями
+   function translationCommon_RU (){
+     //
+   }
+   // заполняем строки с английскими значениями
+   function translationCommon_EN (){
+   }

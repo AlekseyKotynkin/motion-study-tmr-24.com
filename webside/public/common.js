@@ -39,6 +39,22 @@ var database = firebase.database();
       }
     });
   }
+
+//востановление пароля
+  function RecoverPasswordAdminLogin() {
+    var email = document.getElementById("inputEmail1").value;
+    if (email.length < 4)
+    {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please enter an email address.');
+      } else {
+        alert ("Пожалуйста, введите адрес электронной почты!");
+      }
+     return;
+    }
+    firebase.auth().sendPasswordResetEmail(email)
+  }
+
 /**
 * @return {string}
 //  Вход пользователя через форму.
@@ -181,7 +197,7 @@ var database = firebase.database();
   function location_Href(){
     window.open('https://www.facebook.com/TMR24Systems/');
   }
-  
+
   // заполняем строки с русскими значениями
   function translationCommon_RU (){
     //

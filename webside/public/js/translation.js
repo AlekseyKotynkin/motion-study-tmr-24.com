@@ -258,7 +258,7 @@ var arrLang = {
     'new_here': ' New here? ',
     'new_here_title': ' Signing up is easy. It only takes a few steps ',
     'registration': ' Registration ',
-
+    'recover_passwor': ' Recover Password ',
 
 
 
@@ -482,7 +482,7 @@ var arrLang = {
     'new_here': ' Новенький здесь? ',
     'new_here_title': ' Зарегистрироваться очень просто. Это займет всего несколько шагов. ',
     'registration': ' Регистрация ',
-
+    'recover_passwor': ' Восстановить пароль ',
 
 
     'search_projects': 'Поиск',
