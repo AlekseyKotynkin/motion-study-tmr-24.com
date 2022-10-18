@@ -92,16 +92,48 @@ var database = firebase.database();
       }
      return;
     }
-    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!filter.test(email.value)) {
-        if(translation_JS == null || translation_JS == 'en'){
-          alert('Please provide a valid email address!');
-        } else {
-          alert('Пожалуйста, укажите действительный адрес электронной почты!');
-        }
-        email.focus;
-        return false;
+    const validateEmail = (email) => {
+      return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    };
+
+    const validate = () => {
+      const $result = $('#result');
+      const email = $('#email').val();
+      $result.text('');
+
+      if (validateEmail(email)) {
+        $result.text(email + ' is valid :)');
+        $result.css('color', 'green');
+      } else {
+        $result.text(email + ' is not valid :(');
+        $result.css('color', 'red');
+      }
+      return false;
     }
+    
+    $('#email').on('input', validate);
+    // function validateEmail(email) {
+    //   var re = /\S+@\S+\.\S+/;
+    //   return re.test(email);
+    // }
+    // var re = ()/\S+@\S+\.\S+/);
+    // var k = re.test(email);
+    // console.log(validateEmail(k)
+    // console.log(validateEmail('my email is anystring@anystring.any')); // true
+    //
+    // console.log(validateEmail('my email is anystring@anystring .any')); // false
+    // var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // if (!filter.test(email.value)) {
+    //     if(translation_JS == null || translation_JS == 'en'){
+    //       alert('Please provide a valid email address!');
+    //     } else {
+    //       alert('Пожалуйста, укажите действительный адрес электронной почты!');
+    //     }
+    //     email.focus;
+    //     return false;
+    // }
     if (password.length < 4)
     {
       if(translation_JS == null || translation_JS == 'en'){
