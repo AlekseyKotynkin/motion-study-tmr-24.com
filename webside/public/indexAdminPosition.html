@@ -658,12 +658,16 @@
                       <p class="card-description lang" key="create_account_user"> Create a new user account </p>
                       <form class="forms-sample">
                         <div class="form-group">
+                          <label for="exampleInputModalUserTitle" class="lang" key="email">Email</label>
+                          <input type="email" class="form-control" id="exampleInputModalUserTitle" placeholder="Email" required="required">
+                        </div>
+                        <div class="form-group">
                           <label for="exampleInputModalUserTitle" class="lang" key="user">User</label>
-                          <input type="text" class="form-control" id="exampleInputModalUserTitle" placeholder="Name">
+                          <input type="text" class="form-control" id="exampleInputModalUserName" placeholder="Name">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputModalUserСomment" class="lang" key="comment">Сomment</label>
-                          <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="сomment">
+                          <input type="text" class="form-control" id="exampleInputModalUserСomment" placeholder="Comment">
                         </div>
                         <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewUserSubmit()">Submit</button>
                         <button class="btn btn-light lang" key="cancel">Cancel</button>

@@ -47,7 +47,7 @@ var database = firebase.database();
 
 //востановление пароля
   function RecoverPasswordAdminLogin() {
-    var email = document.getElementById("inputEmail1").value;
+    var email = document.getElementById("inputEmail1").value.toLowerCase();
     if (email.length < 4)
     {
       if(translation_JS == null || translation_JS == 'en'){
@@ -56,6 +56,16 @@ var database = firebase.database();
         alert ("Пожалуйста, введите адрес электронной почты!");
       }
      return;
+    }
+    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!filter.test(email.value)) {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please provide a valid email address!');
+        } else {
+          alert('Пожалуйста, укажите действительный адрес электронной почты!');
+        }
+        email.focus;
+        return false;
     }
     firebase.auth().sendPasswordResetEmail(email);
     if(translation_JS == null || translation_JS == 'en'){
@@ -71,7 +81,7 @@ var database = firebase.database();
  */
   function signUp()
   {
-    var email = document.getElementById("inputEmail1").value;
+    var email = document.getElementById("inputEmail1").value.toLowerCase();
     var password = document.getElementById("inputPassword1").value;
     if (email.length < 4)
     {
@@ -81,6 +91,16 @@ var database = firebase.database();
         alert ("Пожалуйста, введите адрес электронной почты!");
       }
      return;
+    }
+    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!filter.test(email.value)) {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please provide a valid email address!');
+        } else {
+          alert('Пожалуйста, укажите действительный адрес электронной почты!');
+        }
+        email.focus;
+        return false;
     }
     if (password.length < 4)
     {

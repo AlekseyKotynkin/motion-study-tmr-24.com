@@ -48,10 +48,9 @@ var translation_JS = localStorage.getItem('TMR::translation');
     */
    function signUpRegister()
    {
-     var email = document.getElementById("exampleInputEmail1").value;
+     var email = document.getElementById("exampleInputEmail1").value.toLowerCase();
      var password = document.getElementById("exampleInputPassword1").value;
      var termsConditions = document.getElementById("exampleInputTermsConditions").checked;
-
      if (email.length < 4)
      {
        if(translation_JS == null || translation_JS == 'en'){
@@ -60,6 +59,16 @@ var translation_JS = localStorage.getItem('TMR::translation');
          alert ("Пожалуйста, введите адрес электронной почты.");
        }
       return;
+     }
+     var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if (!filter.test(email.value)) {
+         if(translation_JS == null || translation_JS == 'en'){
+           alert('Please provide a valid email address!');
+         } else {
+           alert('Пожалуйста, укажите действительный адрес электронной почты!');
+         }
+         email.focus;
+         return false;
      }
     if (password.length < 4)
      {

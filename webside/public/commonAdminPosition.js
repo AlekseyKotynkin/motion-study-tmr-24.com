@@ -495,7 +495,7 @@ docRefPosition.collection("PositionSettings")
 */
 function gridSystemModalNewUserSubmit()
 {
-  var userTitle = document.getElementById("exampleInputModalUserTitle").value;
+  var userTitle = document.getElementById("exampleInputModalUserTitle").value.toLowerCase();
   if (userTitle.length < 1)
   {
     if(translation_JS == null || translation_JS == 'en'){
@@ -504,6 +504,16 @@ function gridSystemModalNewUserSubmit()
       alert ("Пожалуйста, введите имя пользователя.");
     }
    return;
+  }
+  var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!filter.test(userTitle.value)) {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please provide a valid email address!');
+      } else {
+        alert('Пожалуйста, укажите действительный адрес электронной почты!');
+      }
+      userTitle.focus;
+      return false;
   }
   var UserСomment = document.getElementById("exampleInputModalUserСomment").value;
   if (UserСomment.length < 1)
@@ -515,9 +525,31 @@ function gridSystemModalNewUserSubmit()
     }
    return;
   }
+  var UserName = document.getElementById("exampleInputModalUserName").value;
+  if (UserName.length < 1)
+  {
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('Please enter an users name.');
+    } else {
+      alert ("Пожалуйста, введите ФИО.");
+    }
+   return;
+  }
+  // var str="AabczZ";
+  // for(var i=0;i<UserName.length;i++){
+  //     var char=UserName.charCodeAt(i);
+  //     if(char>=65 && char<=90){
+  //         // char is in uppercase
+  //     }else if(char>=97 && char<=122){
+  //         // char is in lowercase
+  //     }else{
+  //         // special Char
+  //     }
+  // }
   docRefPosition.collection("PositionUser").add({
   UserEmail: userTitle,
   UserСomment: UserСomment,
+  UserName: UserName,
   idDocPosition: LocalStoragePosition,
   idDocSubdivision: LocalStorageSubdivision,
   idDocOrganization: LocalStorageOrganizationId,
@@ -533,6 +565,7 @@ function gridSystemModalNewUserSubmit()
         nameSubdivision: nameSubdivision,
         UserEmail: userTitle,
         UserСomment: UserСomment,
+        UserName: UserName,
       }).then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
       }).catch(function(error) {
