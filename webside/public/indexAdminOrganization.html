@@ -113,52 +113,29 @@
                   <img src="" name="IDFotoUrlLocalStorage" alt="image" width="40px" height="40px">
                   <!-- заполняем блок пользователя -->
                     <script>
+                    if(FotoUrlLocalStorage == null){
                       var reader = new XMLHttpRequest();
                       var checkFor = FotoUrlLocalStorage;
                       reader.open('get', checkFor, true);
-                      if(FotoUrlLocalStorage == null){
-                        reader.onreadystatechange = checkReadyState;
-                        function checkReadyState() {
-                              hiddenImg= new Image();
-                              hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
-                              document.IDFotoUrlLocalStorage.src=hiddenImg.src;
-                              return;
-                            // }
-                          // }//end of if (reader.readyState === 4
-                        }// end of checkReadyState()
-                        reader.send(null);
-                      }else{
-                        reader.onreadystatechange = checkReadyState;
-                        function checkReadyState() {
-                          if (reader.readyState === 4) {
-                            //check to see whether request for the file failed or succeeded
-                            if ((reader.status == 200) || (reader.status == 0)) {
-                              //page exists -- redirect to the checked
-                              //checked for page
-                              document.location.href = checkFor;
-                              hiddenImg= new Image();
-                              hiddenImg.src= FotoUrlLocalStorage;
-                              document.IDFotoUrlLocalStorage.src=hiddenImg.src;
-                              return;
-                            } else {
-                              //does nothing and quits the function
-                              //if the url does not exist
-                              hiddenImg= new Image();
-                              hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
-                              document.IDFotoUrlLocalStorage.src=hiddenImg.src;
-                              return;
-                            }
-                          }//end of if (reader.readyState === 4
-                        }// end of checkReadyState()
-                        reader.send(null);
+                      reader.onreadystatechange = checkReadyState;
+                      function checkReadyState() {
+                        hiddenImg= new Image();
+                        hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
+                        document.IDFotoUrlLocalStorage.src=hiddenImg.src;
+                        return;
                       }
+                      reader.send(null);
+                    }else{
+                      var up_names = document.getElementsByName("IDFotoUrlLocalStorage");
+                      up_names[0].src = FotoUrlLocalStorage;
+                    }
                     </script>
                     <!-- end заполняем блок пользователя -->
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
                   <p class="mb-1 text-black">
-                     <script>document.write(UserNamelocalStorage);</script>
+                     <script>document.getElementById("user_name_local").textContent = UserNamelocalStorage</script>
                   </p>
                 </div>
               </a>
