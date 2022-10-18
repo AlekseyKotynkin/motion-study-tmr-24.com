@@ -118,7 +118,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
    function translationCommon_RU (){
      //
      var element = document.getElementById("registration_check");
-     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions"> Я согласен со всеми положениями и условиями </label>'
+     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions" checked="checked"> Я согласен со всеми положениями и условиями </label>'
      element.insertAdjacentHTML( 'afterbegin', newElement );
      //
      var element_1 = document.getElementById("registration_account_an");
@@ -129,7 +129,7 @@ var translation_JS = localStorage.getItem('TMR::translation');
    // заполняем строки с английскими значениями
    function translationCommon_EN (){
      var element = document.getElementById("registration_check");
-     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions"> I agree to all Terms & Conditions </label>'
+     var newElement = '<label class="form-check-label text-muted"><input type="checkbox" class="form-check-input" id="exampleInputTermsConditions" checked="checked"> I agree to all Terms & Conditions </label>'
      element.insertAdjacentHTML( 'afterbegin', newElement );
      //
      var element_1 = document.getElementById("registration_account_an");
