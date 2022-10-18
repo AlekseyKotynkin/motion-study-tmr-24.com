@@ -528,7 +528,7 @@ function gridSystemModalNewUserSubmit()
         nameOrganization:  nameOrganization,
         idDocPosition: LocalStoragePosition,
         namePosition: namePosition,
-        positionUserDocId: docRef.id,
+        idDocPositionUser: docRef.id,
         idDocSubdivision: LocalStorageSubdivision,
         nameSubdivision: nameSubdivision,
         UserEmail: userTitle,
@@ -631,7 +631,7 @@ function toDismissButtonUser(obj)
   {
       console.error("Error removing document: ", error);
   });
-  db.collection("OrganizationTable").where("positionUserDocId", "==", objId).where("UserEmail", "==", UserNamelocalStorage)
+  db.collection("OrganizationTable").where("idDocPositionUser", "==", objId).where("UserEmail", "==", UserNamelocalStorage)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

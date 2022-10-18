@@ -204,7 +204,7 @@ class UserInfoActivity : AppCompatActivity() {
                     val nameSubdivision = doc["nameSubdivision"]
                     val idPosition = doc["idDocPosition"]
                     val namePosition = doc["namePosition"]
-                    val idDocPositionUser = doc["positionUserDocId"]
+                    val idDocPositionUser = doc["idDocPositionUser"]
                     val UserСomment = doc["UserСomment"]
                     val poleListDataPosts: String = ("$nameOrganization > $nameSubdivision > $namePosition")
                     val poleListDataPostsItem: String = ("$idOrganization>$nameOrganization>$idSubdivision>$nameSubdivision>$idPosition>$namePosition>$idDocPositionUser>$UserСomment")
