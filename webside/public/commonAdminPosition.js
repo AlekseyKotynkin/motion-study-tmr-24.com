@@ -178,11 +178,11 @@ function createATableOfClientUser()
        var userEmailColumn = document.createElement('td');
        userEmailColumn.innerHTML = item.UserEmail;
 
+       var UserNameColumn = document.createElement('td');
+       UserNameColumn.innerHTML = item.UserName;
+
        var UserСommentColumn = document.createElement('td');
        UserСommentColumn.innerHTML = item.UserСomment;
-
-       var UserNameColumn = document.createElement('td');
-       UserСommentColumn.innerHTML = item.UserName;
 
        var toDismissName = document.createElement('button');
        if(translation_JS == null || translation_JS == 'en'){
@@ -1459,6 +1459,7 @@ docRefPosition.collection("PositionSettings")
 
       var settingsTitleColumn = document.createElement('td');
       settingsTitleColumn.innerHTML = item.SettingsTitle;
+
 
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
