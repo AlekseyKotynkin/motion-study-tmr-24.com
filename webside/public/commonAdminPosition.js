@@ -195,8 +195,8 @@ function createATableOfClientUser()
        UserСommentColumn.innerHTML = item.UserName;
 
 
-       var editUserNameColumn = document.createElement('td');
-       editUserNameColumn.appendChild(editUserName);
+       // var editUserNameColumn = document.createElement('td');
+       // editUserNameColumn.appendChild(editUserName);
 
        var toDismissName = document.createElement('button');
        if(translation_JS == null || translation_JS == 'en'){
