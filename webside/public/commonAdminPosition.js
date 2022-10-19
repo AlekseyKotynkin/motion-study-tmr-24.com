@@ -233,19 +233,74 @@ docRefPosition.collection("PositionSettings")
 
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
-
+      ///
       var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl
-
+      // settingsActiveControl.innerHTML = item.SettingsActiveControl;
+      var ActiveControl = item.SettingsActiveControl;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(ActiveControl == false){
+          settingsActiveControl.innerHTML = "false";
+        }else{
+          settingsActiveControl.innerHTML = "true";
+        }
+      } else {
+        if(ActiveControl == false){
+          settingsActiveControl.innerHTML = "не используется";
+        }else{
+          settingsActiveControl.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsPassiveControl = document.createElement('td');
-      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
-
+      // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+      var PassiveControl = item.SettingsPassiveControl;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassiveControl == false){
+          settingsPassiveControl.innerHTML = "false";
+        }else{
+          settingsPassiveControl.innerHTML = "true";
+        }
+      } else {
+        if(PassiveControl == false){
+          settingsPassiveControl.innerHTML = "не используется";
+        }else{
+          settingsPassiveControl.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsResultCapture = document.createElement('td');
-      settingsResultCapture.innerHTML = item.SettingsResultCapture;
-
+      var ResultCapture = item.SettingsResultCapture;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(ResultCapture == false){
+          settingsResultCapture.innerHTML = "false";
+        }else{
+          settingsResultCapture.innerHTML = "true";
+        }
+      } else {
+        if(ResultCapture == false){
+          settingsResultCapture.innerHTML = "не используется";
+        }else{
+          settingsResultCapture.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsCommitDescription = document.createElement('td');
-      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
-
+      // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+      var CommitDescription = item.SettingsCommitDescription;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(CommitDescription == false){
+          settingsCommitDescription.innerHTML = "false";
+        }else{
+          settingsCommitDescription.innerHTML = "true";
+        }
+      } else {
+        if(CommitDescription == false){
+          settingsCommitDescription.innerHTML = "не используется";
+        }else{
+          settingsCommitDescription.innerHTML = "используется";
+        }
+      }
+      ///
       var editSettings = document.createElement('button');
       if(translation_JS == null || translation_JS == 'en'){
         editSettings.innerHTML = "Edit";
@@ -312,10 +367,24 @@ docRefPosition.collection("PositionSettings")
 
       var settingsActiveTitleColumn = document.createElement('td');
       settingsActiveTitleColumn.innerHTML = item.SettingsTitle;
-
+      ///
       var settingsActiveControl = document.createElement('td');
-      settingsActiveControl.innerHTML = item.SettingsActiveControl;
-
+      // settingsActiveControl.innerHTML = item.SettingsActiveControl;
+      var ActiveControl = item.SettingsActiveControl;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(ActiveControl == false){
+          settingsActiveControl.innerHTML = "false";
+        }else{
+          settingsActiveControl.innerHTML = "true";
+        }
+      } else {
+        if(ActiveControl == false){
+          settingsActiveControl.innerHTML = "не используется";
+        }else{
+          settingsActiveControl.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsActiveInterval = document.createElement('td');
       settingsActiveInterval.innerHTML = item.SettingsActiveIntervalMinutes
 
@@ -323,11 +392,35 @@ docRefPosition.collection("PositionSettings")
       settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
 
       var settingsActiveTransition = document.createElement('td');
-      settingsActiveTransition.innerHTML = item.SettingsActiveTransition;
-
+      // settingsActiveTransition.innerHTML = item.SettingsActiveTransition;
+      var ActiveTransition = item.SettingsActiveTransition;
+      if(translation_JS == null || translation_JS == 'en'){
+          settingsActiveTransition.innerHTML = ActiveTransition;
+      } else {
+        if(ActiveTransition == "No button"){
+          settingsActiveTransition.innerHTML = "Без перехода";
+        }else{
+          settingsActiveTransition.innerHTML = ActiveTransition;
+        }
+      }
+      ///
       var settingsActiveSignal = document.createElement('td');
-      settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
-
+      // settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
+      var ActiveSignal = item.SettingsActiveSignal;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(ActiveSignal == false){
+          settingsActiveSignal.innerHTML = "false";
+        }else{
+          settingsActiveSignal.innerHTML = "true";
+        }
+      } else {
+        if(ActiveSignal == false){
+          settingsActiveSignal.innerHTML = "не используется";
+        }else{
+          settingsActiveSignal.innerHTML = "используется";
+        }
+      }
+      ///
       tr.appendChild(settingsActiveTitleColumn);
       tr.appendChild(settingsActiveControl);
       tr.appendChild(settingsActiveInterval);
@@ -368,8 +461,22 @@ docRefPosition.collection("PositionSettings")
       settingsPassiveTitleColumn.innerHTML = item.SettingsTitle;
 
       var settingsPassiveControl = document.createElement('td');
-      settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
-
+      // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
+      var PassiveControl = item.SettingsPassiveControl;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassiveControl == false){
+          settingsPassiveControl.innerHTML = "false";
+        }else{
+          settingsPassiveControl.innerHTML = "true";
+        }
+      } else {
+        if(PassiveControl == false){
+          settingsPassiveControl.innerHTML = "не используется";
+        }else{
+          settingsPassiveControl.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsPassiveInterval = document.createElement('td');
       settingsPassiveInterval.innerHTML = item.SettingsPassiveIntervalMinutes
 
@@ -377,17 +484,73 @@ docRefPosition.collection("PositionSettings")
       settingsPassiveDuration.innerHTML = item.SettingsPassiveDurationSeconds;
 
       var settingsPassiveAudio = document.createElement('td');
-      settingsPassiveAudio.innerHTML = item.SettingsPassiveAudio;
-
+      // settingsPassiveAudio.innerHTML = item.SettingsPassiveAudio;
+      var PassiveAudio = item.SettingsPassiveAudio;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassiveAudio == false){
+          settingsPassiveAudio.innerHTML = "false";
+        }else{
+          settingsPassiveAudio.innerHTML = "true";
+        }
+      } else {
+        if(PassiveAudio == false){
+          settingsPassiveAudio.innerHTML = "не используется";
+        }else{
+          settingsPassiveAudio.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsPassivePhoto = document.createElement('td');
-      settingsPassivePhoto.innerHTML = item.SettingsPassivePhoto;
-
+      // settingsPassivePhoto.innerHTML = item.SettingsPassivePhoto;
+      var PassivePhoto = item.SettingsPassivePhoto;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassivePhoto == false){
+          settingsPassivePhoto.innerHTML = "false";
+        }else{
+          settingsPassivePhoto.innerHTML = "true";
+        }
+      } else {
+        if(PassivePhoto == false){
+          settingsPassivePhoto.innerHTML = "не используется";
+        }else{
+          settingsPassivePhoto.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsPassiveVideo = document.createElement('td');
-      settingsPassiveVideo.innerHTML = item.SettingsPassiveVideo;
-
+      // settingsPassiveVideo.innerHTML = item.SettingsPassiveVideo;
+      var PassiveVideo = item.SettingsPassiveVideo;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassiveVideo == false){
+          settingsPassiveVideo.innerHTML = "false";
+        }else{
+          settingsPassiveVideo.innerHTML = "true";
+        }
+      } else {
+        if(PassiveVideo == false){
+          settingsPassiveVideo.innerHTML = "не используется";
+        }else{
+          settingsPassiveVideo.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsPassiveGeolocation = document.createElement('td');
-      settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
-
+      // settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
+      var PassiveGeolocation = item.SettingsPassiveGeolocation;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(PassiveGeolocation == false){
+          settingsPassiveGeolocation.innerHTML = "false";
+        }else{
+          settingsPassiveGeolocation.innerHTML = "true";
+        }
+      } else {
+        if(PassiveGeolocation == false){
+          settingsPassiveGeolocation.innerHTML = "не используется";
+        }else{
+          settingsPassiveGeolocation.innerHTML = "используется";
+        }
+      }
+      ///
       tr.appendChild(settingsPassiveTitleColumn);
       tr.appendChild(settingsPassiveControl);
       tr.appendChild(settingsPassiveInterval);
@@ -426,13 +589,41 @@ docRefPosition.collection("PositionSettings")
 
       var settingsTitleColumn = document.createElement('td');
       settingsTitleColumn.innerHTML = item.SettingsTitle;
-
+      ///
       var settingsCommitDescription = document.createElement('td');
-      settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
-
+      // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
+      var CommitDescription = item.SettingsCommitDescription;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(CommitDescription == false){
+          settingsCommitDescription.innerHTML = "false";
+        }else{
+          settingsCommitDescription.innerHTML = "true";
+        }
+      } else {
+        if(CommitDescription == false){
+          settingsCommitDescription.innerHTML = "не используется";
+        }else{
+          settingsCommitDescription.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsResultCapture = document.createElement('td');
-      settingsResultCapture.innerHTML = item.SettingsResultCapture
-
+      // settingsResultCapture.innerHTML = item.SettingsResultCapture
+      var ResultCapture = item.SettingsResultCapture;
+      if(translation_JS == null || translation_JS == 'en'){
+        if(ResultCapture == false){
+          settingsResultCapture.innerHTML = "false";
+        }else{
+          settingsResultCapture.innerHTML = "true";
+        }
+      } else {
+        if(ResultCapture == false){
+          settingsResultCapture.innerHTML = "не используется";
+        }else{
+          settingsResultCapture.innerHTML = "используется";
+        }
+      }
+      ///
       var settingsResultControlOption1 = document.createElement('td');
       settingsResultControlOption1.innerHTML = item.SettingsResultControlOption1;
 
