@@ -117,8 +117,25 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
     }
     var nameOfDepartmentHead = document.getElementById("exampleInputModalSubdivisionNameOfDepartamentHead").value;
     var headOfUnit = document.getElementById("exampleInputModalSubdivisionHeadOfUnit").value;
-    var subdivisionOfYourManager = document.getElementById("exampleInputModalSubdivisionSubdivisionOfYourManager").value;
-
+    var subdivisionOfYourManager = document.getElementById("exampleInputModalSubdivisionSubdivisionOfYourManager").value.toLowerCase();
+    if (subdivisionOfYourManager.length < 4)
+    {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please enter an email address.');
+      } else {
+        alert ("Пожалуйста, введите адрес электронной почты!");
+      }
+     return;
+    }
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(reg.test(subdivisionOfYourManager) == false) {
+       if(translation_JS == null || translation_JS == 'en'){
+         alert('Enter the correct email!');
+       } else {
+         alert('Введите корректный email!');
+       }
+       return false;
+    }
     // Добавляем в коллекциию организации Подразделения и данные руководителя.
     docRef.collection("Subdivision").add({
     Subdivision: subdivisionTitle,
@@ -398,7 +415,25 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
          }
         return;
        }
-       var positionOfManager = document.getElementById("exampleInputModalPositionOfManager").value;
+       var positionOfManager = document.getElementById("exampleInputModalPositionOfManager").value.toLowerCase();
+       if (positionOfManager.length < 4)
+       {
+         if(translation_JS == null || translation_JS == 'en'){
+           alert('Please enter an email address.');
+         } else {
+           alert ("Пожалуйста, введите адрес электронной почты!");
+         }
+        return;
+       }
+       var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+       if(reg.test(positionOfManager) == false) {
+          if(translation_JS == null || translation_JS == 'en'){
+            alert('Enter the correct email!');
+          } else {
+            alert('Введите корректный email!');
+          }
+          return false;
+       }
        var positionOfManagerName = document.getElementById("exampleInputModalPositionOfManagerName").value;
        // Добавляем в документ Подразделения должность.
        docRefFull.collection("Position").add({
