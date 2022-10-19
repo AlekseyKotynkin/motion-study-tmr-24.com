@@ -57,16 +57,16 @@ var database = firebase.database();
       }
      return;
     }
-    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!filter.test(email.value)) {
-        if(translation_JS == null || translation_JS == 'en'){
-          alert('Please provide a valid email address!');
-        } else {
-          alert('Пожалуйста, укажите действительный адрес электронной почты!');
-        }
-        email.focus;
-        return false;
-    }
+    // var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // if (!filter.test(email.value)) {
+    //     if(translation_JS == null || translation_JS == 'en'){
+    //       alert('Please provide a valid email address!');
+    //     } else {
+    //       alert('Пожалуйста, укажите действительный адрес электронной почты!');
+    //     }
+    //     email.focus;
+    //     return false;
+    // }
     firebase.auth().sendPasswordResetEmail(email);
     if(translation_JS == null || translation_JS == 'en'){
       alert('An email has been sent to you to restore your password!');
@@ -92,28 +92,34 @@ var database = firebase.database();
       }
      return;
     }
-    const validateEmail = (email) => {
-      return email.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-    };
-
-    const validate = () => {
-      const $result = $('#result');
-      const email = $('#email').val();
-      $result.text('');
-
-      if (validateEmail(email)) {
-        $result.text(email + ' is valid :)');
-        $result.css('color', 'green');
-      } else {
-        $result.text(email + ' is not valid :(');
-        $result.css('color', 'red');
-      }
-      return false;
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    // var address = document.forms[form_id].elements[email].value;
+    if(reg.test(email) == false) {
+       alert('Введите корректный e-mail');
+       return false;
     }
-    
-    $('#email').on('input', validate);
+    // const validateEmail = (email) => {
+    //   return email.match(
+    //     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    //   );
+    // };
+    //
+    // const validate = () => {
+    //   const $result = $('#result');
+    //   const email = $('#email').val();
+    //   $result.text('');
+    //
+    //   if (validateEmail(email)) {
+    //     $result.text(email + ' is valid :)');
+    //     $result.css('color', 'green');
+    //   } else {
+    //     $result.text(email + ' is not valid :(');
+    //     $result.css('color', 'red');
+    //   }
+    //   return false;
+    // }
+    //
+    // $('#email').on('input', validate);
     // function validateEmail(email) {
     //   var re = /\S+@\S+\.\S+/;
     //   return re.test(email);
