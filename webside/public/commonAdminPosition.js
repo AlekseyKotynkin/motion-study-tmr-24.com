@@ -1685,18 +1685,30 @@ docRefPosition.collection("PositionSettings")
       var editSettings = document.createElement('select');
       if(translation_JS == null || translation_JS == 'en'){
         editSettings.options[0] = new Option("does not participate", "str0");
+        editSettings.options[0].id = "0";
         editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
+        editSettings.options[1].id = "1";
         editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
+        editSettings.options[2].id = "2";
         editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
+        editSettings.options[3].id = "3";
         editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
+        editSettings.options[4].id = "4";
         editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+        editSettings.options[5].id = "5";
       } else {
         editSettings.options[0] = new Option("не участвует", "str0");
+        editSettings.options[0].id = "0";
         editSettings.options[1] = new Option("этап 1 воронки продаж", "str1");
+        editSettings.options[1].id = "1";
         editSettings.options[2] = new Option("этап 2 воронки продаж", "str2");
+        editSettings.options[2].id = "2";
         editSettings.options[3] = new Option("этап 3 воронки продаж", "str3");
+        editSettings.options[3].id = "3";
         editSettings.options[4] = new Option("этап 4 воронки продаж", "str4");
+        editSettings.options[4].id = "4";
         editSettings.options[5] = new Option("этап 5 воронки продаж", "str5");
+        editSettings.options[5].id = "5";
       }
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
