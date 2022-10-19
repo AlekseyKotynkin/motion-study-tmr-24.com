@@ -1854,7 +1854,56 @@ function location_Href(){
 // заполняем строки с русскими значениями
 function translationCommon_RU (){
   //
+  var element_1 = document.getElementById("settings_button_modal_title_active_activity");
+  var newElement_1 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>';
+  element_1.insertAdjacentHTML( 'beforeend', newElement_1 );
+  //
+  var element_2 = document.getElementById("settings_button_modal_title_active_activity_signal");
+  var newElement_2 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label>';
+  element_2.insertAdjacentHTML( 'beforeend', newElement_2 );
+  //
+  var element_3 = document.getElementById("settings_button_modal_title_passive_activity");
+  var newElement_3 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label>';
+  element_3.insertAdjacentHTML( 'beforeend', newElement_3 );
+  //
+  var element_4 = document.getElementById("settings_button_modal_title_passive_activity_audio");
+  var newElement_4 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Audio</label>';
+  element_4.insertAdjacentHTML( 'beforeend', newElement_4 );
+  //
+  var element_5 = document.getElementById("settings_button_modal_title_passive_activity_photo");
+  var newElement_5 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Photo</label>';
+  element_5.insertAdjacentHTML( 'beforeend', newElement_5 );
+  //
+  var element_6 = document.getElementById("settings_button_modal_title_passive_activity_clic");
+  var newElement_6 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>';
+  element_6.insertAdjacentHTML( 'beforeend', newElement_6 );
+
 }
 // заполняем строки с английскими значениями
 function translationCommon_EN (){
+  //
+  var element_1 = document.getElementById("settings_button_modal_title_active_activity");
+  var newElement_1 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Активный Контроль</label>';
+  element_1.insertAdjacentHTML( 'beforeend', newElement_1 );
+  //
+  var element_2 = document.getElementById("settings_button_modal_title_active_activity_signal");
+  var newElement_2 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Сигнал</label>';
+  element_2.insertAdjacentHTML( 'beforeend', newElement_2 );
+  //
+  var element_3 = document.getElementById("settings_button_modal_title_passive_activity");
+  var newElement_3 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Пассивный Контроль</label>';
+  element_3.insertAdjacentHTML( 'beforeend', newElement_3 );
+  //
+  var element_4 = document.getElementById("settings_button_modal_title_passive_activity_audio");
+  var newElement_4 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Запись звука</label>';
+  element_4.insertAdjacentHTML( 'beforeend', newElement_4 );
+  //
+  var element_5 = document.getElementById("settings_button_modal_title_passive_activity_photo");
+  var newElement_5 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Фото фиксация</label>';
+  element_5.insertAdjacentHTML( 'beforeend', newElement_5 );
+  //
+  var element_6 = document.getElementById("settings_button_modal_title_passive_activity_clic");
+  var newElement_6 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Захват события по щелчку мыши</label>';
+  element_6.insertAdjacentHTML( 'beforeend', newElement_6 );
+
 }

@@ -731,7 +731,7 @@
                   <div class="card">
                     <div class="card-body">
                       <h4 class="card-description lang" key="edit_settings_button">Edit Settings</h4>
-                      <p class="card-description lang" key="edit_account_settings_button settings account ">Edit a new settings account</p>
+                      <p class="card-description lang" key="edit_account_settings_button">Edit a new settings account</p>
                       <form class="forms-sample">
                         <div class="form-group">
                           <label for="exampleInputModalSettingsTitle" class="lang" key="user">User</label>
@@ -741,12 +741,11 @@
                           <label for="exampleInputModalSettingsСomment" class="lang" key="comment">Сomment</label>
                           <input type="text" class="form-control" id="exampleInputModalSettingsСomment" placeholder="Сomment">
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id ="settings_button_modal_title_active_activity">
                           <h4 class="card-description lang" key="active_activity_control">Active Activity Control</h4>
                         <!-- </div>
                         <div class="form-check"> -->
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="button_active_control" id="exampleInputModalSettingsActiveControl">Active Control</label>
+                          <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label> -->
                         </div>
                         <div class="form-check">
                          <p class="card-description lang" key="button_settings_interval">Interval</p>
@@ -789,16 +788,14 @@
                            <option class="lang" key="button_no">No button</option>
                           </select>
                         </div>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="button_settings_signal" id="exampleInputModalSettingsActiveSignal">Signal</label>
+                        <div class="form-check" id ="settings_button_modal_title_active_activity_signal">
+                          <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveSignal">Signal</label> -->
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id ="settings_button_modal_title_passive_activity">
                           <h4 class="card-description lang" key="passive_activity_control">Passive Activity Control</h4>
                         <!-- </div>
                         <div class="form-check"> -->
-                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="button_passive_control" id="exampleInputModalSettingsPassiveControl">Passive Control</label>
+                           <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveControl">Passive Control</label> -->
                         </div>
                         <!-- <div class="form-check">
                          <p class="card-description" >Interval</p>
@@ -835,17 +832,14 @@
                             <option>0</option>
                           </select>
                         </div> -->
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="button_settings_audio" id="exampleInputModalSettingsPassiveAudio">Audio</label>
+                        <div class="form-check" id ="settings_button_modal_title_passive_activity_audio">
+                          <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassiveAudio">Audio</label> -->
                         </div>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="button_settings_photo" id="exampleInputModalSettingsPassivePhoto">Photo</label>
+                        <div class="form-check" id ="settings_button_modal_title_passive_activity_photo">
+                          <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhoto">Photo</label> -->
                         </div>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input lang" key="capture_event_click" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>
+                        <div class="form-check" id ="settings_button_modal_title_passive_activity_clic">
+                          <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label> -->
                         </div>
                         <div class="form-check">
                          <p class="card-description lang" key="capture_event_click_interval_foto" >The interval between photo events</p>
