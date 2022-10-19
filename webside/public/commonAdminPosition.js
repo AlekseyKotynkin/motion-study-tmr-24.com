@@ -1649,20 +1649,57 @@ docRefPosition.collection("PositionSettings")
       var tr = document.createElement("tr");
 
       var settingsTitleColumn = document.createElement('td');
-      settingsTitleColumn.innerHTML = item.SettingsTitle;
-
-
+      // settingsTitleColumn.innerHTML = item.SettingsTitle;
+      var TitleColumn = item.SettingsTitle;
+      if(TitleColumn == "Expect" || TitleColumn == "Other" || TitleColumn == "Gone"){
+        if(translation_JS == null || translation_JS == 'en'){
+          settingsTitleColumn.innerHTML = item.SettingsTitle;
+        } else {
+          if(TitleColumn == "Expect"){
+            settingsTitleColumn.innerHTML = "Ожидаю";
+          }
+          if(TitleColumn == "Other"){
+            settingsTitleColumn.innerHTML = "Другое";
+          }
+          if(TitleColumn == "Gone"){
+            settingsTitleColumn.innerHTML = "Отлучился";
+          }
+        }
+      }else{
+        settingsTitleColumn.innerHTML = item.SettingsTitle;
+      }
+      ///
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
-
+      var SettingsСomment = item.SettingsTitle;
+      if(SettingsСomment == "base button"){
+        if(translation_JS == null || translation_JS == 'en'){
+          settingsСommentColumn.innerHTML = item.SettingsСomment;
+        } else {
+          settingsСommentColumn.innerHTML = "базовая кнопка";
+        }
+      }else{
+        settingsСommentColumn.innerHTML = item.SettingsСomment;
+      }
+      ///
       var editSettings = document.createElement('select');
-      editSettings.options[0] = new Option("does not participate", "str0");
-      editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
-      editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
-      editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
-      editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
-      editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+      if(translation_JS == null || translation_JS == 'en'){
+        editSettings.options[0] = new Option("does not participate", "str0");
+        editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
+        editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
+        editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
+        editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
+        editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+      } else {
+        editSettings.options[0] = new Option("не участвует", "str0");
+        editSettings.options[1] = new Option("этап 1 воронки продаж", "str1");
+        editSettings.options[2] = new Option("этап 2 воронки продаж", "str2");
+        editSettings.options[3] = new Option("этап 3 воронки продаж", "str3");
+        editSettings.options[4] = new Option("этап 4 воронки продаж", "str4");
+        editSettings.options[5] = new Option("этап 5 воронки продаж", "str5");
+      }
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+
       var x = item.SettingsSalesFunnel_Availability;
       for (i = 0; i < 6; i++){
          var cells = editSettings.options[i].innerHTML;
@@ -1676,12 +1713,20 @@ docRefPosition.collection("PositionSettings")
       var editSettingsColumn = document.createElement('td');
       editSettingsColumn.appendChild(editSettings);
 
-
       var deleteSettings = document.createElement('select');
-      deleteSettings.options[0] = new Option("Not available red", "str0");
-      deleteSettings.options[1] = new Option("Perhaps yellow", "str1");
-      deleteSettings.options[2] = new Option("Available green", "str2");
+      if(translation_JS == null || translation_JS == 'en'){
+        deleteSettings.options[0] = new Option("red - simple employee", "str0");
+        deleteSettings.options[1] = new Option("orange - other activities", "str1");
+        deleteSettings.options[2] = new Option("yellow - auxiliary duties", "str2");
+        deleteSettings.options[3] = new Option("green - job responsibilities", "str3");
+      } else {
+        deleteSettings.options[0] = new Option("красный - простой сотрудника", "str0");
+        deleteSettings.options[1] = new Option("оранжевый - прочая деятельность", "str1");
+        deleteSettings.options[2] = new Option("желтый - вспомогательные обязанности", "str2");
+        deleteSettings.options[3] = new Option("зеленый - должностные обязанности", "str3");
+      }
       deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+
       var y = item.SettingsSalesFunnel_Stage;
       for (l = 0; l < 3; l++){
          var cells1 = deleteSettings.options[l].innerHTML;
@@ -1696,8 +1741,13 @@ docRefPosition.collection("PositionSettings")
       deleteSettingsColumn.appendChild(deleteSettings);
 
       var resultButton = document.createElement('select');
-      resultButton.options[0] = new Option("Ignore", "str0");
-      resultButton.options[1] = new Option("Take account of", "str1");
+      if(translation_JS == null || translation_JS == 'en'){
+        resultButton.options[0] = new Option("Ignore", "str0");
+        resultButton.options[1] = new Option("Participates", "str1");
+      } else {
+        resultButton.options[0] = new Option("Игнорировать", "str0");
+        resultButton.options[1] = new Option("Участвует", "str1");
+      }
       resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
       var z = item.SettingsSalesFunnel_Result;
       for (k = 0; k < 2; k++){
