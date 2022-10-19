@@ -238,13 +238,13 @@ docRefPosition.collection("PositionSettings")
       // settingsActiveControl.innerHTML = item.SettingsActiveControl;
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveControl == false){
+        if(ActiveControl == "false"){
           settingsActiveControl.innerHTML = "false";
         }else{
           settingsActiveControl.innerHTML = "true";
         }
       } else {
-        if(ActiveControl == false){
+        if(ActiveControl == "false"){
           settingsActiveControl.innerHTML = "не используется";
         }else{
           settingsActiveControl.innerHTML = "используется";
@@ -255,13 +255,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveControl == false){
+        if(PassiveControl == "false"){
           settingsPassiveControl.innerHTML = "false";
         }else{
           settingsPassiveControl.innerHTML = "true";
         }
       } else {
-        if(PassiveControl == false){
+        if(PassiveControl == "false"){
           settingsPassiveControl.innerHTML = "не используется";
         }else{
           settingsPassiveControl.innerHTML = "используется";
@@ -271,13 +271,13 @@ docRefPosition.collection("PositionSettings")
       var settingsResultCapture = document.createElement('td');
       var ResultCapture = item.SettingsResultCapture;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ResultCapture == false){
+        if(ResultCapture == "false"){
           settingsResultCapture.innerHTML = "false";
         }else{
           settingsResultCapture.innerHTML = "true";
         }
       } else {
-        if(ResultCapture == false){
+        if(ResultCapture == "false"){
           settingsResultCapture.innerHTML = "не используется";
         }else{
           settingsResultCapture.innerHTML = "используется";
@@ -288,13 +288,13 @@ docRefPosition.collection("PositionSettings")
       // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
       var CommitDescription = item.SettingsCommitDescription;
       if(translation_JS == null || translation_JS == 'en'){
-        if(CommitDescription == false){
+        if(CommitDescription == "false"){
           settingsCommitDescription.innerHTML = "false";
         }else{
           settingsCommitDescription.innerHTML = "true";
         }
       } else {
-        if(CommitDescription == false){
+        if(CommitDescription == "false"){
           settingsCommitDescription.innerHTML = "не используется";
         }else{
           settingsCommitDescription.innerHTML = "используется";
@@ -372,13 +372,13 @@ docRefPosition.collection("PositionSettings")
       // settingsActiveControl.innerHTML = item.SettingsActiveControl;
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveControl == false){
+        if(ActiveControl == "false"){
           settingsActiveControl.innerHTML = "false";
         }else{
           settingsActiveControl.innerHTML = "true";
         }
       } else {
-        if(ActiveControl == false){
+        if(ActiveControl == "false"){
           settingsActiveControl.innerHTML = "не используется";
         }else{
           settingsActiveControl.innerHTML = "используется";
@@ -408,13 +408,13 @@ docRefPosition.collection("PositionSettings")
       // settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
       var ActiveSignal = item.SettingsActiveSignal;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveSignal == false){
+        if(ActiveSignal == "false"){
           settingsActiveSignal.innerHTML = "false";
         }else{
           settingsActiveSignal.innerHTML = "true";
         }
       } else {
-        if(ActiveSignal == false){
+        if(ActiveSignal == "false"){
           settingsActiveSignal.innerHTML = "не используется";
         }else{
           settingsActiveSignal.innerHTML = "используется";
@@ -464,13 +464,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveControl == false){
+        if(PassiveControl == "false"){
           settingsPassiveControl.innerHTML = "false";
         }else{
           settingsPassiveControl.innerHTML = "true";
         }
       } else {
-        if(PassiveControl == false){
+        if(PassiveControl == "false"){
           settingsPassiveControl.innerHTML = "не используется";
         }else{
           settingsPassiveControl.innerHTML = "используется";
@@ -487,13 +487,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassiveAudio.innerHTML = item.SettingsPassiveAudio;
       var PassiveAudio = item.SettingsPassiveAudio;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveAudio == false){
+        if(PassiveAudio == "false"){
           settingsPassiveAudio.innerHTML = "false";
         }else{
           settingsPassiveAudio.innerHTML = "true";
         }
       } else {
-        if(PassiveAudio == false){
+        if(PassiveAudio == "false"){
           settingsPassiveAudio.innerHTML = "не используется";
         }else{
           settingsPassiveAudio.innerHTML = "используется";
@@ -504,13 +504,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassivePhoto.innerHTML = item.SettingsPassivePhoto;
       var PassivePhoto = item.SettingsPassivePhoto;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassivePhoto == false){
+        if(PassivePhoto == "false"){
           settingsPassivePhoto.innerHTML = "false";
         }else{
           settingsPassivePhoto.innerHTML = "true";
         }
       } else {
-        if(PassivePhoto == false){
+        if(PassivePhoto == "false"){
           settingsPassivePhoto.innerHTML = "не используется";
         }else{
           settingsPassivePhoto.innerHTML = "используется";
@@ -521,13 +521,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassiveVideo.innerHTML = item.SettingsPassiveVideo;
       var PassiveVideo = item.SettingsPassiveVideo;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveVideo == false){
+        if(PassiveVideo == "false"){
           settingsPassiveVideo.innerHTML = "false";
         }else{
           settingsPassiveVideo.innerHTML = "true";
         }
       } else {
-        if(PassiveVideo == false){
+        if(PassiveVideo == "false"){
           settingsPassiveVideo.innerHTML = "не используется";
         }else{
           settingsPassiveVideo.innerHTML = "используется";
@@ -538,13 +538,13 @@ docRefPosition.collection("PositionSettings")
       // settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
       var PassiveGeolocation = item.SettingsPassiveGeolocation;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveGeolocation == false){
+        if(PassiveGeolocation == "false"){
           settingsPassiveGeolocation.innerHTML = "false";
         }else{
           settingsPassiveGeolocation.innerHTML = "true";
         }
       } else {
-        if(PassiveGeolocation == false){
+        if(PassiveGeolocation == "false"){
           settingsPassiveGeolocation.innerHTML = "не используется";
         }else{
           settingsPassiveGeolocation.innerHTML = "используется";
@@ -594,13 +594,13 @@ docRefPosition.collection("PositionSettings")
       // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
       var CommitDescription = item.SettingsCommitDescription;
       if(translation_JS == null || translation_JS == 'en'){
-        if(CommitDescription == false){
+        if(CommitDescription == "false"){
           settingsCommitDescription.innerHTML = "false";
         }else{
           settingsCommitDescription.innerHTML = "true";
         }
       } else {
-        if(CommitDescription == false){
+        if(CommitDescription == "false"){
           settingsCommitDescription.innerHTML = "не используется";
         }else{
           settingsCommitDescription.innerHTML = "используется";
@@ -611,13 +611,13 @@ docRefPosition.collection("PositionSettings")
       // settingsResultCapture.innerHTML = item.SettingsResultCapture
       var ResultCapture = item.SettingsResultCapture;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ResultCapture == false){
+        if(ResultCapture == "false"){
           settingsResultCapture.innerHTML = "false";
         }else{
           settingsResultCapture.innerHTML = "true";
         }
       } else {
-        if(ResultCapture == false){
+        if(ResultCapture == "false"){
           settingsResultCapture.innerHTML = "не используется";
         }else{
           settingsResultCapture.innerHTML = "используется";
