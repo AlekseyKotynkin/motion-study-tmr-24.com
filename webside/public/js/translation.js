@@ -262,7 +262,7 @@ var arrLang = {
     'register_personal_text_1': ' Complete your personal data! ',
     'register_personal_text_2': ' Please provide your personal information for - ',
     'to_write': ' TO WRITE ',
-
+    'users_name': ' Name ',
 
 
 
@@ -490,7 +490,7 @@ var arrLang = {
     'register_personal_text_1': ' Заполните свои личные данные! ',
     'register_personal_text_2': ' Пожалуйста, предоставьте свою личную информацию для - ',
     'to_write': ' ЗАПИСАТЬ ',
-
+    'users_name': ' ФИО ',
 
 
 

@@ -181,15 +181,19 @@ function createATableOfClientUser()
        var UserСommentColumn = document.createElement('td');
        UserСommentColumn.innerHTML = item.UserСomment;
 
-       var editUserName = document.createElement('button');
-       if(translation_JS == null || translation_JS == 'en'){
-         editUserName.innerHTML = "Edit";
-       } else {
-         editUserName.innerHTML = "Редактировать";
-       }
-       editUserName.className = 'badge badge-gradient-success';
-       editUserName.id = item.idPositionUser;
-       editUserName.setAttribute('onclick', 'editButtonUser(this)');
+       // var editUserName = document.createElement('button');
+       // if(translation_JS == null || translation_JS == 'en'){
+       //   editUserName.innerHTML = "Edit";
+       // } else {
+       //   editUserName.innerHTML = "Редактировать";
+       // }
+       // editUserName.className = 'badge badge-gradient-success';
+       // editUserName.id = item.idPositionUser;
+       // editUserName.setAttribute('onclick', 'editButtonUser(this)');
+
+       var UserNameColumn = document.createElement('td');
+       UserСommentColumn.innerHTML = item.UserName;
+
 
        var editUserNameColumn = document.createElement('td');
        editUserNameColumn.appendChild(editUserName);
@@ -208,8 +212,8 @@ function createATableOfClientUser()
        toDismissColumn.appendChild(toDismissName);
 
        tr.appendChild(userEmailColumn);
+       tr.appendChild(UserNameColumn);
        tr.appendChild(UserСommentColumn);
-       tr.appendChild(editUserNameColumn);
        tr.appendChild(toDismissColumn);
 
        container.appendChild(tr);
