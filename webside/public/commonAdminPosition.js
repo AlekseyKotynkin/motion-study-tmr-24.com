@@ -499,8 +499,8 @@ docRefPosition.collection("PositionSettings")
 */
 function gridSystemModalNewUserSubmit()
 {
-  var userTitle = document.getElementById("exampleInputModalUserTitle").value.toLowerCase();
-  if (userTitle.length < 1)
+  var email = document.getElementById("exampleInputModalUserTitle").value.toLowerCase();
+  if (email.length < 1)
   {
     if(translation_JS == null || translation_JS == 'en'){
       alert('Please enter an user name.');
@@ -509,15 +509,14 @@ function gridSystemModalNewUserSubmit()
     }
    return;
   }
-  var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!filter.test(userTitle.value)) {
-      if(translation_JS == null || translation_JS == 'en'){
-        alert('Please provide a valid email address!');
-      } else {
-        alert('Пожалуйста, укажите действительный адрес электронной почты!');
-      }
-      userTitle.focus;
-      return false;
+  var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  if(reg.test(email) == false) {
+     if(translation_JS == null || translation_JS == 'en'){
+       alert('Enter the correct email!');
+     } else {
+       alert('Введите корректный email!');
+     }
+     return false;
   }
   var UserСomment = document.getElementById("exampleInputModalUserСomment").value;
   if (UserСomment.length < 1)
@@ -551,7 +550,7 @@ function gridSystemModalNewUserSubmit()
   //     }
   // }
   docRefPosition.collection("PositionUser").add({
-  UserEmail: userTitle,
+  UserEmail: email,
   UserСomment: UserСomment,
   UserName: UserName,
   idDocPosition: LocalStoragePosition,
@@ -567,7 +566,7 @@ function gridSystemModalNewUserSubmit()
         idDocPositionUser: docRef.id,
         idDocSubdivision: LocalStorageSubdivision,
         nameSubdivision: nameSubdivision,
-        UserEmail: userTitle,
+        UserEmail: email,
         UserСomment: UserСomment,
         UserName: UserName,
       }).then(function(docRef) {
@@ -708,33 +707,33 @@ function deleteButtonSettings(obj)
   });
 }
 
-/**
-* @return {string}
-*  Обработчик кнопки editButtonUser из таблицы Пользователи.
-*/
-function editButtonUser(obj)
-{
-  objIdDocUser = obj.id;
-  var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
-  washingtonRef.get().then(function(doc) {
-    if (doc.exists)
-  {
-      let userEmail = doc.data().UserEmail;
-      let UserСomment = doc.data().UserСomment;
-      document.getElementById('editExampleInputModalUserTitle').value = userEmail;
-      document.getElementById('editExampleInputModalUserСomment').value = UserСomment;
-      var modal = document.getElementById('editGridSystemModalNewUser');
-      $(document).ready(function(){
-        $("#editGridSystemModalNewUser").modal('show');
-        window.location.reload();
-      });
-      } else {
-        console.log("No such document!");
-      }
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
-  });
-}
+// /**
+// * @return {string}
+// *  Обработчик кнопки editButtonUser из таблицы Пользователи.
+// */
+// function editButtonUser(obj)
+// {
+//   objIdDocUser = obj.id;
+//   var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
+//   washingtonRef.get().then(function(doc) {
+//     if (doc.exists)
+//   {
+//       let userEmail = doc.data().UserEmail;
+//       let UserСomment = doc.data().UserСomment;
+//       document.getElementById('editExampleInputModalUserTitle').value = userEmail;
+//       document.getElementById('editExampleInputModalUserСomment').value = UserСomment;
+//       var modal = document.getElementById('editGridSystemModalNewUser');
+//       $(document).ready(function(){
+//         $("#editGridSystemModalNewUser").modal('show');
+//         window.location.reload();
+//       });
+//       } else {
+//         console.log("No such document!");
+//       }
+//   }).catch(function(error) {
+//       console.log("Error getting document:", error);
+//   });
+// }
 
  /**
  * @return {string}
@@ -922,24 +921,24 @@ function editButtonUser(obj)
 * @return {string}
  *  Обработчик кнопки Submit из модального окна editGridSystemModalNewUser.
  */
-function  editGridSystemModalNewUserSubmit()
-{
-  var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
-  var UserСomment = document.getElementById("editExampleInputModalUserСomment").value;
-  docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
-      UserTitle: userTitle,
-      UserСomment: UserСomment,
-  })
-  .then(function() {
-      console.log("Document successfully written!");
-      $('#gridSystemModalNewOrganization').modal('toggle');
-      window.location.reload();
-  })
-  .catch(function(error) {
-      console.error("Error writing document: ", error);
-  });
-}
-
+// function  editGridSystemModalNewUserSubmit()
+// {
+//   var userTitle = document.getElementById("editExampleInputModalUserTitle").value;
+//   var UserСomment = document.getElementById("editExampleInputModalUserСomment").value;
+//   docRefPosition.collection("PositionUser").doc(objIdDocUser).set({
+//       UserTitle: userTitle,
+//       UserСomment: UserСomment,
+//   })
+//   .then(function() {
+//       console.log("Document successfully written!");
+//       $('#gridSystemModalNewOrganization').modal('toggle');
+//       window.location.reload();
+//   })
+//   .catch(function(error) {
+//       console.error("Error writing document: ", error);
+//   });
+// }
+//
 /**
 * @return {string}
 *  Обработка модального окна Список источников Трафика.

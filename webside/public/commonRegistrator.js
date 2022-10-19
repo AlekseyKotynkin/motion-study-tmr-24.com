@@ -60,16 +60,15 @@ var translation_JS = localStorage.getItem('TMR::translation');
        }
       return;
      }
-     // var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     // if (!filter.test(email.value)) {
-     //     if(translation_JS == null || translation_JS == 'en'){
-     //       alert('Please provide a valid email address!');
-     //     } else {
-     //       alert('Пожалуйста, укажите действительный адрес электронной почты!');
-     //     }
-     //     email.focus;
-     //     return false;
-     // }
+     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+     if(reg.test(email) == false) {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Enter the correct email!');
+        } else {
+          alert('Введите корректный email!');
+        }
+        return false;
+     }
     if (password.length < 4)
      {
        if(translation_JS == null || translation_JS == 'en'){
