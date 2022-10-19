@@ -1670,8 +1670,8 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsСommentColumn = document.createElement('td');
-      settingsСommentColumn.innerHTML = item.SettingsСomment;
-      var SettingsСomment = item.SettingsTitle;
+      // settingsСommentColumn.innerHTML = item.SettingsСomment;
+      var SettingsСomment = item.SettingsСomment;
       if(SettingsСomment == "base button"){
         if(translation_JS == null || translation_JS == 'en'){
           settingsСommentColumn.innerHTML = item.SettingsСomment;
