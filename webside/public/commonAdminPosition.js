@@ -181,22 +181,8 @@ function createATableOfClientUser()
        var UserСommentColumn = document.createElement('td');
        UserСommentColumn.innerHTML = item.UserСomment;
 
-       // var editUserName = document.createElement('button');
-       // if(translation_JS == null || translation_JS == 'en'){
-       //   editUserName.innerHTML = "Edit";
-       // } else {
-       //   editUserName.innerHTML = "Редактировать";
-       // }
-       // editUserName.className = 'badge badge-gradient-success';
-       // editUserName.id = item.idPositionUser;
-       // editUserName.setAttribute('onclick', 'editButtonUser(this)');
-
        var UserNameColumn = document.createElement('td');
        UserСommentColumn.innerHTML = item.UserName;
-
-
-       // var editUserNameColumn = document.createElement('td');
-       // editUserNameColumn.appendChild(editUserName);
 
        var toDismissName = document.createElement('button');
        if(translation_JS == null || translation_JS == 'en'){
@@ -342,14 +328,12 @@ docRefPosition.collection("PositionSettings")
       var settingsActiveSignal = document.createElement('td');
       settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
 
-
       tr.appendChild(settingsActiveTitleColumn);
       tr.appendChild(settingsActiveControl);
       tr.appendChild(settingsActiveInterval);
       tr.appendChild(settingsActiveDuration);
       tr.appendChild(settingsActiveTransition);
       tr.appendChild(settingsActiveSignal);
-
 
       var container = document.getElementById("tableActiveActivityControl").getElementsByTagName("tbody")[0];
 
@@ -404,7 +388,6 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveGeolocation = document.createElement('td');
       settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
 
-
       tr.appendChild(settingsPassiveTitleColumn);
       tr.appendChild(settingsPassiveControl);
       tr.appendChild(settingsPassiveInterval);
@@ -413,7 +396,6 @@ docRefPosition.collection("PositionSettings")
       tr.appendChild(settingsPassivePhoto);
       tr.appendChild(settingsPassiveVideo);
       tr.appendChild(settingsPassiveGeolocation);
-
 
       var container = document.getElementById("tablePassiveActivityControl").getElementsByTagName("tbody")[0];
 
@@ -538,17 +520,6 @@ function gridSystemModalNewUserSubmit()
     }
    return;
   }
-  // var str="AabczZ";
-  // for(var i=0;i<UserName.length;i++){
-  //     var char=UserName.charCodeAt(i);
-  //     if(char>=65 && char<=90){
-  //         // char is in uppercase
-  //     }else if(char>=97 && char<=122){
-  //         // char is in lowercase
-  //     }else{
-  //         // special Char
-  //     }
-  // }
   docRefPosition.collection("PositionUser").add({
   UserEmail: email,
   UserСomment: UserСomment,
