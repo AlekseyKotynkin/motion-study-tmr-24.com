@@ -984,7 +984,6 @@ function deleteButtonSettings(obj)
           resultButton.options[k].selected=true;
           }
        }
-
        document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
        document.getElementById('exampleInputModalSettingsPassiveControl').checked  = settingsPassiveControl;
        document.getElementById('exampleInputModalSettingsPassiveInterval').value = settingsPassiveIntervalMinutes;
