@@ -1010,22 +1010,29 @@ function deleteButtonSettings(obj)
   var settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
   var settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
   var settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
-  var settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
-  var settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
+  var settingsActiveIntervalMinutes_input = document.getElementById('exampleInputModalSettingsActiveInterval');
+  var settingsActiveIntervalMinutes_key = settingsActiveIntervalMinutes_input.keys ;
+  var settingsActiveIntervalMinutes = settingsActiveIntervalMinutes_input.value;
+  var settingsActiveDurationSeconds_input = document.getElementById('exampleInputModalSettingsActiveDuration');
+  var settingsActiveDurationSeconds = settingsActiveDurationSeconds_input.value;
   var settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
   var settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
   var settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
-  var settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
-  var settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
+  var settingsPassiveIntervalMinutes_input = document.getElementById('exampleInputModalSettingsPassiveInterval');
+  var settingsPassiveIntervalMinutes = settingsPassiveIntervalMinutes_input.value;
+  var settingsPassiveDurationSeconds_input = document.getElementById('exampleInputModalSettingsPassiveDuration');
+  var settingsPassiveDurationSeconds = settingsPassiveDurationSeconds_input.value;
   var settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
   var settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
   var settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
   var settingsPassivePhotoCameraIP = document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked;
-  var settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
+  var settingsPassivePhotoInterval_input = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto');
+  var settingsPassivePhotoInterval = settingsPassivePhotoInterval_input.value;
   var settingsPassivePhotoCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked;
   var settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
   var settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
-  var settingsPassiveGeolocationInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
+  var settingsPassiveGeolocationInterval_input = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
+  var settingsPassiveGeolocationInterval = settingsPassiveGeolocationInterval_input.value;
   var settingsPassiveGeolocationCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked;
   var settingsCommitDescription = document.getElementById('exampleInputModalSettingsCommitDescription').checked;
   var settingsResultCapture = document.getElementById('exampleInputModalSettingsResultControl').checked;
@@ -1037,7 +1044,6 @@ function deleteButtonSettings(obj)
   var settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
   var settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
   var settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
-
   docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
     SettingsTitle: settingsTitle,
     SettingsСomment: settingsСomment,
