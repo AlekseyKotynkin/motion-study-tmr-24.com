@@ -1019,7 +1019,7 @@ function deleteButtonSettings(obj)
   var settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
   var settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
   var settingsActiveIntervalMinutes_input = document.getElementById('exampleInputModalSettingsActiveInterval');
-  var settingsActiveIntervalMinutes_key = settingsActiveIntervalMinutes_input.keys ;
+  var settingsActiveIntervalMinutes_key = settingsActiveIntervalMinutes_input.key ;
   var settingsActiveIntervalMinutes = settingsActiveIntervalMinutes_input.value;
   var settingsActiveDurationSeconds_input = document.getElementById('exampleInputModalSettingsActiveDuration');
   var settingsActiveDurationSeconds = settingsActiveDurationSeconds_input.value;
