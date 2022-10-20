@@ -976,12 +976,12 @@ function deleteButtonSettings(obj)
        }else{
          document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
        };
-       var z = item.settingsActiveTransition;
+       var z = settingsActiveTransition;
        for (k = 0; k < 2; k++){
-          var cells2 = resultButton.options[k].value;
-          resultButton.options[k].selected=false;
+          var cells2 = document.getElementById('exampleInputModalSettingsActiveTransition').options[k].value;
+          document.getElementById('exampleInputModalSettingsActiveTransition').options[k].selected=false;
           if (z==cells2){
-          resultButton.options[k].selected=true;
+          document.getElementById('exampleInputModalSettingsActiveTransition').options[k].selected=true;
           }
        }
        document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
