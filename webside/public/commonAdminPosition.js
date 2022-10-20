@@ -1700,14 +1700,6 @@ docRefPosition.collection("PositionSettings")
       }
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
-      // var x = item.SettingsSalesFunnel_Availability_key;
-      // for (i = 0; i < 6; i++){
-      //    var cells = editSettings.options[i].innerHTML;
-      //    editSettings.options[i].selected=false;
-      //    if (x==cells){
-      //    editSettings.options[i].selected=true;
-      //    }
-      // }
       var x = item.SettingsSalesFunnel_Availability_key;
       for (i = 0; i < 6; i++){
          var cells = editSettings.options[i].value;
@@ -1823,8 +1815,8 @@ function gridSystemSaveSettingsShiftPosition()
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
   var namePosition = itemPositionsListSettings[i].namePosition;
-  var SettingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
-  var SettingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
+  var SettingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key.value;
+  var SettingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key.value;
   var SettingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result.value;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
   var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
