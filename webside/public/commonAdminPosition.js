@@ -792,9 +792,9 @@ function gridSystemModalNewSettingsSubmit()
   SettingsResultControlOption6: "",
   SettingsResultControlOption7: "",
   SettingsResultControlOption8: "",
-  SettingsSalesFunnel_Availability: "",
-  SettingsSalesFunnel_Stage: "",
-  SettingsSalesFunnel_Result: "",
+  SettingsSalesFunnel_Availability_key: "",
+  SettingsSalesFunnel_Stage_key: "",
+  SettingsSalesFunnel_Result_key: "",
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       $('#gridSystemModalNewSettings').modal('toggle');
@@ -1629,9 +1629,9 @@ function createSaveSettingsShiftPosition()
 //заполняем таблицу список настроек tableAvalablePositionsListSettings
 itemsPositionSalesFunnel = [];
 ////добавляем настройки базовых кнопок
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
-itemsPositionSalesFunnel.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str0"},...{SettingsSalesFunnel_Result_key: "str0"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str1"},...{SettingsSalesFunnel_Result_key: "str0"}});
+itemsPositionSalesFunnel.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str0"},...{SettingsSalesFunnel_Result_key: "str0"}});
 
 docRefPosition.collection("PositionSettings")
 .get()
@@ -1685,34 +1685,22 @@ docRefPosition.collection("PositionSettings")
       var editSettings = document.createElement('select');
       if(translation_JS == null || translation_JS == 'en'){
         editSettings.options[0] = new Option("does not participate", "str0");
-        editSettings.options[0].id = "0";
         editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
-        editSettings.options[1].id = "1";
         editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
-        editSettings.options[2].id = "2";
         editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
-        editSettings.options[3].id = "3";
         editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
-        editSettings.options[4].id = "4";
         editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
-        editSettings.options[5].id = "5";
       } else {
         editSettings.options[0] = new Option("не участвует", "str0");
-        editSettings.options[0].id = "0";
         editSettings.options[1] = new Option("этап 1 воронки продаж", "str1");
-        editSettings.options[1].id = "1";
         editSettings.options[2] = new Option("этап 2 воронки продаж", "str2");
-        editSettings.options[2].id = "2";
         editSettings.options[3] = new Option("этап 3 воронки продаж", "str3");
-        editSettings.options[3].id = "3";
         editSettings.options[4] = new Option("этап 4 воронки продаж", "str4");
-        editSettings.options[4].id = "4";
         editSettings.options[5] = new Option("этап 5 воронки продаж", "str5");
-        editSettings.options[5].id = "5";
       }
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
-      // var x = item.SettingsSalesFunnel_Availability;
+      // var x = item.SettingsSalesFunnel_Availability_key;
       // for (i = 0; i < 6; i++){
       //    var cells = editSettings.options[i].innerHTML;
       //    editSettings.options[i].selected=false;
@@ -1720,9 +1708,9 @@ docRefPosition.collection("PositionSettings")
       //    editSettings.options[i].selected=true;
       //    }
       // }
-      var x = item.SettingsSalesFunnel_Availability.id;
+      var x = item.SettingsSalesFunnel_Availability_key;
       for (i = 0; i < 6; i++){
-         var cells = editSettings.options[i].id;
+         var cells = editSettings.options[i].value;
          editSettings.options[i].selected=false;
          if (x==cells){
          editSettings.options[i].selected=true;
@@ -1748,9 +1736,9 @@ docRefPosition.collection("PositionSettings")
       }
       deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
-      var y = item.SettingsSalesFunnel_Stage;
+      var y = item.SettingsSalesFunnel_Stage_key;
       for (l = 0; l < 3; l++){
-         var cells1 = deleteSettings.options[l].innerHTML;
+         var cells1 = deleteSettings.options[l].value;
          deleteSettings.options[l].selected=false;
          if (y==cells1){
          deleteSettings.options[l].selected=true;
@@ -1770,9 +1758,9 @@ docRefPosition.collection("PositionSettings")
         resultButton.options[1] = new Option("Участвует", "str1");
       }
       resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-      var z = item.SettingsSalesFunnel_Result;
+      var z = item.SettingsSalesFunnel_Result_key;
       for (k = 0; k < 2; k++){
-         var cells2 = resultButton.options[k].innerHTML;
+         var cells2 = resultButton.options[k].value;
          resultButton.options[k].selected=false;
          if (z==cells2){
          resultButton.options[k].selected=true;
@@ -1828,25 +1816,25 @@ function gridSystemSaveSettingsShiftPosition()
      var cellVal_3 = cells.item(3).lastChild.options[l2].innerHTML;
      var l3 = cells.item(4).lastChild.options.selectedIndex;
      var cellVal_4 = cells.item(4).lastChild.options[l3].innerHTML;
-     itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability: cellVal_2},...{SettingsSalesFunnel_Stage: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
+     itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability_key: cellVal_2},...{SettingsSalesFunnel_Stage_key: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
    }
   // удаляем 3 настройки базовых кнопок
   itemPositionsListSettings.splice(0, 3);
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
   var namePosition = itemPositionsListSettings[i].namePosition;
-  var settingsSalesFunnel_Availability = itemPositionsListSettings[i].SettingsSalesFunnel_Availability;
-  var settingsSalesFunnel_Stage = itemPositionsListSettings[i].SettingsSalesFunnel_Stage;
-  var settingsSalesFunnel_Result = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
+  var SettingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
+  var SettingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
+  var SettingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result.value;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
   var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
   var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
   if (namePosition == settingsTitle)
     {
       docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
-        SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability,
-        SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage,
-        SettingsSalesFunnel_Result: settingsSalesFunnel_Result,
+        SettingsSalesFunnel_Availability_key: SettingsSalesFunnel_Availability_key,
+        SettingsSalesFunnel_Stage_key: SettingsSalesFunnel_Stage_key,
+        SettingsSalesFunnel_Result_key: SettingsSalesFunnel_Result_key,
       }).then(function() {
         console.log("Frank food updated");
       });

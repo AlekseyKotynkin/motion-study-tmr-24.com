@@ -734,9 +734,9 @@ function gridDisplayManagerPosition() {
         });
 
         //заполняем таблицу список настроек tableAvalablePositionsListSettings
-        itemSettingsButton.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Available green"},...{SettingsSalesFunnel_Result: "Ignore"}});
-        itemSettingsButton.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Perhaps yellow"},...{SettingsSalesFunnel_Result: "Ignore"}});
-        itemSettingsButton.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability: "does not participate"},...{SettingsSalesFunnel_Stage: "Not available red"},...{SettingsSalesFunnel_Result: "Ignore"}});
+        itemSettingsButton.push({...{SettingsTitle: "Expect"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str0"},...{SettingsSalesFunnel_Result_key: "str0"}});
+        itemSettingsButton.push({...{SettingsTitle: "Other"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str1"},...{SettingsSalesFunnel_Result_key: "str0"}});
+        itemSettingsButton.push({...{SettingsTitle: "Gone"},...{SettingsСomment: "base button"},...{SettingsSalesFunnel_Availability_key: "str0"},...{SettingsSalesFunnel_Stage_key: "str0"},...{SettingsSalesFunnel_Result_key: "str0"}});
 
 
         docRefPosition.collection("PositionSettings")
@@ -774,7 +774,7 @@ function gridDisplayManagerPosition() {
               // editSettingsColumn.appendChild(editSettings);
 
               var editSettingsColumn = document.createElement('td');
-              editSettingsColumn.innerHTML = item.SettingsSalesFunnel_Availability;
+              editSettingsColumn.innerHTML = item.SettingsSalesFunnel_Availability_key;
 
               // var deleteSettings = document.createElement('select');
               // deleteSettings.options[0] = new Option("Not available red", "str0");
@@ -787,7 +787,7 @@ function gridDisplayManagerPosition() {
               // deleteSettingsColumn.appendChild(deleteSettings);
 
               var deleteSettingsColumn = document.createElement('td');
-              deleteSettingsColumn.innerHTML = item.SettingsSalesFunnel_Stage;
+              deleteSettingsColumn.innerHTML = item.SettingsSalesFunnel_Stage_key;
 
               // var resultButton = document.createElement('select');
               // resultButton.options[0] = new Option("Ignore", "str0");
@@ -799,7 +799,7 @@ function gridDisplayManagerPosition() {
               // resultButtonColumn.appendChild(resultButton);
 
               var resultButtonColumn = document.createElement('td');
-              resultButtonColumn.innerHTML = item.SettingsSalesFunnel_Result;
+              resultButtonColumn.innerHTML = item.SettingsSalesFunnel_Result_key;
 
               tr.appendChild(settingsTitleColumn);
               tr.appendChild(settingsСommentColumn);
@@ -1246,10 +1246,10 @@ function processArray_itemDocShiftList()
               var settingsTitle = item.SettingsTitle;
               if (settingsTitle == nameDocProcessButton)
               {
-                var settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+                var SettingsSalesFunnel_Stage_key = item.SettingsSalesFunnel_Stage_key;
                 var processDurationMiliseconds = processUserEndTimeMiliseconds - processUserStartTimeMiliseconds;
-                itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
-                itemDocShiftList_PK.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage: settingsSalesFunnel_Stage},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
+                itemDocShiftList.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage_key: SettingsSalesFunnel_Stage_key},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
+                itemDocShiftList_PK.push({...doc.data(),...{idDocProceUser: doc.id},...{IdDocShiftPosition: idDocShiftPosition},...{ProcessUserStartTimeMiliseconds: processUserStartTimeMiliseconds},...{ProcessUserEndTimeMiliseconds: processUserEndTimeMiliseconds},...{SettingsSalesFunnel_Stage_key: SettingsSalesFunnel_Stage_key},...{ProcessDurationMiliseconds: processDurationMiliseconds}});
                 itemDocShiftList.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
                 itemDocShiftList_PK.sort(( a, b ) => a.ProcessUserStartTimeMiliseconds - b.ProcessUserStartTimeMiliseconds);
 
@@ -1297,7 +1297,7 @@ function processArray_itemShiftInterval()
       if (length_itemDocShiftList_idDocShiftPosition_User == 0)
       {
         var processDurationMiliseconds_4 = workShiftPositionExpirationMiliseconds - workShiftPositionStartMiliseconds;
-        var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_4};
+        var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage_key: "str0", ProcessDurationMiliseconds: processDurationMiliseconds_4};
         itemDocShiftList_PK.unshift(object);
       } else {
         //начало прорабатываем и дополняем массив
@@ -1308,7 +1308,7 @@ function processArray_itemShiftInterval()
          {
            // let processUserStartTimeMiliseconds_1 = itemDocShiftList_idDocShiftPosition_User[1].ProcessUserStartTimeMiliseconds;
            var processDurationMiliseconds_1 = processUserStartTimeMiliseconds - workShiftPositionStartMiliseconds;
-           var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_1};
+           var object = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: workShiftPositionStartMiliseconds, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds, SettingsSalesFunnel_Stage_key: "str0", ProcessDurationMiliseconds: processDurationMiliseconds_1};
            itemDocShiftList_PK.unshift(object);
          };
          //добавляю документ в конец
@@ -1319,7 +1319,7 @@ function processArray_itemShiftInterval()
          if (processUserEndTimeMiliseconds < workShiftPositionExpirationMiliseconds)
          {
            var processDurationMiliseconds_2 = workShiftPositionExpirationMiliseconds - processUserEndTimeMiliseconds;
-           var object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_2};
+           var object_1 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds, ProcessUserEndTimeMiliseconds: workShiftPositionExpirationMiliseconds, SettingsSalesFunnel_Stage_key: "str0", ProcessDurationMiliseconds: processDurationMiliseconds_2};
            itemDocShiftList_PK.push(object_1);
          };
          //проверяем интервалы между документами
@@ -1331,7 +1331,7 @@ function processArray_itemShiftInterval()
                if (processUserStartTimeMiliseconds_3 > processUserEndTimeMiliseconds_3)
                {
                  var processDurationMiliseconds_3 = processUserStartTimeMiliseconds_3 - processUserEndTimeMiliseconds_3;
-                 var object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage: "Not available red", ProcessDurationMiliseconds: processDurationMiliseconds_3};
+                 var object_2 = {EmailPositionUser: userActiveShift, idDocProceUser: "PROG", IdDocShiftPosition: idDocShiftPosition, ProcessUserStartTimeMiliseconds: processUserEndTimeMiliseconds_3, ProcessUserEndTimeMiliseconds: processUserStartTimeMiliseconds_3, SettingsSalesFunnel_Stage_key: "str0", ProcessDurationMiliseconds: processDurationMiliseconds_3};
                  itemDocShiftList_PK.push(object_2);
                }
            }
@@ -1356,19 +1356,19 @@ itemShiftInterval_baza.forEach(function(item, i, arr) {
   var itemDocShiftList_length = itemDocShiftList_PK.length - 1;
   itemDocShiftList_PK.forEach(function(item, l, arr) {
     var idDocShiftPosition = item.IdDocShiftPosition;
-    var settingsSalesFunnel_Stage = item.SettingsSalesFunnel_Stage;
+    var SettingsSalesFunnel_Stage_key = item.SettingsSalesFunnel_Stage_key;
     var processDurationMiliseconds = item.ProcessDurationMiliseconds;
     if (idDocShiftPosition_Baza == idDocShiftPosition)
     {
-      if (settingsSalesFunnel_Stage === "Available green")
+      if (SettingsSalesFunnel_Stage_key === "Available green")
       {
         settingsSalesFunnel_Stage_Green = settingsSalesFunnel_Stage_Green + processDurationMiliseconds;
       }
-      if (settingsSalesFunnel_Stage === "Perhaps yellow")
+      if (SettingsSalesFunnel_Stage_key === "Perhaps yellow")
       {
         settingsSalesFunnel_Stage_Yellow = settingsSalesFunnel_Stage_Yellow + processDurationMiliseconds;
       }
-      if (settingsSalesFunnel_Stage === "Not available red")
+      if (SettingsSalesFunnel_Stage_key === "str0")
       {
         settingsSalesFunnel_Stage_Red = settingsSalesFunnel_Stage_Red + processDurationMiliseconds;
       }
@@ -1514,8 +1514,8 @@ listDataDiogramma.forEach(function(item, i, arr) {
 
 var item_ResultTable = [];
 itemSettingsButton.forEach(function(item, i, arr) {
-var settingsSalesFunnel_Result = item.SettingsSalesFunnel_Result;
-if (settingsSalesFunnel_Result === "Take account of" )
+var SettingsSalesFunnel_Result_key = item.SettingsSalesFunnel_Result_key;
+if (SettingsSalesFunnel_Result_key === "str0" )
 {
   var settingsTitle = item.SettingsTitle;
   var object = [];
@@ -1644,16 +1644,16 @@ var settingsResultControlOption = item.SettingsResultControlOption;
  var item_SalesFunnel_SF = [];
  var item_SalesFunnel_SF_Sum = [];
  itemSettingsButton.forEach(function(item, i, arr) {
- var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
- if (settingsSalesFunnel_Availability === "Stage 1 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 2 of the sales funnel"  || settingsSalesFunnel_Availability === "Stage 3 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 4 of the sales funnel" || settingsSalesFunnel_Availability === "Stage 5 of the sales funnel")
+ var SettingsSalesFunnel_Availability_key = item.SettingsSalesFunnel_Availability_key;
+ if (SettingsSalesFunnel_Availability_key === "str0" || SettingsSalesFunnel_Availability_key === "str1"  || SettingsSalesFunnel_Availability_key === "Stage 3 of the sales funnel" || SettingsSalesFunnel_Availability_key === "Stage 4 of the sales funnel" || SettingsSalesFunnel_Availability_key === "Stage 5 of the sales funnel")
  {
    var settingsTitle = item.SettingsTitle;
-     item_SalesFunnel.push({SettingsTitle: settingsTitle, SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability});
+     item_SalesFunnel.push({SettingsTitle: settingsTitle, SettingsSalesFunnel_Availability_key: SettingsSalesFunnel_Availability_key});
      item_SalesFunnel.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
   }
  });
  item_SalesFunnel.forEach(function(item, i, arr) {
- var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
+ var SettingsSalesFunnel_Availability_key = item.SettingsSalesFunnel_Availability_key;
  var settingsTitle = item.SettingsTitle;
  var sum_item_SalesFunnel_Element = 0;
  var length_itemDocShiftList = itemDocShiftList.length - 1;
@@ -1665,7 +1665,7 @@ var settingsResultControlOption = item.SettingsResultControlOption;
      }
      if (length_itemDocShiftList === l)
      {
-       item_SalesFunnel_SF.push({SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability, SumElementFS: sum_item_SalesFunnel_Element});
+       item_SalesFunnel_SF.push({SettingsSalesFunnel_Availability_key: SettingsSalesFunnel_Availability_key, SumElementFS: sum_item_SalesFunnel_Element});
      }
    });
  });
@@ -1675,27 +1675,27 @@ var settingsResultControlOption = item.SettingsResultControlOption;
    var length_item_SalesFunnel_SF = item_SalesFunnel_SF.length - 1;
    var sum_SalesFunnel_SF = 0;
    item_SalesFunnel_SF.forEach(function(item, l, arr) {
-     var settingsSalesFunnel_Availability = item.SettingsSalesFunnel_Availability;
-     if (settingsSalesFunnel_Availability_Element === settingsSalesFunnel_Availability)
+     var SettingsSalesFunnel_Availability_key = item.SettingsSalesFunnel_Availability_key;
+     if (settingsSalesFunnel_Availability_Element === SettingsSalesFunnel_Availability_key)
      {
        var sumElementFS = item.SumElementFS;
        sum_SalesFunnel_SF = sum_SalesFunnel_SF + sumElementFS;
      }
      if (length_item_SalesFunnel_SF === l)
      {
-       item_SalesFunnel_SF_Sum.push({SettingsSalesFunnel_Availability: settingsSalesFunnel_Availability_Element, SumElementFS: sum_SalesFunnel_SF});
+       item_SalesFunnel_SF_Sum.push({SettingsSalesFunnel_Availability_key: settingsSalesFunnel_Availability_Element, SumElementFS: sum_SalesFunnel_SF});
      }
     });
   });
-  item_SalesFunnel_SF_Sum.sort(( a, b ) => a.SettingsSalesFunnel_Availability - b.SettingsSalesFunnel_Availability);
+  item_SalesFunnel_SF_Sum.sort(( a, b ) => a.SettingsSalesFunnel_Availability_key - b.SettingsSalesFunnel_Availability_key);
   // let length_item_SalesFunnel_SF_Sum = item_SalesFunnel_SF_Sum.length - 1;
     item_SalesFunnel_SF_Sum.forEach(function(item, i, arr) {
     var settingsSalesFunnel_Availability_Element = item.SettingsSalesFunnel_Availability;
-    var settingsSalesFunnel_Availability = settingsSalesFunnel_Availability_Element.substring(7, -7);
+    var SettingsSalesFunnel_Availability_key = settingsSalesFunnel_Availability_Element.substring(7, -7);
     var sumElementFS = item.SumElementFS;
     if (sumElementFS > 0)
     {
-      labels_FS.push(settingsSalesFunnel_Availability);
+      labels_FS.push(SettingsSalesFunnel_Availability_key);
       data_FS.push(sumElementFS);
     }
 
