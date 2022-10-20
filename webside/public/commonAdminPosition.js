@@ -1712,14 +1712,23 @@ docRefPosition.collection("PositionSettings")
       }
       editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
-      var x = item.SettingsSalesFunnel_Availability;
+      // var x = item.SettingsSalesFunnel_Availability;
+      // for (i = 0; i < 6; i++){
+      //    var cells = editSettings.options[i].innerHTML;
+      //    editSettings.options[i].selected=false;
+      //    if (x==cells){
+      //    editSettings.options[i].selected=true;
+      //    }
+      // }
+      var x = item.SettingsSalesFunnel_Availability.id;
       for (i = 0; i < 6; i++){
-         var cells = editSettings.options[i].innerHTML;
+         var cells = editSettings.options[i].id;
          editSettings.options[i].selected=false;
          if (x==cells){
          editSettings.options[i].selected=true;
          }
       }
+
       editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
 
       var editSettingsColumn = document.createElement('td');
@@ -1852,7 +1861,7 @@ function location_Href(){
 }
 
 // заполняем строки с русскими значениями
-function translationCommon_RU (){
+function translationCommon_EN (){
   //
   var element_1 = document.getElementById("settings_button_modal_title_active_activity");
   var newElement_1 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Active Control</label>';
@@ -1877,10 +1886,19 @@ function translationCommon_RU (){
   var element_6 = document.getElementById("settings_button_modal_title_passive_activity_clic");
   var newElement_6 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Capture event on click</label>';
   element_6.insertAdjacentHTML( 'beforeend', newElement_6 );
+  //
+  var element_7 = document.getElementById("settings_button_modal_title_commit_description");
+  var newElement_7 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_description" id="exampleInputModalSettingsCommitDescription">Commit Description</label>';
+  element_7.insertAdjacentHTML( 'beforeend', newElement_7 );
+  //
+  var element_8 = document.getElementById("settings_button_modal_title_result_control");
+  var newElement_8 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_result_control" id="exampleInputModalSettingsResultControl">Result Control</label>';
+  element_8.insertAdjacentHTML( 'beforeend', newElement_8 );
+
 
 }
 // заполняем строки с английскими значениями
-function translationCommon_EN (){
+function translationCommon_RU (){
   //
   var element_1 = document.getElementById("settings_button_modal_title_active_activity");
   var newElement_1 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsActiveControl">Активный Контроль</label>';
@@ -1905,5 +1923,13 @@ function translationCommon_EN (){
   var element_6 = document.getElementById("settings_button_modal_title_passive_activity_clic");
   var newElement_6 = '<label class="form-check-label"><input type="checkbox" class="form-check-input" id="exampleInputModalSettingsPassivePhotoCaptureEventOnClick">Захват события по щелчку мыши</label>';
   element_6.insertAdjacentHTML( 'beforeend', newElement_6 );
+  //
+  var element_7 = document.getElementById("settings_button_modal_title_commit_description");
+  var newElement_7 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_description" id="exampleInputModalSettingsCommitDescription">Описание фиксации</label>';
+  element_7.insertAdjacentHTML( 'beforeend', newElement_7 );
+  //
+  var element_8 = document.getElementById("settings_button_modal_title_result_control");
+  var newElement_8 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_result_control" id="exampleInputModalSettingsResultControl">Контроль результатов</label>';
+  element_8.insertAdjacentHTML( 'beforeend', newElement_8 );
 
 }
