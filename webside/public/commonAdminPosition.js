@@ -1874,8 +1874,26 @@ function translationCommon_EN (){
   var element_8 = document.getElementById("settings_button_modal_title_result_control");
   var newElement_8 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_result_control" id="exampleInputModalSettingsResultControl">Result Control</label>';
   element_8.insertAdjacentHTML( 'beforeend', newElement_8 );
-
-
+  //
+  var element_9 = document.getElementById("settings_button_modal_title_passive_activity_smartphone_camera");
+  var newElement_9 = '<input type="checkbox" class="form-check-input lang" key="camera_smartphone" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Smartphone camera</label>';
+  element_9.insertAdjacentHTML( 'beforeend', newElement_9 );
+  //
+  var element_10 = document.getElementById("settings_button_modal_title_passive_activity_ip_camera");
+  var newElement_10 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="camera_ip" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">External IP camera</label>';
+  element_10.insertAdjacentHTML( 'beforeend', newElement_10 );
+  //
+  var element_11 = document.getElementById("settings_button_modal_title_passive_activity_video");
+  var newElement_11 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_settings_video" id="exampleInputModalSettingsPassiveVideo">Video</label>';
+  element_11.insertAdjacentHTML( 'beforeend', newElement_11 );
+  //
+  var element_12 = document.getElementById("settings_button_modal_title_passive_activity_geolocation");
+  var newElement_12 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_settings_geolocation" id="exampleInputModalSettingsPassiveGeolocation">Geolocation</label>';
+  element_12.insertAdjacentHTML( 'beforeend', newElement_12 );
+  //
+  var element_13 = document.getElementById("settings_button_modal_title_passive_activity_geolocation_clic");
+  var newElement_13 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="capture_event_click" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Capture event on click</label>';
+  element_13.insertAdjacentHTML( 'beforeend', newElement_13 );
 }
 // заполняем строки с английскими значениями
 function translationCommon_RU (){
@@ -1911,5 +1929,25 @@ function translationCommon_RU (){
   var element_8 = document.getElementById("settings_button_modal_title_result_control");
   var newElement_8 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_result_control" id="exampleInputModalSettingsResultControl">Контроль результатов</label>';
   element_8.insertAdjacentHTML( 'beforeend', newElement_8 );
+  //
+  var element_9 = document.getElementById("settings_button_modal_title_passive_activity_smartphone_camera");
+  var newElement_9 = '<input type="checkbox" class="form-check-input lang" key="camera_smartphone" id="exampleInputModalSettingsPassivePhotoSmartphoneCamera">Камера смартфона</label>';
+  element_9.insertAdjacentHTML( 'beforeend', newElement_9 );
+  //
+  var element_10 = document.getElementById("settings_button_modal_title_passive_activity_ip_camera");
+  var newElement_10 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="camera_ip" id="exampleInputModalSettingsPassivePhotoExternalIPCamera">Внешняя камера</label>';
+  element_10.insertAdjacentHTML( 'beforeend', newElement_10 );
+  //
+  var element_11 = document.getElementById("settings_button_modal_title_passive_activity_video");
+  var newElement_11 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_settings_video" id="exampleInputModalSettingsPassiveVideo">Видео</label>';
+  element_11.insertAdjacentHTML( 'beforeend', newElement_11 );
+  //
+  var element_12 = document.getElementById("settings_button_modal_title_passive_activity_geolocation");
+  var newElement_12 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="button_settings_geolocation" id="exampleInputModalSettingsPassiveGeolocation">Геолокация</label>';
+  element_12.insertAdjacentHTML( 'beforeend', newElement_12 );
+  //
+  var element_13 = document.getElementById("settings_button_modal_title_passive_activity_geolocation_clic");
+  var newElement_13 = '<label class="form-check-label"><input type="checkbox" class="form-check-input lang" key="capture_event_click" id="exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick">Захват события по щелчку мыши</label>';
+  element_13.insertAdjacentHTML( 'beforeend', newElement_13 );
 
 }
