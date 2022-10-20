@@ -967,7 +967,7 @@ function deleteButtonSettings(obj)
          if(translation_JS == null || translation_JS == 'en'){
            document.getElementById('exampleInputModalSettingsActiveTransition').value = "No button";
          } else {
-           document.getElementById('exampleInputModalSettingsActiveTransition').value = "Нет кнопки";
+           document.getElementById('exampleInputModalSettingsActiveTransition').value = "Без перехода";
          }
        }else{
          document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
