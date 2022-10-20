@@ -963,7 +963,15 @@ function deleteButtonSettings(obj)
        document.getElementById('exampleInputModalSettingsActiveControl').checked  = settingsActiveControl;
        document.getElementById('exampleInputModalSettingsActiveInterval').value = settingsActiveIntervalMinutes;
        document.getElementById('exampleInputModalSettingsActiveDuration').value = settingsActiveDurationSeconds;
-       document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
+       if(settingsActiveTransition == ""){
+         if(translation_JS == null || translation_JS == 'en'){
+           document.getElementById('exampleInputModalSettingsActiveTransition').value = "No button";
+         } else {
+           document.getElementById('exampleInputModalSettingsActiveTransition').value = "Нет кнопки";
+         }
+       }else{
+         document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
+       };
        document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
        document.getElementById('exampleInputModalSettingsPassiveControl').checked  = settingsPassiveControl;
        document.getElementById('exampleInputModalSettingsPassiveInterval').value = settingsPassiveIntervalMinutes;
