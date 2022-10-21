@@ -966,23 +966,27 @@ function deleteButtonSettings(obj)
        document.getElementById('exampleInputModalSettingsСomment').value = settingsСomment;
        document.getElementById('exampleInputModalSettingsActiveControl').checked  = settingsActiveControl;
        ////
-       
        document.getElementById('exampleInputModalSettingsActiveInterval').value = settingsActiveIntervalMinutes;
-
-
        var a = document.getElementById('exampleInputModalSettingsActiveInterval').value;
        var l_l = document.getElementById('exampleInputModalSettingsActiveInterval').length;
        for (l = 0; l < l_l; l++){
-          var cells1 = document.getElementById('exampleInputModalSettingsActiveInterval').options[l].value;
+          var cells = document.getElementById('exampleInputModalSettingsActiveInterval').options[l].value;
           document.getElementById('exampleInputModalSettingsActiveInterval').options[l].selected=false;
-          if (a==cells1){
+          if (a==cells){
           document.getElementById('exampleInputModalSettingsActiveInterval').options[l].selected=true;
           }
        };
-
-
        ////
        document.getElementById('exampleInputModalSettingsActiveDuration').value = settingsActiveDurationSeconds;
+       var b = document.getElementById('exampleInputModalSettingsActiveDuration').value;
+       var l_b = document.getElementById('exampleInputModalSettingsActiveDuration').length;
+       for (l = 0; l < l_b; l++){
+          var cells1 = document.getElementById('exampleInputModalSettingsActiveDuration').options[l].value;
+          document.getElementById('exampleInputModalSettingsActiveDuration').options[l].selected=false;
+          if (b==cells1){
+          document.getElementById('exampleInputModalSettingsActiveDuration').options[l].selected=true;
+          }
+       };
        ///
        if(settingsActiveTransition == ""){
          if(translation_JS == null || translation_JS == 'en'){
