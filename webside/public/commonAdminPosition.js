@@ -67,8 +67,6 @@ var objActiveModal = "";
 
 var itemsPositionSalesFunnel = [];
 
-var translation_data_EN = arrLang['en'];
-var translation_data_RU = arrLang['ru'];
 
 
 /**
@@ -230,15 +228,14 @@ docRefPosition.collection("PositionSettings")
       .finally(() => {items;
       items.forEach(item => {
       var tr = document.createElement("tr");
-
+      ////
       var settingsTitleColumn = document.createElement('td');
       settingsTitleColumn.innerHTML = item.SettingsTitle;
-
+      ///
       var settingsСommentColumn = document.createElement('td');
       settingsСommentColumn.innerHTML = item.SettingsСomment;
       ///
       var settingsActiveControl = document.createElement('td');
-      // settingsActiveControl.innerHTML = item.SettingsActiveControl;
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
         if(ActiveControl == "false"){
@@ -255,7 +252,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsPassiveControl = document.createElement('td');
-      // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassiveControl == "false"){
@@ -288,7 +284,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsCommitDescription = document.createElement('td');
-      // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
       var CommitDescription = item.SettingsCommitDescription;
       if(translation_JS == null || translation_JS == 'en'){
         if(CommitDescription == "false"){
@@ -327,10 +322,10 @@ docRefPosition.collection("PositionSettings")
       deleteSettings.className = 'badge badge-gradient-danger';
       deleteSettings.id = item.idPositionSettings;
       deleteSettings.setAttribute('onclick', 'deleteButtonSettings(this)');
-
+      ///
       var deleteSettingsColumn = document.createElement('td');
       deleteSettingsColumn.appendChild(deleteSettings);
-
+      ///
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsСommentColumn);
       tr.appendChild(settingsActiveControl);
@@ -367,7 +362,10 @@ docRefPosition.collection("PositionSettings")
       .finally(() => {items;
       items.forEach(item => {
       var tr = document.createElement("tr");
-
+      ///
+      var translation_data_EN = arrLang['en'];
+      var translation_data_RU = arrLang['ru'];
+      ////
       var settingsActiveTitleColumn = document.createElement('td');
       settingsActiveTitleColumn.innerHTML = item.SettingsTitle;
       ///
@@ -480,7 +478,10 @@ docRefPosition.collection("PositionSettings")
       .finally(() => {items;
       items.forEach(item => {
       var tr = document.createElement("tr");
-
+      //
+      var translation_data_EN = arrLang['en'];
+      var translation_data_RU = arrLang['ru'];
+      ///
       var settingsPassiveTitleColumn = document.createElement('td');
       settingsPassiveTitleColumn.innerHTML = item.SettingsTitle;
       ///
@@ -627,7 +628,7 @@ docRefPosition.collection("PositionSettings")
       .finally(() => {items;
       items.forEach(item => {
       var tr = document.createElement("tr");
-
+      ///
       var settingsTitleColumn = document.createElement('td');
       settingsTitleColumn.innerHTML = item.SettingsTitle;
       ///
@@ -667,28 +668,28 @@ docRefPosition.collection("PositionSettings")
       ///
       var settingsResultControlOption1 = document.createElement('td');
       settingsResultControlOption1.innerHTML = item.SettingsResultControlOption1;
-
+      ///
       var settingsResultControlOption2 = document.createElement('td');
       settingsResultControlOption2.innerHTML = item.SettingsResultControlOption2;
-
+      ///
       var settingsResultControlOption3 = document.createElement('td');
       settingsResultControlOption3.innerHTML = item.SettingsResultControlOption3;
-
+      ////
       var settingsResultControlOption4 = document.createElement('td');
       settingsResultControlOption4.innerHTML = item.SettingsResultControlOption4;
-
+      ////
       var settingsResultControlOption5 = document.createElement('td');
       settingsResultControlOption5.innerHTML = item.SettingsResultControlOption5;
-
+      ///
       var settingsResultControlOption6 = document.createElement('td');
       settingsResultControlOption6.innerHTML = item.SettingsResultControlOption6;
-
+      ///
       var settingsResultControlOption7 = document.createElement('td');
       settingsResultControlOption7.innerHTML = item.SettingsResultControlOption7;
-
+      ////
       var settingsResultControlOption8 = document.createElement('td');
       settingsResultControlOption8.innerHTML = item.SettingsResultControlOption8;
-
+      ///
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsCommitDescription);
       tr.appendChild(settingsResultCapture);
@@ -700,7 +701,7 @@ docRefPosition.collection("PositionSettings")
       tr.appendChild(settingsResultControlOption6);
       tr.appendChild(settingsResultControlOption7);
       tr.appendChild(settingsResultControlOption8);
-
+      ///
       var container = document.getElementById("tableResultСapture").getElementsByTagName("tbody")[0];
       container.appendChild(tr);
     });
