@@ -386,8 +386,16 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsActiveInterval = document.createElement('td');
-      settingsActiveInterval.innerHTML = item.SettingsActiveIntervalMinutes
+      var settingsActiveInterval_local = item.SettingsActiveIntervalMinutes;
+      if(translation_JS == null || translation_JS == 'en'){
+        settingsActiveInterval.innerHTML = settingsActiveInterval_local;
+      } else {
+        var ghj = arrLang['en'];
 
+
+
+      }
+      ///
       var settingsActiveDuration = document.createElement('td');
       settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
 
@@ -913,7 +921,7 @@ function deleteButtonSettings(obj)
    if(translation_JS == null || translation_JS == 'en'){
      var articleDivOn = '<option>No button</option>';
    } else {
-     var articleDivOn = '<option>Нет кнопки</option>';
+     var articleDivOn = '<option>Без перехода</option>';
    }
    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
 
@@ -980,11 +988,11 @@ function deleteButtonSettings(obj)
        document.getElementById('exampleInputModalSettingsActiveDuration').value = settingsActiveDurationSeconds;
        var b = document.getElementById('exampleInputModalSettingsActiveDuration').value;
        var l_b = document.getElementById('exampleInputModalSettingsActiveDuration').length;
-       for (l = 0; l < l_b; l++){
-          var cells1 = document.getElementById('exampleInputModalSettingsActiveDuration').options[l].value;
-          document.getElementById('exampleInputModalSettingsActiveDuration').options[l].selected=false;
+       for (v = 0; v < l_b; v++){
+          var cells1 = document.getElementById('exampleInputModalSettingsActiveDuration').options[v].value;
+          document.getElementById('exampleInputModalSettingsActiveDuration').options[v].selected=false;
           if (b==cells1){
-          document.getElementById('exampleInputModalSettingsActiveDuration').options[l].selected=true;
+          document.getElementById('exampleInputModalSettingsActiveDuration').options[v].selected=true;
           }
        };
        ///
@@ -1010,17 +1018,60 @@ function deleteButtonSettings(obj)
        };
        document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
        document.getElementById('exampleInputModalSettingsPassiveControl').checked  = settingsPassiveControl;
+       /////
        document.getElementById('exampleInputModalSettingsPassiveInterval').value = settingsPassiveIntervalMinutes;
+       var g = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
+       var l_g = document.getElementById('exampleInputModalSettingsPassiveInterval').length;
+       for (m = 0; m < l_g; m++){
+          var cells5 = document.getElementById('exampleInputModalSettingsPassiveInterval').options[m].value;
+          document.getElementById('exampleInputModalSettingsPassiveInterval').options[m].selected=false;
+          if (g==cells5){
+          document.getElementById('exampleInputModalSettingsPassiveInterval').options[m].selected=true;
+          }
+       };
+       /////
        document.getElementById('exampleInputModalSettingsPassiveDuration').value = settingsPassiveDurationSeconds;
+       var s = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
+       var l_s = document.getElementById('exampleInputModalSettingsPassiveDuration').length;
+       for (n = 0; n < l_s; n++){
+          var cells3 = document.getElementById('exampleInputModalSettingsPassiveDuration').options[n].value;
+          document.getElementById('exampleInputModalSettingsPassiveDuration').options[n].selected=false;
+          if (s==cells3){
+          document.getElementById('exampleInputModalSettingsPassiveDuration').options[n].selected=true;
+          }
+       };
+       /////
        document.getElementById('exampleInputModalSettingsPassiveAudio').checked = settingsPassiveAudio;
        document.getElementById('exampleInputModalSettingsPassivePhoto').checked = settingsPassivePhoto;
        document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked = settingsPassivePhotoSmartphoneCamera;
        document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked = settingsPassivePhotoCameraIP;
+       /////
        document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value = settingsPassivePhotoInterval;
+       var c = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
+       var l_c = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').length;
+       for (j = 0; j < l_c; j++){
+          var cells3 = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').options[j].value;
+          document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').options[j].selected=false;
+          if (c==cells3){
+          document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').options[j].selected=true;
+          }
+       };
+       ///
        document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked = settingsPassivePhotoCaptureEventOnClick;
        document.getElementById('exampleInputModalSettingsPassiveVideo').checked = settingsPassiveVideo;
        document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked = settingsPassiveGeolocation;
+       /////
        document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value = settingsPassiveGeolocationInterval;
+       var f = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
+       var l_f = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').length;
+       for (h = 0; h < l_f; h++){
+          var cells4 = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].value;
+          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].selected=false;
+          if (f==cells4){
+          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].selected=true;
+          }
+       };
+       /////
        document.getElementById('exampleInputModalSettingsPassiveGeolocationCaptureEventOnClick').checked = settingsPassiveGeolocationCaptureEventOnClick;
        document.getElementById('exampleInputModalSettingsCommitDescription').checked = settingsCommitDescription;
        document.getElementById('exampleInputModalSettingsResultControl').checked = settingsResultCapture;
@@ -1081,47 +1132,7 @@ function deleteButtonSettings(obj)
   var settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
   var settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
   var settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
-  // docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
-  //   SettingsTitle: settingsTitle,
-  //   SettingsСomment: settingsСomment,
-  //   SettingsActiveControl: settingsActiveControl,
-  //   SettingsActiveIntervalMinutes: settingsActiveIntervalMinutes,
-  //   SettingsActiveDurationSeconds: settingsActiveDurationSeconds,
-  //   SettingsActiveTransition: settingsActiveTransition,
-  //   SettingsActiveSignal: settingsActiveSignal,
-  //   SettingsPassiveControl: settingsPassiveControl,
-  //   SettingsPassiveIntervalMinutes: settingsPassiveIntervalMinutes,
-  //   SettingsPassiveDurationSeconds: settingsPassiveDurationSeconds,
-  //   SettingsPassiveAudio: settingsPassiveAudio,
-  //   SettingsPassivePhoto: settingsPassivePhoto,
-  //   SettingsPassivePhotoSmartphoneCamera: settingsPassivePhotoSmartphoneCamera,
-  //   SettingsPassivePhotoCameraIP: settingsPassivePhotoCameraIP,
-  //   SettingsPassivePhotoInterval: settingsPassivePhotoInterval,
-  //   SettingsPassivePhotoCaptureEventOnClick: settingsPassivePhotoCaptureEventOnClick,
-  //   SettingsPassiveVideo: settingsPassiveVideo,
-  //   SettingsPassiveGeolocation: settingsPassiveGeolocation,
-  //   SettingsPassiveGeolocationInterval: settingsPassiveGeolocationInterval,
-  //   SettingsPassiveGeolocationCaptureEventOnClick: settingsPassiveGeolocationCaptureEventOnClick,
-  //   SettingsCommitDescription: settingsCommitDescription,
-  //   SettingsResultCapture: settingsResultCapture,
-  //   SettingsResultControlOption1: settingsResultControlOption1,
-  //   SettingsResultControlOption2: settingsResultControlOption2,
-  //   SettingsResultControlOption3: settingsResultControlOption3,
-  //   SettingsResultControlOption4: settingsResultControlOption4,
-  //   SettingsResultControlOption5: settingsResultControlOption5,
-  //   SettingsResultControlOption6: settingsResultControlOption6,
-  //   SettingsResultControlOption7: settingsResultControlOption7,
-  //   SettingsResultControlOption8: settingsResultControlOption8,
-  // }).then(function() {
-  //     console.log("Document successfully written!");
-  //     $('#gridSystemModalEditSettings').modal('toggle');
-  //     window.location.reload();
   //
-  // }).catch(function(error) {
-  //     console.error("Error writing document: ", error);
-  // });
-  //
-
   var washingtonRef = docRefPosition.collection("PositionSettings").doc(objIdDocSettings);
   // Set the "capital" field of the city 'DC'
   return washingtonRef.update({
