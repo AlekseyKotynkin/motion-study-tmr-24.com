@@ -392,9 +392,15 @@ docRefPosition.collection("PositionSettings")
       } else {
         var translation_data_EN = arrLang['en'];
         var translation_data_RU = arrLang['ru'];
-        const key = Object.keys(translation_data_EN).find(key => translation_data_EN[key] === settingsActiveInterval_local); 
-        settingsActiveInterval_local = translation_data_RU[key];
-        settingsActiveInterval.innerHTML = settingsActiveInterval_local;
+        for (var key in translation_data_EN) {
+          // этот код будет вызван для каждого свойства объекта
+          // ..и выведет имя свойства и его значение
+          var meaning = translation_data_EN[key];
+          if(meaning == settingsActiveInterval_local){
+            settingsActiveInterval_local = translation_data_RU[key];
+            settingsActiveInterval.innerHTML = settingsActiveInterval_local;
+          }
+        }
       }
       ///
       var settingsActiveDuration = document.createElement('td');
