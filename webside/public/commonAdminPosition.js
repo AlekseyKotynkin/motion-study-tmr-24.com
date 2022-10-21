@@ -1081,7 +1081,50 @@ function deleteButtonSettings(obj)
   var settingsResultControlOption6 = document.getElementById('exampleInputModalSettingsResultControlOption6').value;
   var settingsResultControlOption7 = document.getElementById('exampleInputModalSettingsResultControlOption7').value;
   var settingsResultControlOption8 = document.getElementById('exampleInputModalSettingsResultControlOption8').value;
-  docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
+  // docRefPosition.collection("PositionSettings").doc(objIdDocSettings).set({
+  //   SettingsTitle: settingsTitle,
+  //   SettingsСomment: settingsСomment,
+  //   SettingsActiveControl: settingsActiveControl,
+  //   SettingsActiveIntervalMinutes: settingsActiveIntervalMinutes,
+  //   SettingsActiveDurationSeconds: settingsActiveDurationSeconds,
+  //   SettingsActiveTransition: settingsActiveTransition,
+  //   SettingsActiveSignal: settingsActiveSignal,
+  //   SettingsPassiveControl: settingsPassiveControl,
+  //   SettingsPassiveIntervalMinutes: settingsPassiveIntervalMinutes,
+  //   SettingsPassiveDurationSeconds: settingsPassiveDurationSeconds,
+  //   SettingsPassiveAudio: settingsPassiveAudio,
+  //   SettingsPassivePhoto: settingsPassivePhoto,
+  //   SettingsPassivePhotoSmartphoneCamera: settingsPassivePhotoSmartphoneCamera,
+  //   SettingsPassivePhotoCameraIP: settingsPassivePhotoCameraIP,
+  //   SettingsPassivePhotoInterval: settingsPassivePhotoInterval,
+  //   SettingsPassivePhotoCaptureEventOnClick: settingsPassivePhotoCaptureEventOnClick,
+  //   SettingsPassiveVideo: settingsPassiveVideo,
+  //   SettingsPassiveGeolocation: settingsPassiveGeolocation,
+  //   SettingsPassiveGeolocationInterval: settingsPassiveGeolocationInterval,
+  //   SettingsPassiveGeolocationCaptureEventOnClick: settingsPassiveGeolocationCaptureEventOnClick,
+  //   SettingsCommitDescription: settingsCommitDescription,
+  //   SettingsResultCapture: settingsResultCapture,
+  //   SettingsResultControlOption1: settingsResultControlOption1,
+  //   SettingsResultControlOption2: settingsResultControlOption2,
+  //   SettingsResultControlOption3: settingsResultControlOption3,
+  //   SettingsResultControlOption4: settingsResultControlOption4,
+  //   SettingsResultControlOption5: settingsResultControlOption5,
+  //   SettingsResultControlOption6: settingsResultControlOption6,
+  //   SettingsResultControlOption7: settingsResultControlOption7,
+  //   SettingsResultControlOption8: settingsResultControlOption8,
+  // }).then(function() {
+  //     console.log("Document successfully written!");
+  //     $('#gridSystemModalEditSettings').modal('toggle');
+  //     window.location.reload();
+  //
+  // }).catch(function(error) {
+  //     console.error("Error writing document: ", error);
+  // });
+  //
+
+  var washingtonRef = docRefPosition.collection("PositionSettings").doc(objIdDocSettings);
+  // Set the "capital" field of the city 'DC'
+  return washingtonRef.update({
     SettingsTitle: settingsTitle,
     SettingsСomment: settingsСomment,
     SettingsActiveControl: settingsActiveControl,
@@ -1112,13 +1155,13 @@ function deleteButtonSettings(obj)
     SettingsResultControlOption6: settingsResultControlOption6,
     SettingsResultControlOption7: settingsResultControlOption7,
     SettingsResultControlOption8: settingsResultControlOption8,
-  }).then(function() {
-      console.log("Document successfully written!");
-      $('#gridSystemModalEditSettings').modal('toggle');
-      window.location.reload();
-
-  }).catch(function(error) {
-      console.error("Error writing document: ", error);
+  })
+  .then(() => {
+      console.log("Document successfully updated!");
+  })
+  .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
   });
 }
 
