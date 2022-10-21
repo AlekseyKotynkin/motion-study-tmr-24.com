@@ -67,6 +67,9 @@ var objActiveModal = "";
 
 var itemsPositionSalesFunnel = [];
 
+var translation_data_EN = arrLang['en'];
+var translation_data_RU = arrLang['ru'];
+
 
 /**
 * @return {string}
@@ -390,22 +393,35 @@ docRefPosition.collection("PositionSettings")
       if(translation_JS == null || translation_JS == 'en'){
         settingsActiveInterval.innerHTML = settingsActiveInterval_local;
       } else {
-        var translation_data_EN = arrLang['en'];
-        var translation_data_RU = arrLang['ru'];
+        // var translation_data_EN = arrLang['en'];
+        // var translation_data_RU = arrLang['ru'];
         for (var key in translation_data_EN) {
-          // этот код будет вызван для каждого свойства объекта
-          // ..и выведет имя свойства и его значение
           var meaning = translation_data_EN[key];
           if(meaning == settingsActiveInterval_local){
-            settingsActiveInterval_local = translation_data_RU[key];
-            settingsActiveInterval.innerHTML = settingsActiveInterval_local;
+            // settingsActiveInterval_local = translation_data_RU[key];
+            settingsActiveInterval.innerHTML = translation_data_RU[key];
           }
         }
       }
       ///
       var settingsActiveDuration = document.createElement('td');
-      settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
+      settingsActiveDuration_local = item.SettingsActiveDurationSeconds;
+      // settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
+      if(translation_JS == null || translation_JS == 'en'){
+        settingsActiveDuration.innerHTML = settingsActiveDuration_local;
+      } else {
+        // var translation_data_EN = arrLang['en'];
+        // var translation_data_RU = arrLang['ru'];
+        for (var key in translation_data_EN) {
+          var meaning = translation_data_EN[key];
+          if(meaning == settingsActiveDuration_local){
+            settingsActiveDuration.innerHTML = translation_data_RU[key];
+          }
+        }
+      }
+      ///
 
+      ///
       var settingsActiveTransition = document.createElement('td');
       // settingsActiveTransition.innerHTML = item.SettingsActiveTransition;
       var ActiveTransition = item.SettingsActiveTransition;
