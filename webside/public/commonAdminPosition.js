@@ -372,7 +372,6 @@ docRefPosition.collection("PositionSettings")
       settingsActiveTitleColumn.innerHTML = item.SettingsTitle;
       ///
       var settingsActiveControl = document.createElement('td');
-      // settingsActiveControl.innerHTML = item.SettingsActiveControl;
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
         if(ActiveControl == "false"){
@@ -393,12 +392,9 @@ docRefPosition.collection("PositionSettings")
       if(translation_JS == null || translation_JS == 'en'){
         settingsActiveInterval.innerHTML = settingsActiveInterval_local;
       } else {
-        // var translation_data_EN = arrLang['en'];
-        // var translation_data_RU = arrLang['ru'];
         for (var key in translation_data_EN) {
           var meaning = translation_data_EN[key];
           if(meaning == settingsActiveInterval_local){
-            // settingsActiveInterval_local = translation_data_RU[key];
             settingsActiveInterval.innerHTML = translation_data_RU[key];
           }
         }
@@ -406,24 +402,18 @@ docRefPosition.collection("PositionSettings")
       ///
       var settingsActiveDuration = document.createElement('td');
       settingsActiveDuration_local = item.SettingsActiveDurationSeconds;
-      // settingsActiveDuration.innerHTML = item.SettingsActiveDurationSeconds;
       if(translation_JS == null || translation_JS == 'en'){
         settingsActiveDuration.innerHTML = settingsActiveDuration_local;
       } else {
-        // var translation_data_EN = arrLang['en'];
-        // var translation_data_RU = arrLang['ru'];
-        for (var key in translation_data_EN) {
-          var meaning = translation_data_EN[key];
-          if(meaning == settingsActiveDuration_local){
-            settingsActiveDuration.innerHTML = translation_data_RU[key];
+        for (var key_1 in translation_data_EN) {
+          var meaning_1 = translation_data_EN[key_1];
+          if(meaning_1 == settingsActiveDuration_local){
+            settingsActiveDuration.innerHTML = translation_data_RU[key_1];
           }
         }
       }
       ///
-
-      ///
       var settingsActiveTransition = document.createElement('td');
-      // settingsActiveTransition.innerHTML = item.SettingsActiveTransition;
       var ActiveTransition = item.SettingsActiveTransition;
       if(translation_JS == null || translation_JS == 'en'){
         if(ActiveTransition == "No button" || ActiveTransition == ""){
@@ -440,7 +430,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsActiveSignal = document.createElement('td');
-      // settingsActiveSignal.innerHTML = item.SettingsActiveSignal;
       var ActiveSignal = item.SettingsActiveSignal;
       if(translation_JS == null || translation_JS == 'en'){
         if(ActiveSignal == "false"){
@@ -494,9 +483,8 @@ docRefPosition.collection("PositionSettings")
 
       var settingsPassiveTitleColumn = document.createElement('td');
       settingsPassiveTitleColumn.innerHTML = item.SettingsTitle;
-
+      ///
       var settingsPassiveControl = document.createElement('td');
-      // settingsPassiveControl.innerHTML = item.SettingsPassiveControl;
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassiveControl == "false"){
@@ -513,13 +501,34 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsPassiveInterval = document.createElement('td');
-      settingsPassiveInterval.innerHTML = item.SettingsPassiveIntervalMinutes
-
+      settingsPassiveInterval_local = item.SettingsPassiveIntervalMinutes
+      if(translation_JS == null || translation_JS == 'en'){
+        settingsPassiveInterval.innerHTML = settingsPassiveInterval_local;
+      } else {
+        // var translation_data_EN = arrLang['en'];
+        // var translation_data_RU = arrLang['ru'];
+        for (var key_1 in translation_data_EN) {
+          var meaning_1 = translation_data_EN[key_1];
+          if(meaning_1 == settingsPassiveInterval_local){
+            settingsPassiveInterval.innerHTML = translation_data_RU[key_1];
+          }
+        }
+      }
+      ///
       var settingsPassiveDuration = document.createElement('td');
-      settingsPassiveDuration.innerHTML = item.SettingsPassiveDurationSeconds;
-
+      settingsPassiveDuration_local = item.SettingsPassiveDurationSeconds;
+      if(translation_JS == null || translation_JS == 'en'){
+        settingsPassiveDuration.innerHTML = settingsPassiveDuration_local;
+      } else {
+        for (var key in translation_data_EN) {
+          var meaning = translation_data_EN[key];
+          if(meaning == settingsPassiveDuration_local){
+            settingsPassiveDuration.innerHTML = translation_data_RU[key];
+          }
+        }
+      }
+      ///
       var settingsPassiveAudio = document.createElement('td');
-      // settingsPassiveAudio.innerHTML = item.SettingsPassiveAudio;
       var PassiveAudio = item.SettingsPassiveAudio;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassiveAudio == "false"){
@@ -536,7 +545,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsPassivePhoto = document.createElement('td');
-      // settingsPassivePhoto.innerHTML = item.SettingsPassivePhoto;
       var PassivePhoto = item.SettingsPassivePhoto;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassivePhoto == "false"){
@@ -553,7 +561,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsPassiveVideo = document.createElement('td');
-      // settingsPassiveVideo.innerHTML = item.SettingsPassiveVideo;
       var PassiveVideo = item.SettingsPassiveVideo;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassiveVideo == "false"){
@@ -570,7 +577,6 @@ docRefPosition.collection("PositionSettings")
       }
       ///
       var settingsPassiveGeolocation = document.createElement('td');
-      // settingsPassiveGeolocation.innerHTML = item.SettingsPassiveGeolocation;
       var PassiveGeolocation = item.SettingsPassiveGeolocation;
       if(translation_JS == null || translation_JS == 'en'){
         if(PassiveGeolocation == "false"){
