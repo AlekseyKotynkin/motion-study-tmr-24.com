@@ -390,10 +390,11 @@ docRefPosition.collection("PositionSettings")
       if(translation_JS == null || translation_JS == 'en'){
         settingsActiveInterval.innerHTML = settingsActiveInterval_local;
       } else {
-        var ghj = arrLang['en'];
-
-
-
+        var translation_data_EN = arrLang['en'];
+        var translation_data_RU = arrLang['ru'];
+        const key = Object.keys(translation_data_EN).find(key => translation_data_EN[key] === settingsActiveInterval_local); 
+        settingsActiveInterval_local = translation_data_RU[key];
+        settingsActiveInterval.innerHTML = settingsActiveInterval_local;
       }
       ///
       var settingsActiveDuration = document.createElement('td');
@@ -1065,10 +1066,10 @@ function deleteButtonSettings(obj)
        var f = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').value;
        var l_f = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').length;
        for (h = 0; h < l_f; h++){
-          var cells4 = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].value;
-          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].selected=false;
+          var cells4 = document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[h].value;
+          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[h].selected=false;
           if (f==cells4){
-          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[j].selected=true;
+          document.getElementById('exampleInputModalSettingsPassiveIntervalGEO').options[h].selected=true;
           }
        };
        /////
