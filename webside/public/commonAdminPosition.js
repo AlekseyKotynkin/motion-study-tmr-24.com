@@ -965,25 +965,45 @@ function deleteButtonSettings(obj)
        document.getElementById('exampleInputModalSettingsTitle').value = settingsTitle;
        document.getElementById('exampleInputModalSettingsСomment').value = settingsСomment;
        document.getElementById('exampleInputModalSettingsActiveControl').checked  = settingsActiveControl;
+       ////
+       
        document.getElementById('exampleInputModalSettingsActiveInterval').value = settingsActiveIntervalMinutes;
+
+
+       var a = document.getElementById('exampleInputModalSettingsActiveInterval').value;
+       var l_l = document.getElementById('exampleInputModalSettingsActiveInterval').length;
+       for (l = 0; l < l_l; l++){
+          var cells1 = document.getElementById('exampleInputModalSettingsActiveInterval').options[l].value;
+          document.getElementById('exampleInputModalSettingsActiveInterval').options[l].selected=false;
+          if (a==cells1){
+          document.getElementById('exampleInputModalSettingsActiveInterval').options[l].selected=true;
+          }
+       };
+
+
+       ////
        document.getElementById('exampleInputModalSettingsActiveDuration').value = settingsActiveDurationSeconds;
+       ///
        if(settingsActiveTransition == ""){
          if(translation_JS == null || translation_JS == 'en'){
            document.getElementById('exampleInputModalSettingsActiveTransition').value = "No button";
+           settingsActiveTransition = "No button";
          } else {
            document.getElementById('exampleInputModalSettingsActiveTransition').value = "Без перехода";
+           settingsActiveTransition = "Без перехода";
          }
        }else{
          document.getElementById('exampleInputModalSettingsActiveTransition').value = settingsActiveTransition;
        };
-       var z = settingsActiveTransition;
-       for (k = 0; k < 2; k++){
+       var d = settingsActiveTransition;
+       var l_k = document.getElementById('exampleInputModalSettingsActiveTransition').length;
+       for (k = 0; k < l_k; k++){
           var cells2 = document.getElementById('exampleInputModalSettingsActiveTransition').options[k].value;
           document.getElementById('exampleInputModalSettingsActiveTransition').options[k].selected=false;
-          if (z==cells2){
+          if (d==cells2){
           document.getElementById('exampleInputModalSettingsActiveTransition').options[k].selected=true;
           }
-       }
+       };
        document.getElementById('exampleInputModalSettingsActiveSignal').checked = settingsActiveSignal;
        document.getElementById('exampleInputModalSettingsPassiveControl').checked  = settingsPassiveControl;
        document.getElementById('exampleInputModalSettingsPassiveInterval').value = settingsPassiveIntervalMinutes;
@@ -1748,7 +1768,7 @@ docRefPosition.collection("PositionSettings")
       deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
 
       var y = item.SettingsSalesFunnel_Stage_key;
-      for (l = 0; l < 3; l++){
+      for (l = 0; l < 4; l++){
          var cells1 = deleteSettings.options[l].value;
          deleteSettings.options[l].selected=false;
          if (y==cells1){
