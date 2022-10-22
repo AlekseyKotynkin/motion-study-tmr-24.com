@@ -1135,13 +1135,13 @@ function deleteButtonSettings(obj)
   var settingsTitle = document.getElementById('exampleInputModalSettingsTitle').value;
   var settingsСomment = document.getElementById('exampleInputModalSettingsСomment').value;
   var settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
-  var settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval');
-  var settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration');
+  var settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
+  var settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
   var settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
   var settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
   var settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
-  var settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval');
-  var settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration');
+  var settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
+  var settingsPassiveDurationSeconds = document.getElementById('exampleInputModalSettingsPassiveDuration').value;
   var settingsPassiveAudio = document.getElementById('exampleInputModalSettingsPassiveAudio').checked;
   var settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
   var settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
