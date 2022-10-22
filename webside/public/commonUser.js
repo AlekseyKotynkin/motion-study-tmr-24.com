@@ -276,7 +276,7 @@ function CloseShiftUser() {
             IdDocProcessButton: idActivButtonUser,
             NameDocProcessButton: objDoc,
           }).then(function(docRef) {
-            // console.log("Document written with ID: ", docRef.id);
+            console.log("Document written with ID: ", docRef.id);
             idDocActivButtonUser = docRef.id;
           }).catch(function(error) {
             console.error("Error adding document: ", error);
@@ -286,26 +286,26 @@ function CloseShiftUser() {
           console.error("Error updating document: ", error);
         });
       }
-      Записываем процесс, регистрируем время.
-      idActivButtonUser = obj.id;
-      objDoc = obj.innerText;
-      var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-      var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-      docRefWorkShift.collection("ProcessUser").add({
-        EmailPositionUser: EmailPositionUserLocalStorage,
-        IdDocPosition: idDocPosition,
-        ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
-        ProcessUserEnd: "",
-        ProcessUserStartTime: timestampStart,
-        IdDocProcessButton: idActivButtonUser,
-        NameDocProcessButton: objDoc,
-      }).then(function(docRef) {
-        // console.log("Document written with ID: ", docRef.id);
-        idDocActivButtonUser = docRef.id;
-        var elem = document.getElementById(idActivButtonUser);
-        elem.classList.toggle('active');
-      }).catch(function(error) {
-        console.error("Error adding document: ", error);
+      // Записываем процесс, регистрируем время.
+      // idActivButtonUser = obj.id;
+      // objDoc = obj.innerText;
+      // var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+      // var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+      // docRefWorkShift.collection("ProcessUser").add({
+      //   EmailPositionUser: EmailPositionUserLocalStorage,
+      //   IdDocPosition: idDocPosition,
+      //   ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+      //   ProcessUserEnd: "",
+      //   ProcessUserStartTime: timestampStart,
+      //   IdDocProcessButton: idActivButtonUser,
+      //   NameDocProcessButton: objDoc,
+      // }).then(function(docRef) {
+      //   // console.log("Document written with ID: ", docRef.id);
+      //   idDocActivButtonUser = docRef.id;
+      //   var elem = document.getElementById(idActivButtonUser);
+      //   elem.classList.toggle('active');
+      // }).catch(function(error) {
+      //   console.error("Error adding document: ", error);
       // });
     }
   }
