@@ -1146,7 +1146,7 @@ function deleteButtonSettings(obj)
   var settingsPassivePhoto = document.getElementById('exampleInputModalSettingsPassivePhoto').checked;
   var settingsPassivePhotoSmartphoneCamera = document.getElementById('exampleInputModalSettingsPassivePhotoSmartphoneCamera').checked;
   var settingsPassivePhotoCameraIP = document.getElementById('exampleInputModalSettingsPassivePhotoExternalIPCamera').checked;
-  var settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto');
+  var settingsPassivePhotoInterval = document.getElementById('exampleInputModalSettingsPassiveIntervalFoto').value;
   var settingsPassivePhotoCaptureEventOnClick = document.getElementById('exampleInputModalSettingsPassivePhotoCaptureEventOnClick').checked;
   var settingsPassiveVideo = document.getElementById('exampleInputModalSettingsPassiveVideo').checked;
   var settingsPassiveGeolocation = document.getElementById('exampleInputModalSettingsPassiveGeolocation').checked;
