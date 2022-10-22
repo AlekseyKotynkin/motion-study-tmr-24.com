@@ -236,27 +236,21 @@ function CloseShiftUser() {
   */
   function toRegisterProcessUser(obj) {
     // Проверяем открыта ли смена.
-    if (idDocShiftUser == "")
-    {
+    if (idDocShiftUser == ""){
       if(translation_JS == null || translation_JS == 'en'){
         alert("Open work shift!");
       } else {
         alert ("Откройте pабочую смену!");
       }
-    }
-    else
-    {
+    } else {
       // Получить активный процесс и закрыть его.
-      if (idDocActivButtonUser == "")
-      {
+      if (idDocActivButtonUser == ""){
         if(translation_JS == null || translation_JS == 'en'){
           alert("Good luck Go!");
         } else {
           alert ("Удачи Вам!");
         }
-      }
-      else
-      {
+      } else {
         var elemExit = document.getElementById(idActivButtonUser);
         elemExit.classList.toggle('active');
         idActivButtonUser = obj.id;
@@ -283,7 +277,7 @@ function CloseShiftUser() {
             NameDocProcessButton: objDoc,
           }).then(function(docRef) {
             // console.log("Document written with ID: ", docRef.id);
-            // idDocActivButtonUser = docRef.id;
+            idDocActivButtonUser = docRef.id;
           }).catch(function(error) {
             console.error("Error adding document: ", error);
           });
@@ -292,7 +286,7 @@ function CloseShiftUser() {
           console.error("Error updating document: ", error);
         });
       }
-      // Записываем процесс, регистрируем время.
+      Записываем процесс, регистрируем время.
       idActivButtonUser = obj.id;
       objDoc = obj.innerText;
       var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
@@ -312,7 +306,7 @@ function CloseShiftUser() {
         elem.classList.toggle('active');
       }).catch(function(error) {
         console.error("Error adding document: ", error);
-      });
+      // });
     }
   }
 
