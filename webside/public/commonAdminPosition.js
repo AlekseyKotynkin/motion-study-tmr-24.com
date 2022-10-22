@@ -1386,7 +1386,7 @@ function createATableOfPositionTraffic()
        if(translation_JS == null || translation_JS == 'en'){
          toDismissName.innerHTML = "To dismiss";
        } else {
-         toDismissName.innerHTML = "Отклонить";
+         toDismissName.innerHTML = "Удалить";
        }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionSettingsTrafic;
@@ -1494,7 +1494,7 @@ function createATableOfPositionNote()
        if(translation_JS == null || translation_JS == 'en'){
          toDismissName.innerHTML = "To dismiss";
        } else {
-         toDismissName.innerHTML = "Отклонить";
+         toDismissName.innerHTML = "Удалить";
        }
        toDismissName.className = 'badge badge-gradient-danger';
        toDismissName.id = item.idPositionNoteList;
