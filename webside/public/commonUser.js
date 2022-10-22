@@ -123,7 +123,7 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
 
 /**
 * @return {string}
-*  Открытие рабочей смены.
+*  Открытие рабочей смены и создание нового процесса "Ожидаю"
 */
 function AddShiftUser() {
   var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
@@ -135,44 +135,44 @@ function AddShiftUser() {
     WorkShiftStartTime: timestampStart,
   })
   .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      //добавляем документ при открытие смены
-      idDocShiftUser = docRef.id;
-      idActivButtonUser = "idButtonsExpect";
-      if(translation_JS == null || translation_JS == 'en'){
-        nameDocActivButtonUser = "Expect";
-      } else {
-        nameDocActivButtonUser = "Ожидаю";
-      }
-      var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
-      var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
-      docRefWorkShift.collection("ProcessUser").add({
-        EmailPositionUser: EmailPositionUserLocalStorage,
-        IdDocPosition: idDocPosition,
-        ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
-        ProcessUserEnd: "",
-        ProcessUserStartTime: timestampStart,
-        IdDocProcessButton: idActivButtonUser,
-        NameDocProcessButton: nameDocActivButtonUser,
-      }).then(function(docRef) {
-        // console.log("Document written with ID: ", docRef.id);
-        idDocActivButtonUser = docRef.id;
-        var elem = document.getElementById(idActivButtonUser);
-        elem.classList.toggle('active');
-        window.location.replace("indexUser.html");
-      }).catch(function(error) {
-        console.error("Error adding document: ", error);
-        window.location.replace("indexUser.html");
-      });
+    console.log("Document written with ID: ", docRef.id);
+    //добавляем документ при открытие смены
+    idDocShiftUser = docRef.id;
+    idActivButtonUser = "idButtonsExpect";
+    if(translation_JS == null || translation_JS == 'en'){
+      nameDocActivButtonUser = "Expect";
+    } else {
+      nameDocActivButtonUser = "Ожидаю";
+    }
+    var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+    var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+    docRefWorkShift.collection("ProcessUser").add({
+      EmailPositionUser: EmailPositionUserLocalStorage,
+      IdDocPosition: idDocPosition,
+      ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+      ProcessUserEnd: "",
+      ProcessUserStartTime: timestampStart,
+      IdDocProcessButton: idActivButtonUser,
+      NameDocProcessButton: nameDocActivButtonUser,
+    }).then(function(docRef) {
+      // console.log("Document written with ID: ", docRef.id);
+      idDocActivButtonUser = docRef.id;
+      var elem = document.getElementById(idActivButtonUser);
+      elem.classList.toggle('active');
+      window.location.replace("indexUser.html");
+    }).catch(function(error) {
+      console.error("Error adding document: ", error);
+      window.location.replace("indexUser.html");
+    });
   })
   .catch(function(error) {
-      console.error("Error adding document: ", error);
+    console.error("Error adding document: ", error);
   });
 }
 
 /**
 * @return {string}
-*  Закрытие рабочей смены.
+*  Закрытие рабочей смены и закрытие активного документа процесса.
 */
 function CloseShiftUser() {
   var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
@@ -232,7 +232,7 @@ function CloseShiftUser() {
 
  /**
  * @return {string}
-  *  Регистрируем событие процесс Пользователя.
+  *  Регистрируем нового процесс Пользователя при нажатии на кнопку, закрытие предыдущего процесса.
   */
   function toRegisterProcessUser(obj) {
     // Проверяем открыта ли смена.
@@ -243,7 +243,7 @@ function CloseShiftUser() {
         alert ("Откройте pабочую смену!");
       }
     } else {
-      // Получить активный процесс и закрыть его.
+      // Проверяем открыт ли процесс.
       if (idDocActivButtonUser == ""){
         if(translation_JS == null || translation_JS == 'en'){
           alert("Good luck Go!");
@@ -251,6 +251,7 @@ function CloseShiftUser() {
           alert ("Удачи Вам!");
         }
       } else {
+        // Получить активный процесс и закрыть его.
         var elemExit = document.getElementById(idActivButtonUser);
         elemExit.classList.toggle('active');
         idActivButtonUser = obj.id;
@@ -265,6 +266,7 @@ function CloseShiftUser() {
           ProcessUserEndTime: timestampStop,
           ProcessUserEnd: "false",
         }).then(function() {
+          //Открываем новый процесс.
           var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
           var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
           docRefWorkShift.collection("ProcessUser").add({
