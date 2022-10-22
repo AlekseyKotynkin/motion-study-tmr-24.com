@@ -1199,6 +1199,8 @@ function deleteButtonSettings(obj)
   })
   .then(() => {
       console.log("Document successfully updated!");
+      $('#gridSystemModalEditSettings').modal('toggle');
+      window.location.reload();
   })
   .catch((error) => {
       // The document probably doesn't exist.
