@@ -410,9 +410,9 @@ parentHierarchy.get().then(function (querySnapshot) {
           //
           var statusUserColumn = document.createElement('td');
           if(translation_JS == null || translation_JS == 'en'){
-            statusUserColumn.innerHTML = "Владелец";
-          } else {
             statusUserColumn.innerHTML = item.StatusUser;
+          } else {
+            statusUserColumn.innerHTML = "Владелец";
           }
           //
           var toComeInUserName = document.createElement('button');
