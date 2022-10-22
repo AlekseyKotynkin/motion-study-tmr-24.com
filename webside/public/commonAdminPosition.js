@@ -1026,7 +1026,7 @@ function deleteButtonSettings(obj)
           }
        };
        ///
-       if(settingsActiveTransition == ""){
+       if(settingsActiveTransition == "No button" || settingsActiveTransition == ""){
          if(translation_JS == null || translation_JS == 'en'){
            document.getElementById('exampleInputModalSettingsActiveTransition').value = "No button";
            settingsActiveTransition = "No button";
