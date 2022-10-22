@@ -389,28 +389,32 @@ parentHierarchy.get().then(function (querySnapshot) {
         .finally(() => {items;
         items.forEach(item => {
           var tr = document.createElement("tr");
-
+          //
           var organizationName = document.createElement('a');
           organizationName.innerHTML = item.Organization;
-
+          //
           var organizationColumn = document.createElement('td');
           organizationColumn.appendChild(organizationName);
-
+          //
           var subdivisionColumn = document.createElement('td');
           subdivisionColumn.innerHTML = item.Subdivision;
-
+          //
           var positionColumn = document.createElement('td');
           positionColumn.innerHTML = item.Position;
-
+          //
           var positionOfYourManagerColumn = document.createElement('td');
           positionOfYourManagerColumn.innerHTML = item.PositionOfYourManager;
-
+          //
           var nameOfYourManagerColumn = document.createElement('td');
           nameOfYourManagerColumn.innerHTML = item.NameOfYourManager;
-
+          //
           var statusUserColumn = document.createElement('td');
-          statusUserColumn.innerHTML = item.StatusUser;
-
+          if(translation_JS == null || translation_JS == 'en'){
+            statusUserColumn.innerHTML = "Владелец";
+          } else {
+            statusUserColumn.innerHTML = item.StatusUser;
+          }
+          //
           var toComeInUserName = document.createElement('button');
           if(translation_JS == null || translation_JS == 'en'){
             toComeInUserName.innerHTML = "To come in";
