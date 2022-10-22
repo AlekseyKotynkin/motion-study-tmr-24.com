@@ -414,14 +414,16 @@ docRefPosition.collection("PositionSettings")
       var settingsActiveTransition = document.createElement('td');
       var ActiveTransition = item.SettingsActiveTransition;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveTransition == "No button" || ActiveTransition == ""){
+        if(ActiveTransition == "No button" || ActiveTransition == "" || ActiveTransition == "Без перехода"){
           settingsActiveTransition.innerHTML = "No button";
+          settingsActiveTransition.value = "No button";
         }else{
           settingsActiveTransition.innerHTML = ActiveTransition;
         }
       } else {
-        if(ActiveTransition == "No button" || ActiveTransition == ""){
+        if(ActiveTransition == "No button" || ActiveTransition == "" || ActiveTransition == "Без перехода"){
           settingsActiveTransition.innerHTML = "Без перехода";
+          settingsActiveTransition.value = "No button";
         }else{
           settingsActiveTransition.innerHTML = ActiveTransition;
         }
