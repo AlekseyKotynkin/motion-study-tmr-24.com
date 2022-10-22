@@ -22,7 +22,7 @@ var items=[];
 var idDocShiftUser="";
 var idActivButtonUser="";
 var idDocActivButtonUser="";
-
+var nameDocActivButtonUser="";
 
  /**
  * @return {string}
@@ -140,9 +140,9 @@ function AddShiftUser() {
       idDocShiftUser = docRef.id;
       idActivButtonUser = "idButtonsExpect";
       if(translation_JS == null || translation_JS == 'en'){
-        objDoc = "Expect";
+        nameDocActivButtonUser = "Expect";
       } else {
-        objDoc = "Ожидаю";
+        nameDocActivButtonUser = "Ожидаю";
       }
       var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
       var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
@@ -153,7 +153,7 @@ function AddShiftUser() {
         ProcessUserEnd: "",
         ProcessUserStartTime: timestampStart,
         IdDocProcessButton: idActivButtonUser,
-        NameDocProcessButton: objDoc,
+        NameDocProcessButton: nameDocActivButtonUser,
       }).then(function(docRef) {
         // console.log("Document written with ID: ", docRef.id);
         idDocActivButtonUser = docRef.id;
@@ -254,7 +254,7 @@ function CloseShiftUser() {
         var elemExit = document.getElementById(idActivButtonUser);
         elemExit.classList.toggle('active');
         idActivButtonUser = obj.id;
-        objDoc = obj.innerText;
+        nameDocActivButtonUser = obj.innerText;
         var elem = document.getElementById(idActivButtonUser);
         elem.classList.toggle('active');
         var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
@@ -274,7 +274,7 @@ function CloseShiftUser() {
             ProcessUserEnd: "",
             ProcessUserStartTime: timestampStart,
             IdDocProcessButton: idActivButtonUser,
-            NameDocProcessButton: objDoc,
+            NameDocProcessButton: nameDocActivButtonUser,
           }).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
             idDocActivButtonUser = docRef.id;
