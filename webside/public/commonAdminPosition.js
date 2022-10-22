@@ -1139,7 +1139,12 @@ function deleteButtonSettings(obj)
   var settingsActiveControl = document.getElementById('exampleInputModalSettingsActiveControl').checked;
   var settingsActiveIntervalMinutes = document.getElementById('exampleInputModalSettingsActiveInterval').value;
   var settingsActiveDurationSeconds = document.getElementById('exampleInputModalSettingsActiveDuration').value;
-  var settingsActiveTransition = document.getElementById('exampleInputModalSettingsActiveTransition').value;
+  var settingsActiveTransition_local = document.getElementById('exampleInputModalSettingsActiveTransition').value;
+  if(settingsActiveTransition_local == "Без перехода"){
+    var settingsActiveTransition = "No button";
+  }else{
+    var settingsActiveTransition = settingsActiveTransition_local;
+  }
   var settingsActiveSignal = document.getElementById('exampleInputModalSettingsActiveSignal').checked;
   var settingsPassiveControl = document.getElementById('exampleInputModalSettingsPassiveControl').checked;
   var settingsPassiveIntervalMinutes = document.getElementById('exampleInputModalSettingsPassiveInterval').value;
