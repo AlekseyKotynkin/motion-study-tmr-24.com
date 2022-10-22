@@ -238,13 +238,13 @@ docRefPosition.collection("PositionSettings")
       var settingsActiveControl = document.createElement('td');
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveControl == "false"){
+        if(ActiveControl == false){
           settingsActiveControl.innerHTML = "false";
         }else{
           settingsActiveControl.innerHTML = "true";
         }
       } else {
-        if(ActiveControl == "false"){
+        if(ActiveControl == false){
           settingsActiveControl.innerHTML = "не используется";
         }else{
           settingsActiveControl.innerHTML = "используется";
@@ -254,13 +254,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveControl = document.createElement('td');
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveControl == "false"){
+        if(PassiveControl == false){
           settingsPassiveControl.innerHTML = "false";
         }else{
           settingsPassiveControl.innerHTML = "true";
         }
       } else {
-        if(PassiveControl == "false"){
+        if(PassiveControl == false){
           settingsPassiveControl.innerHTML = "не используется";
         }else{
           settingsPassiveControl.innerHTML = "используется";
@@ -270,13 +270,13 @@ docRefPosition.collection("PositionSettings")
       var settingsResultCapture = document.createElement('td');
       var ResultCapture = item.SettingsResultCapture;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ResultCapture == "false"){
+        if(ResultCapture == false){
           settingsResultCapture.innerHTML = "false";
         }else{
           settingsResultCapture.innerHTML = "true";
         }
       } else {
-        if(ResultCapture == "false"){
+        if(ResultCapture == false){
           settingsResultCapture.innerHTML = "не используется";
         }else{
           settingsResultCapture.innerHTML = "используется";
@@ -286,13 +286,13 @@ docRefPosition.collection("PositionSettings")
       var settingsCommitDescription = document.createElement('td');
       var CommitDescription = item.SettingsCommitDescription;
       if(translation_JS == null || translation_JS == 'en'){
-        if(CommitDescription == "false"){
+        if(CommitDescription == false){
           settingsCommitDescription.innerHTML = "false";
         }else{
           settingsCommitDescription.innerHTML = "true";
         }
       } else {
-        if(CommitDescription == "false"){
+        if(CommitDescription == false){
           settingsCommitDescription.innerHTML = "не используется";
         }else{
           settingsCommitDescription.innerHTML = "используется";
@@ -372,13 +372,13 @@ docRefPosition.collection("PositionSettings")
       var settingsActiveControl = document.createElement('td');
       var ActiveControl = item.SettingsActiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveControl == "false"){
+        if(ActiveControl == false){
           settingsActiveControl.innerHTML = "false";
         }else{
           settingsActiveControl.innerHTML = "true";
         }
       } else {
-        if(ActiveControl == "false"){
+        if(ActiveControl == false){
           settingsActiveControl.innerHTML = "не используется";
         }else{
           settingsActiveControl.innerHTML = "используется";
@@ -430,13 +430,13 @@ docRefPosition.collection("PositionSettings")
       var settingsActiveSignal = document.createElement('td');
       var ActiveSignal = item.SettingsActiveSignal;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ActiveSignal == "false"){
+        if(ActiveSignal == false){
           settingsActiveSignal.innerHTML = "false";
         }else{
           settingsActiveSignal.innerHTML = "true";
         }
       } else {
-        if(ActiveSignal == "false"){
+        if(ActiveSignal == false){
           settingsActiveSignal.innerHTML = "не используется";
         }else{
           settingsActiveSignal.innerHTML = "используется";
@@ -488,13 +488,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveControl = document.createElement('td');
       var PassiveControl = item.SettingsPassiveControl;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveControl == "false"){
+        if(PassiveControl == false){
           settingsPassiveControl.innerHTML = "false";
         }else{
           settingsPassiveControl.innerHTML = "true";
         }
       } else {
-        if(PassiveControl == "false"){
+        if(PassiveControl == false){
           settingsPassiveControl.innerHTML = "не используется";
         }else{
           settingsPassiveControl.innerHTML = "используется";
@@ -532,13 +532,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveAudio = document.createElement('td');
       var PassiveAudio = item.SettingsPassiveAudio;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveAudio == "false"){
+        if(PassiveAudio == false){
           settingsPassiveAudio.innerHTML = "false";
         }else{
           settingsPassiveAudio.innerHTML = "true";
         }
       } else {
-        if(PassiveAudio == "false"){
+        if(PassiveAudio == false){
           settingsPassiveAudio.innerHTML = "не используется";
         }else{
           settingsPassiveAudio.innerHTML = "используется";
@@ -548,13 +548,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassivePhoto = document.createElement('td');
       var PassivePhoto = item.SettingsPassivePhoto;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassivePhoto == "false"){
+        if(PassivePhoto == false){
           settingsPassivePhoto.innerHTML = "false";
         }else{
           settingsPassivePhoto.innerHTML = "true";
         }
       } else {
-        if(PassivePhoto == "false"){
+        if(PassivePhoto == false){
           settingsPassivePhoto.innerHTML = "не используется";
         }else{
           settingsPassivePhoto.innerHTML = "используется";
@@ -564,13 +564,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveVideo = document.createElement('td');
       var PassiveVideo = item.SettingsPassiveVideo;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveVideo == "false"){
+        if(PassiveVideo == false){
           settingsPassiveVideo.innerHTML = "false";
         }else{
           settingsPassiveVideo.innerHTML = "true";
         }
       } else {
-        if(PassiveVideo == "false"){
+        if(PassiveVideo == false){
           settingsPassiveVideo.innerHTML = "не используется";
         }else{
           settingsPassiveVideo.innerHTML = "используется";
@@ -580,13 +580,13 @@ docRefPosition.collection("PositionSettings")
       var settingsPassiveGeolocation = document.createElement('td');
       var PassiveGeolocation = item.SettingsPassiveGeolocation;
       if(translation_JS == null || translation_JS == 'en'){
-        if(PassiveGeolocation == "false"){
+        if(PassiveGeolocation == false){
           settingsPassiveGeolocation.innerHTML = "false";
         }else{
           settingsPassiveGeolocation.innerHTML = "true";
         }
       } else {
-        if(PassiveGeolocation == "false"){
+        if(PassiveGeolocation == false){
           settingsPassiveGeolocation.innerHTML = "не используется";
         }else{
           settingsPassiveGeolocation.innerHTML = "используется";
@@ -636,13 +636,13 @@ docRefPosition.collection("PositionSettings")
       // settingsCommitDescription.innerHTML = item.SettingsCommitDescription;
       var CommitDescription = item.SettingsCommitDescription;
       if(translation_JS == null || translation_JS == 'en'){
-        if(CommitDescription == "false"){
+        if(CommitDescription == false){
           settingsCommitDescription.innerHTML = "false";
         }else{
           settingsCommitDescription.innerHTML = "true";
         }
       } else {
-        if(CommitDescription == "false"){
+        if(CommitDescription == false){
           settingsCommitDescription.innerHTML = "не используется";
         }else{
           settingsCommitDescription.innerHTML = "используется";
@@ -653,13 +653,13 @@ docRefPosition.collection("PositionSettings")
       // settingsResultCapture.innerHTML = item.SettingsResultCapture
       var ResultCapture = item.SettingsResultCapture;
       if(translation_JS == null || translation_JS == 'en'){
-        if(ResultCapture == "false"){
+        if(ResultCapture == false){
           settingsResultCapture.innerHTML = "false";
         }else{
           settingsResultCapture.innerHTML = "true";
         }
       } else {
-        if(ResultCapture == "false"){
+        if(ResultCapture == false){
           settingsResultCapture.innerHTML = "не используется";
         }else{
           settingsResultCapture.innerHTML = "используется";
@@ -806,26 +806,26 @@ function gridSystemModalNewSettingsSubmit()
   docRefPosition.collection("PositionSettings").add({
   SettingsTitle: settingsTitle,
   SettingsСomment: settingsСomment,
-  SettingsActiveControl: "false",
+  SettingsActiveControl: false,
   SettingsActiveIntervalMinutes:"0",
   SettingsActiveDurationSeconds:"0",
   SettingsActiveTransition: "No button",
-  SettingsActiveSignal: "false",
-  SettingsPassiveControl: "false",
+  SettingsActiveSignal: false,
+  SettingsPassiveControl: false,
   SettingsPassiveIntervalMinutes:"0",
   SettingsPassiveDurationSeconds:"0",
-  SettingsPassiveAudio: "false",
-  SettingsPassivePhoto: "false",
+  SettingsPassiveAudio: false,
+  SettingsPassivePhoto: false,
   SettingsPassivePhotoInterval:"0",
-  SettingsPassivePhotoCaptureEventOnClick:"false",
-  SettingsPassivePhotoSmartphoneCamera: "false",
-  SettingsPassivePhotoCameraIP: "false",
-  SettingsPassiveVideo: "false",
-  SettingsPassiveGeolocation: "false",
+  SettingsPassivePhotoCaptureEventOnClick:false,
+  SettingsPassivePhotoSmartphoneCamera: false,
+  SettingsPassivePhotoCameraIP: false,
+  SettingsPassiveVideo: false,
+  SettingsPassiveGeolocation: false,
   SettingsPassiveGeolocationInterval:"0",
-  SettingsPassiveGeolocationCaptureEventOnClick: "false",
-  SettingsCommitDescription: "false",
-  SettingsResultCapture: "false",
+  SettingsPassiveGeolocationCaptureEventOnClick: false,
+  SettingsCommitDescription: false,
+  SettingsResultCapture: false,
   SettingsResultControlOption1: "",
   SettingsResultControlOption2: "",
   SettingsResultControlOption3: "",
@@ -1809,87 +1809,115 @@ docRefPosition.collection("PositionSettings")
         settingsСommentColumn.innerHTML = item.SettingsСomment;
       }
       ///
-      var editSettings = document.createElement('select');
-      if(translation_JS == null || translation_JS == 'en'){
-        editSettings.options[0] = new Option("does not participate", "str0");
-        editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
-        editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
-        editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
-        editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
-        editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
-      } else {
-        editSettings.options[0] = new Option("не участвует", "str0");
-        editSettings.options[1] = new Option("этап 1 воронки продаж", "str1");
-        editSettings.options[2] = new Option("этап 2 воронки продаж", "str2");
-        editSettings.options[3] = new Option("этап 3 воронки продаж", "str3");
-        editSettings.options[4] = new Option("этап 4 воронки продаж", "str4");
-        editSettings.options[5] = new Option("этап 5 воронки продаж", "str5");
+      if(TitleColumn == "Expect" || TitleColumn == "Other" || TitleColumn == "Gone"){
+        var editSettingsColumn = document.createElement('td');
+        if(translation_JS == null || translation_JS == 'en'){
+          editSettingsColumn.innerHTML = "does not participate";
+        } else {
+          editSettingsColumn.innerHTML = "не участвует";
+        }
+      }else{
+        var editSettings = document.createElement('select');
+        if(translation_JS == null || translation_JS == 'en'){
+          editSettings.options[0] = new Option("does not participate", "str0");
+          editSettings.options[1] = new Option("Stage 1 of the sales funnel", "str1");
+          editSettings.options[2] = new Option("Stage 2 of the sales funnel", "str2");
+          editSettings.options[3] = new Option("Stage 3 of the sales funnel", "str3");
+          editSettings.options[4] = new Option("Stage 4 of the sales funnel", "str4");
+          editSettings.options[5] = new Option("Stage 5 of the sales funnel", "str5");
+        } else {
+          editSettings.options[0] = new Option("не участвует", "str0");
+          editSettings.options[1] = new Option("этап 1 воронки продаж", "str1");
+          editSettings.options[2] = new Option("этап 2 воронки продаж", "str2");
+          editSettings.options[3] = new Option("этап 3 воронки продаж", "str3");
+          editSettings.options[4] = new Option("этап 4 воронки продаж", "str4");
+          editSettings.options[5] = new Option("этап 5 воронки продаж", "str5");
+        }
+        editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+        var x = item.SettingsSalesFunnel_Availability_key;
+        for (i = 0; i < 6; i++){
+           var cells = editSettings.options[i].value;
+           editSettings.options[i].selected=false;
+           if (x==cells){
+           editSettings.options[i].selected=true;
+           }
+        }
+        editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+        var editSettingsColumn = document.createElement('td');
+        editSettingsColumn.appendChild(editSettings);
       }
-      editSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-
-      var x = item.SettingsSalesFunnel_Availability_key;
-      for (i = 0; i < 6; i++){
-         var cells = editSettings.options[i].value;
-         editSettings.options[i].selected=false;
-         if (x==cells){
-         editSettings.options[i].selected=true;
-         }
+      ///
+      if(TitleColumn == "Expect" || TitleColumn == "Gone"){
+        var deleteSettingsColumn = document.createElement('td');
+        if(translation_JS == null || translation_JS == 'en'){
+          deleteSettingsColumn.innerHTML = "red - simple employee";
+        } else {
+          deleteSettingsColumn.innerHTML = "красный - простой сотрудника";
+        }
+      }else if (TitleColumn == "Other") {
+        var deleteSettingsColumn = document.createElement('td');
+        if(translation_JS == null || translation_JS == 'en'){
+          deleteSettingsColumn.innerHTML = "orange - other activities";
+        } else {
+          deleteSettingsColumn.innerHTML = "оранжевый - прочая деятельность";
+        }
+      }else{
+        var deleteSettings = document.createElement('select');
+        if(translation_JS == null || translation_JS == 'en'){
+          deleteSettings.options[0] = new Option("red - simple employee", "str0");
+          deleteSettings.options[1] = new Option("orange - other activities", "str1");
+          deleteSettings.options[2] = new Option("yellow - auxiliary duties", "str2");
+          deleteSettings.options[3] = new Option("green - job responsibilities", "str3");
+        } else {
+          deleteSettings.options[0] = new Option("красный - простой сотрудника", "str0");
+          deleteSettings.options[1] = new Option("оранжевый - прочая деятельность", "str1");
+          deleteSettings.options[2] = new Option("желтый - вспомогательные обязанности", "str2");
+          deleteSettings.options[3] = new Option("зеленый - должностные обязанности", "str3");
+        }
+        deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+        var y = item.SettingsSalesFunnel_Stage_key;
+        for (l = 0; l < 4; l++){
+           var cells1 = deleteSettings.options[l].value;
+           deleteSettings.options[l].selected=false;
+           if (y==cells1){
+           deleteSettings.options[l].selected=true;
+           }
+        }
+        deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
+        var deleteSettingsColumn = document.createElement('td');
+        deleteSettingsColumn.appendChild(deleteSettings);
       }
-
-      editSettings.addEventListener("click", function(e) {console.log("checkbox");  });
-
-      var editSettingsColumn = document.createElement('td');
-      editSettingsColumn.appendChild(editSettings);
-
-      var deleteSettings = document.createElement('select');
-      if(translation_JS == null || translation_JS == 'en'){
-        deleteSettings.options[0] = new Option("red - simple employee", "str0");
-        deleteSettings.options[1] = new Option("orange - other activities", "str1");
-        deleteSettings.options[2] = new Option("yellow - auxiliary duties", "str2");
-        deleteSettings.options[3] = new Option("green - job responsibilities", "str3");
-      } else {
-        deleteSettings.options[0] = new Option("красный - простой сотрудника", "str0");
-        deleteSettings.options[1] = new Option("оранжевый - прочая деятельность", "str1");
-        deleteSettings.options[2] = new Option("желтый - вспомогательные обязанности", "str2");
-        deleteSettings.options[3] = new Option("зеленый - должностные обязанности", "str3");
+      ////
+      if(TitleColumn == "Expect" || TitleColumn == "Other" || TitleColumn == "Gone"){
+        var resultButtonColumn = document.createElement('td');
+        if(translation_JS == null || translation_JS == 'en'){
+          resultButtonColumn.innerHTML = "Ignore";
+        } else {
+          resultButtonColumn.innerHTML = "Игнорировать";
+        }
+      }else{
+        var resultButton = document.createElement('select');
+        if(translation_JS == null || translation_JS == 'en'){
+          resultButton.options[0] = new Option("Ignore", "str0");
+          resultButton.options[1] = new Option("Participates", "str1");
+        } else {
+          resultButton.options[0] = new Option("Игнорировать", "str0");
+          resultButton.options[1] = new Option("Участвует", "str1");
+        }
+        resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
+        var z = item.SettingsSalesFunnel_Result_key;
+        for (k = 0; k < 2; k++){
+           var cells2 = resultButton.options[k].value;
+           resultButton.options[k].selected=false;
+           if (z==cells2){
+           resultButton.options[k].selected=true;
+           }
+        }
+        resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
+        var resultButtonColumn = document.createElement('td');
+        resultButtonColumn.appendChild(resultButton);
       }
-      deleteSettings.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-
-      var y = item.SettingsSalesFunnel_Stage_key;
-      for (l = 0; l < 4; l++){
-         var cells1 = deleteSettings.options[l].value;
-         deleteSettings.options[l].selected=false;
-         if (y==cells1){
-         deleteSettings.options[l].selected=true;
-         }
-      }
-      deleteSettings.addEventListener("click", function(e) {console.log("checkbox");  });
-
-      var deleteSettingsColumn = document.createElement('td');
-      deleteSettingsColumn.appendChild(deleteSettings);
-
-      var resultButton = document.createElement('select');
-      if(translation_JS == null || translation_JS == 'en'){
-        resultButton.options[0] = new Option("Ignore", "str0");
-        resultButton.options[1] = new Option("Participates", "str1");
-      } else {
-        resultButton.options[0] = new Option("Игнорировать", "str0");
-        resultButton.options[1] = new Option("Участвует", "str1");
-      }
-      resultButton.className = 'btn btn-sm btn-outline-primary dropdown-toggle';
-      var z = item.SettingsSalesFunnel_Result_key;
-      for (k = 0; k < 2; k++){
-         var cells2 = resultButton.options[k].value;
-         resultButton.options[k].selected=false;
-         if (z==cells2){
-         resultButton.options[k].selected=true;
-         }
-      }
-      resultButton.addEventListener("click", function(e) {console.log("checkbox");  });
-
-      var resultButtonColumn = document.createElement('td');
-      resultButtonColumn.appendChild(resultButton);
-
+      //////
       tr.appendChild(settingsTitleColumn);
       tr.appendChild(settingsСommentColumn);
       tr.appendChild(editSettingsColumn);
