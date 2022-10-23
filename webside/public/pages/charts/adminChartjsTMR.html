@@ -359,22 +359,45 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <!-- Окно выбора Организации. -->
+            <!-- Список Организаций для раскрытия структуры. -->
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-description lang" key="list_own_organizations">List of own organizations</h4>
                     <div class="table-responsive">
-                      <table id="tableAvalableOrganizations"class="table">
+                      <table id="tableAvalableOrganizations_Admin"class="table">
                         <thead>
                           <tr>
                             <th class="lang" key="organization"> Organization </th>
                             <th class="lang" key="email"> Email </th>
-                            <!-- <th class="lang" key="comment"> Сomment </th>
-                            <th class="lang" key="position"> Position </th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                          <tbody>
+                          </tbody>
+                       </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Список подразделений, должностей и пользователей. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-description lang" key="list_own_organizations">List of own organizations</h4>
+                    <div class="table-responsive">
+                      <table id="tableAvalableUserMyOrganization_Admin"class="table">
+                        <thead>
+                          <tr>
+                            <th class="lang" key="organization"> Organization </th>
                             <th class="lang" key="subdivision"> Subdivision </th>
-                            <th class="lang" key="organization"> Organization </th> -->
+                            <th class="lang" key="position"> Position </th>
+                            <th class="lang" key="users_name"> Name </th>
+                            <th class="lang" key="email"> Email </th>
+                            <th class="lang" key="comment"> Сomment </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -393,7 +416,7 @@
                   <div class="card-body">
                     <h4 class="card-description lang" key="list_users_available">List of available users</h4>
                     <div class="table-responsive">
-                      <table id="tableAvalableUser"class="table">
+                      <table id="tableAvalableUser_Admin"class="table">
                         <thead>
                           <tr>
                             <th class="lang" key="email"> Email </th>
@@ -419,7 +442,7 @@
                   <div class="card-body">
                     <h4 class="card-description lang" key="list_change_user">Change list of selected user</h4>
                     <div class="table-responsive">
-                      <table id="tableChangeUser"class="table">
+                      <table id="tableChangeUser_Admin"class="table">
                         <thead>
                           <tr>
                             <th class="lang" key="data_doc_start"> Start date and time </th>
@@ -446,7 +469,7 @@
                   <div class="card-body">
                     <h4 class="card-description lang" key="detailing_selected_shift">Detailing of the selected shift</h4>
                     <div class="table-responsive">
-                      <table id="tableDetailingShift"class="table">
+                      <table id="tableDetailingShift_Admin"class="table">
                         <thead>
                           <tr>
                             <th class="lang" key="data_doc_start"> Start date and time </th>
@@ -470,7 +493,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-description lang" key="chart_bar">Bar chart</h4>
-                    <canvas id="barChart" style="height:250px"></canvas>
+                    <canvas id="barChart_Admin" style="height:250px"></canvas>
                   </div>
                 </div>
               </div>
@@ -478,7 +501,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-description lang" key="chart_doughnut">Doughnut chart</h4>
-                    <canvas id="doughnutChart" style="height:250px"></canvas>
+                    <canvas id="doughnutChart_Admin" style="height:250px"></canvas>
                   </div>
                 </div>
               </div>
@@ -515,7 +538,7 @@
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- Модальное окно параметров смены Event -->
-          <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div id="gridSystemModalInfoEventID_Admin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -530,12 +553,12 @@
                           <p class="card-description lang" key="event_detailed">Detailed information on the event</p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <p><span id="nameEvent" class="lang" key="event_name"></span></p>
-                              <p><span id="timeStartEvent" class="lang" key="event_start"></span></p>
-                              <p><span id="timeEndEvent" class="lang" key="event_end"></span></p>
-                              <p><span id="eventDuration" class="lang" key="event_duration"></span></p>
-                              <p><span id="commitDescriptioText" class="lang" key="event_descriptio_text"></span></p>
-                              <p><span id="resultControlButton" class="lang" key="event_control_button"></span></p>
+                              <p><span id="nameEvent_Admin" class="lang" key="event_name"></span></p>
+                              <p><span id="timeStartEvent_Admin" class="lang" key="event_start"></span></p>
+                              <p><span id="timeEndEvent_Admin" class="lang" key="event_end"></span></p>
+                              <p><span id="eventDuration_Admin" class="lang" key="event_duration"></span></p>
+                              <p><span id="commitDescriptioText_Admin" class="lang" key="event_descriptio_text"></span></p>
+                              <p><span id="resultControlButton_Admin" class="lang" key="event_control_button"></span></p>
                             </div>
                           </form>
                         </div>
@@ -549,7 +572,7 @@
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
-              <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center" id="footer_list">
+              <span class="center-none center-sm-right d-block mt-1 mt-sm-0 text-center" id="footer_list_Admin">
                 <script type="text/javascript">
                  if (localStorage.length > 0)
                  {
