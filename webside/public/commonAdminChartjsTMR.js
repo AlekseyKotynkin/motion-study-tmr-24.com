@@ -605,6 +605,6 @@ function toComeInButtonUser(obj) {
   function translationCommon_EN (){
   }
   //
-  $(function(){
-      $("#datepicker").datepicker();
- });
+ //  $(function(){
+ //      $("#datepicker").datepicker();
+ // });
