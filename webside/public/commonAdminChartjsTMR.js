@@ -20,8 +20,8 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 //
 var items = [];
-var itemsUserName = [];
-var itemsOrganizationName = [];
+// var itemsUserName = [];
+var itemsName = [];
 var nameOrganization = "";
 var nameSubdivision = "";
 var namePosition = "";
@@ -98,6 +98,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     var objItem = obj.item;
     var idDocOrganization = obj.id;
     var nameOrganization = objItem.Organization;
+    itemsName.push({...{idDocOrganization: nameOrganization}});
     //
     var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
     for(var k = 1; k<tableMyOrganization.rows.length;){
@@ -121,6 +122,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
         console.log(doc.id, " => ", doc.data());
         var idDocSubdivision = doc.id;
         var nameSubdivision = doc.data().Subdivision;
+        itemsName.push({...{idDocSubdivision: nameSubdivision}});
         //получаем список должностей
         var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
         docRefSubdivision.collection("Position").get().then((querySnapshot) => {
@@ -129,6 +131,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
             console.log(doc.id, " => ", doc.data());
             var idDocPosition = doc.id;
             var namePosition = doc.data().Position;
+            itemsName.push({...{idDocPosition: namePosition}});
             //получаем список пользователей
             var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
             docRefPosition.collection("PositionUser").get().then((querySnapshot) => {
@@ -139,6 +142,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 var userName = doc.data().UserName;
                 var userEmail = doc.data().UserEmail;
                 var userСomment = doc.data().UserСomment;
+                var idDocOrganization = doc.data().idDocOrganization;
+                var idDocSubdivision = doc.data().idDocSubdivision;
+                var idDocPosition = doc.data().idDocPosition;
                 //заполняем таблицу
                 var tr = document.createElement("tr");
 
@@ -152,13 +158,13 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 userСomment_tr.innerHTML = userСomment;
 
                 var organizationColumn = document.createElement('td');
-                organizationColumn.innerHTML = nameOrganization;
+                organizationColumn.innerHTML = itemsName.idDocOrganization;
 
                 var subdivisionColumn = document.createElement('td');
-                subdivisionColumn.innerHTML = nameSubdivision;
+                subdivisionColumn.innerHTML = itemsName.idDocSubdivision;
 
                 var positionColumn = document.createElement('td');
-                positionColumn.innerHTML = namePosition;
+                positionColumn.innerHTML = itemsName.idDocPosition;
 
                 var toComeInUserName = document.createElement('button');
                 if(translation_JS == null || translation_JS == 'en'){
@@ -167,8 +173,8 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                   toComeInUserName.innerHTML = "Выбрать";
                 }
                 toComeInUserName.className = 'badge badge-gradient-success';
-                toComeInUserName.id = item.idDocPositionUser;
-                toComeInUserName.item = item;
+                toComeInUserName.id = idDocUser;
+                toComeInUserName.item = doc.data();
                 toComeInUserName.setAttribute('onclick', 'toComeInButtonEvent_Admin(this)');
 
                 var toComeInUserColumn = document.createElement('td');
@@ -599,8 +605,3 @@ function toComeInButtonUser(obj) {
   function translationCommon_EN (){
   }
   //
-  $(function() {
-
-    $('#inline').datepicker($.datepicker.regional["ru"]);
-
-  })
