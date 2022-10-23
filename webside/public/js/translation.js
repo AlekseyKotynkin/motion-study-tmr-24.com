@@ -455,7 +455,7 @@ var arrLang = {
     'current_event': 'Текущее событие',
     'list_own_subdivision': 'Список подразделений, должностей и сотрудников',
     'list_own_organizations': 'Список собственных организаций',
-    'list_change_user': 'Список смен для выбранного шаблона',
+    'list_change_user': 'Список смен',
     'detailing_selected_shift': 'Список событий выбранной смены',
     'event_duration': 'Продолжительность события',
     'event_name': 'Наименование события',

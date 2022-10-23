@@ -392,38 +392,12 @@
                       <table id="tableAvalableSubdivision_Admin"class="table">
                         <thead>
                           <tr>
-                            <th class="lang" key="organization"> Organization </th>
-                            <th class="lang" key="subdivision"> Subdivision </th>
-                            <th class="lang" key="position"> Position </th>
-                            <th class="lang" key="users_name"> Name </th>
-                            <th class="lang" key="email"> Email </th>
-                            <th class="lang" key="comment"> Сomment </th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                          <tbody>
-                          </tbody>
-                       </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Окно выбора пользователя. -->
-            <div class="row">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-description lang" key="list_users_available">List of available users</h4>
-                    <div class="table-responsive">
-                      <table id="tableAvalableUser_Admin"class="table">
-                        <thead>
-                          <tr>
-                            <th class="lang" key="email"> Email </th>
-                            <th class="lang" key="comment"> Сomment </th>
-                            <th class="lang" key="position"> Position </th>
-                            <th class="lang" key="subdivision"> Subdivision </th>
-                            <th class="lang" key="organization"> Organization </th>
+                            <th class="lang" key="organization">Organization</th>
+                            <th class="lang" key="subdivision">Subdivision</th>
+                            <th class="lang" key="position">Position</th>
+                            <th class="lang" key="users_name">Name</th>
+                            <th class="lang" key="email">Email</th>
+                            <th class="lang" key="comment">Сomment</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -441,6 +415,15 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-description lang" key="list_change_user">Change list of selected user</h4>
+                    //
+                    <form>
+                      <div id="wrapper" class="ui-widget">
+                        <label for="datep">Дата: </label>
+                        <input id="datep"/>
+                        <span id="inline"></span>
+                      </div>
+                    </form>
+                    //
                     <div class="table-responsive">
                       <table id="tableChangeUser_Admin"class="table">
                         <thead>

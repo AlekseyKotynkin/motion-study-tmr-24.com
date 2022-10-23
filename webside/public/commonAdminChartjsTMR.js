@@ -598,3 +598,9 @@ function toComeInButtonUser(obj) {
   // заполняем строки с английскими значениями
   function translationCommon_EN (){
   }
+  //
+  $(function() {
+
+    $('#inline').datepicker($.datepicker.regional["ru"]);
+
+  })
