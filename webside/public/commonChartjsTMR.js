@@ -43,120 +43,182 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 * @return {string}
  * Получение данных для таблицы List of own organizations из firestore
  */
+ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+     .get()
+     .then((querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+             // doc.data() is never undefined for query doc snapshots
+             console.log(doc.id, " => ", doc.data());
+             var idDocOrganization = doc.id;
+             var item = doc.data();
+             var nameOrganization = doc.data().Organization;
+             ////
+             var tr = document.createElement("tr");
+
+             // var nameOfYourManagerColumn = document.createElement('td');
+             // nameOfYourManagerColumn.innerHTML = item.UserСomment;
+
+             var statusUserColumn = document.createElement('td');
+             statusUserColumn.innerHTML = doc.data().OwnerEmail;
+
+             // var positionColumn = document.createElement('td');
+             // positionColumn.innerHTML = item.NamePosition;
+             //
+             // var subdivisionColumn = document.createElement('td');
+             // subdivisionColumn.innerHTML = item.NameSubdivision;
+
+             var organizationColumn = document.createElement('td');
+             organizationColumn.innerHTML = doc.data().Organization;
+
+             var toComeInUserName = document.createElement('button');
+             if(translation_JS == null || translation_JS == 'en'){
+               toComeInUserName.innerHTML = "To come in";
+             } else {
+               toComeInUserName.innerHTML = "Выбрать";
+             }
+             toComeInUserName.className = 'badge badge-gradient-success';
+             toComeInUserName.id = doc.id;
+             // toComeInUserName.item = item;
+             toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
+
+             var toComeInUserColumn = document.createElement('td');
+             toComeInUserColumn.appendChild(toComeInUserName);
+
+             tr.appendChild(organizationColumn);
+             tr.appendChild(statusUserColumn);
+             // tr.appendChild(nameOfYourManagerColumn);
+             // tr.appendChild(positionColumn);
+             // tr.appendChild(subdivisionColumn);
+             // tr.appendChild(organizationColumn);
+             tr.appendChild(toComeInUserColumn);
+
+             var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
+
+             container.appendChild(tr);
+         });
+     })
+     .catch((error) => {
+         console.log("Error getting documents: ", error);
+     });
+
+/**
+* @return {string}
+ * Получение данных для таблицы List of own organizations из firestore "Список собственных организаций"
+ */
 
 
-   db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
-      .get()
-      .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-              // doc.data() is never undefined for query doc snapshots
-              // console.log(doc.id, " => ", doc.data());
-              var idDocOrganization = doc.id;
-              var nameOrganization = doc.data().Organization;
-              if(translation_JS == null || translation_JS == 'en'){
-                alert('Compiling a list of users of your organization '+nameOrganization+'.');
-              } else {
-                alert('Составление списка пользователей вашей организации '+nameOrganization+'.');
-              }
-              var groupPositionUser = db.collectionGroup('PositionUser').where('idDocOrganization', '==', idDocOrganization);
-              groupPositionUser.get().then(function (querySnapshot) {
-                  querySnapshot.forEach(function (doc) {
-                      // console.log(doc.id, ' => ', doc.data(), nameOrganization);
-                      var parentHierarchyDoc = doc.ref.path;
-                      var idDocOrganization = parentHierarchyDoc.split("/")[1];
-                      var idDocSubdivision = parentHierarchyDoc.split("/")[3];
-                      var idDocPosition = parentHierarchyDoc.split("/")[5];
-                      itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
-                     });
-                     itemsOrganizationName.forEach(function(element){
-                       var idDocOrganization = element.idDocOrganization ;
-                       var idDocSubdivision = element.idDocSubdivision ;
-                       var idDocPosition = element.idDocPosition ;
-                       var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
-                           docRefOrganization.get().then(function(doc) {
-                           if (doc.exists) {
-                               nameOrganization = doc.data().Organization;
-                               element['NameOrganization'] = nameOrganization;
-                           } else {
-                               console.log("No such document!");
-                           }
-                       }).catch(function(error) {
-                           console.log("Error getting document:", error);
-                       });
-                       var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
-                           docRefSubdivision.get().then(function(doc) {
-                           if (doc.exists) {
-                               nameSubdivision = doc.data().Subdivision;
-                               element['NameSubdivision'] = nameSubdivision;
-                           } else {
-                               console.log("No such document!");
-                           }
-                       }).catch(function(error) {
-                           console.log("Error getting document:", error);
-                       });
-                       var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
-                           docRefPosition.get().then(function(doc) {
-                           if (doc.exists) {
-                               namePosition = doc.data().Position;
-                               element['NamePosition'] = namePosition;
-                           } else {
-                               console.log("No such document!");
-                           }
-                       }).catch(function(error) {
-                           console.log("Error getting document:", error);
-                       }).finally(() => {
-                         [element].forEach(item =>
-                       {
-                           var tr = document.createElement("tr");
-
-                           var nameOfYourManagerColumn = document.createElement('td');
-                           nameOfYourManagerColumn.innerHTML = item.UserСomment;
-
-                           var statusUserColumn = document.createElement('td');
-                           statusUserColumn.innerHTML = item.UserEmail;
-
-                           var positionColumn = document.createElement('td');
-                           positionColumn.innerHTML = item.NamePosition;
-
-                           var subdivisionColumn = document.createElement('td');
-                           subdivisionColumn.innerHTML = item.NameSubdivision;
-
-                           var organizationColumn = document.createElement('td');
-                           organizationColumn.innerHTML = item.NameOrganization;
-
-                           var toComeInUserName = document.createElement('button');
-                           if(translation_JS == null || translation_JS == 'en'){
-                             toComeInUserName.innerHTML = "To come in";
-                           } else {
-                             toComeInUserName.innerHTML = "Перейти";
-                           }
-                           toComeInUserName.className = 'badge badge-gradient-success';
-                           toComeInUserName.id = item.idDocPositionUser;
-                           toComeInUserName.item = item;
-                           toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
-
-                           var toComeInUserColumn = document.createElement('td');
-                           toComeInUserColumn.appendChild(toComeInUserName);
-
-                           tr.appendChild(statusUserColumn);
-                           tr.appendChild(nameOfYourManagerColumn);
-                           tr.appendChild(positionColumn);
-                           tr.appendChild(subdivisionColumn);
-                           tr.appendChild(organizationColumn);
-                           tr.appendChild(toComeInUserColumn);
-
-                           var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
-
-                           container.appendChild(tr);
-                        });
-                       });
-                  });
-              });
-          });
-      })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error);
-      });
+ // db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+ // .get()
+ // .then(function(querySnapshot) {
+ //   querySnapshot.forEach(function(doc) {
+ //     // doc.data() is never undefined for query doc snapshots
+ //     // console.log(doc.id, " => ", doc.data());
+ //     var idDocOrganization = doc.id;
+ //     var nameOrganization = doc.data().Organization;
+ //     if(translation_JS == null || translation_JS == 'en'){
+ //       alert('Compiling a list of users of your organization '+nameOrganization+'.');
+ //     } else {
+ //       alert('Составление списка пользователей вашей организации '+nameOrganization+'.');
+ //     }
+ //     var groupPositionUser = db.collectionGroup('PositionUser').where('idDocOrganization', '==', idDocOrganization);
+ //     groupPositionUser.get().then(function (querySnapshot) {
+ //       querySnapshot.forEach(function (doc) {
+ //         // console.log(doc.id, ' => ', doc.data(), nameOrganization);
+ //         var parentHierarchyDoc = doc.ref.path;
+ //         var idDocOrganization = parentHierarchyDoc.split("/")[1];
+ //         var idDocSubdivision = parentHierarchyDoc.split("/")[3];
+ //         var idDocPosition = parentHierarchyDoc.split("/")[5];
+ //         itemsOrganizationName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
+ //       });
+ //       itemsOrganizationName.forEach(function(element){
+ //         var idDocOrganization = element.idDocOrganization ;
+ //         var idDocSubdivision = element.idDocSubdivision ;
+ //         var idDocPosition = element.idDocPosition ;
+ //         var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
+ //         docRefOrganization.get().then(function(doc) {
+ //           if (doc.exists) {
+ //             nameOrganization = doc.data().Organization;
+ //             element['NameOrganization'] = nameOrganization;
+ //           } else {
+ //             console.log("No such document!");
+ //           }
+ //         }).catch(function(error) {
+ //           console.log("Error getting document:", error);
+ //         });
+ //         var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
+ //         docRefSubdivision.get().then(function(doc) {
+ //           if (doc.exists) {
+ //             nameSubdivision = doc.data().Subdivision;
+ //             element['NameSubdivision'] = nameSubdivision;
+ //           } else {
+ //             console.log("No such document!");
+ //           }
+ //         }).catch(function(error) {
+ //           console.log("Error getting document:", error);
+ //         });
+ //         var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
+ //         docRefPosition.get().then(function(doc) {
+ //           if (doc.exists) {
+ //             namePosition = doc.data().Position;
+ //             element['NamePosition'] = namePosition;
+ //           } else {
+ //             console.log("No such document!");
+ //           }
+ //         }).catch(function(error) {
+ //           console.log("Error getting document:", error);
+ //         }).finally(() => {
+ //           [element].forEach(item =>
+ //             {
+ //               var tr = document.createElement("tr");
+ //
+ //               var nameOfYourManagerColumn = document.createElement('td');
+ //               nameOfYourManagerColumn.innerHTML = item.UserСomment;
+ //
+ //               var statusUserColumn = document.createElement('td');
+ //               statusUserColumn.innerHTML = item.UserEmail;
+ //
+ //               var positionColumn = document.createElement('td');
+ //               positionColumn.innerHTML = item.NamePosition;
+ //
+ //               var subdivisionColumn = document.createElement('td');
+ //               subdivisionColumn.innerHTML = item.NameSubdivision;
+ //
+ //               var organizationColumn = document.createElement('td');
+ //               organizationColumn.innerHTML = item.NameOrganization;
+ //
+ //               var toComeInUserName = document.createElement('button');
+ //               if(translation_JS == null || translation_JS == 'en'){
+ //                 toComeInUserName.innerHTML = "To come in";
+ //               } else {
+ //                 toComeInUserName.innerHTML = "Выбрать";
+ //               }
+ //               toComeInUserName.className = 'badge badge-gradient-success';
+ //               toComeInUserName.id = item.idDocPositionUser;
+ //               toComeInUserName.item = item;
+ //               toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
+ //
+ //               var toComeInUserColumn = document.createElement('td');
+ //               toComeInUserColumn.appendChild(toComeInUserName);
+ //
+ //               tr.appendChild(statusUserColumn);
+ //               tr.appendChild(nameOfYourManagerColumn);
+ //               tr.appendChild(positionColumn);
+ //               tr.appendChild(subdivisionColumn);
+ //               tr.appendChild(organizationColumn);
+ //               tr.appendChild(toComeInUserColumn);
+ //
+ //               var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
+ //
+ //               container.appendChild(tr);
+ //             });
+ //           });
+ //         });
+ //       });
+ //     });
+ //   })
+ //   .catch(function(error) {
+ //     console.log("Error getting documents: ", error);
+ //   });
 
 /**
 * @return {string}
