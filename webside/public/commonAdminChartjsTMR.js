@@ -43,49 +43,63 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 * @return {string}
  * Получение данных для таблицы List of own organizations из firestore
  */
- // db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
- //     .get()
- //     .then((querySnapshot) => {
- //         querySnapshot.forEach((doc) => {
- //             // doc.data() is never undefined for query doc snapshots
- //             console.log(doc.id, " => ", doc.data());
- //             var idDocOrganization = doc.id;
- //             var item = doc.data();
- //             var nameOrganization = doc.data().Organization;
- //             ////
- //             var tr = document.createElement("tr");
- //
- //             var statusUserColumn = document.createElement('td');
- //             statusUserColumn.innerHTML = doc.data().OwnerEmail;
- //
- //             var organizationColumn = document.createElement('td');
- //             organizationColumn.innerHTML = doc.data().Organization;
- //
- //             var toComeInUserName = document.createElement('button');
- //             if(translation_JS == null || translation_JS == 'en'){
- //               toComeInUserName.innerHTML = "To come in";
- //             } else {
- //               toComeInUserName.innerHTML = "Выбрать";
- //             }
- //             toComeInUserName.className = 'badge badge-gradient-success';
- //             toComeInUserName.id = doc.id;
- //             toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
- //
- //             var toComeInUserColumn = document.createElement('td');
- //             toComeInUserColumn.appendChild(toComeInUserName);
- //
- //             tr.appendChild(organizationColumn);
- //             tr.appendChild(statusUserColumn);
- //             tr.appendChild(toComeInUserColumn);
- //
- //             var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
- //
- //             container.appendChild(tr);
- //         });
- //     })
- //     .catch((error) => {
- //         console.log("Error getting documents: ", error);
- //     });
+ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
+     .get()
+     .then((querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+             // doc.data() is never undefined for query doc snapshots
+             console.log(doc.id, " => ", doc.data());
+             var idDocOrganization = doc.id;
+             var item = doc.data();
+             var nameOrganization = doc.data().Organization;
+             ////
+             var tr = document.createElement("tr");
+
+             // var nameOfYourManagerColumn = document.createElement('td');
+             // nameOfYourManagerColumn.innerHTML = item.UserСomment;
+
+             var statusUserColumn = document.createElement('td');
+             statusUserColumn.innerHTML = doc.data().OwnerEmail;
+
+             // var positionColumn = document.createElement('td');
+             // positionColumn.innerHTML = item.NamePosition;
+             //
+             // var subdivisionColumn = document.createElement('td');
+             // subdivisionColumn.innerHTML = item.NameSubdivision;
+
+             var organizationColumn = document.createElement('td');
+             organizationColumn.innerHTML = doc.data().Organization;
+
+             var toComeInUserName = document.createElement('button');
+             if(translation_JS == null || translation_JS == 'en'){
+               toComeInUserName.innerHTML = "To come in";
+             } else {
+               toComeInUserName.innerHTML = "Выбрать";
+             }
+             toComeInUserName.className = 'badge badge-gradient-success';
+             toComeInUserName.id = doc.id;
+             // toComeInUserName.item = item;
+             toComeInUserName.setAttribute('onclick', 'toComeInButtonShift(this)');
+
+             var toComeInUserColumn = document.createElement('td');
+             toComeInUserColumn.appendChild(toComeInUserName);
+
+             tr.appendChild(organizationColumn);
+             tr.appendChild(statusUserColumn);
+             // tr.appendChild(nameOfYourManagerColumn);
+             // tr.appendChild(positionColumn);
+             // tr.appendChild(subdivisionColumn);
+             // tr.appendChild(organizationColumn);
+             tr.appendChild(toComeInUserColumn);
+
+             var container = document.getElementById("tableAvalableOrganizations").getElementsByTagName("tbody")[0];
+
+             container.appendChild(tr);
+         });
+     })
+     .catch((error) => {
+         console.log("Error getting documents: ", error);
+     });
 
 /**
 * @return {string}

@@ -21,7 +21,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="../../js/index.js"></script>
-    <script src="../../commonPersonalScreenTMR.js"></script>
+    <script src="../../commonAdminChartjsTMR.js"></script>
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
@@ -364,17 +364,17 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-description lang" key="list_notes_open">List of open notes</h4>
+                    <h4 class="card-description lang" key="list_own_organizations">List of own organizations</h4>
                     <div class="table-responsive">
-                      <table id="tableNoteUser"class="table">
+                      <table id="tableAvalableOrganizations"class="table">
                         <thead>
                           <tr>
-                            <th> # </th>
-                            <th class="lang" key="parent"> Parent </th>
-                            <th class="lang" key="comment"> Сomment </th>
-                            <th class="lang" key="time_creation"> Time of creation </th>
-                            <th class="lang" key="parent_doc"> Parent document title </th>
-                            <th></th>
+                            <th class="lang" key="organization"> Organization </th>
+                            <th class="lang" key="email"> Email </th>
+                            <!-- <th class="lang" key="comment"> Сomment </th>
+                            <th class="lang" key="position"> Position </th>
+                            <th class="lang" key="subdivision"> Subdivision </th>
+                            <th class="lang" key="organization"> Organization </th> -->
                             <th></th>
                           </tr>
                         </thead>
@@ -387,20 +387,20 @@
               </div>
             </div>
             <!-- Окно выбора пользователя. -->
-            <!-- <div class="row">
+            <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of available users</h4>
+                    <h4 class="card-description lang" key="list_users_available">List of available users</h4>
                     <div class="table-responsive">
                       <table id="tableAvalableUser"class="table">
                         <thead>
                           <tr>
-                            <th> Email </th>
-                            <th> Сomment </th>
-                            <th> Position </th>
-                            <th> Subdivision </th>
-                            <th> Organization </th>
+                            <th class="lang" key="email"> Email </th>
+                            <th class="lang" key="comment"> Сomment </th>
+                            <th class="lang" key="position"> Position </th>
+                            <th class="lang" key="subdivision"> Subdivision </th>
+                            <th class="lang" key="organization"> Organization </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -411,23 +411,23 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
             <!-- Окно выбора смены. -->
-            <!-- <div class="row">
+            <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Change list of selected user</h4>
+                    <h4 class="card-description lang" key="list_change_user">Change list of selected user</h4>
                     <div class="table-responsive">
                       <table id="tableChangeUser"class="table">
                         <thead>
                           <tr>
-                            <th> Start of shift </th>
-                            <th> End of shift </th>
-                            <th> Shift duration </th>
-                            <th> Position </th>
-                            <th> Subdivision </th>
-                            <th> Organization </th>
+                            <th class="lang" key="data_doc_start"> Start date and time </th>
+                            <th class="lang" key="data_doc_end"> End date and time </th>
+                            <th class="lang" key="shift_duration"> Shift duration </th>
+                            <th class="lang" key="position"> Position </th>
+                            <th class="lang" key="subdivision"> Subdivision </th>
+                            <th class="lang" key="organization"> Organization </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -438,21 +438,21 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
             <!-- Окно детализация дня в таблице. -->
-            <!-- <div class="row">
+            <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Detailing of the selected shift</h4>
+                    <h4 class="card-description lang" key="detailing_selected_shift">Detailing of the selected shift</h4>
                     <div class="table-responsive">
                       <table id="tableDetailingShift"class="table">
                         <thead>
                           <tr>
-                            <th> Start of event </th>
-                            <th> End of event </th>
-                            <th> Event duration </th>
-                            <th> Event name </th>
+                            <th class="lang" key="data_doc_start"> Start date and time </th>
+                            <th class="lang" key="data_doc_end"> End date and time </th>
+                            <th class="lang" key="event_duration"> Event duration </th>
+                            <th class="lang" key="event_name"> Event name </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -463,13 +463,13 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
             <!-- Окно детализация дня в графике. -->
-            <!-- <div class="row">
+            <div class="row">
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Bar chart</h4>
+                    <h4 class="card-description lang" key="chart_bar">Bar chart</h4>
                     <canvas id="barChart" style="height:250px"></canvas>
                   </div>
                 </div>
@@ -477,17 +477,45 @@
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Doughnut chart</h4>
+                    <h4 class="card-description lang" key="chart_doughnut">Doughnut chart</h4>
                     <canvas id="doughnutChart" style="height:250px"></canvas>
                   </div>
                 </div>
               </div>
             </div>
-          </div> -->
+            <!-- <div class="row">
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Area chart</h4>
+                    <canvas id="areaChart" style="height:250px"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Pie chart</h4>
+                    <canvas id="pieChart" style="height:250px"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Scatter chart</h4>
+                    <canvas id="scatterChart" style="height:250px"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- Модальное окно параметров смены Event -->
-          <!-- <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div id="gridSystemModalInfoEventID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -498,16 +526,16 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">Event information</h4>
-                          <p class="card-description">Detailed information on the event</p>
+                          <h4 class="card-description lang" key="event_information">Event information</h4>
+                          <p class="card-description lang" key="event_detailed">Detailed information on the event</p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <p><span id = nameEvent></span></p>
-                              <p><span id = timeStartEvent></span></p>
-                              <p><span id = timeEndEvent></span></p>
-                              <p><span id = eventDuration></span></p>
-                              <p><span id = commitDescriptioText></span></p>
-                              <p><span id = resultControlButton></span></p>
+                              <p><span id="nameEvent" class="lang" key="event_name"></span></p>
+                              <p><span id="timeStartEvent" class="lang" key="event_start"></span></p>
+                              <p><span id="timeEndEvent" class="lang" key="event_end"></span></p>
+                              <p><span id="eventDuration" class="lang" key="event_duration"></span></p>
+                              <p><span id="commitDescriptioText" class="lang" key="event_descriptio_text"></span></p>
+                              <p><span id="resultControlButton" class="lang" key="event_control_button"></span></p>
                             </div>
                           </form>
                         </div>
@@ -517,7 +545,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
