@@ -143,9 +143,9 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 var userName = doc.data().UserName;
                 var userEmail = doc.data().UserEmail;
                 var userСomment = doc.data().UserСomment;
-                var idDocOrganization = doc.data().idDocOrganization;
-                var idDocSubdivision = doc.data().idDocSubdivision;
-                var idDocPosition = doc.data().idDocPosition;
+                var idDocOrganization_local = doc.data().idDocOrganization;
+                var idDocSubdivision_local = doc.data().idDocSubdivision;
+                var idDocPosition_local = doc.data().idDocPosition;
                 //заполняем таблицу
                 var tr = document.createElement("tr");
 
@@ -159,13 +159,13 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 userСomment_tr.innerHTML = userСomment;
 
                 var organizationColumn = document.createElement('td');
-                organizationColumn.innerHTML = itemsName[idDocOrganization];
+                organizationColumn.innerHTML = itemsName[idDocOrganization_local];
 
                 var subdivisionColumn = document.createElement('td');
-                subdivisionColumn.innerHTML = itemsName[idDocSubdivision];
+                subdivisionColumn.innerHTML = itemsName[idDocSubdivision_local];
 
                 var positionColumn = document.createElement('td');
-                positionColumn.innerHTML = itemsName[idDocPosition];
+                positionColumn.innerHTML = itemsName[idDocPosition_local];
 
                 var toComeInUserName = document.createElement('button');
                 if(translation_JS == null || translation_JS == 'en'){
