@@ -163,19 +163,24 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 var organizationColumn = document.createElement('td');
                 itemsName.forEach((element, index, array) => {
                   if(element[idDocOrganization_local] !== undefined){
-                    console.log(element); // 100, 200, 300
-                  };
-                    console.log(index); // 0, 1, 2
-                    console.log(array); // same myArray object 3 times
+                    organizationColumn.innerHTML = element[idDocOrganization_local];
+                  }
                 });
-                organizationColumn.innerHTML = itemsName[idDocOrganization_local];
                 //
                 var subdivisionColumn = document.createElement('td');
-                subdivisionColumn.innerHTML = itemsName[idDocSubdivision_local];
-
+                itemsName.forEach((element, index, array) => {
+                  if(element[idDocSubdivision_local] !== undefined){
+                    subdivisionColumn.innerHTML = element[idDocSubdivision_local];
+                  }
+                });
+                //
                 var positionColumn = document.createElement('td');
-                positionColumn.innerHTML = itemsName[idDocPosition_local];
-
+                itemsName.forEach((element, index, array) => {
+                  if(element[idDocPosition_local] !== undefined){
+                    positionColumn.innerHTML = element[idDocPosition_local];
+                  }
+                });
+                //
                 var toComeInUserName = document.createElement('button');
                 if(translation_JS == null || translation_JS == 'en'){
                   toComeInUserName.innerHTML = "To come in";
