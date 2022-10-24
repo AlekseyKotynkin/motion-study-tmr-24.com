@@ -95,10 +95,11 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
   function toComeInButtonSubdivision_Admin(obj) {
     //обработка редактирования строки...
+    itemsName = [];
     var objItem = obj.item;
     var idDocOrganization = obj.id;
     var nameOrganization = objItem.Organization;
-    itemsName.push({...{idDocOrganization: nameOrganization}});
+    itemsName.push({...{[idDocOrganization]: nameOrganization}});
     //
     var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
     for(var k = 1; k<tableMyOrganization.rows.length;){
@@ -122,7 +123,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
         console.log(doc.id, " => ", doc.data());
         var idDocSubdivision = doc.id;
         var nameSubdivision = doc.data().Subdivision;
-        itemsName.push({...{idDocSubdivision: nameSubdivision}});
+        itemsName.push({...{[idDocSubdivision]: nameSubdivision}});
         //получаем список должностей
         var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
         docRefSubdivision.collection("Position").get().then((querySnapshot) => {
@@ -131,7 +132,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
             console.log(doc.id, " => ", doc.data());
             var idDocPosition = doc.id;
             var namePosition = doc.data().Position;
-            itemsName.push({...{idDocPosition: namePosition}});
+            itemsName.push({...{[idDocPosition]: namePosition}});
             //получаем список пользователей
             var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
             docRefPosition.collection("PositionUser").get().then((querySnapshot) => {
