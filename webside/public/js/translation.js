@@ -504,7 +504,7 @@ var arrLang = {
     'register_personal_text_2': 'Пожалуйста, предоставьте свою личную информацию для -',
     'to_write': 'ЗАПИСАТЬ',
     'users_name': 'ФИО',
-    'list_own_subdivision_interval_shift': 'Интервал дат для отображения в : "Список смен"',
+    'list_own_subdivision_interval_shift': 'Интервал дат для отображения в таблице: "Список смен"',
 
 
 

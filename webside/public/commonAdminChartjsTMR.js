@@ -164,9 +164,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 itemsName.forEach((element, index, array) => {
                   if(element[idDocOrganization_local] !== undefined){
                     console.log(element); // 100, 200, 300
-                  }
-
-
+                  };
                     console.log(index); // 0, 1, 2
                     console.log(array); // same myArray object 3 times
                 });
