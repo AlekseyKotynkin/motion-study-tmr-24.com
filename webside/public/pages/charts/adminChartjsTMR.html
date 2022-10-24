@@ -16,12 +16,38 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-    <script src="../../jquery-ui-1.13.2/jquery-ui.js"></script>
-    <script src="../../jquery-ui-1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+    /* Локализация datepicker */
+    $.datepicker.regional['ru'] = {
+    	closeText: 'Закрыть',
+    	prevText: 'Предыдущий',
+    	nextText: 'Следующий',
+    	currentText: 'Сегодня',
+    	monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+    	monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+    	dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+    	dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+    	dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+    	weekHeader: 'Не',
+    	dateFormat: 'dd.mm.yy',
+    	firstDay: 1,
+    	isRTL: false,
+    	showMonthAfterYear: false,
+    	yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+    </script>
+
+
+
     <!-- endinject -->
     <script src="../../js/index.js"></script>
     <script src="../../commonAdminChartjsTMR.js"></script>
@@ -418,7 +444,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-description lang" key="list_change_user">Change list of selected user</h4>
-                    <input type="text" id="datepicker" />
+                    <input type="text" id="datepicker">
                     <div class="table-responsive">
                       <table id="tableChangeUser_Admin"class="table">
                         <thead>

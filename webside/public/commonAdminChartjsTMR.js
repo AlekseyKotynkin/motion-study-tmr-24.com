@@ -607,5 +607,5 @@ function toComeInButtonUser(obj) {
   }
   //
   $(function(){
-      $("#datepicker").datepicker();
- });
+  	$("#datepicker").datepicker();
+  });
