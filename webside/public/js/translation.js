@@ -270,7 +270,7 @@ var arrLang = {
     'register_personal_text_2': 'Please provide your personal information for -',
     'to_write': 'TO WRITE',
     'users_name': 'Name',
-    'list_own_subdivision_interval_shift': 'Interva shift',
+    'list_own_subdivision_interval_shift': 'Date interval to display in : "shift list"',
 
 
     'search_projects': 'Search projects',
@@ -504,7 +504,7 @@ var arrLang = {
     'register_personal_text_2': 'Пожалуйста, предоставьте свою личную информацию для -',
     'to_write': 'ЗАПИСАТЬ',
     'users_name': 'ФИО',
-    'list_own_subdivision_interval_shift': 'Интервал смен',
+    'list_own_subdivision_interval_shift': 'Интервал дат для отображения в : "Список смен"',
 
 
 
