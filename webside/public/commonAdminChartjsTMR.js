@@ -611,7 +611,7 @@ function toComeInButtonUser(obj) {
   // $(function(){
   // 	$("#datepicker").datepicker();
   // });
-  $(function () {
-    $('#datepicker').datepicker();
-    $('#datepicker').datepicker('show');
-  });
+  // $(function () {
+  //   $('#datepicker').datepicker();
+  //   $('#datepicker').datepicker('show');
+  // });
