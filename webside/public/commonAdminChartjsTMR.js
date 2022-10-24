@@ -156,7 +156,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
                 var userEmail_tr = document.createElement('td');
                 userEmail_tr.innerHTML = userEmail;
-
+                //
                 var userСomment_tr = document.createElement('td');
                 userСomment_tr.innerHTML = userСomment;
                 //
@@ -190,7 +190,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 toComeInUserName.className = 'badge badge-gradient-success';
                 toComeInUserName.id = idDocUser;
                 toComeInUserName.item = doc.data();
-                toComeInUserName.setAttribute('onclick', 'toComeInButtonEvent_Admin(this)');
+                toComeInUserName.setAttribute('onclick', 'toComeInButtonShift_Admin(this)');
 
                 var toComeInUserColumn = document.createElement('td');
                 toComeInUserColumn.appendChild(toComeInUserName);
