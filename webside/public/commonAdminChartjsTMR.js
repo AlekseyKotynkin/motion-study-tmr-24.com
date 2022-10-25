@@ -14,23 +14,23 @@ var nameActiveUserOrganization = "";
 var nameActiveUserSubdivision = "";
 var nameActiveUserPosition = "";
 //переменные под круговую диаграмму
-var pie_chart_labels = [];
 if(translation_JS == null || translation_JS == 'en'){
-  pie_chart_labels =  [
+  var pie_chart_labels =  [
     'Green',
     'Yellow',
     'orange',
     'Red',
   ]
 } else {
-  pie_chart_labels =  [
+  var pie_chart_labels =  [
      'Должностные обязанности', //зеленый
      'Вспомогательные обязанности', // желтый
      'Прочая деятельность', // оранжевый
      'Простой сотрудника', // красный
   ]
 }
-
+var pie_chart_data = [30, 20, 30, 20];
+//
 
 
 //Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -585,7 +585,64 @@ function toComeInButtonShift_Admin(obj) {
     function translationCommon_EN (){
       ///
     }
-    //
+    //заполняем круговую диаграмму
+    function canvas_pie_chart (){
+      'use strict';
+      var doughnutPieData = {
+        datasets: [{
+          // data: [30, 20, 30, 20],
+          data: pie_chart_data,
+          backgroundColor: [
+            'rgba(10, 245, 33, 0.5)', //зеленый
+            'rgba(233, 245, 10, 0.5)', //желтый
+            'rgba(240, 67, 10, 0.5)', //оранжевый
+            'rgba(240, 10, 48, 0.5)' //красный
+            // 'rgba(153, 102, 255, 0.5)',
+            // 'rgba(255, 159, 64, 0.5)'
+          ],
+          borderColor: [
+            'rgba(10, 245, 33, 1)', //зеленый
+            'rgba(233, 245, 10, 1)',//желтый
+            'rgba(240, 67, 10, 1)', //оранжевый
+            'rgba(240, 10, 48, 1)' //красный
+            // 'rgba(153, 102, 255, 1)',
+            // 'rgba(255, 159, 64, 1)'
+          ],
+        }],
+
+        // Эти метки отображаются в условных обозначениях и во всплывающих подсказках при наведении курсора на разные дуги
+        // labels: [
+        //   'Green',
+        //   'Yellow',
+        //   'orange',
+        //   'Red',
+        // ]
+        labels: pie_chart_labels
+
+      };
+      var doughnutPieOptions = {
+        responsive: true,
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        }
+      };
+      if ($("#doughnutChart_Admin").length) {
+        var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
+        var doughnutChart = new Chart(doughnutChartCanvas, {
+          type: 'doughnut',
+          data: doughnutPieData,
+          options: doughnutPieOptions
+        });
+      }
+
+    }
+    //заполняем столбовую диаграмму
+    function canvas_bar_chart (){
+      ///
+    }
+
+
     // ///
     $(function () {
       /* ChartJS
@@ -648,7 +705,8 @@ function toComeInButtonShift_Admin(obj) {
     };
     var doughnutPieData = {
       datasets: [{
-        data: [30, 20, 30, 20],
+        // data: [30, 20, 30, 20],
+        data: pie_chart_data,
         backgroundColor: [
           'rgba(10, 245, 33, 0.5)', //зеленый
           'rgba(233, 245, 10, 0.5)', //желтый
