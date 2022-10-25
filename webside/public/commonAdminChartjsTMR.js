@@ -316,15 +316,15 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
              var hours = Math.floor(timestamp / 60 / 60);
              if (hours < 10) {
                hours = '0' + hours
-             };
+             }
              var minutes = Math.floor(timestamp / 60) - (hours * 60);
              if (minutes < 10) {
                minutes = '0' + minutes
-             };
+             }
              var seconds = timestamp % 60;
              if (seconds < 10) {
                seconds = '0' + seconds
-             };
+             }
              var formatted = hours + ':' + minutes + ':' + seconds;
              formattedColumn.innerHTML = formatted;
 
@@ -376,8 +376,34 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      var tableDuble = document.getElementById("tableDetailingShift_Admin");
      for(var i = 1;i<tableDuble.rows.length;){
        tableDuble.deleteRow(i);
-     };
+     }
+     ///заполняем круговую диаграмму
+     // Get context with jQuery - using jQuery's .get() method.
+     if ($("#barChart_Admin").length) {
+       var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
+       // This will get the first returned node in the jQuery collection.
+       var barChart = new Chart(barChartCanvas, {
+         type: 'bar',
+         data: data,
+         options: options
+       });
+     }
+     ///
 
+
+     ///заполняем диаграмму столбцами
+     if ($("#doughnutChart_Admin").length) {
+       var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
+       var doughnutChart = new Chart(doughnutChartCanvas, {
+         type: 'doughnut',
+         data: doughnutPieData,
+         options: doughnutPieOptions
+       });
+     }
+
+
+
+     ///
      var docRefShift = db.collection("WorkShift").doc(nameDocShift);
      docRefShift.collection("ProcessUser").get().then(function(querySnapshot) {
        querySnapshot.forEach(function(doc) {
@@ -407,15 +433,15 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
            var hours = Math.floor(timestamp / 60 / 60);
            if (hours < 10) {
              hours = '0' + hours
-           };
+           }
            var minutes = Math.floor(timestamp / 60) - (hours * 60);
            if (minutes < 10) {
              minutes = '0' + minutes
-           };
+           }
            var seconds = timestamp % 60;
            if (seconds < 10) {
              seconds = '0' + seconds
-           };
+           }
            var formatted = hours + ':' + minutes + ':' + seconds;
            formattedColumn.innerHTML = formatted;
 
@@ -504,19 +530,38 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
     var processUserEnd = idEventItem.ProcessUserEnd;
     var commitDescriptioText = idEventItem.CommitDescriptioText;
     if (commitDescriptioText === undefined) {
-      commitDescriptioText = 'no data'
+      if(translation_JS == null || translation_JS == 'en'){
+        commitDescriptioText = 'no data'
+      } else {
+        commitDescriptioText = 'нет данных'
+      }
     };
     var resultControlButton = idEventItem.ResultControlButton;
     if (resultControlButton === undefined) {
-      resultControlButton = 'no data'
+      if (resultControlButton === undefined) {
+        if(translation_JS == null || translation_JS == 'en'){
+          resultControlButton = 'no data'
+        } else {
+          resultControlButton = 'нет данных'
+        }
     };
 
-    document.getElementById("nameEvent").innerHTML = "Name: "+ nameDocProcessButton;
-    document.getElementById("timeStartEvent").innerHTML = "Start time: "+ timeStartShift;
-    document.getElementById("timeEndEvent").innerHTML = "End time: "+ timeEndShift;
-    document.getElementById("eventDuration").innerHTML = "Duration: "+ formatted;
-    document.getElementById("commitDescriptioText").innerHTML = "Comment: "+ commitDescriptioText;
-    document.getElementById("resultControlButton").innerHTML = "Test case: "+ resultControlButton;
+    if(translation_JS == null || translation_JS == 'en'){
+      document.getElementById("nameEvent_Admin").innerHTML = "Name: "+ nameDocProcessButton;
+      document.getElementById("timeStartEvent_Admin").innerHTML = "Start time: "+ timeStartShift;
+      document.getElementById("timeEndEvent_Admin").innerHTML = "End time: "+ timeEndShift;
+      document.getElementById("eventDuration_Admin").innerHTML = "Duration: "+ formatted;
+      document.getElementById("commitDescriptioText_Admin").innerHTML = "Comment: "+ commitDescriptioText;
+      // document.getElementById("resultControlButton_Admin").innerHTML = "Test case: "+ resultControlButton;
+    } else {
+      document.getElementById("nameEvent_Admin").innerHTML = "Название: "+ nameDocProcessButton;
+      document.getElementById("timeStartEvent_Admin").innerHTML = "Время начала: "+ timeStartShift;
+      document.getElementById("timeEndEvent_Admin").innerHTML = "Время окончания: "+ timeEndShift;
+      document.getElementById("eventDuration_Admin").innerHTML = "Продолжительность: "+ formatted;
+      document.getElementById("commitDescriptioText_Admin").innerHTML = "Комментарий: "+ commitDescriptioText;
+      // document.getElementById("resultControlButton_Admin").innerHTML = "Тестовый пример: "+ resultControlButton;
+    }
+
 
     $(document).ready(function(){
       $("#gridSystemModalInfoEventID_Admin").modal("show");

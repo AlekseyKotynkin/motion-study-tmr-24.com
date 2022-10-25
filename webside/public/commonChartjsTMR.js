@@ -591,19 +591,38 @@ var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '=='
     var processUserEnd = idEventItem.ProcessUserEnd;
     var commitDescriptioText = idEventItem.CommitDescriptioText;
     if (commitDescriptioText === undefined) {
-      commitDescriptioText = 'no data'
+      if (commitDescriptioText === undefined) {
+        if(translation_JS == null || translation_JS == 'en'){
+          commitDescriptioText = 'no data'
+        } else {
+          commitDescriptioText = 'нет данных'
+        }
     };
     var resultControlButton = idEventItem.ResultControlButton;
     if (resultControlButton === undefined) {
-      resultControlButton = 'no data'
+      if (resultControlButton === undefined) {
+        if(translation_JS == null || translation_JS == 'en'){
+          resultControlButton = 'no data'
+        } else {
+          resultControlButton = 'нет данных'
+        }
     };
 
-    document.getElementById("nameEvent").innerHTML = "Name: "+ nameDocProcessButton;
-    document.getElementById("timeStartEvent").innerHTML = "Start time: "+ timeStartShift;
-    document.getElementById("timeEndEvent").innerHTML = "End time: "+ timeEndShift;
-    document.getElementById("eventDuration").innerHTML = "Duration: "+ formatted;
-    document.getElementById("commitDescriptioText").innerHTML = "Comment: "+ commitDescriptioText;
-    document.getElementById("resultControlButton").innerHTML = "Test case: "+ resultControlButton;
+    if(translation_JS == null || translation_JS == 'en'){
+      document.getElementById("nameEvent").innerHTML = "Name: "+ nameDocProcessButton;
+      document.getElementById("timeStartEvent").innerHTML = "Start time: "+ timeStartShift;
+      document.getElementById("timeEndEvent").innerHTML = "End time: "+ timeEndShift;
+      document.getElementById("eventDuration").innerHTML = "Duration: "+ formatted;
+      document.getElementById("commitDescriptioText").innerHTML = "Comment: "+ commitDescriptioText;
+      // document.getElementById("resultControlButton_Admin").innerHTML = "Test case: "+ resultControlButton;
+    } else {
+      document.getElementById("nameEvent").innerHTML = "Название: "+ nameDocProcessButton;
+      document.getElementById("timeStartEvent").innerHTML = "Время начала: "+ timeStartShift;
+      document.getElementById("timeEndEvent").innerHTML = "Время окончания: "+ timeEndShift;
+      document.getElementById("eventDuration").innerHTML = "Продолжительность: "+ formatted;
+      document.getElementById("commitDescriptioText").innerHTML = "Комментарий: "+ commitDescriptioText;
+      // document.getElementById("resultControlButton_Admin").innerHTML = "Тестовый пример: "+ resultControlButton;
+    }
 
     $(document).ready(function(){
       $("#gridSystemModalInfoEventID").modal("show");
