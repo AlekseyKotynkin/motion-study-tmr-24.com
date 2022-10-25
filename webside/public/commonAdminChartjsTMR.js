@@ -13,6 +13,24 @@ var namePosition = "";
 var nameActiveUserOrganization = "";
 var nameActiveUserSubdivision = "";
 var nameActiveUserPosition = "";
+//переменные под круговую диаграмму
+var pie_chart_labels = [];
+if(translation_JS == null || translation_JS == 'en'){
+  pie_chart_labels =  [
+    'Green',
+    'Yellow',
+    'orange',
+    'Red',
+  ]
+} else {
+  pie_chart_labels =  [
+     'Должностные обязанности', //зеленый
+     'Вспомогательные обязанности', // желтый
+     'Прочая деятельность', // оранжевый
+     'Простой сотрудника', // красный
+  ]
+}
+
 
 
 //Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -508,7 +526,7 @@ function toComeInButtonShift_Admin(obj) {
     function createATableOfClientAdmin()
     {
 
-    };
+    }
 
     //Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
 
@@ -523,7 +541,7 @@ function toComeInButtonShift_Admin(obj) {
       //   }];
       // localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
       // window.location.replace("indexAdminOrganization.html");
-    };
+    }
 
 
     //Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
@@ -540,11 +558,7 @@ function toComeInButtonShift_Admin(obj) {
 
     }
 
-
-
-
     //Обработчик кнопки toComeInUserColumn из таблицы List of posts in which you are involved as a User из firestore.
-
     function toComeInButtonUser(obj) {
       //обработка редактирования строки...
       var objItem = obj.item;
@@ -557,19 +571,6 @@ function toComeInButtonShift_Admin(obj) {
       // window.location.replace("indexUser.html");
     }
 
-
-    // Обработчик кнопки quitColumn из таблицы List of posts in which you are involved as a User из firestore.
-
-    // function quitButtonUser(obj) {
-    // let objId = obj.id;
-    // alert('Document successfully deleted! '+ (objId));
-    //   db.collection("Organization").doc(objId).delete().then(function() {
-    //       console.log("Document successfully deleted!");
-    //   }).catch(function(error) {
-    //       console.error("Error removing document: ", error);
-    //   });
-    //   window.location.reload();
-    // }
 
     // открыть окно Фейсбука
     function location_Href(){
@@ -598,20 +599,30 @@ function toComeInButtonShift_Admin(obj) {
           label: '# of Votes',
           data: [10, 19, 3, 5, 2, 3],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(10, 245, 33, 0.2)', //зеленый
+            'rgba(233, 245, 10, 0.2)', //желтый
+            'rgba(240, 67, 10, 0.2)', //оранжевый
+            'rgba(240, 10, 48, 0.2)', //красный
+            'rgba(255, 99, 132, 0.2)', //
+            'rgba(54, 162, 235, 0.2)', //
+            'rgba(255, 206, 86, 0.2)', //
+            'rgba(191, 38, 189, 0.2)', //
+            'rgba(153, 102, 255, 0.2)', //
+            'rgba(255, 159, 64, 0.2)', //
+            'rgba(38, 48, 191, 0.2)' // синий
           ],
           borderColor: [
+            'rgba(10, 245, 33, 1)', //зеленый
+            'rgba(233, 245, 10, 1)', //желтый
+            'rgba(240, 67, 10, 1)', //оранжевый
+            'rgba(240, 10, 48, 1)', //красный
             'rgba(255,99,132,1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
+            'rgba(191, 38, 189, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)', //
+            'rgba(38, 48, 191, 1)'//синий
           ],
           borderWidth: 1,
           fill: false
@@ -657,12 +668,14 @@ function toComeInButtonShift_Admin(obj) {
       }],
 
       // Эти метки отображаются в условных обозначениях и во всплывающих подсказках при наведении курсора на разные дуги
-      labels: [
-        'Green',
-        'Yellow',
-        'orange',
-        'Red',
-      ]
+      // labels: [
+      //   'Green',
+      //   'Yellow',
+      //   'orange',
+      //   'Red',
+      // ]
+      labels: pie_chart_labels
+
     };
     var doughnutPieOptions = {
       responsive: true,
