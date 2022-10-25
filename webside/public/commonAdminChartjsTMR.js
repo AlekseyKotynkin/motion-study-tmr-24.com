@@ -585,113 +585,6 @@ function toComeInButtonShift_Admin(obj) {
       ///
     }
     //
-    // $(function () {
-    //   /* ChartJS
-    //   * -------
-    //   * Data and config for chartjs
-    //   */
-    //   'use strict';
-    //   ////
-    //   var options = {
-    //     scales: {
-    //       yAxes: [{
-    //         ticks: {
-    //           beginAtZero: true
-    //         }
-    //       }]
-    //     },
-    //     legend: {
-    //       display: false
-    //     },
-    //     elements: {
-    //       point: {
-    //         radius: 0
-    //       }
-    //     }
-    //   }
-    //   ////
-    //   var data = {
-    //     labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-    //     datasets: [{
-    //       label: '# of Votes',
-    //       data: [10, 19, 3, 5, 2, 3],
-    //       backgroundColor: [
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(54, 162, 235, 0.2)',
-    //         'rgba(255, 206, 86, 0.2)',
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(153, 102, 255, 0.2)',
-    //         'rgba(255, 159, 64, 0.2)'
-    //       ],
-    //       borderColor: [
-    //         'rgba(255,99,132,1)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(153, 102, 255, 1)',
-    //         'rgba(255, 159, 64, 1)'
-    //       ],
-    //       borderWidth: 1,
-    //       fill: false
-    //     }]
-    //   }
-    //   ///
-    //   var doughnutPieData = {
-    //     datasets: [{
-    //       data: [30, 40, 30],
-    //       backgroundColor: [
-    //         'rgba(255, 99, 132, 0.5)',
-    //         'rgba(54, 162, 235, 0.5)',
-    //         'rgba(255, 206, 86, 0.5)',
-    //         'rgba(75, 192, 192, 0.5)',
-    //         'rgba(153, 102, 255, 0.5)',
-    //         'rgba(255, 159, 64, 0.5)'
-    //       ],
-    //       borderColor: [
-    //         'rgba(255,99,132,1)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(153, 102, 255, 1)',
-    //         'rgba(255, 159, 64, 1)'
-    //       ],
-    //     }],
-    //     // These labels appear in the legend and in the tooltips when hovering different arcs
-    //     labels: [
-    //       'Pink',
-    //       'Blue',
-    //       'Yellow',
-    //     ]
-    //   }
-    //   ////
-    //   var doughnutPieOptions = {
-    //     responsive: true,
-    //     animation: {
-    //       animateScale: true,
-    //       animateRotate: true
-    //     }
-    //   };
-    //   ///заполняем круговую диаграмму
-    //   // Get context with jQuery - using jQuery's .get() method.
-    //   if ($("#barChart_Admin").length) {
-    //     var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
-    //     // This will get the first returned node in the jQuery collection.
-    //     var barChart = new Chart(barChartCanvas, {
-    //       type: 'bar',
-    //       data: data,
-    //       options: options
-    //     });
-    //   }
-    //   ///заполняем диаграмму столбцами
-    //   if ($("#doughnutChart_Admin").length) {
-    //     var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
-    //     var doughnutChart = new Chart(doughnutChartCanvas, {
-    //       type: 'doughnut',
-    //       data: doughnutPieData,
-    //       options: doughnutPieOptions
-    //     });
-    //   }
-    // })
     // ///
     $(function () {
       /* ChartJS
@@ -744,30 +637,31 @@ function toComeInButtonShift_Admin(obj) {
     };
     var doughnutPieData = {
       datasets: [{
-        data: [30, 40, 30],
+        data: [30, 20, 30, 20],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
-          'rgba(255, 159, 64, 0.5)'
+          'rgba(10, 245, 33, 0.5)', //зеленый
+          'rgba(233, 245, 10, 0.5)', //желтый
+          'rgba(240, 67, 10, 0.5)', //оранжевый
+          'rgba(240, 10, 48, 0.5)' //красный
+          // 'rgba(153, 102, 255, 0.5)',
+          // 'rgba(255, 159, 64, 0.5)'
         ],
         borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(10, 245, 33, 1)', //зеленый
+          'rgba(233, 245, 10, 1)',//желтый
+          'rgba(240, 67, 10, 1)', //оранжевый
+          'rgba(240, 10, 48, 1)' //красный
+          // 'rgba(153, 102, 255, 1)',
+          // 'rgba(255, 159, 64, 1)'
         ],
       }],
 
-      // These labels appear in the legend and in the tooltips when hovering different arcs
+      // Эти метки отображаются в условных обозначениях и во всплывающих подсказках при наведении курсора на разные дуги
       labels: [
-        'Pink',
-        'Blue',
+        'Green',
         'Yellow',
+        'orange',
+        'Red',
       ]
     };
     var doughnutPieOptions = {
