@@ -648,22 +648,11 @@ function toComeInButtonUser(obj) {
   // });
   $(function () {
     /* ChartJS
-     * -------
-     * Data and config for chartjs
-     */
+    * -------
+    * Data and config for chartjs
+    */
     'use strict';
-    ///заполняем круговую диаграмму
-    // Get context with jQuery - using jQuery's .get() method.
-    if ($("#barChart_Admin").length) {
-      var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
-      // This will get the first returned node in the jQuery collection.
-      var barChart = new Chart(barChartCanvas, {
-        type: 'bar',
-        data: data,
-        options: options
-      });
-    }
-
+    ////
     var options = {
       scales: {
         yAxes: [{
@@ -680,8 +669,8 @@ function toComeInButtonUser(obj) {
           radius: 0
         }
       }
-
-    };
+    }
+    ////
     var data = {
       labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
       datasets: [{
@@ -706,22 +695,8 @@ function toComeInButtonUser(obj) {
         borderWidth: 1,
         fill: false
       }]
-    };
-
-
-    ///
-
-
-    ///заполняем диаграмму столбцами
-    if ($("#doughnutChart_Admin").length) {
-      var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
-      var doughnutChart = new Chart(doughnutChartCanvas, {
-        type: 'doughnut',
-        data: doughnutPieData,
-        options: doughnutPieOptions
-      });
     }
-
+    ///
     var doughnutPieData = {
       datasets: [{
         data: [30, 40, 30],
@@ -742,14 +717,14 @@ function toComeInButtonUser(obj) {
           'rgba(255, 159, 64, 1)'
         ],
       }],
-
       // These labels appear in the legend and in the tooltips when hovering different arcs
       labels: [
         'Pink',
         'Blue',
         'Yellow',
       ]
-    };
+    }
+    ////
     var doughnutPieOptions = {
       responsive: true,
       animation: {
@@ -757,8 +732,25 @@ function toComeInButtonUser(obj) {
         animateRotate: true
       }
     };
-    ///
-
-
-
-    });
+    ///заполняем круговую диаграмму
+    // Get context with jQuery - using jQuery's .get() method.
+    if ($("#barChart_Admin").length) {
+      var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
+      // This will get the first returned node in the jQuery collection.
+      var barChart = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: data,
+        options: options
+      });
+    }
+    ///заполняем диаграмму столбцами
+    if ($("#doughnutChart_Admin").length) {
+      var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
+      var doughnutChart = new Chart(doughnutChartCanvas, {
+        type: 'doughnut',
+        data: doughnutPieData,
+        options: doughnutPieOptions
+      });
+    }
+  })
+  ///
