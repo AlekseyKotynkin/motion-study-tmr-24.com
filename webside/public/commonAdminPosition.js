@@ -1982,18 +1982,18 @@ function gridSystemSaveSettingsShiftPosition()
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
   var namePosition = itemPositionsListSettings[i].namePosition;
-  var SettingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key.value;
-  var SettingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key.value;
-  var SettingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result.value;
+  var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key.value;
+  var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key.value;
+  var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result.value;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
   var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
   var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
   if (namePosition == settingsTitle)
     {
       docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
-        SettingsSalesFunnel_Availability_key: SettingsSalesFunnel_Availability_key,
-        SettingsSalesFunnel_Stage_key: SettingsSalesFunnel_Stage_key,
-        SettingsSalesFunnel_Result_key: SettingsSalesFunnel_Result_key,
+        SettingsSalesFunnel_Availability_key: settingsSalesFunnel_Availability_key,
+        SettingsSalesFunnel_Stage_key: settingsSalesFunnel_Stage_key,
+        SettingsSalesFunnel_Result_key: settingsSalesFunnel_Result_key,
       }).then(function() {
         console.log("Frank food updated");
       });
