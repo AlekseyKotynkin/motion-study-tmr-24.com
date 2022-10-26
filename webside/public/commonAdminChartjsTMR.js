@@ -31,11 +31,11 @@ if(translation_JS == null || translation_JS == 'en'){
      'Простой сотрудника', // красный
   ]
 }
-var pie_chart_data = [30, 20, 30, 20];
+var pie_chart_data = [];
 var pie_chart_map = [];
 //переменные под столбчатую диаграмму
-var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
-var bar_chart_data = [10, 19, 3, 5, 2, 3];
+var bar_chart_labels =  []
+var bar_chart_data = [];
 var bar_chart_map = [];
 
 //
@@ -364,6 +364,7 @@ function toComeInButtonShift_Admin(obj) {
   function toComeInButtonEvent_Admin(objs) {
     //обработка редактирования строки...
     // let objItem = obj.item;
+    bar_chart_map_local = [];
     var itemsShiftDoc = [];
     var idDocShift = objs.id;
     //
@@ -659,12 +660,12 @@ function toComeInButtonShift_Admin(obj) {
         }
       });
       ///
-      var bar_chart_map = Object.values(obj_bar)
+      bar_chart_map = Object.values(obj_bar)
       console.log(bar_chart_map);
       ///
       bar_chart_map.forEach((item_bar)=>{
           bar_chart_labels.push(item_bar.nameDocProcessButton_mapChartjs);
-          bar_chart_data.push(item_bar.processUserFormattedTime);
+          bar_chart_data.push(item_bar.processUserFormattedTime/60);
       });
       ///
       canvas_bar_chart();
@@ -706,8 +707,9 @@ function toComeInButtonShift_Admin(obj) {
           data: doughnutPieData,
           options: doughnutPieOptions
         });
-      }
-
+      };
+      pie_chart_data = [];
+      pie_chart_map = [];
     }
     //заполняем столбовую диаграмму
     function canvas_bar_chart (){
@@ -774,7 +776,10 @@ function toComeInButtonShift_Admin(obj) {
           data: data,
           options: options
         });
-      }
+      };
+      bar_chart_labels = [];
+      bar_chart_data = [];
+      bar_chart_map = [];
     }
 /////////////////
     // ///
