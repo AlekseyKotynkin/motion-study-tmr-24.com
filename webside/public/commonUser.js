@@ -253,6 +253,36 @@ function CloseShiftUser() {
         } else {
           alert ("Удачи Вам!");
         }
+        //добавляем документ при открытие смены
+        idDocShiftUser = docRef.id;
+        idActivButtonUser = "idButtonsExpect";
+        if(translation_JS == null || translation_JS == 'en'){
+          nameDocActivButtonUser = "Expect";
+        } else {
+          nameDocActivButtonUser = "Ожидаю";
+        }
+        var timestampStart = firebase.firestore.FieldValue.serverTimestamp();
+        var docRefWorkShift = db.collection("WorkShift").doc(idDocShiftUser);
+        docRefWorkShift.collection("ProcessUser").add({
+          EmailPositionUser: EmailPositionUserLocalStorage,
+          IdDocPosition: idDocPosition,
+          ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
+          ProcessUserEnd: "",
+          SettingsSalesFunnel_Stage_key_doc: "str0",
+          ProcessUserStartTime: timestampStart,
+          IdDocProcessButton: idActivButtonUser,
+          NameDocProcessButton: nameDocActivButtonUser,
+        }).then(function(docRef) {
+          // console.log("Document written with ID: ", docRef.id);
+          idDocActivButtonUser = docRef.id;
+          var elem = document.getElementById(idActivButtonUser);
+          elem.classList.toggle('active');
+          window.location.replace("indexUser.html");
+        }).catch(function(error) {
+          console.error("Error adding document: ", error);
+          window.location.replace("indexUser.html");
+        });
+      // end добавление документа
       } else {
         // Получить активный процесс и закрыть его.
         var elemExit = document.getElementById(idActivButtonUser);
