@@ -1961,9 +1961,9 @@ function gridSystemSaveSettingsShiftPosition()
   //удалил шапку таблицы
   var itemPositionsListSettings =[];
   tablePositionsListSettings.deleteRow(0);
-  tablePositionsListSettings.deleteRow(1);
-  tablePositionsListSettings.deleteRow(2);
-  tablePositionsListSettings.deleteRow(3);
+  tablePositionsListSettings.deleteRow(0);
+  tablePositionsListSettings.deleteRow(0);
+  tablePositionsListSettings.deleteRow(0);
   var rowLength = tablePositionsListSettings.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListSettings.rows.item(i).cells;
