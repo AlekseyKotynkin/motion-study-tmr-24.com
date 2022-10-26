@@ -37,7 +37,6 @@ var pie_chart_map = [];
 var bar_chart_labels =  []
 var bar_chart_data = [];
 var bar_chart_map = [];
-
 //
 
 //Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -250,6 +249,91 @@ function toComeInButtonShift_Admin(obj) {
       itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
     });
     itemsActiveUserName = itemsActiveUserName.sort(( a, b ) => b.WorkShiftStartTime - a.WorkShiftStartTime);
+    //// отбираем смены попадающие в интервал дат
+    //получаем и проверяем заполненость ячеек из формы
+    var getAnalysisStartDate_Admin = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
+    var getAnalysisStartEnd_Admin = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
+    if(getAnalysisStartDate_Admin !== undefined){
+      var dayAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[0];
+      var monthAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[1];
+      var yearAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[2];
+      if (dayAnalysisStartDate_Admin > 31)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      if (monthAnalysisStartDate_Admin > 12)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      if (yearAnalysisStartDate_Admin.length < 4)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      var dateComparisonStart_Admin = +new Date(yearAnalysisStartDate_Admin, monthAnalysisStartDate_Admin-1, dayAnalysisStartDate_Admin, 0, 0, 0);
+
+
+    }
+
+    if(getAnalysisStartEnd_Admin !== undefined){
+      if (getAnalysisStartDate_Admin.length < 1)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the start date!.');
+        } else {
+          alert ("Пожалуйста, укажите начальную дату!");
+        }
+       return;
+      }
+      var dayAnalysisEndDate_Admin = getAnalysisStartEnd_Admin.split("/")[0];
+      var monthAnalysisEndDate_Admin = getAnalysisStartEnd_Admin.split("/")[1];
+      var yearAnalysisEndDate_Admin = getAnalysisStartEnd_Admin.split("/")[2];
+      if (dayAnalysisEndDate_Admin > 31)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      if (monthAnalysisEndDate_Admin > 12)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      if (yearAnalysisEndDate_Admin.length < 4)
+      {
+        if(translation_JS == null || translation_JS == 'en'){
+          alert('Please fill in the date according to the template!');
+        } else {
+          alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+        }
+        return;
+      }
+      var dateComparisonExpiration_Admin = +new Date(yearAnalysisEndDate_Admin, monthAnalysisEndDate_Admin-1, dayAnalysisEndDate_Admin, 23, 59, 59);
+
+
+    }
+    //// end отбираем смены попадающие в интервал дат
     itemsActiveUserName.forEach(function(element){
       var idDocOrganization = element.idDocOrganization ;
       var idDocSubdivision = element.idDocSubdivision ;
