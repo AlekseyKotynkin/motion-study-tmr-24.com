@@ -260,6 +260,9 @@ function CloseShiftUser() {
         idActivButtonUser = obj.id;
         nameDocActivButtonUser = obj.innerText;
         var settingsSalesFunnel_Stage_key_doc = obj.item;
+        if (settingsSalesFunnel_Stage_key_doc){
+          settingsSalesFunnel_Stage_key_doc = "str0";
+        }
         var elem = document.getElementById(idActivButtonUser);
         elem.classList.toggle('active');
         var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
