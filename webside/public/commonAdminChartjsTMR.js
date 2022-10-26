@@ -387,8 +387,10 @@ function toComeInButtonShift_Admin(obj) {
         var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
         var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
         var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-
-        bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime});
+        if(settingsSalesFunnel_Stage_key_mapChartjs == undefined){
+          settingsSalesFunnel_Stage_key_mapChartjs ="str0";
+        }
+        bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime, settingsSalesFunnel_Stage_key_mapChartjs: settingsSalesFunnel_Stage_key_mapChartjs});
       });
       itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
       canvas_pie_chart_data ();
@@ -625,16 +627,23 @@ function toComeInButtonShift_Admin(obj) {
 
     // расчитываем данные для круговой диаграммы
     function canvas_bar_chart_data (){
+      var obj_bar = {}
 
-      // var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-      // var idDocPosition_mapChartjs = doc.data().IdDocPosition;
-      // var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-      // var processUserEndTime_mapChartjs = doc.data().processUserEndTime;
-      // var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
-      // bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocPosition_mapChartjs: idDocPosition_mapChartjs, processUserFormattedTime: processUserFormattedTime});
+      bar_chart_map_local.forEach((item_bar)=>{
+        if(obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs]){
+          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime = obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime + item_bar.processUserFormattedTime
+        }else{
+          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs] = item_bar
+        }
+      });
+
+      var valuesArr_bar = Object.values(obj_bar)
+      console.log(valuesArr_bar);
 
 
 
+
+      // bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime, settingsSalesFunnel_Stage_key_mapChartjs: settingsSalesFunnel_Stage_key_mapChartjs});
 
       ///
     }
