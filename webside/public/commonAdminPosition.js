@@ -1961,6 +1961,9 @@ function gridSystemSaveSettingsShiftPosition()
   //удалил шапку таблицы
   var itemPositionsListSettings =[];
   tablePositionsListSettings.deleteRow(0);
+  tablePositionsListSettings.deleteRow(1);
+  tablePositionsListSettings.deleteRow(2);
+  tablePositionsListSettings.deleteRow(3);
   var rowLength = tablePositionsListSettings.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListSettings.rows.item(i).cells;
@@ -1975,7 +1978,7 @@ function gridSystemSaveSettingsShiftPosition()
      itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability_key: cellVal_2},...{SettingsSalesFunnel_Stage_key: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
    }
   // удаляем 3 настройки базовых кнопок
-  itemPositionsListSettings.splice(0, 3);
+  // itemPositionsListSettings.splice(0, 3);
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
   var namePosition = itemPositionsListSettings[i].namePosition;
