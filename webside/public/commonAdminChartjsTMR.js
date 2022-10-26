@@ -382,11 +382,11 @@ function toComeInButtonShift_Admin(obj) {
         console.log(doc.id, " => ", doc.data());
         itemsShiftDoc.push({...doc.data(),...{idDocShift: doc.id}});
         var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-        var idDocPosition_mapChartjs = doc.data().IdDocPosition;
+        var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
         var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-        var processUserEndTime_mapChartjs = doc.data().processUserEndTime;
+        var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
         var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
-        bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocPosition_mapChartjs: idDocPosition_mapChartjs, processUserFormattedTime: processUserFormattedTime});
+        bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime});
       });
       itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
       canvas_pie_chart_data ();
@@ -609,14 +609,14 @@ function toComeInButtonShift_Admin(obj) {
       var obj = {}
 
       bar_chart_map_local.forEach((item)=>{
-        if(obj[item.idDocPosition_mapChartjs]){
-          obj[item.idDocPosition_mapChartjs].processUserFormattedTime = obj[item.idDocPosition_mapChartjs].processUserFormattedTime + item.processUserFormattedTime
+        if(obj[item.idDocProcessButton_mapChartjs]){
+          obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime = obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime + item.processUserFormattedTime
         }else{
-          obj[item.idDocPosition_mapChartjs] = item
+          obj[item.idDocProcessButton_mapChartjs] = item
         }
-      })
+      });
 
-      let valuesArr = Object.values(obj)
+      var valuesArr = Object.values(obj)
       console.log(valuesArr);
       //
     }
