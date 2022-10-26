@@ -837,7 +837,7 @@ function gridSystemModalNewSettingsSubmit()
   SettingsResultControlOption7: "",
   SettingsResultControlOption8: "",
   SettingsSalesFunnel_Availability_key: "",
-  SettingsSalesFunnel_Stage_key: "",
+  SettingsSalesFunnel_Stage_key: "str0",
   SettingsSalesFunnel_Result_key: "",
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
