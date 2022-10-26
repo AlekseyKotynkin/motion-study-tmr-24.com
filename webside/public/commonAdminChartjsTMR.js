@@ -665,7 +665,8 @@ function toComeInButtonShift_Admin(obj) {
       ///
       bar_chart_map.forEach((item_bar)=>{
           bar_chart_labels.push(item_bar.nameDocProcessButton_mapChartjs);
-          bar_chart_data.push(item_bar.processUserFormattedTime/60);
+          var time_a = Math.ceil(item_bar.processUserFormattedTime/60);
+          bar_chart_data.push(time_a);
       });
       ///
       canvas_bar_chart();
