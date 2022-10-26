@@ -111,12 +111,14 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
     // console.log(doc.id, " => ", doc.data());
     items.push({...doc.data(),...{idDocPositionSettings: doc.id}});
     var nameButton = doc.data().SettingsTitle;
+    var settingsSalesFunnel_Stage_key_doc = doc.data().SettingsSalesFunnel_Stage_key;
     my_div = document.getElementById("idButtons");
     var lit = '<button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="idButtonsX" onclick ="toRegisterProcessUser(this)"></button>';
     my_div.insertAdjacentHTML("beforeend", lit);
     my_div = document.getElementById("idButtonsX");
     var li = '<p class="text">'+(nameButton)+'</p>';
     my_div.insertAdjacentHTML("beforeend", li);
+    document.getElementById('idButtonsX').item = settingsSalesFunnel_Stage_key_doc;
     document.getElementById('idButtonsX').id = doc.id;
   });
 });
@@ -151,6 +153,7 @@ function AddShiftUser() {
       IdDocPosition: idDocPosition,
       ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
       ProcessUserEnd: "",
+      SettingsSalesFunnel_Stage_key_doc: "str0",
       ProcessUserStartTime: timestampStart,
       IdDocProcessButton: idActivButtonUser,
       NameDocProcessButton: nameDocActivButtonUser,
@@ -256,6 +259,7 @@ function CloseShiftUser() {
         elemExit.classList.toggle('active');
         idActivButtonUser = obj.id;
         nameDocActivButtonUser = obj.innerText;
+        var settingsSalesFunnel_Stage_key_doc = obj.item;
         var elem = document.getElementById(idActivButtonUser);
         elem.classList.toggle('active');
         var timestampStop = firebase.firestore.FieldValue.serverTimestamp();
@@ -274,6 +278,7 @@ function CloseShiftUser() {
             IdDocPosition: idDocPosition,
             ParentHierarchyPositionUser: ParentHierarchyPositionUserlocalStorage,
             ProcessUserEnd: "",
+            SettingsSalesFunnel_Stage_key_doc: settingsSalesFunnel_Stage_key_doc,
             ProcessUserStartTime: timestampStart,
             IdDocProcessButton: idActivButtonUser,
             NameDocProcessButton: nameDocActivButtonUser,

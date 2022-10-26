@@ -386,6 +386,8 @@ function toComeInButtonShift_Admin(obj) {
         var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
         var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
         var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
+        var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+
         bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime});
       });
       itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
