@@ -118,7 +118,7 @@ docRefPosition.collection("PositionSettings").get().then(function(querySnapshot)
     my_div = document.getElementById("idButtonsX");
     var li = '<p class="text">'+(nameButton)+'</p>';
     my_div.insertAdjacentHTML("beforeend", li);
-    document.getElementById('idButtonsX').item = settingsSalesFunnel_Stage_key_doc;
+    document.getElementById('idButtonsX').value = settingsSalesFunnel_Stage_key_doc;
     document.getElementById('idButtonsX').id = doc.id;
   });
 });
@@ -289,8 +289,8 @@ function CloseShiftUser() {
         elemExit.classList.toggle('active');
         idActivButtonUser = obj.id;
         nameDocActivButtonUser = obj.innerText;
-        var settingsSalesFunnel_Stage_key_doc = obj.item;
-        if (settingsSalesFunnel_Stage_key_doc){
+        var settingsSalesFunnel_Stage_key_doc = obj.value;
+        if (settingsSalesFunnel_Stage_key_doc == undefined){
           settingsSalesFunnel_Stage_key_doc = "str0";
         }
         var elem = document.getElementById(idActivButtonUser);
