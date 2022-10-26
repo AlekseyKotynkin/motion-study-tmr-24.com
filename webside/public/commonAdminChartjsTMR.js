@@ -608,15 +608,16 @@ function toComeInButtonShift_Admin(obj) {
 
     // расчитываем данные для круговой диаграммы
     function canvas_pie_chart_data (){
-      var obj = {}
-      bar_chart_map_local.forEach((item)=>{
-        if(obj[item.idDocProcessButton_mapChartjs]){
-          obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime = obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime + item.processUserFormattedTime
+      var obj_bar = {}
+      ///
+      bar_chart_map_local.forEach((item_bar)=>{
+        if(obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs]){
+          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime = obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime + item_bar.processUserFormattedTime;
         }else{
-          obj[item.idDocProcessButton_mapChartjs] = item
+          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs] = item_bar;
         }
       });
-      pie_chart_map = Object.values(obj)
+      pie_chart_map = Object.values(obj_bar)
       console.log(pie_chart_map);
       //формируем данные для диаграммы
       var sum = pie_chart_map.map(o => o.processUserFormattedTime).reduce((a, c) => { return a + c });
@@ -650,17 +651,16 @@ function toComeInButtonShift_Admin(obj) {
 
     // расчитываем данные для круговой диаграммы
     function canvas_bar_chart_data (){
-      var obj_bar = {}
-      ///
-      bar_chart_map_local.forEach((item_bar)=>{
-        if(obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs]){
-          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime = obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime + item_bar.processUserFormattedTime
+      var obj = {}
+      bar_chart_map_local.forEach((item)=>{
+        if(obj[item.idDocProcessButton_mapChartjs]){
+          obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime = obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime + item.processUserFormattedTime;
         }else{
-          obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs] = item_bar
+          obj[item.idDocProcessButton_mapChartjs] = item;
         }
       });
       ///
-      bar_chart_map = Object.values(obj_bar)
+      bar_chart_map = Object.values(obj)
       console.log(bar_chart_map);
       ///
       bar_chart_map.forEach((item_bar)=>{
