@@ -13,6 +13,8 @@ var namePosition = "";
 var nameActiveUserOrganization = "";
 var nameActiveUserSubdivision = "";
 var nameActiveUserPosition = "";
+// массив для формирования графических отчетов
+var bar_chart_map_local = [];
 //переменные под круговую диаграмму
 if(translation_JS == null || translation_JS == 'en'){
   var pie_chart_labels =  [
@@ -29,9 +31,17 @@ if(translation_JS == null || translation_JS == 'en'){
      'Простой сотрудника', // красный
   ]
 }
+var pie_chart_map = [];
 var pie_chart_data = [30, 20, 30, 20];
+//переменные под столбчатую диаграмму
+if(translation_JS == null || translation_JS == 'en'){
+  var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
+} else {
+  var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
+}
+var bar_chart_map = [];
+var bar_chart_data = [10, 19, 3, 5, 2, 3];
 //
-
 
 //Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 var LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
@@ -39,7 +49,7 @@ var UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
 var EmailLocalStorage = (LocalStorageValueObject[0]).email;
 var FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
-//Получение данных для таблицы List of own organizations из firestore
+//Получение данных для таблицы List of own organizations из firestore Список организаций
 db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 .get()
 .then((querySnapshot) => {
@@ -85,7 +95,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
   console.log("Error getting documents: ", error);
 });
 
-//Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore..
+//Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
 function toComeInButtonSubdivision_Admin(obj) {
   //обработка редактирования строки...
@@ -212,7 +222,7 @@ function toComeInButtonSubdivision_Admin(obj) {
   //end получаем список подразделений
 }
 
-//Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore..
+//Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список смен
 
 function toComeInButtonShift_Admin(obj) {
   //обработка редактирования строки...
@@ -283,24 +293,24 @@ function toComeInButtonShift_Admin(obj) {
         [element].forEach(item =>
           {
             var tr = document.createElement("tr");
-
+            //
             var organizationColumn = document.createElement('td');
             organizationColumn.innerHTML = item.NameOrganization;
-
+            //
             var subdivisionColumn = document.createElement('td');
             subdivisionColumn.innerHTML = item.NameSubdivision;
-
+            //
             var positionColumn = document.createElement('td');
             positionColumn.innerHTML = item.NamePosition;
-
+            //
             var nameOfYourManagerColumn = document.createElement('td');
             var workShiftEndTime = item.WorkShiftEndTime;
             nameOfYourManagerColumn.innerHTML = new Date(workShiftEndTime.toDate()).toUTCString();
-
+            //
             var statusUserColumn = document.createElement('td');
             var workShiftStartTime = item.WorkShiftStartTime;
             statusUserColumn.innerHTML = new Date(workShiftStartTime.toDate()).toUTCString();
-
+            //
             var formattedColumn = document.createElement('td');
             var workShiftFormattedTime = workShiftEndTime - workShiftStartTime;
             var timestamp = new Date(workShiftFormattedTime).getTime();
@@ -318,7 +328,7 @@ function toComeInButtonShift_Admin(obj) {
             }
             var formatted = hours + ':' + minutes + ':' + seconds;
             formattedColumn.innerHTML = formatted;
-
+            //
             var toComeInUserName = document.createElement('button');
             if(translation_JS == null || translation_JS == 'en'){
               toComeInUserName.innerHTML = "To come in";
@@ -329,10 +339,10 @@ function toComeInButtonShift_Admin(obj) {
             toComeInUserName.id = item.idDocPositionUser;
             toComeInUserName.item = item;
             toComeInUserName.setAttribute('onclick', 'toComeInButtonEvent_Admin(this)');
-
+            //
             var toComeInUserColumn = document.createElement('td');
             toComeInUserColumn.appendChild(toComeInUserName);
-
+            //
             tr.appendChild(statusUserColumn);
             tr.appendChild(nameOfYourManagerColumn);
             tr.appendChild(formattedColumn);
@@ -340,7 +350,7 @@ function toComeInButtonShift_Admin(obj) {
             tr.appendChild(subdivisionColumn);
             tr.appendChild(organizationColumn);
             tr.appendChild(toComeInUserColumn);
-
+            //
             var container = document.getElementById("tableChangeUser_Admin").getElementsByTagName("tbody")[0];
 
             container.appendChild(tr);
@@ -351,43 +361,50 @@ function toComeInButtonShift_Admin(obj) {
     .catch(function(error) {
       console.log("Error getting documents: ", error);
     });
-  };
+  }
 
-  //Получение данных для таблицы Detailing Of The Selected Shift из firestore
+  //Получение данных для таблицы Detailing Of The Selected Shift из firestore Детализация смены и графические отчеты
   function toComeInButtonEvent_Admin(objs) {
     //обработка редактирования строки...
     // let objItem = obj.item;
     var itemsShiftDoc = [];
-    var nameDocShift = objs.id;
-    // let nameDocShift = nameDocShiftDoc.IdDocPosition;
-
+    var idDocShift = objs.id;
+    //
     var tableDuble = document.getElementById("tableDetailingShift_Admin");
     for(var i = 1;i<tableDuble.rows.length;){
       tableDuble.deleteRow(i);
     }
-
-    var docRefShift = db.collection("WorkShift").doc(nameDocShift);
+    //
+    var docRefShift = db.collection("WorkShift").doc(idDocShift);
     docRefShift.collection("ProcessUser").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         itemsShiftDoc.push({...doc.data(),...{idDocShift: doc.id}});
+        var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+        var idDocPosition_mapChartjs = doc.data().IdDocPosition;
+        var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+        var processUserEndTime_mapChartjs = doc.data().processUserEndTime;
+        var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
+        bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocPosition_mapChartjs: idDocPosition_mapChartjs, processUserFormattedTime: processUserFormattedTime});
       });
       itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
+      canvas_pie_chart_data ();
+      canvas_bar_chart_data ();
       itemsShiftDoc.forEach(item => {
           var tr = document.createElement("tr");
-
+          //
           var timeStartShiftColumn = document.createElement('td');
           var processUserStartTime = item.ProcessUserStartTime;
           timeStartShiftColumn.innerHTML = new Date(processUserStartTime.toDate()).toUTCString();
-
+          //
           var timeEndShiftColumn = document.createElement('td');
           var processUserEndTime = item.ProcessUserEndTime;
           timeEndShiftColumn.innerHTML = new Date(processUserEndTime.toDate()).toUTCString();
-
+          //
           var nameShiftColumn = document.createElement('td');
           nameShiftColumn.innerHTML = item.NameDocProcessButton;
-
+          //
           var formattedColumn = document.createElement('td');
           var processUserFormattedTime = processUserEndTime - processUserStartTime;
           var timestamp = new Date(processUserFormattedTime).getTime();
@@ -405,7 +422,7 @@ function toComeInButtonShift_Admin(obj) {
           }
           var formatted = hours + ':' + minutes + ':' + seconds;
           formattedColumn.innerHTML = formatted;
-
+          //
           var toComeInUserName = document.createElement('button');
           if(translation_JS == null || translation_JS == 'en'){
             toComeInUserName.innerHTML = "To come in";
@@ -416,10 +433,10 @@ function toComeInButtonShift_Admin(obj) {
           toComeInUserName.id = item.idDocShift;
           toComeInUserName.item = item;
           toComeInUserName.setAttribute('onclick', 'gridSystemModalInfoEventID_Admin(this)');
-
+          //
           var toComeInUserColumn = document.createElement('td');
           toComeInUserColumn.appendChild(toComeInUserName);
-
+          //
           tr.appendChild(timeStartShiftColumn);
           tr.appendChild(timeEndShiftColumn);
           tr.appendChild(formattedColumn);
@@ -581,44 +598,52 @@ function toComeInButtonShift_Admin(obj) {
     function translationCommon_RU (){
       //
     }
+
     // заполняем строки с английскими значениями
     function translationCommon_EN (){
       ///
     }
+
+    // расчитываем данные для круговой диаграммы
+    function canvas_pie_chart_data (){
+      bar_chart_map_local
+
+
+
+
+
+
+
+
+      //
+    }
+
+    // расчитываем данные для круговой диаграммы
+    function canvas_bar_chart_data (){
+      ///
+    }
+
     //заполняем круговую диаграмму
     function canvas_pie_chart (){
       'use strict';
       var doughnutPieData = {
         datasets: [{
-          // data: [30, 20, 30, 20],
           data: pie_chart_data,
           backgroundColor: [
             'rgba(10, 245, 33, 0.5)', //зеленый
             'rgba(233, 245, 10, 0.5)', //желтый
             'rgba(240, 67, 10, 0.5)', //оранжевый
             'rgba(240, 10, 48, 0.5)' //красный
-            // 'rgba(153, 102, 255, 0.5)',
-            // 'rgba(255, 159, 64, 0.5)'
           ],
           borderColor: [
             'rgba(10, 245, 33, 1)', //зеленый
             'rgba(233, 245, 10, 1)',//желтый
             'rgba(240, 67, 10, 1)', //оранжевый
             'rgba(240, 10, 48, 1)' //красный
-            // 'rgba(153, 102, 255, 1)',
-            // 'rgba(255, 159, 64, 1)'
           ],
         }],
-
         // Эти метки отображаются в условных обозначениях и во всплывающих подсказках при наведении курсора на разные дуги
-        // labels: [
-        //   'Green',
-        //   'Yellow',
-        //   'orange',
-        //   'Red',
-        // ]
         labels: pie_chart_labels
-
       };
       var doughnutPieOptions = {
         responsive: true,
@@ -639,9 +664,9 @@ function toComeInButtonShift_Admin(obj) {
     }
     //заполняем столбовую диаграмму
     function canvas_bar_chart (){
-      ///
-    }
+      //заполняем круговую диаграмму
 
+    }
 
     // ///
     $(function () {
@@ -701,7 +726,6 @@ function toComeInButtonShift_Admin(obj) {
           radius: 0
         }
       }
-
     };
     var doughnutPieData = {
       datasets: [{
@@ -712,28 +736,15 @@ function toComeInButtonShift_Admin(obj) {
           'rgba(233, 245, 10, 0.5)', //желтый
           'rgba(240, 67, 10, 0.5)', //оранжевый
           'rgba(240, 10, 48, 0.5)' //красный
-          // 'rgba(153, 102, 255, 0.5)',
-          // 'rgba(255, 159, 64, 0.5)'
         ],
         borderColor: [
           'rgba(10, 245, 33, 1)', //зеленый
           'rgba(233, 245, 10, 1)',//желтый
           'rgba(240, 67, 10, 1)', //оранжевый
           'rgba(240, 10, 48, 1)' //красный
-          // 'rgba(153, 102, 255, 1)',
-          // 'rgba(255, 159, 64, 1)'
         ],
       }],
-
-      // Эти метки отображаются в условных обозначениях и во всплывающих подсказках при наведении курсора на разные дуги
-      // labels: [
-      //   'Green',
-      //   'Yellow',
-      //   'orange',
-      //   'Red',
-      // ]
       labels: pie_chart_labels
-
     };
     var doughnutPieOptions = {
       responsive: true,
