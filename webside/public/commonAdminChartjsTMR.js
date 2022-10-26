@@ -31,16 +31,13 @@ if(translation_JS == null || translation_JS == 'en'){
      'Простой сотрудника', // красный
   ]
 }
-var pie_chart_map = [];
 var pie_chart_data = [30, 20, 30, 20];
+var pie_chart_map = [];
 //переменные под столбчатую диаграмму
-if(translation_JS == null || translation_JS == 'en'){
-  var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
-} else {
-  var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
-}
-var bar_chart_map = [];
+var bar_chart_labels =  ["2013", "2014", "2014", "2015", "2016", "2017"]
 var bar_chart_data = [10, 19, 3, 5, 2, 3];
+var bar_chart_map = [];
+
 //
 
 //Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -611,7 +608,6 @@ function toComeInButtonShift_Admin(obj) {
     // расчитываем данные для круговой диаграммы
     function canvas_pie_chart_data (){
       var obj = {}
-
       bar_chart_map_local.forEach((item)=>{
         if(obj[item.idDocProcessButton_mapChartjs]){
           obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime = obj[item.idDocProcessButton_mapChartjs].processUserFormattedTime + item.processUserFormattedTime
@@ -619,16 +615,42 @@ function toComeInButtonShift_Admin(obj) {
           obj[item.idDocProcessButton_mapChartjs] = item
         }
       });
-
-      var valuesArr = Object.values(obj)
-      console.log(valuesArr);
+      pie_chart_map = Object.values(obj)
+      console.log(pie_chart_map);
+      //формируем данные для диаграммы
+      var sum = pie_chart_map.map(o => o.processUserFormattedTime).reduce((a, c) => { return a + c });
+      // console.log(sum);
+      var d = 0;
+      var c = 0;
+      var b = 0;
+      var a = 0;
+      pie_chart_map.forEach((item)=>{
+        if(item.settingsSalesFunnel_Stage_key_mapChartjs == "str3"){
+          d_t = item.processUserFormattedTime;
+          d = Math.round(d_t*100/sum);
+        }else if(item.settingsSalesFunnel_Stage_key_mapChartjs == "str2"){
+          c_t = item.processUserFormattedTime;
+          c = Math.round(c_t*100/sum);
+        }else if(item.settingsSalesFunnel_Stage_key_mapChartjs == "str1"){
+          b_t = item.processUserFormattedTime;
+          b = Math.round(b_t*100/sum);
+        }else if(item.settingsSalesFunnel_Stage_key_mapChartjs == "str0"){
+          a_t = item.processUserFormattedTime;
+          a = Math.round(a_t*100/sum);
+        }else{
+          console.log("Ошибка массива!");
+        }
+      });
+      a = 100 -(d + c + b);
+      pie_chart_data = [d, c, b, a];
       //
+      canvas_pie_chart ();
     }
 
     // расчитываем данные для круговой диаграммы
     function canvas_bar_chart_data (){
       var obj_bar = {}
-
+      ///
       bar_chart_map_local.forEach((item_bar)=>{
         if(obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs]){
           obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime = obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs].processUserFormattedTime + item_bar.processUserFormattedTime
@@ -636,16 +658,16 @@ function toComeInButtonShift_Admin(obj) {
           obj_bar[item_bar.settingsSalesFunnel_Stage_key_mapChartjs] = item_bar
         }
       });
-
-      var valuesArr_bar = Object.values(obj_bar)
-      console.log(valuesArr_bar);
-
-
-
-
-      // bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime, settingsSalesFunnel_Stage_key_mapChartjs: settingsSalesFunnel_Stage_key_mapChartjs});
-
       ///
+      var bar_chart_map = Object.values(obj_bar)
+      console.log(bar_chart_map);
+      ///
+      bar_chart_map.forEach((item_bar)=>{
+          bar_chart_labels.push(item_bar.nameDocProcessButton_mapChartjs);
+          bar_chart_data.push(item_bar.processUserFormattedTime);
+      });
+      ///
+      canvas_bar_chart();
     }
 
     //заполняем круговую диаграмму
@@ -690,21 +712,12 @@ function toComeInButtonShift_Admin(obj) {
     //заполняем столбовую диаграмму
     function canvas_bar_chart (){
       //заполняем круговую диаграмму
-
-    }
-
-    // ///
-    $(function () {
-      /* ChartJS
-      * -------
-      * Data and config for chartjs
-      */
       'use strict';
       var data = {
-        labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+        labels: bar_chart_labels,
         datasets: [{
-          label: '# of Votes',
-          data: [10, 19, 3, 5, 2, 3],
+          label: '#',
+          data: bar_chart_data,
           backgroundColor: [
             'rgba(39, 217, 172, 0.2)', // зеленый
             'rgba(39, 166, 217, 0.2)', // желтый
@@ -735,67 +748,138 @@ function toComeInButtonShift_Admin(obj) {
           fill: false
         }]
       };
-    var options = {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
+      var options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        legend: {
+          display: false
+        },
+        elements: {
+          point: {
+            radius: 0
           }
-        }]
-      },
-      legend: {
-        display: false
-      },
-      elements: {
-        point: {
-          radius: 0
         }
+      };
+      // Get context with jQuery - using jQuery's .get() method.
+      if ($("#barChart_Admin").length) {
+        var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var barChart = new Chart(barChartCanvas, {
+          type: 'bar',
+          data: data,
+          options: options
+        });
       }
-    };
-    var doughnutPieData = {
-      datasets: [{
-        // data: [30, 20, 30, 20],
-        data: pie_chart_data,
-        backgroundColor: [
-          'rgba(10, 245, 33, 0.5)', //зеленый
-          'rgba(233, 245, 10, 0.5)', //желтый
-          'rgba(240, 67, 10, 0.5)', //оранжевый
-          'rgba(240, 10, 48, 0.5)' //красный
-        ],
-        borderColor: [
-          'rgba(10, 245, 33, 1)', //зеленый
-          'rgba(233, 245, 10, 1)',//желтый
-          'rgba(240, 67, 10, 1)', //оранжевый
-          'rgba(240, 10, 48, 1)' //красный
-        ],
-      }],
-      labels: pie_chart_labels
-    };
-    var doughnutPieOptions = {
-      responsive: true,
-      animation: {
-        animateScale: true,
-        animateRotate: true
-      }
-    };
-// Get context with jQuery - using jQuery's .get() method.
-if ($("#barChart_Admin").length) {
-  var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
-  // This will get the first returned node in the jQuery collection.
-  var barChart = new Chart(barChartCanvas, {
-    type: 'bar',
-    data: data,
-    options: options
-  });
-}
-
-if ($("#doughnutChart_Admin").length) {
-  var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
-  var doughnutChart = new Chart(doughnutChartCanvas, {
-    type: 'doughnut',
-    data: doughnutPieData,
-    options: doughnutPieOptions
-  });
-}
-
-});
+    }
+/////////////////
+    // ///
+//     $(function () {
+//       /* ChartJS
+//       * -------
+//       * Data and config for chartjs
+//       */
+//       'use strict';
+//       var data = {
+//         labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+//         datasets: [{
+//           label: '# of Votes',
+//           data: [10, 19, 3, 5, 2, 3],
+//           backgroundColor: [
+//             'rgba(39, 217, 172, 0.2)', // зеленый
+//             'rgba(39, 166, 217, 0.2)', // желтый
+//             'rgba(76, 37, 217, 0.2)', // оранжевый
+//             'rgba(174, 36, 212, 0.2)', // красный
+//             'rgba(89, 199, 34, 0.2)', // синий
+//             'rgba(201, 199, 38, 0.2)', //
+//             'rgba(201, 38, 174, 0.2)', //
+//             'rgba(191, 38, 189, 0.2)', //
+//             'rgba(153, 102, 255, 0.2)', //
+//             'rgba(255, 159, 64, 0.2)' ,//
+//             'rgba(255, 99, 132, 0.2)' //
+//           ],
+//           borderColor: [
+//             'rgba(39, 217, 172, 1)', //
+//             'rgba(39, 166, 217, 1)', //
+//             'rgba(76, 37, 217, 1)', //
+//             'rgba(174, 36, 212, 1)', //
+//             'rgba(89, 199, 34, 1)',//
+//             'rgba(201, 199, 38, 1)', //
+//             'rgba(201, 38, 174, 1)', //
+//             'rgba(191, 38, 189, 1)', //
+//             'rgba(153, 102, 255, 1)', //
+//             'rgba(255, 159, 64, 1)', //
+//             'rgba(255,99,132,1)' //
+//           ],
+//           borderWidth: 1,
+//           fill: false
+//         }]
+//       };
+//     var options = {
+//       scales: {
+//         yAxes: [{
+//           ticks: {
+//             beginAtZero: true
+//           }
+//         }]
+//       },
+//       legend: {
+//         display: false
+//       },
+//       elements: {
+//         point: {
+//           radius: 0
+//         }
+//       }
+//     };
+//     var doughnutPieData = {
+//       datasets: [{
+//         // data: [30, 20, 30, 20],
+//         data: pie_chart_data,
+//         backgroundColor: [
+//           'rgba(10, 245, 33, 0.5)', //зеленый
+//           'rgba(233, 245, 10, 0.5)', //желтый
+//           'rgba(240, 67, 10, 0.5)', //оранжевый
+//           'rgba(240, 10, 48, 0.5)' //красный
+//         ],
+//         borderColor: [
+//           'rgba(10, 245, 33, 1)', //зеленый
+//           'rgba(233, 245, 10, 1)',//желтый
+//           'rgba(240, 67, 10, 1)', //оранжевый
+//           'rgba(240, 10, 48, 1)' //красный
+//         ],
+//       }],
+//       labels: pie_chart_labels
+//     };
+//     var doughnutPieOptions = {
+//       responsive: true,
+//       animation: {
+//         animateScale: true,
+//         animateRotate: true
+//       }
+//     };
+// // Get context with jQuery - using jQuery's .get() method.
+// if ($("#barChart_Admin").length) {
+//   var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
+//   // This will get the first returned node in the jQuery collection.
+//   var barChart = new Chart(barChartCanvas, {
+//     type: 'bar',
+//     data: data,
+//     options: options
+//   });
+// }
+//
+// if ($("#doughnutChart_Admin").length) {
+//   var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
+//   var doughnutChart = new Chart(doughnutChartCanvas, {
+//     type: 'doughnut',
+//     data: doughnutPieData,
+//     options: doughnutPieOptions
+//   });
+// }
+//
+// });
