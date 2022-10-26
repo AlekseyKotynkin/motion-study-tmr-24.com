@@ -624,12 +624,12 @@ function toComeInButtonShift_Admin(obj) {
     // расчитываем данные для круговой диаграммы
     function canvas_bar_chart_data (){
 
-      var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-      var idDocPosition_mapChartjs = doc.data().IdDocPosition;
-      var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-      var processUserEndTime_mapChartjs = doc.data().processUserEndTime;
-      var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
-      bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocPosition_mapChartjs: idDocPosition_mapChartjs, processUserFormattedTime: processUserFormattedTime});
+      // var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+      // var idDocPosition_mapChartjs = doc.data().IdDocPosition;
+      // var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+      // var processUserEndTime_mapChartjs = doc.data().processUserEndTime;
+      // var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
+      // bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocPosition_mapChartjs: idDocPosition_mapChartjs, processUserFormattedTime: processUserFormattedTime});
 
 
 
