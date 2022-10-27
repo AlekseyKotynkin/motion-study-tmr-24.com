@@ -866,110 +866,54 @@ function toComeInButtonShift_Admin(obj) {
       bar_chart_data = [];
       bar_chart_map = [];
     }
-/////////////////
-    // ///
-//     $(function () {
-//       /* ChartJS
-//       * -------
-//       * Data and config for chartjs
-//       */
-//       'use strict';
-//       var data = {
-//         labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-//         datasets: [{
-//           label: '# of Votes',
-//           data: [10, 19, 3, 5, 2, 3],
-//           backgroundColor: [
-//             'rgba(39, 217, 172, 0.2)', // зеленый
-//             'rgba(39, 166, 217, 0.2)', // желтый
-//             'rgba(76, 37, 217, 0.2)', // оранжевый
-//             'rgba(174, 36, 212, 0.2)', // красный
-//             'rgba(89, 199, 34, 0.2)', // синий
-//             'rgba(201, 199, 38, 0.2)', //
-//             'rgba(201, 38, 174, 0.2)', //
-//             'rgba(191, 38, 189, 0.2)', //
-//             'rgba(153, 102, 255, 0.2)', //
-//             'rgba(255, 159, 64, 0.2)' ,//
-//             'rgba(255, 99, 132, 0.2)' //
-//           ],
-//           borderColor: [
-//             'rgba(39, 217, 172, 1)', //
-//             'rgba(39, 166, 217, 1)', //
-//             'rgba(76, 37, 217, 1)', //
-//             'rgba(174, 36, 212, 1)', //
-//             'rgba(89, 199, 34, 1)',//
-//             'rgba(201, 199, 38, 1)', //
-//             'rgba(201, 38, 174, 1)', //
-//             'rgba(191, 38, 189, 1)', //
-//             'rgba(153, 102, 255, 1)', //
-//             'rgba(255, 159, 64, 1)', //
-//             'rgba(255,99,132,1)' //
-//           ],
-//           borderWidth: 1,
-//           fill: false
-//         }]
-//       };
-//     var options = {
-//       scales: {
-//         yAxes: [{
-//           ticks: {
-//             beginAtZero: true
-//           }
-//         }]
-//       },
-//       legend: {
-//         display: false
-//       },
-//       elements: {
-//         point: {
-//           radius: 0
-//         }
-//       }
-//     };
-//     var doughnutPieData = {
-//       datasets: [{
-//         // data: [30, 20, 30, 20],
-//         data: pie_chart_data,
-//         backgroundColor: [
-//           'rgba(10, 245, 33, 0.5)', //зеленый
-//           'rgba(233, 245, 10, 0.5)', //желтый
-//           'rgba(240, 67, 10, 0.5)', //оранжевый
-//           'rgba(240, 10, 48, 0.5)' //красный
-//         ],
-//         borderColor: [
-//           'rgba(10, 245, 33, 1)', //зеленый
-//           'rgba(233, 245, 10, 1)',//желтый
-//           'rgba(240, 67, 10, 1)', //оранжевый
-//           'rgba(240, 10, 48, 1)' //красный
-//         ],
-//       }],
-//       labels: pie_chart_labels
-//     };
-//     var doughnutPieOptions = {
-//       responsive: true,
-//       animation: {
-//         animateScale: true,
-//         animateRotate: true
-//       }
-//     };
-// // Get context with jQuery - using jQuery's .get() method.
-// if ($("#barChart_Admin").length) {
-//   var barChartCanvas = $("#barChart_Admin").get(0).getContext("2d");
-//   // This will get the first returned node in the jQuery collection.
-//   var barChart = new Chart(barChartCanvas, {
-//     type: 'bar',
-//     data: data,
-//     options: options
-//   });
-// }
-//
-// if ($("#doughnutChart_Admin").length) {
-//   var doughnutChartCanvas = $("#doughnutChart_Admin").get(0).getContext("2d");
-//   var doughnutChart = new Chart(doughnutChartCanvas, {
-//     type: 'doughnut',
-//     data: doughnutPieData,
-//     options: doughnutPieOptions
-//   });
-// }
-//
-// });
+////
+function calendarIntervalStart(){
+  $(document).ready(function(){
+    $("#calendar_EventID_Admin").modal("show");
+  });
+}
+////
+function calendarIntervalEnd(){
+
+}
+////
+function Calendar2(id, year, month) {
+var Dlast = new Date(year,month+1,0).getDate(),
+    D = new Date(year,month,Dlast),
+    DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
+    DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
+    calendar = '<tr>',
+    month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+if (DNfirst != 0) {
+  for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
+}else{
+  for(var  i = 0; i < 6; i++) calendar += '<td>';
+}
+for(var  i = 1; i <= Dlast; i++) {
+  if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) {
+    calendar += '<td class="today">' + i;
+  }else{
+    calendar += '<td>' + i;
+  }
+  if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) {
+    calendar += '<tr>';
+  }
+}
+for(var  i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
+document.querySelector('#'+id+' tbody').innerHTML = calendar;
+document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
+document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
+document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
+if (document.querySelectorAll('#'+id+' tbody tr').length < 6) {  // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
+    document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
+}
+}
+Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
+// переключатель минус месяц
+document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
+  Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
+}
+// переключатель плюс месяц
+document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
+  Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
+}
