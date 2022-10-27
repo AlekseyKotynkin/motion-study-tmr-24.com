@@ -420,7 +420,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label lang" key="data_elementary"> Elementary date  </label>
                               <div class="col-sm-6">
-                                <input class="form-control" id="adminChartjsTMR_intervai_shift_data_start" placeholder="dd/mm/yyyy" onclick="calendarIntervalStart()"/>
+                                <input class="form-control" type="date" id="adminChartjsTMR_intervai_shift_data_start" placeholder="dd/mm/yyyy" onclick="calendarIntervalStart()"/>
                               </div>
                             </div>
                           </div>
@@ -428,7 +428,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label lang" key="data_expiration"> Expiration date </label>
                               <div class="col-sm-6">
-                                <input class="form-control" id="adminChartjsTMR_intervai_shift_data_end" placeholder="dd/mm/yyyy" onclick="calendarIntervalEnd()"/>
+                                <input class="form-control" type="date" id="adminChartjsTMR_intervai_shift_data_end" placeholder="dd/mm/yyyy" onclick="calendarIntervalEnd()"/>
                               </div>
                             </div>
                           </div>
@@ -587,17 +587,24 @@
                         <div class="card-body">
                           <h4 class="card-description lang" key="event_information">Event information</h4>
                           <p class="card-description lang" key="event_detailed">Detailed information on the event</p>
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <table id="calendar2">
-                                <thead>
-                                  <tr><td>
-                                  ‹<td colspan="5"><td>›
-                                  <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
-                                <tbody>
-                              </table>
+                          <div id="cal-wrap">
+                            <!-- (A) PERIOD SELECTOR -->
+                            <div id="cal-date">
+                              <select id="cal-mth"></select>
+                              <select id="cal-yr"></select>
                             </div>
-                          </form>
+                            <!-- (B) CALENDAR -->
+                            <div id="cal-container"></div>
+                            <!-- (C) EVENT FORM -->
+                            <form id="cal-event">
+                              <h1 id="evt-head"></h1>
+                              <div id="evt-date"></div>
+                              <textarea id="evt-details" required></textarea>
+                              <input id="evt-close" type="button" value="Close"/>
+                              <input id="evt-del" type="button" value="Delete"/>
+                              <input id="evt-save" type="submit" value="Save"/>
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
