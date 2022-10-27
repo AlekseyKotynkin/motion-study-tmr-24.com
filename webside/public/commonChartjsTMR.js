@@ -299,7 +299,7 @@ function toComeInButtonShift(obj) {
 // Получение данных для таблицы Detailing Of The Selected Shift из firestore Список событий выбранной смены
 function toComeInButtonEvent(objs) {
   //обработка редактирования строки...
-  // let objItem = obj.item;
+  bar_chart_map_local = [];
   var itemsShiftDoc = [];
   var nameDocShift = objs.id;
   // let nameDocShift = nameDocShiftDoc.IdDocPosition;
@@ -315,6 +315,16 @@ function toComeInButtonEvent(objs) {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
       itemsShiftDoc.push({...doc.data(),...{idDocShift: doc.id}});
+      var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+      var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+      var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+      var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
+      var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
+      var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+      if(settingsSalesFunnel_Stage_key_mapChartjs == undefined){
+        settingsSalesFunnel_Stage_key_mapChartjs ="str0";
+      }
+      bar_chart_map_local.push({nameDocProcessButton_mapChartjs: nameDocProcessButton_mapChartjs, idDocProcessButton_mapChartjs: idDocProcessButton_mapChartjs, processUserFormattedTime: processUserFormattedTime, settingsSalesFunnel_Stage_key_mapChartjs: settingsSalesFunnel_Stage_key_mapChartjs});
     });
     itemsShiftDoc = itemsShiftDoc.sort(( a, b ) => b.ProcessUserStartTime - a.ProcessUserStartTime);
     canvas_pie_chart_data ();
