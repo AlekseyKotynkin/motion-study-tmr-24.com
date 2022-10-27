@@ -1964,6 +1964,7 @@ function gridSystemSaveSettingsShiftPosition()
   tablePositionsListSettings.deleteRow(0);
   tablePositionsListSettings.deleteRow(0);
   tablePositionsListSettings.deleteRow(0);
+  tablePositionsListSettings = document.getElementById('tableAvalablePositionsListSettings');
   var rowLength = tablePositionsListSettings.rows.length;
   for (i = 0; i < rowLength; i++){
      var cells = tablePositionsListSettings.rows.item(i).cells;
@@ -1985,17 +1986,23 @@ function gridSystemSaveSettingsShiftPosition()
   var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
   var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
   var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
+  var k = itemPositionsListSettings.length;
+  var f = 0;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
   var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
   var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
   if (namePosition == settingsTitle)
     {
+      f = f + 1;
       docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
         SettingsSalesFunnel_Availability_key: settingsSalesFunnel_Availability_key,
         SettingsSalesFunnel_Stage_key: settingsSalesFunnel_Stage_key,
         SettingsSalesFunnel_Result_key: settingsSalesFunnel_Result_key,
       }).then(function() {
         console.log("Frank food updated");
+        if(k = f){
+          window.location.reload();
+        }
       });
     }
   });
