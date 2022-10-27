@@ -836,9 +836,9 @@ function gridSystemModalNewSettingsSubmit()
   SettingsResultControlOption6: "",
   SettingsResultControlOption7: "",
   SettingsResultControlOption8: "",
-  SettingsSalesFunnel_Availability_key: "",
+  SettingsSalesFunnel_Availability_key: "str0",
   SettingsSalesFunnel_Stage_key: "str0",
-  SettingsSalesFunnel_Result_key: "",
+  SettingsSalesFunnel_Result_key: "str0",
   }).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       $('#gridSystemModalNewSettings').modal('toggle');
@@ -1970,11 +1970,11 @@ function gridSystemSaveSettingsShiftPosition()
      var cellVal_0 = cells.item(0).innerHTML;
      var cellVal_1 = cells.item(1).innerHTML;
      var l = cells.item(2).lastChild.options.selectedIndex;
-     var cellVal_2 = cells.item(2).lastChild.options[l].innerHTML;
+     var cellVal_2 = cells.item(2).lastChild.options[l].value;
      var l2 = cells.item(3).lastChild.options.selectedIndex;
-     var cellVal_3 = cells.item(3).lastChild.options[l2].innerHTML;
+     var cellVal_3 = cells.item(3).lastChild.options[l2].value;
      var l3 = cells.item(4).lastChild.options.selectedIndex;
-     var cellVal_4 = cells.item(4).lastChild.options[l3].innerHTML;
+     var cellVal_4 = cells.item(4).lastChild.options[l3].value;
      itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability_key: cellVal_2},...{SettingsSalesFunnel_Stage_key: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
    }
   // удаляем 3 настройки базовых кнопок
