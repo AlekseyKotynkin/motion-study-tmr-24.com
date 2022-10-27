@@ -253,7 +253,7 @@ function toComeInButtonShift_Admin(obj) {
     //получаем и проверяем заполненость ячеек из формы
     var getAnalysisStartDate_Admin = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
     var getAnalysisStartEnd_Admin = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
-    if(getAnalysisStartDate_Admin !== undefined){
+    if(getAnalysisStartDate_Admin !== undefined || getAnalysisStartDate_Admin !== ""){
       var dayAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[0];
       var monthAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[1];
       var yearAnalysisStartDate_Admin = getAnalysisStartDate_Admin.split("/")[2];
@@ -289,7 +289,7 @@ function toComeInButtonShift_Admin(obj) {
 
     }
 
-    if(getAnalysisStartEnd_Admin !== undefined){
+    if(getAnalysisStartEnd_Admin !== undefined || getAnalysisStartEnd_Admin !== ""){
       if (getAnalysisStartDate_Admin.length < 1)
       {
         if(translation_JS == null || translation_JS == 'en'){
