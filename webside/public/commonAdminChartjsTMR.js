@@ -868,9 +868,8 @@ function toComeInButtonShift_Admin(obj) {
     }
 ////
 function calendarIntervalStart(){
-  $(document).ready(function(){
-    $("#calendar_EventID_Admin").modal("show");
-  });
+
+
 }
 ////
 function calendarIntervalEnd(){
