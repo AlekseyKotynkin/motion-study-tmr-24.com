@@ -1982,9 +1982,9 @@ function gridSystemSaveSettingsShiftPosition()
   // разбираем данные для изменение документов
   itemPositionsListSettings.forEach(function(item, i, arr) {
   var namePosition = itemPositionsListSettings[i].namePosition;
-  var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key.value;
-  var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key.value;
-  var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result.value;
+  var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
+  var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
+  var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
   itemsPositionSalesFunnel.forEach(function(item, l, arr) {
   var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
   var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
