@@ -251,8 +251,8 @@ function toComeInButtonShift_Admin(obj) {
     itemsActiveUserName = itemsActiveUserName.sort(( a, b ) => b.WorkShiftStartTime - a.WorkShiftStartTime);
     //// отбираем смены попадающие в интервал дат
     //получаем и проверяем заполненость ячеек из формы
-    var getAnalysisStartDate = document.getElementById("chartjsTMR_intervai_shift_data_start").value;
-    var getAnalysisStartEnd = document.getElementById("chartjsTMR_intervai_shift_data_end").value;
+    var getAnalysisStartDate = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
+    var getAnalysisStartEnd = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
     if(getAnalysisStartDate != undefined || getAnalysisStartDate != ""){
       var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
       var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
