@@ -253,7 +253,7 @@ function toComeInButtonShift_Admin(obj) {
     //получаем и проверяем заполненость ячеек из формы
     var getAnalysisStartDate = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
     var getAnalysisStartEnd = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
-    if(getAnalysisStartDate != undefined || getAnalysisStartDate != ""){
+    if(getAnalysisStartDate !== ""){
       var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
       var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
       var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
@@ -282,19 +282,10 @@ function toComeInButtonShift_Admin(obj) {
       //   return;
       // }
       var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-
-
+      
     }
 
-    if(getAnalysisStartEnd != undefined || getAnalysisStartEnd != ""){
-      if (getAnalysisStartDate.length < 1){
-        if(translation_JS == null || translation_JS == 'en'){
-          alert('Please fill in the start date!.');
-        } else {
-          alert ("Пожалуйста, укажите начальную дату!");
-        }
-        return;
-      }
+    if(getAnalysisStartEnd !== ""){
       var dayAnalysisEndDate = getAnalysisStartEnd.split("/")[0];
       var monthAnalysisEndDate = getAnalysisStartEnd.split("/")[1];
       var yearAnalysisEndDate = getAnalysisStartEnd.split("/")[2];
