@@ -1979,7 +1979,7 @@ $(function () {
       var translation_JS = localStorage.getItem('TMR::translation');
       localStorage.clear();
       localStorage.setItem('TMR::translation', translation_JS);
-      window.location.replace("index.html")
+      window.location.replace("../../index.html")
     }).catch(function(error) {
       // An error happened.
       // Произошла ошибка.

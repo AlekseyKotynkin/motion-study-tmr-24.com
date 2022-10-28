@@ -540,7 +540,7 @@ function toComeInButtonShift_Admin(obj) {
         var translation_JS = localStorage.getItem('TMR::translation');
         localStorage.clear();
         localStorage.setItem('TMR::translation', translation_JS);
-        window.location.replace("index.html")
+        window.location.replace("../../index.html")
       }).catch(function(error) {
         // An error happened.
         // Произошла ошибка.
@@ -616,57 +616,6 @@ function toComeInButtonShift_Admin(obj) {
         $("#gridSystemModalInfoEventID_Admin").modal("show");
       });
     }
-
-
-    //Получение данных для таблицы List Of Organizations In Which You Are Involved из firestore.
-    function createATableOfClientAdmin()
-    {
-
-    }
-
-    //Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved.
-
-    function toComeInButton(obj) {
-      //обработка редактирования строки...
-      var objId = obj.id;
-
-      //   let itemsArray = [{
-      //     OrganizationId: objId,
-      //     OwnerEmail: EmailLocalStorage,
-      //     ProviderId: "TMR-24.com"
-      //   }];
-      // localStorage.setItem('TMR::rememberedAdmin', JSON.stringify(itemsArray));
-      // window.location.replace("indexAdminOrganization.html");
-    }
-
-
-    //Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved.
-
-    function quitButton(obj) {
-      var objId = obj.id;
-      // alert('Document successfully deleted! '+ (objId));
-      //   db.collection("Organization").doc(objId).delete().then(function() {
-      //       console.log("Document successfully deleted!");
-      //       window.location.reload();
-      //   }).catch(function(error) {
-      //       console.error("Error removing document: ", error);
-      //   });
-
-    }
-
-    //Обработчик кнопки toComeInUserColumn из таблицы List of posts in which you are involved as a User из firestore.
-    function toComeInButtonUser(obj) {
-      //обработка редактирования строки...
-      var objItem = obj.item;
-      //   let itemsArray = [{
-      //     OwnerEmail: EmailLocalStorage,
-      //     ProviderId: "TMR-24.com",
-      //     ParentHierarchy: objItem
-      //   }];
-      // localStorage.setItem('TMR::rememberedUser', JSON.stringify(itemsArray));
-      // window.location.replace("indexUser.html");
-    }
-
 
     // открыть окно Фейсбука
     function location_Href(){

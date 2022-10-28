@@ -175,3 +175,26 @@ function translationCommon_RU (){
 // заполняем строки с английскими значениями
 function translationCommon_EN (){
 }
+
+//  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+function SignoutAdmin() {
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    // Выход выполнен успешно.
+    if (localStorage.getItem('TMR::translation') == null) {
+      localStorage.setItem('TMR::translation', 'en');
+    }
+    var translation_JS = localStorage.getItem('TMR::translation');
+    localStorage.clear();
+    localStorage.setItem('TMR::translation', translation_JS);
+    window.location.replace("../../index.html")
+  }).catch(function(error) {
+    // An error happened.
+    // Произошла ошибка.
+    if(translation_JS == null || translation_JS == 'en'){
+      alert ("An error happened!");
+    } else {
+      alert ("Произошла ошибка!");
+    }
+  });
+}
