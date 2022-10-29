@@ -319,6 +319,79 @@
                 <!-- </span>
               </div>
             </div> -->
+            <!-- Список Организаций для раскрытия структуры. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-description lang" key="list_own_organizations">List of own organizations</h4>
+                    <div class="table-responsive">
+                      <table id="tableAvalableUserMyOrganization_Admin"class="table">
+                        <thead>
+                          <tr>
+                            <th class="lang" key="organization"> Organization </th>
+                            <th class="lang" key="email"> Email </th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                          <tbody>
+                          </tbody>
+                       </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Список подразделений, должностей и пользователей. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-description lang" key="list_own_subdivision">List of own subdivision</h4>
+                    <div class="table-responsive">
+                      <table id="tableAvalableSubdivision_Admin"class="table">
+                        <thead>
+                          <tr>
+                            <th class="lang" key="organization">Organization</th>
+                            <th class="lang" key="subdivision">Subdivision</th>
+                            <th class="lang" key="position">Position</th>
+                            <th class="lang" key="users_name">Name</th>
+                            <th class="lang" key="email">Email</th>
+                            <th class="lang" key="comment">Сomment</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                          <tbody>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="d-flex align-items-center purchase-popup">
+                      <form class="form-sample">
+                        <p class="card-description lang" key="list_own_subdivision_interval_shift"> Date interval to display in : "shift list" </p>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                              <label class="col-sm-6 col-form-label lang" key="data_elementary"> Elementary date  </label>
+                              <div class="col-sm-6">
+                                <input class="form-control" type="date" id="adminChartjsTMR_intervai_shift_data_start" name="date" style="width: 150px;" required/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                              <label class="col-sm-6 col-form-label lang" key="data_expiration"> Expiration date </label>
+                              <div class="col-sm-6">
+                                <input class="form-control" type="date" id="adminChartjsTMR_intervai_shift_data_end" name="date" style="width: 150px;" required/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Необходимые даты для Воронки Продаж. -->
             <div class="row" id="proBanner">
               <div class="col-12">
