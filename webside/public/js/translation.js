@@ -272,6 +272,9 @@ var arrLang = {
     'to_write': 'TO WRITE',
     'users_name': 'Name',
     'list_own_subdivision_interval_shift': 'Date interval to display in : "shift list"',
+    'select_organization': 'Select an organization.',
+
+
 
 
     'search_projects': 'Search projects',
@@ -507,7 +510,7 @@ var arrLang = {
     'to_write': 'ЗАПИСАТЬ',
     'users_name': 'ФИО',
     'list_own_subdivision_interval_shift': 'Интервал дат для отображения в таблице: "Список смен"',
-
+    'select_organization': 'Выбрать организацию.',
 
 
     'search_projects': 'Поиск',
