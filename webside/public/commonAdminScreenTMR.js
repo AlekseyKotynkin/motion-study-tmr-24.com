@@ -110,6 +110,7 @@ function adminScreenTMR_Select_an_organization(obj) {
   var objItem = obj.item;
   var idDocOrganization = obj.id;
   var nameOrganization = objItem.Organization;
+  $('#modal_adminScreenTMR_Choosing_an_Organization').modal('toggle');
   itemsName.push({[idDocOrganization]: nameOrganization});
   // очищаем и заполняем шабку выбора Организации
   my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
