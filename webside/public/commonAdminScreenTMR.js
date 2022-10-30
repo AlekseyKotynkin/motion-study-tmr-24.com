@@ -179,6 +179,15 @@ function adminScreenTMR_Select_an_organization(obj) {
               //заполняем таблицу
               var tr = document.createElement("tr");
 
+              var toDismissColumn1 = document.createElement('input');
+              toDismissColumn1.type = "checkbox";
+              toDismissColumn1.checked = true;
+              toDismissColumn1.className = 'form-check';
+              toDismissColumn1.addEventListener("click", function(e) {console.log("checkbox");  });
+
+              var toDismissColumn = document.createElement('td');
+              toDismissColumn.appendChild(toDismissColumn1);
+
               var userName_tr = document.createElement('td');
               userName_tr.innerHTML = userName;
 
@@ -188,12 +197,12 @@ function adminScreenTMR_Select_an_organization(obj) {
               var userСomment_tr = document.createElement('td');
               userСomment_tr.innerHTML = userСomment;
               //
-              var organizationColumn = document.createElement('td');
-              itemsName.forEach((element, index, array) => {
-                if(element[idDocOrganization_local] !== undefined){
-                  organizationColumn.innerHTML = element[idDocOrganization_local];
-                }
-              });
+              // var organizationColumn = document.createElement('td');
+              // itemsName.forEach((element, index, array) => {
+              //   if(element[idDocOrganization_local] !== undefined){
+              //     organizationColumn.innerHTML = element[idDocOrganization_local];
+              //   }
+              // });
               //
               var subdivisionColumn = document.createElement('td');
               itemsName.forEach((element, index, array) => {
@@ -209,27 +218,28 @@ function adminScreenTMR_Select_an_organization(obj) {
                 }
               });
               //
-              var toComeInUserName = document.createElement('button');
-              if(translation_JS == null || translation_JS == 'en'){
-                toComeInUserName.innerHTML = "To come in";
-              } else {
-                toComeInUserName.innerHTML = "Выбрать";
-              }
-              toComeInUserName.className = 'badge badge-gradient-success';
-              toComeInUserName.id = idDocUser;
-              toComeInUserName.item = doc.data();
-              toComeInUserName.setAttribute('onclick', 'toComeInButtonShift_Admin(this)');
+              // var toComeInUserName = document.createElement('button');
+              // if(translation_JS == null || translation_JS == 'en'){
+              //   toComeInUserName.innerHTML = "To come in";
+              // } else {
+              //   toComeInUserName.innerHTML = "Выбрать";
+              // }
+              // toComeInUserName.className = 'badge badge-gradient-success';
+              // toComeInUserName.id = idDocUser;
+              // toComeInUserName.item = doc.data();
+              // toComeInUserName.setAttribute('onclick', 'toComeInButtonShift_Admin(this)');
+              //
+              // var toComeInUserColumn = document.createElement('td');
+              // toComeInUserColumn.appendChild(toComeInUserName);
 
-              var toComeInUserColumn = document.createElement('td');
-              toComeInUserColumn.appendChild(toComeInUserName);
-
-              tr.appendChild(organizationColumn);
+              tr.appendChild(toDismissColumn);
+              // tr.appendChild(organizationColumn);
+              tr.appendChild(userEmail_tr);
+              tr.appendChild(userName_tr);
+              tr.appendChild(userСomment_tr);
               tr.appendChild(subdivisionColumn);
               tr.appendChild(positionColumn);
-              tr.appendChild(userName_tr);
-              tr.appendChild(userEmail_tr);
-              tr.appendChild(userСomment_tr);
-              tr.appendChild(toComeInUserColumn);
+
 
               var container = document.getElementById("modal_adminScreenTMR_TableUsers").getElementsByTagName("tbody")[0];
 
@@ -245,13 +255,6 @@ function adminScreenTMR_Select_an_organization(obj) {
   });
   //end получаем список подразделений
 }
-
-
-
-
-
-
-
 
 /**
 * @return {string}
