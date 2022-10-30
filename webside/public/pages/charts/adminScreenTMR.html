@@ -289,17 +289,11 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <!-- Панель отображения выбора. -->
-            <div class="row" id="adminProBanner">
+            <div class="row">
               <div class="col-12">
-                <span class="d-flex align-items-center purchase-popup">
+                <span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">
                   <h4 class="card-description lang" key="select_organization">Select an organization.</h4>
                   <button onclick="list_own_organizations_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>
-                </span>
-              <!-- </div>
-              <div class="col-12"> -->
-                <span class="d-flex align-items-center purchase-popup">
-                  <h4 class="card-description lang" key="list_users">A list of users : </h4>
-                  <button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_users" >List users</button>
                 </span>
               </div>
             </div>
@@ -601,7 +595,7 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
-          <!-- Модальное окно параметров смены Event -->
+          <!-- Модальное окно выбора Организации -->
           <div id = "modal_adminScreenTMR_Choosing_an_Organization" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -648,7 +642,7 @@
               </div>
             </div>
           </div>
-          <!-- Модальное окно параметров смены Event -->
+          <!-- Модальное окно выбора сотрудника -->
           <div id = "modal_adminScreenTMR_List_Users" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -660,21 +654,25 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-description lang" key="shift_position"> Shift position </h4>
-                          <p class="card-description lang" key="shift_position_title">Working interval of job changet</p>
+                          <h4 class="card-description lang" key="list_users">A list of users :</h4>
+                          <p class="card-description lang" key="list_users_title">Working interval of job changet</p>
                           <form class="forms-sample">
                             <form class="forms-sample">
                               <div class="row">
                                 <div class="col-12 grid-margin">
                                   <div class="card">
-                                      <p class="col-sm col-form-label lang" key="list_position_users">List user position</p>
+                                      <!-- <p class="col-sm col-form-label lang" key="list_position_users">List user position</p> -->
                                       <div class="table-responsive">
-                                        <table id="tableShiftPositionsListUser_Edit"class="table">
+                                        <table id="modal_adminScreenTMR_TableUsers"class="table">
                                           <thead>
                                             <tr>
-                                              <th> # </th>
-                                              <th class="lang" key="user"> User </th>
-                                              <th class="lang" key="comment"> Comment </th>
+                                              <th class="lang" key="organization">Organization</th>
+                                              <th class="lang" key="subdivision">Subdivision</th>
+                                              <th class="lang" key="position">Position</th>
+                                              <th class="lang" key="users_name">Name</th>
+                                              <th class="lang" key="email">Email</th>
+                                              <th class="lang" key="comment">Сomment</th>
+                                              <th></th>
                                             </tr>
                                           </thead>
                                             <tbody>
@@ -684,7 +682,7 @@
                                     </div>
                                 </div>
                               </div>
-                              <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalShiftPositionsListSubmit_Edit()">Submit</button>
+                              <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="modal_adminScreenTMR_TableUsers_Edit()">Submit</button>
                               <button class="btn btn-light lang" key="cancel">Cancel</button>
                             </form>
                           </form>

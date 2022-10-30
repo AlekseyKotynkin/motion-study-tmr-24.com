@@ -87,7 +87,16 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 })
 .catch((error) => {
   console.log("Error getting documents: ", error);
-});
+})
+
+
+/**
+* @return {string}
+*  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
+*/
+function list_own_organizations_adminScreen(){
+  $('#modal_adminScreenTMR_Choosing_an_Organization').modal('show');
+}
 
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
@@ -98,6 +107,22 @@ function adminScreenTMR_Select_an_organization(obj) {
   var idDocOrganization = obj.id;
   var nameOrganization = objItem.Organization;
   itemsName.push({[idDocOrganization]: nameOrganization});
+  // очищаем и заполняем шабку выбора Организации
+  my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
+  var ul_User = my_div_User.querySelector("h4");
+  ul_User.remove();
+  if(translation_JS == null || translation_JS == 'en'){
+    var li ='<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>';
+    var li_1 ='<p class="card-description">A list of users : </p>';
+    var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>';
+  } else {
+    var li ='<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>';
+    var li_1 ='<p class="card-description">Выбрать список сотрудников : </p>';
+    var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>';
+  }
+  my_div_User.insertAdjacentHTML('afterbegin', li);
+  my_div_User.insertAdjacentHTML('beforeend', li_1);
+  my_div_User.insertAdjacentHTML('beforeend', li_2);
   //
   var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
   for(var k = 1; k<tableMyOrganization.rows.length;){
@@ -225,9 +250,13 @@ function adminScreenTMR_Select_an_organization(obj) {
 
 /**
 * @return {string}
-*  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
+*  Заполняем таблички диаграмм занятости выбранных сотрудников
 */
+function modal_adminScreenTMR_TableUsers_Edit(){
 
+
+
+}
 
 
 
