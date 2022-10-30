@@ -25,6 +25,10 @@ var namePosition = "";
 var idDocPosition = "";
 var idDocOrganization = "";
 var idDocSubdivision = "";
+var itemsName = [];
+var itemsListUser = [];
+
+
 
 
 
@@ -56,8 +60,8 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     ////
     var tr = document.createElement("tr");
 
-    var statusUserColumn = document.createElement('td');
-    statusUserColumn.innerHTML = doc.data().OwnerEmail;
+    // var statusUserColumn = document.createElement('td');
+    // statusUserColumn.innerHTML = doc.data().OwnerEmail;
 
     var organizationColumn = document.createElement('td');
     organizationColumn.innerHTML = doc.data().Organization;
@@ -77,7 +81,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     toComeInUserColumn.appendChild(toComeInUserName);
 
     tr.appendChild(organizationColumn);
-    tr.appendChild(statusUserColumn);
+    // tr.appendChild(statusUserColumn);
     tr.appendChild(toComeInUserColumn);
 
     var container = document.getElementById("modal_adminScreenTMR_TableOrganization").getElementsByTagName("tbody")[0];
@@ -123,21 +127,21 @@ function adminScreenTMR_Select_an_organization(obj) {
   my_div_User.insertAdjacentHTML('afterbegin', li);
   my_div_User.insertAdjacentHTML('beforeend', li_1);
   my_div_User.insertAdjacentHTML('beforeend', li_2);
-  //
-  var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
-  for(var k = 1; k<tableMyOrganization.rows.length;){
-    tableMyOrganization.deleteRow(k);
-  }
-  //
-  var table = document.getElementById("tableChangeUser_Admin");
-  for(var i = 1; i<table.rows.length;){
-    table.deleteRow(i);
-  }
-  //
-  var tableDuble = document.getElementById("tableDetailingShift_Admin");
-  for(var l = 1; l<tableDuble.rows.length;){
-    tableDuble.deleteRow(l);
-  }
+  // //очистить таблицу
+  // var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
+  // for(var k = 1; k<tableMyOrganization.rows.length;){
+  //   tableMyOrganization.deleteRow(k);
+  // }
+  // //очистить таблицу
+  // var table = document.getElementById("tableChangeUser_Admin");
+  // for(var i = 1; i<table.rows.length;){
+  //   table.deleteRow(i);
+  // }
+  // //очистить таблицу
+  // var tableDuble = document.getElementById("tableDetailingShift_Admin");
+  // for(var l = 1; l<tableDuble.rows.length;){
+  //   tableDuble.deleteRow(l);
+  // }
   //получаем список подразделений
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
@@ -171,6 +175,7 @@ function adminScreenTMR_Select_an_organization(obj) {
               var idDocOrganization_local = doc.data().idDocOrganization;
               var idDocSubdivision_local = doc.data().idDocSubdivision;
               var idDocPosition_local = doc.data().idDocPosition;
+              itemsListUser.push({[idDocUser]: doc.data()});
               //заполняем таблицу
               var tr = document.createElement("tr");
 
@@ -226,7 +231,7 @@ function adminScreenTMR_Select_an_organization(obj) {
               tr.appendChild(userСomment_tr);
               tr.appendChild(toComeInUserColumn);
 
-              var container = document.getElementById("tableAvalableSubdivision_Admin").getElementsByTagName("tbody")[0];
+              var container = document.getElementById("modal_adminScreenTMR_TableUsers").getElementsByTagName("tbody")[0];
 
               container.appendChild(tr);
               //end заполняем таблицу
