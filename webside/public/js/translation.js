@@ -273,6 +273,11 @@ var arrLang = {
     'users_name': 'Name',
     'list_own_subdivision_interval_shift': 'Date interval to display in : "shift list"',
     'select_organization': 'Select an organization.',
+    'select_organization_title': 'Select the organization to generate the report.',
+
+
+
+
 
 
 
@@ -511,6 +516,12 @@ var arrLang = {
     'users_name': 'ФИО',
     'list_own_subdivision_interval_shift': 'Интервал дат для отображения в таблице: "Список смен"',
     'select_organization': 'Выбрать организацию.',
+    'select_organization_title': 'Выберите организацию для формирования  отчета.',
+
+
+
+
+
 
 
     'search_projects': 'Поиск',

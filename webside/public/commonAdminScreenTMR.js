@@ -42,7 +42,8 @@ var FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 
-//Получение данных для таблицы List of own organizations из firestore Список организаций
+//Получение данных для таблицы Список организаций
+
 db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 .get()
 .then((querySnapshot) => {
@@ -70,7 +71,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     toComeInUserName.className = 'badge badge-gradient-success';
     toComeInUserName.id = doc.id;
     toComeInUserName.item = doc.data();
-    toComeInUserName.setAttribute('onclick', 'toComeInButtonSubdivision_Admin(this)');
+    toComeInUserName.setAttribute('onclick', 'adminScreenTMR_Select_an_organization(this)');
 
     var toComeInUserColumn = document.createElement('td');
     toComeInUserColumn.appendChild(toComeInUserName);
@@ -79,7 +80,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     tr.appendChild(statusUserColumn);
     tr.appendChild(toComeInUserColumn);
 
-    var container = document.getElementById("tableAvalableUserMyOrganization_Admin").getElementsByTagName("tbody")[0];
+    var container = document.getElementById("modal_adminScreenTMR_TableOrganization").getElementsByTagName("tbody")[0];
 
     container.appendChild(tr);
   });
@@ -90,7 +91,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
-function toComeInButtonSubdivision_Admin(obj) {
+function adminScreenTMR_Select_an_organization(obj) {
   //обработка редактирования строки...
   itemsName = [];
   var objItem = obj.item;
