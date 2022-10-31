@@ -188,8 +188,8 @@ function list_own_organizations_adminScreen(){
         '</div>'
     ].join('');
   }
-  var liLast = document.getElementById('adminScreenTMR_Monitor');
-  liLast.insertAdjacentHTML('afterbegin', html);
+  var liLast = document.getElementById('adminScreenTMR_Monitor_Title');
+  liLast.insertAdjacentHTML('afterEnd', html);
   //
   itemsMyOrganization.forEach(item => {
 
@@ -330,8 +330,8 @@ function adminScreenTMR_Select_an_organization(obj) {
         '</div>'
     ].join('');
   }
-  var liLast = document.getElementById('adminScreenTMR_Monitor');
-  liLast.insertAdjacentHTML('afterbegin', html);
+  var liLast = document.getElementById('adminScreenTMR_Monitor_Title');
+  liLast.insertAdjacentHTML('afterEnd', html);
   // очищаем и заполняем шабку выбора Организации
   // my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
   // var ul_User = my_div_User.querySelector("h4");
