@@ -167,8 +167,50 @@ function list_own_organizations_adminScreen(){
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
 function adminScreenTMR_Select_an_organization(obj) {
+  var articleDiv = document.getElementById("adminScreenTMR_Monitor").innerHTML;
+  // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+  var html = [
+      '<div class="row">',
+        '<div class="col-12 grid-margin">',
+          '<div class="card">',
+            '<div id ="addButtonShiftPosition" class="card-body">',
+              '<h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4>',
+              '<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button> -->',
+              '<div class="table-responsive">',
+                '<table id="modal_adminScreenTMR_TableUsers"class="table">',
+                  '<thead>',
+                    '<tr>',
+                      '<th></th>',
+                      '<th class="lang" key="email">Email</th>',
+                      '<th class="lang" key="users_name">Name</th>',
+                      '<th class="lang" key="comment">Сomment</th>',
+                      '<th class="lang" key="subdivision">Subdivision</th>',
+                      '<th class="lang" key="position">Position</th>',
+                    '</tr>',
+                  '</thead>',
+                    '<tbody>',
+                    '</tbody>',
+                 '</table>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>',
+      '</div>'
+  ].join('');
+  // var articleDivOn = '';
+  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
+  document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
 
-  document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
+
+
+
+
+
+
+
+
+
+  // document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
 
   //обработка редактирования строки...
   itemsName = [];
