@@ -69,6 +69,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 function list_own_organizations_adminScreen(){
+  var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
+  if(liLast_0 !== undefined){
+    liLast_0.remove();
+  }
   if(translation_JS == null || translation_JS == 'en'){
     var html = [
         '<div class="row" id="adminScreenTMR_ActivWindows">',
@@ -162,8 +166,11 @@ function adminScreenTMR_Select_an_organization(obj) {
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
-  var articleDiv = document.getElementById("adminScreenTMR_ActivWindows");
-  articleDiv.remove();
+  var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
+  if(liLast_0 !== undefined){
+    liLast_0.remove();
+  }
+  //
   if(translation_JS == null || translation_JS == 'en'){
     var html = [
         '<div class="row" id="adminScreenTMR_ActivWindows">',
@@ -241,21 +248,6 @@ function adminScreenTMR_Select_an_organization(obj) {
   my_div_User.insertAdjacentHTML('afterbegin', li);
   my_div_User.insertAdjacentHTML('beforeend', li_1);
   my_div_User.insertAdjacentHTML('beforeend', li_2);
-  // //очистить таблицу
-  // var tableMyOrganization = document.getElementById("tableAvalableSubdivision_Admin");
-  // for(var k = 1; k<tableMyOrganization.rows.length;){
-  //   tableMyOrganization.deleteRow(k);
-  // }
-  // //очистить таблицу
-  // var table = document.getElementById("tableChangeUser_Admin");
-  // for(var i = 1; i<table.rows.length;){
-  //   table.deleteRow(i);
-  // }
-  // //очистить таблицу
-  // var tableDuble = document.getElementById("tableDetailingShift_Admin");
-  // for(var l = 1; l<tableDuble.rows.length;){
-  //   tableDuble.deleteRow(l);
-  // }
   //получаем список подразделений
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
@@ -311,13 +303,6 @@ function adminScreenTMR_Select_an_organization(obj) {
               var userСomment_tr = document.createElement('td');
               userСomment_tr.innerHTML = userСomment;
               //
-              // var organizationColumn = document.createElement('td');
-              // itemsName.forEach((element, index, array) => {
-              //   if(element[idDocOrganization_local] !== undefined){
-              //     organizationColumn.innerHTML = element[idDocOrganization_local];
-              //   }
-              // });
-              //
               var subdivisionColumn = document.createElement('td');
               itemsName.forEach((element, index, array) => {
                 if(element[idDocSubdivision_local] !== undefined){
@@ -332,20 +317,6 @@ function adminScreenTMR_Select_an_organization(obj) {
                 }
               });
               //
-              // var toComeInUserName = document.createElement('button');
-              // if(translation_JS == null || translation_JS == 'en'){
-              //   toComeInUserName.innerHTML = "To come in";
-              // } else {
-              //   toComeInUserName.innerHTML = "Выбрать";
-              // }
-              // toComeInUserName.className = 'badge badge-gradient-success';
-              // toComeInUserName.id = idDocUser;
-              // toComeInUserName.item = doc.data();
-              // toComeInUserName.setAttribute('onclick', 'toComeInButtonShift_Admin(this)');
-              //
-              // var toComeInUserColumn = document.createElement('td');
-              // toComeInUserColumn.appendChild(toComeInUserName);
-
               tr.appendChild(toDismissColumn);
               // tr.appendChild(organizationColumn);
               tr.appendChild(userEmail_tr);
@@ -353,7 +324,6 @@ function adminScreenTMR_Select_an_organization(obj) {
               tr.appendChild(userСomment_tr);
               tr.appendChild(subdivisionColumn);
               tr.appendChild(positionColumn);
-
 
               var container = document.getElementById("modal_adminScreenTMR_TableUsers").getElementsByTagName("tbody")[0];
 
