@@ -70,7 +70,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 */
 function list_own_organizations_adminScreen(){
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
-  if(liLast_0 !== undefined){
+  if(liLast_0 !== null){
     liLast_0.remove();
   }
   if(translation_JS == null || translation_JS == 'en'){
@@ -167,7 +167,7 @@ function adminScreenTMR_Select_an_organization(obj) {
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
-  if(liLast_0 !== undefined){
+  if(liLast_0 !== null){
     liLast_0.remove();
   }
   //
@@ -177,7 +177,7 @@ function adminScreenTMR_Select_an_organization(obj) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div class="card-body">',
-                '<h4 class="card-description lang" key="list_users">List users '+(nameOrganization)+':</h4>',
+                '<h4 class="card-description lang" key="list_users">List users - '+(nameOrganization)+':</h4>',
                 '<div class="table-responsive">',
                   '<table id="modal_adminScreenTMR_TableUsers"class="table">',
                     '<thead>',
@@ -206,7 +206,7 @@ function adminScreenTMR_Select_an_organization(obj) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div class="card-body">',
-                '<h4 class="card-description lang" key="list_position_shifts">Список пользователей '+(nameOrganization)+':</h4>',
+                '<h4 class="card-description lang" key="list_position_shifts">Список пользователей - '+(nameOrganization)+':</h4>',
                 '<div class="table-responsive">',
                   '<table id="modal_adminScreenTMR_TableUsers"class="table">',
                     '<thead>',
@@ -288,6 +288,7 @@ function adminScreenTMR_Select_an_organization(obj) {
               var toDismissColumn1 = document.createElement('input');
               toDismissColumn1.type = "checkbox";
               toDismissColumn1.checked = true;
+              toDismissColumn1.item = doc.data();
               toDismissColumn1.className = 'form-check';
               toDismissColumn1.addEventListener("click", function(e) {console.log("checkbox");  });
 
@@ -348,49 +349,34 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   //читаем данные с таблицы
   var tablePositionsListSettings = document.getElementById('modal_adminScreenTMR_TableUsers');
   //удалил шапку таблицы
-  var itemPositionsListSettings =[];
+  var itemListUsers_local =[];
   var rowLength = tablePositionsListSettings.rows.length;
   for (i = 0; i < rowLength; i++){
-     var cells = tablePositionsListSettings.rows.item(i).cells;
-     var cellVal_0 = cells.item(0).innerHTML;
-     var cellVal_1 = cells.item(1).innerHTML;
-     var l = cells.item(2).lastChild.options.selectedIndex;
-     var cellVal_2 = cells.item(2).lastChild.options[l].value;
-     var l2 = cells.item(3).lastChild.options.selectedIndex;
-     var cellVal_3 = cells.item(3).lastChild.options[l2].value;
-     var l3 = cells.item(4).lastChild.options.selectedIndex;
-     var cellVal_4 = cells.item(4).lastChild.options[l3].value;
-     itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability_key: cellVal_2},...{SettingsSalesFunnel_Stage_key: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
-   }
-  // удаляем 3 настройки базовых кнопок
-  // itemPositionsListSettings.splice(0, 3);
+    var cells = tablePositionsListSettings.rows.item(i).cells;
+    var cellVal_0 = cells.item(0).checked;
+    var cellVal_0_item = cells.item(0).item;
+    var cellVal_1 = cells.item(1).innerHTML;
+    var cellVal_2 = cells.item(2).innerHTML;
+    var cellVal_3 = cells.item(3).innerHTML;
+    var cellVal_4 = cells.item(4).innerHTML;
+    var cellVal_5 = cells.item(5).innerHTML;
+    if(cellVal_0 == true){
+      itemListUsers_local.push({UserEmail: cellVal_1, UserName: cellVal_2, NameSubdivision: cellVal_4, NamePosition: cellVal_5, doc: cellVal_0_item});
+    }
+  }
   // разбираем данные для изменение документов
-  itemPositionsListSettings.forEach(function(item, i, arr) {
-  var namePosition = itemPositionsListSettings[i].namePosition;
-  var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
-  var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
-  var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
-  var k = itemPositionsListSettings.length;
-  var f = 0;
-  // itemsPositionSalesFunnel.forEach(function(item, l, arr) {
-  // var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
-  // var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
-  // if (namePosition == settingsTitle)
-  //   {
-  //     f = f + 1;
-  //     docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
-  //       SettingsSalesFunnel_Availability_key: settingsSalesFunnel_Availability_key,
-  //       SettingsSalesFunnel_Stage_key: settingsSalesFunnel_Stage_key,
-  //       SettingsSalesFunnel_Result_key: settingsSalesFunnel_Result_key,
-  //     }).then(function() {
-  //       console.log("Frank food updated");
-  //       if(k = f){
-  //         window.location.reload();
-  //       }
-  //     });
-  //   }
-  // });
-});
+  itemListUsers_local.forEach(function(item, i, arr) {
+    var doc = itemListUsers_local[i].doc;
+    var userName = doc.UserName;
+    var userEmail = doc.UserEmail;
+    var userСomment = doc.UserСomment;
+    var idDocOrganization_local = doc.idDocOrganization;
+    var idDocSubdivision_local = doc.idDocSubdivision;
+    var idDocPosition_local = doc.idDocPosition;
+    var k = itemListUsers_local.length;
+    var f = 0;
+
+  });
 
 
 
