@@ -347,14 +347,17 @@ function adminScreenTMR_Select_an_organization(obj) {
 */
 function modal_adminScreenTMR_TableUsers_Edit(){
   //читаем данные с таблицы
-  var tablePositionsListSettings = document.getElementById('modal_adminScreenTMR_TableUsers');
+  var adminScreenTMR_TableUsers = document.getElementById('modal_adminScreenTMR_TableUsers');
   //удалил шапку таблицы
   var itemListUsers_local =[];
-  var rowLength = tablePositionsListSettings.rows.length;
+  // удалить шапку
+  adminScreenTMR_TableUsers.deleteRow(0);
+  /// перечитываем данные из таблицы
+  var rowLength = adminScreenTMR_TableUsers.rows.length;
   for (i = 0; i < rowLength; i++){
-    var cells = tablePositionsListSettings.rows.item(i).cells;
-    var cellVal_0 = cells.item(0).checked;
-    var cellVal_0_item = cells.item(0).item;
+    var cells = adminScreenTMR_TableUsers.rows.item(i).cells;
+    var cellVal_0 = cells.item(0).lastChild.checked;
+    var cellVal_0_item = cells.item(0).lastChild.item;
     var cellVal_1 = cells.item(1).innerHTML;
     var cellVal_2 = cells.item(2).innerHTML;
     var cellVal_3 = cells.item(3).innerHTML;
@@ -375,11 +378,34 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     var idDocPosition_local = doc.idDocPosition;
     var k = itemListUsers_local.length;
     var f = 0;
+    //// выбираем смены для данной должности и пользователя
+    db.collection("WorkShift").where('EmailPositionUser', '==', userEmail).where("IdDocPosition","==", idDocPosition_local).where("WorkShiftEnd", "==", "false")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            ///
+            var docRef = db.collection("WorkShift").doc(doc.id);
+            db.collection("ProcessUser").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                    ////
 
+
+                    ////
+                });
+            });
+            ///
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    //// end выбираем смены для данной должности и пользователя
   });
-
-
-
+  // end разбираем данные для изменение документов
 }
 
 
