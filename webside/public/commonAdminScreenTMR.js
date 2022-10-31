@@ -26,7 +26,7 @@ var idDocPosition = "";
 var idDocOrganization = "";
 var idDocSubdivision = "";
 var itemsName = [];
-var itemsListUser = [];
+var itemsMyListUser = [];
 var itemsMyOrganization = [];
 
 
@@ -58,77 +58,67 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     var item = doc.data();
     var nameOrganization = doc.data().Organization;
     itemsMyOrganization.push({idDocOrganization: idDocOrganization, nameOrganization: nameOrganization});
-
-    ////
-    // var tr = document.createElement("tr");
-    //
-    // var organizationColumn = document.createElement('td');
-    // organizationColumn.innerHTML = doc.data().Organization;
-    //
-    // var toComeInUserName = document.createElement('button');
-    // if(translation_JS == null || translation_JS == 'en'){
-    //   toComeInUserName.innerHTML = "To come in";
-    // } else {
-    //   toComeInUserName.innerHTML = "Выбрать";
-    // }
-    // toComeInUserName.className = 'badge badge-gradient-success';
-    // toComeInUserName.id = doc.id;
-    // toComeInUserName.item = doc.data();
-    // toComeInUserName.setAttribute('onclick', 'adminScreenTMR_Select_an_organization(this)');
-    //
-    // var toComeInUserColumn = document.createElement('td');
-    // toComeInUserColumn.appendChild(toComeInUserName);
-    //
-    // tr.appendChild(organizationColumn);
-    // tr.appendChild(toComeInUserColumn);
-    //
-    // var container = document.getElementById("modal_adminScreenTMR_TableOrganization").getElementsByTagName("tbody")[0];
-    //
-    // container.appendChild(tr);
   });
 })
 .catch((error) => {
   console.log("Error getting documents: ", error);
 })
 
-
 /**
 * @return {string}
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 function list_own_organizations_adminScreen(){
-  // $('#modal_adminScreenTMR_Choosing_an_Organization').modal('show');
-
-
-  // var articleDiv = document.getElementById("adminScreenTMR_Monitor").innerHTML;
-
-
-
-  // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
-  var html = [
-      '<div class="row" id="adminScreenTMR_ActivWindows">',
-        '<div class="col-12 grid-margin">',
-          '<div class="card">',
-            '<div id ="addButtonShiftPosition" class="card-body">',
-              '<h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4>',
-              '<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button> -->',
-              '<div class="table-responsive">',
-                '<table id="modal_adminScreenTMR_TableOrganization" class="table">',
-                  '<thead>',
-                    '<tr>',
-                      '<th class="lang" key="organization"> Organization </th>',
-                      '<th></th>',
-                    '</tr>',
-                  '</thead>',
-                    '<tbody>',
-                    '</tbody>',
-                 '</table>',
+  if(translation_JS == null || translation_JS == 'en'){
+    var html = [
+        '<div class="row" id="adminScreenTMR_ActivWindows">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div class="card-body">',
+                '<h4 class="card-description lang" key="list_own_organizations">List of own organizations</h4>',
+                '<div class="table-responsive">',
+                  '<table id="modal_adminScreenTMR_TableOrganization" class="table">',
+                    '<thead>',
+                      '<tr>',
+                        '<th class="lang" key="organization"> Organization </th>',
+                        '<th></th>',
+                      '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                   '</table>',
+                '</div>',
               '</div>',
             '</div>',
           '</div>',
-        '</div>',
-      '</div>'
-  ].join('');
+        '</div>'
+    ].join('');
+  } else {
+    var html = [
+        '<div class="row" id="adminScreenTMR_ActivWindows">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div class="card-body">',
+                '<h4 class="card-description lang" key="list_own_organizations">Список собственных организаций</h4>',
+                '<div class="table-responsive">',
+                  '<table id="modal_adminScreenTMR_TableOrganization" class="table">',
+                    '<thead>',
+                      '<tr>',
+                        '<th class="lang" key="organization"> Наименование организации </th>',
+                        '<th></th>',
+                      '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                   '</table>',
+                '</div>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+    ].join('');
+  }
+
   // var articleDivOn = '';
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
@@ -174,50 +164,78 @@ function list_own_organizations_adminScreen(){
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
 function adminScreenTMR_Select_an_organization(obj) {
+  //обработка редактирования строки...
+  itemsName = [];
+  var objItem = obj.item;
+  var idDocOrganization = obj.id;
+  var nameOrganization = objItem.nameOrganization;
+  itemsName.push({[idDocOrganization]: nameOrganization});
+  //
   var articleDiv = document.getElementById("adminScreenTMR_ActivWindows");
   articleDiv.remove();
-  // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
-  var html = [
-      '<div class="row" id="adminScreenTMR_ActivWindows">',
-        '<div class="col-12 grid-margin">',
-          '<div class="card">',
-            '<div id ="addButtonShiftPosition" class="card-body">',
-              '<h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4>',
-              '<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button> -->',
-              '<div class="table-responsive">',
-                '<table id="modal_adminScreenTMR_TableUsers"class="table">',
-                  '<thead>',
-                    '<tr>',
-                      '<th></th>',
-                      '<th class="lang" key="email">Email</th>',
-                      '<th class="lang" key="users_name">Name</th>',
-                      '<th class="lang" key="comment">Сomment</th>',
-                      '<th class="lang" key="subdivision">Subdivision</th>',
-                      '<th class="lang" key="position">Position</th>',
-                    '</tr>',
-                  '</thead>',
-                    '<tbody>',
-                    '</tbody>',
-                 '</table>',
+  if(translation_JS == null || translation_JS == 'en'){
+    var html = [
+        '<div class="row" id="adminScreenTMR_ActivWindows">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div class="card-body">',
+                '<h4 class="card-description lang" key="list_users">List users</h4>',
+                '<div class="table-responsive">',
+                  '<table id="modal_adminScreenTMR_TableUsers"class="table">',
+                    '<thead>',
+                      '<tr>',
+                        '<th></th>',
+                        '<th class="lang" key="email">Email</th>',
+                        '<th class="lang" key="users_name">Name</th>',
+                        '<th class="lang" key="comment">Сomment</th>',
+                        '<th class="lang" key="subdivision">Subdivision</th>',
+                        '<th class="lang" key="position">Position</th>',
+                      '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                   '</table>',
+                '</div>',
               '</div>',
             '</div>',
           '</div>',
-        '</div>',
-      '</div>'
-  ].join('');
+        '</div>'
+    ].join('');
+  } else {
+    var html = [
+        '<div class="row" id="adminScreenTMR_ActivWindows">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div class="card-body">',
+                '<h4 class="card-description lang" key="list_position_shifts">Список пользователей :</h4>',
+                '<div class="table-responsive">',
+                  '<table id="modal_adminScreenTMR_TableUsers"class="table">',
+                    '<thead>',
+                      '<tr>',
+                        '<th></th>',
+                        '<th class="lang" key="email">Логин</th>',
+                        '<th class="lang" key="users_name">ФИО</th>',
+                        '<th class="lang" key="comment">Комментарий</th>',
+                        '<th class="lang" key="subdivision">Подразделение</th>',
+                        '<th class="lang" key="position">Должность</th>',
+                      '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                   '</table>',
+                '</div>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+    ].join('');
+  }
   // var articleDivOn = '';
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
   // document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
   var liLast = document.getElementById('adminScreenTMR_Monitor');
   liLast.insertAdjacentHTML('afterbegin', html);
-  //обработка редактирования строки...
-  itemsName = [];
-  var objItem = obj.item;
-  var idDocOrganization = obj.id;
-  var nameOrganization = objItem.Organization;
-  // $('#modal_adminScreenTMR_Choosing_an_Organization').modal('toggle');
-  itemsName.push({[idDocOrganization]: nameOrganization});
   // очищаем и заполняем шабку выбора Организации
   my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
   var ul_User = my_div_User.querySelector("h4");
