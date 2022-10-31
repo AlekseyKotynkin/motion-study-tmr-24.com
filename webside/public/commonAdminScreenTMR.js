@@ -118,18 +118,9 @@ function list_own_organizations_adminScreen(){
         '</div>'
     ].join('');
   }
-
-  // var articleDivOn = '';
-  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
-
   var liLast = document.getElementById('adminScreenTMR_Monitor');
   liLast.insertAdjacentHTML('afterbegin', html);
-  // var div = document.createElement('div');
-  // div.setAttribute('class', 'row');
-  // div.innerHTML = html;
-  // document.getElementById('adminScreenTMR_Monitor').appendChild(div);
-
+  //
   itemsMyOrganization.forEach(item => {
 
     var tr = document.createElement("tr");
@@ -179,7 +170,7 @@ function adminScreenTMR_Select_an_organization(obj) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div class="card-body">',
-                '<h4 class="card-description lang" key="list_users">List users</h4>',
+                '<h4 class="card-description lang" key="list_users">List users '+(nameOrganization)+':</h4>',
                 '<div class="table-responsive">',
                   '<table id="modal_adminScreenTMR_TableUsers"class="table">',
                     '<thead>',
@@ -196,6 +187,7 @@ function adminScreenTMR_Select_an_organization(obj) {
                       '</tbody>',
                    '</table>',
                 '</div>',
+               '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Select employees</button>',
               '</div>',
             '</div>',
           '</div>',
@@ -207,7 +199,7 @@ function adminScreenTMR_Select_an_organization(obj) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div class="card-body">',
-                '<h4 class="card-description lang" key="list_position_shifts">Список пользователей :</h4>',
+                '<h4 class="card-description lang" key="list_position_shifts">Список пользователей '+(nameOrganization)+':</h4>',
                 '<div class="table-responsive">',
                   '<table id="modal_adminScreenTMR_TableUsers"class="table">',
                     '<thead>',
@@ -224,16 +216,13 @@ function adminScreenTMR_Select_an_organization(obj) {
                       '</tbody>',
                    '</table>',
                 '</div>',
+                '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Выбрать сотрудников</button>',
               '</div>',
             '</div>',
           '</div>',
         '</div>'
     ].join('');
   }
-  // var articleDivOn = '';
-  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
-  // document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
   var liLast = document.getElementById('adminScreenTMR_Monitor');
   liLast.insertAdjacentHTML('afterbegin', html);
   // очищаем и заполняем шабку выбора Организации
@@ -300,7 +289,7 @@ function adminScreenTMR_Select_an_organization(obj) {
               var idDocOrganization_local = doc.data().idDocOrganization;
               var idDocSubdivision_local = doc.data().idDocSubdivision;
               var idDocPosition_local = doc.data().idDocPosition;
-              itemsListUser.push({[idDocUser]: doc.data()});
+              itemsMyListUser.push({[idDocUser]: doc.data()});
               //заполняем таблицу
               var tr = document.createElement("tr");
 
