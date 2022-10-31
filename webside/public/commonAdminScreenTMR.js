@@ -27,7 +27,7 @@ var idDocOrganization = "";
 var idDocSubdivision = "";
 var itemsName = [];
 var itemsListUser = [];
-
+var itemsMyOrganization = [];
 
 
 
@@ -57,11 +57,81 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     var idDocOrganization = doc.id;
     var item = doc.data();
     var nameOrganization = doc.data().Organization;
-    ////
-    var tr = document.createElement("tr");
+    itemsMyOrganization.push({idDocOrganization: idDocOrganization, nameOrganization: nameOrganization});
 
-    // var statusUserColumn = document.createElement('td');
-    // statusUserColumn.innerHTML = doc.data().OwnerEmail;
+    ////
+    // var tr = document.createElement("tr");
+    //
+    // var organizationColumn = document.createElement('td');
+    // organizationColumn.innerHTML = doc.data().Organization;
+    //
+    // var toComeInUserName = document.createElement('button');
+    // if(translation_JS == null || translation_JS == 'en'){
+    //   toComeInUserName.innerHTML = "To come in";
+    // } else {
+    //   toComeInUserName.innerHTML = "Выбрать";
+    // }
+    // toComeInUserName.className = 'badge badge-gradient-success';
+    // toComeInUserName.id = doc.id;
+    // toComeInUserName.item = doc.data();
+    // toComeInUserName.setAttribute('onclick', 'adminScreenTMR_Select_an_organization(this)');
+    //
+    // var toComeInUserColumn = document.createElement('td');
+    // toComeInUserColumn.appendChild(toComeInUserName);
+    //
+    // tr.appendChild(organizationColumn);
+    // tr.appendChild(toComeInUserColumn);
+    //
+    // var container = document.getElementById("modal_adminScreenTMR_TableOrganization").getElementsByTagName("tbody")[0];
+    //
+    // container.appendChild(tr);
+  });
+})
+.catch((error) => {
+  console.log("Error getting documents: ", error);
+})
+
+
+/**
+* @return {string}
+*  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
+*/
+function list_own_organizations_adminScreen(){
+  // $('#modal_adminScreenTMR_Choosing_an_Organization').modal('show');
+
+  var html = [
+      // '<div class="row">',
+        '<div class="col-12 grid-margin">',
+          '<div class="card">',
+            '<div id ="addButtonShiftPosition" class="card-body">',
+              '<h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4>',
+              '<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">+ Add Position Shift</button> -->',
+              '<div class="table-responsive">',
+                '<table id="modal_adminScreenTMR_TableOrganization" class="table">',
+                  '<thead>',
+                    '<tr>',
+                      '<th class="lang" key="organization"> Organization </th>',
+                      '<th></th>',
+                    '</tr>',
+                  '</thead>',
+                    '<tbody>',
+                    '</tbody>',
+                 '</table>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+      // '</div>'
+  ].join('');
+
+  var div = document.createElement('div');
+  div.setAttribute('class', 'row');
+  div.innerHTML = html;
+  document.getElementById('adminScreenTMR_Monitor').appendChild(div);
+
+  itemsMyOrganization.forEach(item => {
+
+    var tr = document.createElement("tr");
 
     var organizationColumn = document.createElement('td');
     organizationColumn.innerHTML = doc.data().Organization;
@@ -81,36 +151,27 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
     toComeInUserColumn.appendChild(toComeInUserName);
 
     tr.appendChild(organizationColumn);
-    // tr.appendChild(statusUserColumn);
     tr.appendChild(toComeInUserColumn);
 
     var container = document.getElementById("modal_adminScreenTMR_TableOrganization").getElementsByTagName("tbody")[0];
 
     container.appendChild(tr);
   });
-})
-.catch((error) => {
-  console.log("Error getting documents: ", error);
-})
 
-
-/**
-* @return {string}
-*  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
-*/
-function list_own_organizations_adminScreen(){
-  $('#modal_adminScreenTMR_Choosing_an_Organization').modal('show');
 }
 
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
 function adminScreenTMR_Select_an_organization(obj) {
+  
+  document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
+
   //обработка редактирования строки...
   itemsName = [];
   var objItem = obj.item;
   var idDocOrganization = obj.id;
   var nameOrganization = objItem.Organization;
-  $('#modal_adminScreenTMR_Choosing_an_Organization').modal('toggle');
+  // $('#modal_adminScreenTMR_Choosing_an_Organization').modal('toggle');
   itemsName.push({[idDocOrganization]: nameOrganization});
   // очищаем и заполняем шабку выбора Организации
   my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
@@ -262,6 +323,52 @@ function adminScreenTMR_Select_an_organization(obj) {
 *  Заполняем таблички диаграмм занятости выбранных сотрудников
 */
 function modal_adminScreenTMR_TableUsers_Edit(){
+  //читаем данные с таблицы
+  var tablePositionsListSettings = document.getElementById('modal_adminScreenTMR_TableUsers');
+  //удалил шапку таблицы
+  var itemPositionsListSettings =[];
+  var rowLength = tablePositionsListSettings.rows.length;
+  for (i = 0; i < rowLength; i++){
+     var cells = tablePositionsListSettings.rows.item(i).cells;
+     var cellVal_0 = cells.item(0).innerHTML;
+     var cellVal_1 = cells.item(1).innerHTML;
+     var l = cells.item(2).lastChild.options.selectedIndex;
+     var cellVal_2 = cells.item(2).lastChild.options[l].value;
+     var l2 = cells.item(3).lastChild.options.selectedIndex;
+     var cellVal_3 = cells.item(3).lastChild.options[l2].value;
+     var l3 = cells.item(4).lastChild.options.selectedIndex;
+     var cellVal_4 = cells.item(4).lastChild.options[l3].value;
+     itemPositionsListSettings.push({...{namePosition: cellVal_0},...{SettingsSalesFunnel_Availability_key: cellVal_2},...{SettingsSalesFunnel_Stage_key: cellVal_3},...{SettingsSalesFunnel_Result: cellVal_4}});
+   }
+  // удаляем 3 настройки базовых кнопок
+  // itemPositionsListSettings.splice(0, 3);
+  // разбираем данные для изменение документов
+  itemPositionsListSettings.forEach(function(item, i, arr) {
+  var namePosition = itemPositionsListSettings[i].namePosition;
+  var settingsSalesFunnel_Availability_key = itemPositionsListSettings[i].SettingsSalesFunnel_Availability_key;
+  var settingsSalesFunnel_Stage_key = itemPositionsListSettings[i].SettingsSalesFunnel_Stage_key;
+  var settingsSalesFunnel_Result_key = itemPositionsListSettings[i].SettingsSalesFunnel_Result;
+  var k = itemPositionsListSettings.length;
+  var f = 0;
+  // itemsPositionSalesFunnel.forEach(function(item, l, arr) {
+  // var settingsTitle = itemsPositionSalesFunnel[l].SettingsTitle;
+  // var idDocPositionSettingsr = itemsPositionSalesFunnel[l].idPositionSettings;
+  // if (namePosition == settingsTitle)
+  //   {
+  //     f = f + 1;
+  //     docRefPosition.collection("PositionSettings").doc(idDocPositionSettingsr).update({
+  //       SettingsSalesFunnel_Availability_key: settingsSalesFunnel_Availability_key,
+  //       SettingsSalesFunnel_Stage_key: settingsSalesFunnel_Stage_key,
+  //       SettingsSalesFunnel_Result_key: settingsSalesFunnel_Result_key,
+  //     }).then(function() {
+  //       console.log("Frank food updated");
+  //       if(k = f){
+  //         window.location.reload();
+  //       }
+  //     });
+  //   }
+  // });
+});
 
 
 
