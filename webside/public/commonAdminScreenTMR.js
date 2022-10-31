@@ -28,6 +28,42 @@ var idDocSubdivision = "";
 var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
+//////
+var myData = [{
+    name: "Name 1",
+    desc: "Description 1",
+    values: [{
+      from: 1320192000000, // <a href="https://www.jqueryscript.net/time-clock/">date</a> string
+      to: 1322401600000,
+      label: "Label 1",
+      desc: "Value Description 1",
+      customClass: "custom-1",
+      dataObj: {}
+    }]
+},{
+    name: "Name 2",
+    desc: "Description 2",
+    values: [{
+      from: 1320192000000,
+      to: 1322401600000,
+      label: "Label 2",
+      desc: "Value Description 2",
+      customClass: "custom-2",
+      dataObj: {}
+    }]
+},{
+    name: "Name 3",
+    desc: "Description 3",
+    values: [{
+      from: 1320192000000,
+      to: 1322401600000,
+      label: "Label 3",
+      desc: "Value Description 3",
+      customClass: "custom-3",
+      dataObj: {}
+    }]
+}];
+/////
 
 
 
@@ -69,6 +105,36 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 function list_own_organizations_adminScreen(){
+  var liLast_Title = document.getElementById('adminScreenTMR_ActivWindows');
+  if(liLast_Title !== null){
+    liLast_Title.remove();
+  }
+  if(translation_JS == null || translation_JS == 'en'){
+    var html_title = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+        '<div class="col-12">',
+          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+            '<h4 class="card-description lang" key="select_organization">Select an organization.</h4>',
+            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
+          '</span>',
+        '</div>',
+      '</div>'
+    ].join('');
+  } else {
+    var html_title = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+        '<div class="col-12">',
+          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+            '<h4 class="card-description lang" key="select_organization">Выбрать организацию.</h4>',
+            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
+          '</span>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }
+  var liLast_title = document.getElementById('adminScreenTMR_Monitor');
+  liLast_title.insertAdjacentHTML('afterbegin', html_title);
+  ///
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
     liLast_0.remove();
@@ -166,6 +232,40 @@ function adminScreenTMR_Select_an_organization(obj) {
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
+  var liLast_Title = document.getElementById('adminScreenTMR_ActivWindows');
+  if(liLast_Title !== null){
+    liLast_Title.remove();
+  }
+  if(translation_JS == null || translation_JS == 'en'){
+    var html_title = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+        '<div class="col-12">',
+          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+            '<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>',
+            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
+            '<p class="card-description">A list of users : </p>',
+            '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>',
+          '</span>',
+        '</div>',
+      '</div>'
+    ].join('');
+  } else {
+    var html_title = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+        '<div class="col-12">',
+          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+            '<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>',
+            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
+            '<p class="card-description">Выбрать список сотрудников : </p>',
+            '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>',
+          '</span>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }
+  var liLast_title = document.getElementById('adminScreenTMR_Monitor');
+  liLast_title.insertAdjacentHTML('afterbegin', html_title);
+  //
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
     liLast_0.remove();
@@ -233,21 +333,21 @@ function adminScreenTMR_Select_an_organization(obj) {
   var liLast = document.getElementById('adminScreenTMR_Monitor');
   liLast.insertAdjacentHTML('afterbegin', html);
   // очищаем и заполняем шабку выбора Организации
-  my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
-  var ul_User = my_div_User.querySelector("h4");
-  ul_User.remove();
-  if(translation_JS == null || translation_JS == 'en'){
-    var li ='<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>';
-    var li_1 ='<p class="card-description">A list of users : </p>';
-    var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>';
-  } else {
-    var li ='<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>';
-    var li_1 ='<p class="card-description">Выбрать список сотрудников : </p>';
-    var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>';
-  }
-  my_div_User.insertAdjacentHTML('afterbegin', li);
-  my_div_User.insertAdjacentHTML('beforeend', li_1);
-  my_div_User.insertAdjacentHTML('beforeend', li_2);
+  // my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
+  // var ul_User = my_div_User.querySelector("h4");
+  // ul_User.remove();
+  // if(translation_JS == null || translation_JS == 'en'){
+  //   var li ='<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>';
+  //   var li_1 ='<p class="card-description">A list of users : </p>';
+  //   var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>';
+  // } else {
+  //   var li ='<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>';
+  //   var li_1 ='<p class="card-description">Выбрать список сотрудников : </p>';
+  //   var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>';
+  // }
+  // my_div_User.insertAdjacentHTML('afterbegin', li);
+  // my_div_User.insertAdjacentHTML('beforeend', li_1);
+  // my_div_User.insertAdjacentHTML('beforeend', li_2);
   //получаем список подразделений
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
@@ -449,3 +549,36 @@ function SignoutAdmin() {
     }
   });
 }
+
+///
+$(".gantt").gantt({
+
+  // holidays
+  holidays: [],
+
+  // how many items per page
+  itemsPerPage: 7,
+
+  // localisation
+  dow: ["S", "M", "T", "W", "T", "F", "S"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  waitText: "Please wait...",
+
+  // navigation type
+  // or 'scroll'
+  navigate: "buttons",
+
+  // auto scrolls to today
+  scrollToToday: true,
+
+  // uses cookie to save the current state
+  // requires jquery-cookie plugin: https://github.com/carhartl/jquery-cookie
+  useCookie: false,
+  cookieKey: "jquery.fn.gantt",
+
+  // scale parameters
+  scale: "days",
+  maxScale: "months",
+  minScale: "hours",
+
+});
