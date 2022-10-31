@@ -98,10 +98,15 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 */
 function list_own_organizations_adminScreen(){
   // $('#modal_adminScreenTMR_Choosing_an_Organization').modal('show');
-  var articleDiv = document.getElementById("adminScreenTMR_Monitor").innerHTML;
+
+
+  // var articleDiv = document.getElementById("adminScreenTMR_Monitor").innerHTML;
+
+
+
   // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
   var html = [
-      '<div class="row">',
+      '<div class="row" id="adminScreenTMR_ActivWindows">',
         '<div class="col-12 grid-margin">',
           '<div class="card">',
             '<div id ="addButtonShiftPosition" class="card-body">',
@@ -126,8 +131,10 @@ function list_own_organizations_adminScreen(){
   ].join('');
   // var articleDivOn = '';
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-  document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
+  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
 
+  var liLast = document.getElementById('adminScreenTMR_Monitor');
+  liLast.insertAdjacentHTML('afterbegin', html);
   // var div = document.createElement('div');
   // div.setAttribute('class', 'row');
   // div.innerHTML = html;
@@ -167,10 +174,11 @@ function list_own_organizations_adminScreen(){
 //Получение данных для таблицы List Of Posts In Which You Are Involved As A User из firestore.. Список подразделений, должностей и сотрудников
 
 function adminScreenTMR_Select_an_organization(obj) {
-  var articleDiv = document.getElementById("adminScreenTMR_Monitor").innerHTML;
+  var articleDiv = document.getElementById("adminScreenTMR_ActivWindows");
+  articleDiv.remove();
   // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
   var html = [
-      '<div class="row">',
+      '<div class="row" id="adminScreenTMR_ActivWindows">',
         '<div class="col-12 grid-margin">',
           '<div class="card">',
             '<div id ="addButtonShiftPosition" class="card-body">',
@@ -199,19 +207,10 @@ function adminScreenTMR_Select_an_organization(obj) {
   ].join('');
   // var articleDivOn = '';
   // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-  document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
-
-
-
-
-
-
-
-
-
-
+  // document.body.innerHTML = document.body.innerHTML.replace(articleDiv, html);
   // document.getElementById('adminScreenTMR_Monitor').innerHTML = "";
-
+  var liLast = document.getElementById('adminScreenTMR_Monitor');
+  liLast.insertAdjacentHTML('afterbegin', html);
   //обработка редактирования строки...
   itemsName = [];
   var objItem = obj.item;
