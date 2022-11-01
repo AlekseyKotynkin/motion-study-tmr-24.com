@@ -483,7 +483,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
                       var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
                     }
                     ////
-
+                    addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
 
 
                     ////
