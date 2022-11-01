@@ -132,8 +132,8 @@ function list_own_organizations_adminScreen(){
       '</div>'
     ].join('');
   }
-  var liLast_title = document.getElementById('adminScreenTMR_Monitor');
-  liLast_title.insertAdjacentHTML('afterbegin', html_title);
+  var liLast_title_0 = document.getElementById('adminScreenTMR_Monitor');
+  liLast_title_0.insertAdjacentHTML('afterbegin', html_title);
   ///
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
@@ -263,8 +263,8 @@ function adminScreenTMR_Select_an_organization(obj) {
       '</div>'
     ].join('');
   }
-  var liLast_title = document.getElementById('adminScreenTMR_Monitor');
-  liLast_title.insertAdjacentHTML('afterbegin', html_title);
+  var liLast_title_0 = document.getElementById('adminScreenTMR_Monitor');
+  liLast_title_0.insertAdjacentHTML('afterbegin', html_title);
   //
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
