@@ -467,6 +467,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       itemListUsers_local.push({UserEmail: cellVal_1, UserName: cellVal_2, NameSubdivision: cellVal_4, NamePosition: cellVal_5, doc: cellVal_0_item});
     }
   }
+  ////очистить окно выбора пользователей
+  var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
+  if(liLast_0 !== null){
+    liLast_0.remove();
+  }
   // разбираем данные для изменение документов
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
