@@ -29,40 +29,57 @@ var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
 //////
-var myData = [{
-    name: "Name 1",
-    desc: "Description 1",
-    values: [{
-      from: 1320192000000, // <a href="https://www.jqueryscript.net/time-clock/">date</a> string
-      to: 1322401600000,
-      label: "Label 1",
-      desc: "Value Description 1",
-      customClass: "custom-1",
-      dataObj: {}
-    }]
-},{
-    name: "Name 2",
-    desc: "Description 2",
-    values: [{
-      from: 1320192000000,
-      to: 1322401600000,
-      label: "Label 2",
-      desc: "Value Description 2",
-      customClass: "custom-2",
-      dataObj: {}
-    }]
-},{
-    name: "Name 3",
-    desc: "Description 3",
-    values: [{
-      from: 1320192000000,
-      to: 1322401600000,
-      label: "Label 3",
-      desc: "Value Description 3",
-      customClass: "custom-3",
-      dataObj: {}
-    }]
-}];
+var ganttData = [
+	{
+		id: 1, name: "Feature 1", series: [
+			{ name: "Planned", start: new Date(2010,00,01), end: new Date(2010,00,03) },
+			{ name: "Actual", start: new Date(2010,00,02), end: new Date(2010,00,05), color: "#f0f0f0" }
+		]
+	},
+	{
+		id: 2, name: "Feature 2", series: [
+			{ name: "Planned", start: new Date(2010,00,05), end: new Date(2010,00,20) },
+			{ name: "Actual", start: new Date(2010,00,06), end: new Date(2010,00,17), color: "#f0f0f0" },
+			{ name: "Projected", start: new Date(2010,00,06), end: new Date(2010,00,17), color: "#e0e0e0" }
+		]
+	},
+	{
+		id: 3, name: "Feature 3", series: [
+			{ name: "Planned", start: new Date(2010,00,11), end: new Date(2010,01,03) },
+			{ name: "Actual", start: new Date(2010,00,15), end: new Date(2010,01,03), color: "#f0f0f0" }
+		]
+	},
+	{
+		id: 4, name: "Feature 4", series: [
+			{ name: "Planned", start: new Date(2010,01,01), end: new Date(2010,01,03) },
+			{ name: "Actual", start: new Date(2010,01,01), end: new Date(2010,01,05), color: "#f0f0f0" }
+		]
+	},
+	{
+		id: 5, name: "Feature 5", series: [
+			{ name: "Planned", start: new Date(2010,02,01), end: new Date(2010,03,20) },
+			{ name: "Actual", start: new Date(2010,02,01), end: new Date(2010,03,26), color: "#f0f0f0" }
+		]
+	},
+	{
+		id: 6, name: "Feature 6", series: [
+			{ name: "Planned", start: new Date(2010,00,05), end: new Date(2010,00,20) },
+			{ name: "Actual", start: new Date(2010,00,06), end: new Date(2010,00,17), color: "#f0f0f0" },
+			{ name: "Projected", start: new Date(2010,00,06), end: new Date(2010,00,20), color: "#e0e0e0" }
+		]
+	},
+	{
+		id: 7, name: "Feature 7", series: [
+			{ name: "Planned", start: new Date(2010,00,11), end: new Date(2010,01,03) }
+		]
+	},
+	{
+		id: 8, name: "Feature 8", series: [
+			{ name: "Planned", start: new Date(2010,01,01), end: new Date(2010,01,03) },
+			{ name: "Actual", start: new Date(2010,01,01), end: new Date(2010,01,05), color: "#f0f0f0" }
+		]
+	}
+];
 /////
 
 
@@ -109,31 +126,31 @@ function list_own_organizations_adminScreen(){
   if(liLast_Title !== null){
     liLast_Title.remove();
   }
-  if(translation_JS == null || translation_JS == 'en'){
-    var html_title = [
-      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
-        '<div class="col-12">',
-          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
-            '<h4 class="card-description lang" key="select_organization">Select an organization.</h4>',
-            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
-          '</span>',
-        '</div>',
-      '</div>'
-    ].join('');
-  } else {
-    var html_title = [
-      '<div class="row" id = "adminScreenTMR_Monitor_Title">',
-        '<div class="col-12">',
-          '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
-            '<h4 class="card-description lang" key="select_organization">Выбрать организацию.</h4>',
-            '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
-          '</span>',
-        '</div>',
-      '</div>'
-    ].join('');
-  }
-  var liLast_title_0 = document.getElementById('adminScreenTMR_Monitor');
-  liLast_title_0.insertAdjacentHTML('afterbegin', html_title);
+  // if(translation_JS == null || translation_JS == 'en'){
+  //   var html_title = [
+  //     '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+  //       '<div class="col-12">',
+  //         '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+  //           '<h4 class="card-description lang" key="select_organization">Select an organization.</h4>',
+  //           '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
+  //         '</span>',
+  //       '</div>',
+  //     '</div>'
+  //   ].join('');
+  // } else {
+  //   var html_title = [
+  //     '<div class="row" id = "adminScreenTMR_Monitor_Title">',
+  //       '<div class="col-12">',
+  //         '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
+  //           '<h4 class="card-description lang" key="select_organization">Выбрать организацию.</h4>',
+  //           '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
+  //         '</span>',
+  //       '</div>',
+  //     '</div>'
+  //   ].join('');
+  // }
+  // var liLast_title_0 = document.getElementById('adminScreenTMR_Monitor');
+  // liLast_title_0.insertAdjacentHTML('afterbegin', html_title);
   ///
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
@@ -244,7 +261,7 @@ function adminScreenTMR_Select_an_organization(obj) {
             '<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>',
             '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
             '<p class="card-description">A list of users : </p>',
-            '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>',
+            // '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>',
           '</span>',
         '</div>',
       '</div>'
@@ -257,7 +274,7 @@ function adminScreenTMR_Select_an_organization(obj) {
             '<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>',
             '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
             '<p class="card-description">Выбрать список сотрудников : </p>',
-            '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>',
+            // '<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>',
           '</span>',
         '</div>',
       '</div>'
@@ -556,38 +573,24 @@ function SignoutAdmin() {
 }
 ///
 function fill_in_the_Gantt_chart(){
-  $(".gantt").gantt({
-
-    // holidays
-    holidays: [],
-
-    // how many items per page
-    itemsPerPage: 7,
-
-    // localisation
-    dow: ["S", "M", "T", "W", "T", "F", "S"],
-    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    waitText: "Please wait...",
-
-    // navigation type
-    // or 'scroll'
-    navigate: "buttons",
-
-    // auto scrolls to today
-    scrollToToday: true,
-
-    // uses cookie to save the current state
-    // requires jquery-cookie plugin: https://github.com/carhartl/jquery-cookie
-    useCookie: false,
-    cookieKey: "jquery.fn.gantt",
-
-    // scale parameters
-    scale: "days",
-    maxScale: "months",
-    minScale: "hours",
-
+  $("#ganttChart").ganttView({
+    data: ganttData,
+    slideWidth: 900,
+    behavior: {
+      onClick: function (data) {
+        var msg = "You clicked on an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+        $("#eventMessage").text(msg);
+      },
+      onResize: function (data) {
+        var msg = "You resized an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+        $("#eventMessage").text(msg);
+      },
+      onDrag: function (data) {
+        var msg = "You dragged an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+        $("#eventMessage").text(msg);
+      }
+    }
   });
-
 
 }
 ///

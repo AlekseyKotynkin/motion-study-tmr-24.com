@@ -16,8 +16,18 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+    <script type="text/javascript" src="../../js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="../../js/date.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui-1.8.4.js"></script>
+    <script type="text/javascript" src="../../js/jquery.ganttView.js"></script>
+
+
+
+
+
+
     <script src="../../js/jquery-3.4.1.min.js"></script>
-    <script src="../../js/jquery.fn.gantt.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
@@ -31,6 +41,10 @@
     <script src="../../js/translation.js"></script>
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- Подключаем стили для диаграммы Ганта -->
+    <link rel="stylesheet" type="text/css" href="../../assets/css/jquery-ui-1.8.4.css" />
+  	<!-- <link rel="stylesheet" type="text/css" href="reset.css" /> -->
+  	<link rel="stylesheet" type="text/css" href="../../assets/css/jquery.ganttView.css" />
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../images/iconka_business_512x512.png" />
   </head>
@@ -305,7 +319,9 @@
                     <h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>
                     <button onclick="fill_in_the_Gantt_chart()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Заполнить тест</button>
                     <!-- <canvas id="doughnutChart_Gantt_Admin" style="height:250px"></canvas> -->
-                    <div class="gantt"></div>
+                    <div id="ganttChart"></div>
+                  	<br/><br/>
+                  	<div id="eventMessage"></div>
                   </div>
                 </div>
               </div>
