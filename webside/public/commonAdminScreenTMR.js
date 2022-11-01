@@ -549,36 +549,40 @@ function SignoutAdmin() {
     }
   });
 }
-
 ///
-$(".gantt").gantt({
+function fill_in_the_Gantt_chart(){
+  $(".gantt").gantt({
 
-  // holidays
-  holidays: [],
+    // holidays
+    holidays: [],
 
-  // how many items per page
-  itemsPerPage: 7,
+    // how many items per page
+    itemsPerPage: 7,
 
-  // localisation
-  dow: ["S", "M", "T", "W", "T", "F", "S"],
-  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  waitText: "Please wait...",
+    // localisation
+    dow: ["S", "M", "T", "W", "T", "F", "S"],
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    waitText: "Please wait...",
 
-  // navigation type
-  // or 'scroll'
-  navigate: "buttons",
+    // navigation type
+    // or 'scroll'
+    navigate: "buttons",
 
-  // auto scrolls to today
-  scrollToToday: true,
+    // auto scrolls to today
+    scrollToToday: true,
 
-  // uses cookie to save the current state
-  // requires jquery-cookie plugin: https://github.com/carhartl/jquery-cookie
-  useCookie: false,
-  cookieKey: "jquery.fn.gantt",
+    // uses cookie to save the current state
+    // requires jquery-cookie plugin: https://github.com/carhartl/jquery-cookie
+    useCookie: false,
+    cookieKey: "jquery.fn.gantt",
 
-  // scale parameters
-  scale: "days",
-  maxScale: "months",
-  minScale: "hours",
+    // scale parameters
+    scale: "days",
+    maxScale: "months",
+    minScale: "hours",
 
-});
+  });
+
+
+}
+///
