@@ -105,7 +105,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 function list_own_organizations_adminScreen(){
-  var liLast_Title = document.getElementById('adminScreenTMR_ActivWindows');
+  var liLast_Title = document.getElementById('adminScreenTMR_Monitor_Title');
   if(liLast_Title !== null){
     liLast_Title.remove();
   }
@@ -232,7 +232,7 @@ function adminScreenTMR_Select_an_organization(obj) {
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
-  var liLast_Title = document.getElementById('adminScreenTMR_ActivWindows');
+  var liLast_Title = document.getElementById('adminScreenTMR_Monitor_Title');
   if(liLast_Title !== null){
     liLast_Title.remove();
   }
