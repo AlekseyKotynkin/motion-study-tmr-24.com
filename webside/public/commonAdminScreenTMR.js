@@ -205,8 +205,8 @@ function list_own_organizations_adminScreen(){
         '</div>'
     ].join('');
   }
-  var liLast = document.getElementById('adminScreenTMR_Monitor_Title');
-  liLast.insertAdjacentHTML('afterEnd', html);
+  var liLast = document.getElementById('adminScreenTMR_Monitor');
+  liLast.insertAdjacentHTML('afterbegin', html);
   //
   itemsMyOrganization.forEach(item => {
 
