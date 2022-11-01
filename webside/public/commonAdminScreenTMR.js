@@ -33,6 +33,7 @@ var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
 var color_Orange = '#f0430a'; //оранжевый
 var color_Red = '#d22830'; //красный
+var addRows_data = [];
 /////
 
 /**
@@ -470,7 +471,18 @@ function modal_adminScreenTMR_TableUsers_Edit(){
                     var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
                     var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
                     ////
-
+                    if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
+                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
+                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
+                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
+                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
+                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
+                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
+                    }else{
+                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+                    }
+                    ////
 
 
 
