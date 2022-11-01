@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="../../assets/css/jquery-ui-1.8.4.css" />
     <!-- <link rel="stylesheet" type="text/css" href="reset.css" /> -->
     <link rel="stylesheet" type="text/css" href="../../assets/css/jquery.ganttView.css" />
-
     <!-- endinject -->
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -21,28 +20,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-
-    <!-- <script type="text/javascript" src="../../js/jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="../../js/date.js"></script>
-    <script type="text/javascript" src="../../js/jquery-ui-1.8.4.js"></script>
-    <script type="text/javascript" src="../../js/jquery.ganttView.js"></script>
-
-    <script>
-    var jqOld = jQuery.noConflict();
-    jqOld(function() {
-      jqOld("#ganttChart" ).ganttView();
-    })
-    </script> -->
-
-
-
-
-
+    <!-- Query -->
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
     <!-- endinject -->
     <script src="../../js/index.js"></script>
     <script src="../../commonAdminScreenTMR.js"></script>
@@ -325,13 +307,8 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>
-                    <button onclick="fill_in_the_Gantt_chart()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Заполнить тест</button>
-                    <!-- <canvas id="doughnutChart_Gantt_Admin" style="height:250px"></canvas> -->
-                    <!-- <div id="ganttChart"></div>
-                  	<br/><br/>
-                  	<div id="eventMessage"></div> -->
-                    <div id="example5.3" style="height: 150px;"></div>
+                    <!-- <h4 class="card-description lang" key="chart_gantt">Gantt chart</h4> -->
+                    <div id="example4.2" style="height: 200px;"></div>
                   </div>
                 </div>
               </div>
@@ -743,32 +720,29 @@
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
-    var container = document.getElementById('example5.3');
+    var container = document.getElementById('example4.2');
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({ type: 'string', id: 'Room' });
+
+    dataTable.addColumn({ type: 'string', id: 'Role' });
     dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
     dataTable.addRows([
-      [ 'Magnolia Room',  'CSS Fundamentals',    new Date(0,0,0,12,0,0),  new Date(0,0,0,14,0,0) ],
-      [ 'Magnolia Room',  'Intro JavaScript',    new Date(0,0,0,14,30,0), new Date(0,0,0,16,0,0) ],
-      [ 'Magnolia Room',  'Advanced JavaScript', new Date(0,0,0,16,30,0), new Date(0,0,0,19,0,0) ],
-      [ 'Gladiolus Room', 'Intermediate Perl',   new Date(0,0,0,12,30,0), new Date(0,0,0,14,0,0) ],
-      [ 'Gladiolus Room', 'Advanced Perl',       new Date(0,0,0,14,30,0), new Date(0,0,0,16,0,0) ],
-      [ 'Gladiolus Room', 'Applied Perl',        new Date(0,0,0,16,30,0), new Date(0,0,0,18,0,0) ],
-      // [ 'Petunia Room',   'Google Charts',       new Date(0,0,0,12,30,0), new Date(0,0,0,14,0,0) ],
-      // [ 'Petunia Room',   'Closure',             new Date(0,0,0,14,30,0), new Date(0,0,0,16,0,0) ],
+      [ 'Magnolia Room', 'Beginning JavaScript', '#cbb69d', new Date(0,0,0,12,0,0),  new Date(0,0,0,13,30,0) ],
+      [ 'Magnolia Room', 'Intermediate JavaScript', '#603913', new Date(0,0,0,13,30,0),  new Date(0,0,0,15,30,0) ],
+      [ 'Magnolia Room', 'Advanced JavaScript', '#cbb69d', new Date(0,0,0,16,0,0),  new Date(0,0,0,17,30,0) ],
+      [ 'Magnolia Room',   'Intermediate Google Charts', '#cbb69d', new Date(0,0,0,15,30,0), new Date(0,0,0,16,0,0) ]
       ]);
 
       var options = {
-        timeline: { colorByRowLabel: true },
-        backgroundColor: '#ffd'
+        timeline: { groupByRowLabel: true }
       };
 
       chart.draw(dataTable, options);
     }
-  </script>
+    </script>
     <!-- Проверяем наличие в localStorage key 'TMR::translation' -->
     <script type="text/javascript">
      if (localStorage.length > 0)
