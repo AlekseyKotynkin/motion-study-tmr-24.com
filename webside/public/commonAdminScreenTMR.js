@@ -552,7 +552,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
-    dataTable.addRows([addRows_data]);
+    dataTable.addRows(addRows_data);
 
       var options = {
         timeline: { groupByRowLabel: true }
