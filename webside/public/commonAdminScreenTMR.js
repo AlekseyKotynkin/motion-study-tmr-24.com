@@ -482,8 +482,10 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var emailPositionUser = doc.data().EmailPositionUser;
             var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
-            var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-            var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
+            var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
+            var processUserStartTime_mapChartjs = new Date(processUserStartTime_mapChartjs_local.toDate()).toUTCString();
+            var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
+            var processUserEndTime_mapChartjs = new Date(processUserEndTime_mapChartjs_local.toDate()).toUTCString();
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
             ////
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
