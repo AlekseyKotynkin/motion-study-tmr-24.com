@@ -254,9 +254,11 @@ function toComeInButtonShift_Admin(obj) {
     var getAnalysisStartDate = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
     var getAnalysisStartEnd = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
     if(getAnalysisStartDate !== ""){
-      var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
-      var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
-      var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
+      var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
+      var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
+      var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
+
+
       // if (dayAnalysisStartDate > 31){
       //   if(translation_JS == null || translation_JS == 'en'){
       //     alert('Please fill in the date according to the template!');
@@ -282,13 +284,14 @@ function toComeInButtonShift_Admin(obj) {
       //   return;
       // }
       var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-      
+
     }
 
     if(getAnalysisStartEnd !== ""){
-      var dayAnalysisEndDate = getAnalysisStartEnd.split("/")[0];
-      var monthAnalysisEndDate = getAnalysisStartEnd.split("/")[1];
-      var yearAnalysisEndDate = getAnalysisStartEnd.split("/")[2];
+      var yearAnalysisEndDate = getAnalysisStartEnd.split("-")[0];
+      var monthAnalysisEndDate = getAnalysisStartEnd.split("-")[1];
+      var dayAnalysisEndDate = getAnalysisStartEnd.split("-")[2];
+
       // if (dayAnalysisEndDate > 31){
       //   if(translation_JS == null || translation_JS == 'en'){
       //     alert('Please fill in the date according to the template!');

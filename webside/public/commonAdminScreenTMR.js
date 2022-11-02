@@ -465,34 +465,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   ///получаем Дату adminScreenTMR_ActivWindows_data
   var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
   if(getAnalysisStartDate !== ""){
-    var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
-    var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
-    var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
-    // if (dayAnalysisStartDate > 31){
-    //   if(translation_JS == null || translation_JS == 'en'){
-    //     alert('Please fill in the date according to the template!');
-    //   } else {
-    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-    //   }
-    //   return;
-    // }
-    // if (monthAnalysisStartDate > 12){
-    //   if(translation_JS == null || translation_JS == 'en'){
-    //     alert('Please fill in the date according to the template!');
-    //   } else {
-    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-    //   }
-    //   return;
-    // }
-    // if (yearAnalysisStartDate.length < 4){
-    //   if(translation_JS == null || translation_JS == 'en'){
-    //     alert('Please fill in the date according to the template!');
-    //   } else {
-    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-    //   }
-    //   return;
-    // }
+    var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
+    var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
+    var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
     var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+    var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
   } else {
       if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
