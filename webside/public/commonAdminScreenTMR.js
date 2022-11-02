@@ -248,8 +248,8 @@ function adminScreenTMR_Select_an_organization(obj) {
                    '</table>',
                 '</div>',
                 '<div class="form-group row">',
-                  '<label class="col-sm-6 col-form-label lang" key="data_on">On the date:</label>',
-                  '<div class="col-sm-6">',
+                  '<label class="col-12 col-form-label lang" key="data_on">On the date:</label>',
+                  '<div class="col-12">',
                     '<input class="form-control" type="date" id="adminScreenTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
                     '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Select employees</button>',
                   '</div>',
@@ -283,8 +283,8 @@ function adminScreenTMR_Select_an_organization(obj) {
                    '</table>',
                 '</div>',
                 '<div class="form-group row">',
-                  '<label class="col-sm-6 col-form-label lang" key="data_on">На дату:</label>',
-                  '<div class="col-sm-6">',
+                  '<label class="col-12 col-form-label lang" key="data_on">На дату:</label>',
+                  '<div class="col-12">',
                     '<input class="form-control" type="date" id="adminScreenTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
                     '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Выбрать сотрудников</button>',
                   '</div>',
@@ -459,7 +459,45 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     liLast_0.remove();
   }
   ///получаем Дату adminScreenTMR_ActivWindows_data
-  adminScreenTMR_ActivWindows_data
+  var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
+  if(getAnalysisStartDate !== ""){
+    var dayAnalysisStartDate = getAnalysisStartDate.split("/")[0];
+    var monthAnalysisStartDate = getAnalysisStartDate.split("/")[1];
+    var yearAnalysisStartDate = getAnalysisStartDate.split("/")[2];
+    // if (dayAnalysisStartDate > 31){
+    //   if(translation_JS == null || translation_JS == 'en'){
+    //     alert('Please fill in the date according to the template!');
+    //   } else {
+    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    //   }
+    //   return;
+    // }
+    // if (monthAnalysisStartDate > 12){
+    //   if(translation_JS == null || translation_JS == 'en'){
+    //     alert('Please fill in the date according to the template!');
+    //   } else {
+    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    //   }
+    //   return;
+    // }
+    // if (yearAnalysisStartDate.length < 4){
+    //   if(translation_JS == null || translation_JS == 'en'){
+    //     alert('Please fill in the date according to the template!');
+    //   } else {
+    //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    //   }
+    //   return;
+    // }
+    var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  } else {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
+      return;
+  }
+
 
 
 
