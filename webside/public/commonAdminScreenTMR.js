@@ -489,12 +489,24 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
             var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
-            var processUserStartTime_mapChartjs = new Date(processUserStartTime_mapChartjs_local.toDate()).toUTCString();
+            var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate()).toUTCString();
+            var a_data = local_0.getFullYear();
+            var b_data = local_0.getMonth();
+            var c_data = local_0.getDate();
+            var d_data = local_0.getHours();
+            var e_data = local_0.getMinutes();
+            var f_data = local_0.getSeconds();
+            var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
             var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
-            var processUserEndTime_mapChartjs = new Date(processUserEndTime_mapChartjs_local.toDate()).toUTCString();
+            var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate()).toUTCString();
+            var a_data_e = local_e_0.getFullYear();
+            var b_data_e = local_e_0.getMonth();
+            var c_data_e = local_e_0.getDate();
+            var d_data_e = local_e_0.getHours();
+            var e_data_e = local_e_0.getMinutes();
+            var f_data_e = local_e_0.getSeconds();
+            var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-            ////
-            var processUserStartTime_mapChartjs_local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
             ////
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
