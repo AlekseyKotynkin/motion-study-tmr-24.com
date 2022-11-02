@@ -489,7 +489,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
             var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
-            var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate()).toUTCString();
+            var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
             var a_data = local_0.getFullYear();
             var b_data = local_0.getMonth();
             var c_data = local_0.getDate();
@@ -498,7 +498,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var f_data = local_0.getSeconds();
             var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
             var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
-            var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate()).toUTCString();
+            var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
             var a_data_e = local_e_0.getFullYear();
             var b_data_e = local_e_0.getMonth();
             var c_data_e = local_e_0.getDate();
