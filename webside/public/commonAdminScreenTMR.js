@@ -77,31 +77,11 @@ function list_own_organizations_adminScreen(){
   if(liLast_Title !== null){
     liLast_Title.remove();
   }
-  // if(translation_JS == null || translation_JS == 'en'){
-  //   var html_title = [
-  //     '<div class="row" id = "adminScreenTMR_Monitor_Title">',
-  //       '<div class="col-12">',
-  //         '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
-  //           '<h4 class="card-description lang" key="select_organization">Select an organization.</h4>',
-  //           '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>',
-  //         '</span>',
-  //       '</div>',
-  //     '</div>'
-  //   ].join('');
-  // } else {
-  //   var html_title = [
-  //     '<div class="row" id = "adminScreenTMR_Monitor_Title">',
-  //       '<div class="col-12">',
-  //         '<span class="d-flex align-items-center purchase-popup" id="adminScreenTMR_Choosing_an_Organization">',
-  //           '<h4 class="card-description lang" key="select_organization">Выбрать организацию.</h4>',
-  //           '<button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >Список собственных организаций</button>',
-  //         '</span>',
-  //       '</div>',
-  //     '</div>'
-  //   ].join('');
-  // }
-  // var liLast_title_0 = document.getElementById('adminScreenTMR_Monitor');
-  // liLast_title_0.insertAdjacentHTML('afterbegin', html_title);
+  ///
+  var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
+  if(liLast_Gant !== null){
+    liLast_Gant.remove();
+  }
   ///
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
@@ -200,6 +180,11 @@ function adminScreenTMR_Select_an_organization(obj) {
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
+  var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
+  if(liLast_Gant !== null){
+    liLast_Gant.remove();
+  }
+  ///
   var liLast_Title = document.getElementById('adminScreenTMR_Monitor_Title');
   if(liLast_Title !== null){
     liLast_Title.remove();
@@ -300,23 +285,7 @@ function adminScreenTMR_Select_an_organization(obj) {
   }
   var liLast = document.getElementById('adminScreenTMR_Monitor_Title');
   liLast.insertAdjacentHTML('afterEnd', html);
-  // очищаем и заполняем шабку выбора Организации
-  // my_div_User = document.getElementById("adminScreenTMR_Choosing_an_Organization");
-  // var ul_User = my_div_User.querySelector("h4");
-  // ul_User.remove();
-  // if(translation_JS == null || translation_JS == 'en'){
-  //   var li ='<h4 class="card-description">Organization Report: '+(nameOrganization)+'</h4>';
-  //   var li_1 ='<p class="card-description">A list of users : </p>';
-  //   var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">List users</button>';
-  // } else {
-  //   var li ='<h4 class="card-description">Отчет по организации: '+(nameOrganization)+'</h4>';
-  //   var li_1 ='<p class="card-description">Выбрать список сотрудников : </p>';
-  //   var li_2 ='<button onclick="list_user_adminScreen" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw">Список сотрудников</button>';
-  // }
-  // my_div_User.insertAdjacentHTML('afterbegin', li);
-  // my_div_User.insertAdjacentHTML('beforeend', li_1);
-  // my_div_User.insertAdjacentHTML('beforeend', li_2);
-  //получаем список подразделений
+  ///
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
@@ -414,6 +383,42 @@ function adminScreenTMR_Select_an_organization(obj) {
 *  Заполняем таблички диаграмм занятости выбранных сотрудников
 */
 function modal_adminScreenTMR_TableUsers_Edit(){
+  //
+  var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
+  if(liLast_Gant !== null){
+    liLast_Gant.remove();
+  }
+  ///
+  if(translation_JS == null || translation_JS == 'en'){
+    var html_gant = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Gant">',
+        '<div class="col-12 grid-margin stretch-card">',
+          '<div class="card">',
+            '<div class="card-body">',
+              '<h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>',
+              '<div id="example4.2" style="height: 200px;"></div>',
+             '</div>',
+          '</div>',
+        '</div>',
+     '</div>'
+    ].join('');
+  } else {
+    var html_gant = [
+      '<div class="row" id = "adminScreenTMR_Monitor_Gant">',
+        '<div class="col-12 grid-margin stretch-card">',
+          '<div class="card">',
+            '<div class="card-body">',
+              '<h4 class="card-description lang" key="chart_gantt">Диаграмма Ганта</h4>',
+              '<div id="example4.2" style="height: 200px;"></div>',
+             '</div>',
+          '</div>',
+        '</div>',
+     '</div>'
+    ].join('');
+  }
+  var liLast_gant_0 = document.getElementById('adminScreenTMR_Monitor');
+  liLast_gant_0.insertAdjacentHTML('beforeend', html_gant);
+
   //читаем данные с таблицы
   var adminScreenTMR_TableUsers = document.getElementById('modal_adminScreenTMR_TableUsers');
   // очистить массив
@@ -540,6 +545,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
 ///
 // публикуем диаграмму Ганта
 function modal_adminScreenTMR_TableUsers_Edit_Shift(){
+
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
