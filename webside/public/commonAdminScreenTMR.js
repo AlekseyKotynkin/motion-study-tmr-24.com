@@ -479,7 +479,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             //// получаем данные по документам смены
+            var doc_ParentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
+            var nameSubdivision = doc_ParentHierarchyPositionUser.NameSubdivision;
+            var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
             var emailPositionUser = doc.data().EmailPositionUser;
+            var element_name =""+(emailPositionUser)+" - "+(nameSubdivision)+" - "+(namePosition)+"";
             var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
             var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
@@ -500,7 +504,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }
             ////
-            addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+            addRows_data.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
             console.log(addRows_data);
             ////
           });
