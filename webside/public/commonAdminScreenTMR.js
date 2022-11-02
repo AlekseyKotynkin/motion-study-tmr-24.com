@@ -475,36 +475,36 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         ////
         var docRef = db.collection("WorkShift").doc(idDocProcessUser);
         docRef.collection("ProcessUser").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                //// получаем данные по документам смены
-                var emailPositionUser = doc.data().EmailPositionUser;
-                var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-                var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
-                var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-                var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
-                var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-                ////
-                if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
-                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
-                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
-                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
-                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
-                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
-                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
-                }else{
-                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-                }
-                ////
-                addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
-                console.log(daddRows_data);
-                ////
-            });
-        }).finally(() => {addRows_data;
-          modal_adminScreenTMR_TableUsers_Edit_Shift()
-        });
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            //// получаем данные по документам смены
+            var emailPositionUser = doc.data().EmailPositionUser;
+            var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+            var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+            var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+            var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
+            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+            ////
+            if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
+            }else{
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+            }
+            ////
+            addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+            console.log(addRows_data);
+            ////
+          });
+        })
+      }).finally(() => {addRows_data;
+        modal_adminScreenTMR_TableUsers_Edit_Shift()
 
         ////
       });
