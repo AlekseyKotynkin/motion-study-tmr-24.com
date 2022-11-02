@@ -247,7 +247,13 @@ function adminScreenTMR_Select_an_organization(obj) {
                       '</tbody>',
                    '</table>',
                 '</div>',
-               '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Select employees</button>',
+                '<div class="form-group row">',
+                  '<label class="col-sm-6 col-form-label lang" key="data_on">On the date:</label>',
+                  '<div class="col-sm-6">',
+                    '<input class="form-control" type="date" id="adminScreenTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
+                    '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Select employees</button>',
+                  '</div>',
+                '</div>',
               '</div>',
             '</div>',
           '</div>',
@@ -276,7 +282,13 @@ function adminScreenTMR_Select_an_organization(obj) {
                       '</tbody>',
                    '</table>',
                 '</div>',
-                '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Выбрать сотрудников</button>',
+                '<div class="form-group row">',
+                  '<label class="col-sm-6 col-form-label lang" key="data_on">На дату:</label>',
+                  '<div class="col-sm-6">',
+                    '<input class="form-control" type="date" id="adminScreenTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
+                    '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminScreenTMR_TableUsers_Edit()">Выбрать сотрудников</button>',
+                  '</div>',
+                '</div>',
               '</div>',
             '</div>',
           '</div>',
@@ -418,7 +430,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   }
   var liLast_gant_0 = document.getElementById('adminScreenTMR_Monitor');
   liLast_gant_0.insertAdjacentHTML('beforeend', html_gant);
-
   //читаем данные с таблицы
   var adminScreenTMR_TableUsers = document.getElementById('modal_adminScreenTMR_TableUsers');
   // очистить массив
@@ -447,6 +458,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   if(liLast_0 !== null){
     liLast_0.remove();
   }
+  ///получаем Дату adminScreenTMR_ActivWindows_data
+  adminScreenTMR_ActivWindows_data
+
+
+
   // разбираем данные для изменение документов
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
@@ -468,7 +484,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         var idDocProcessUser = doc.id;
         var docProcessUser = doc.data();
         itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
-        ///
         ///
       });
     }).catch((error) => {
@@ -552,21 +567,19 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
     var container = document.getElementById('example4.2');
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
-
+    ///
     dataTable.addColumn({ type: 'string', id: 'Role' });
     dataTable.addColumn({ type: 'string', id: 'Name' });
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
     dataTable.addRows(addRows_data);
-
-      var options = {
-        timeline: { groupByRowLabel: true }
-      };
-
-      chart.draw(dataTable, options);
-    }
-
+    ///
+    var options = {
+      timeline: { groupByRowLabel: true }
+    };
+    chart.draw(dataTable, options);
+  }
 }
 // открыть окно Фейсбука
 function location_Href(){

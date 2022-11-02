@@ -281,8 +281,7 @@ var arrLang = {
     'select_organization': 'Select an organization.',
     'select_organization_title': 'Select the organization to generate the report.',
     'chart_gantt': 'Gantt chart.',
-
-
+    'data_on': 'On the date:',
 
 
 
@@ -523,7 +522,7 @@ var arrLang = {
     'select_organization': 'Выбрать организацию.',
     'select_organization_title': 'Выберите организацию для формирования  отчета.',
     'chart_gantt': 'Диаграмма Ганта',
-
+    'data_on': 'На дату:',
 
 
 
