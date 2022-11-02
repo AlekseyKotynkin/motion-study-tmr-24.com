@@ -28,6 +28,8 @@ var idDocSubdivision = "";
 var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
+var itemListShift_local = [];
+
 //////
 var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
@@ -414,6 +416,8 @@ function adminScreenTMR_Select_an_organization(obj) {
 function modal_adminScreenTMR_TableUsers_Edit(){
   //читаем данные с таблицы
   var adminScreenTMR_TableUsers = document.getElementById('modal_adminScreenTMR_TableUsers');
+  // очистить массив
+  itemListShift_local =[];
   //удалил шапку таблицы
   var itemListUsers_local =[];
   // удалить шапку
@@ -453,52 +457,112 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     db.collection("WorkShift").where('EmailPositionUser', '==', userEmail).where("IdDocPosition","==", idDocPosition_local).where("WorkShiftEnd", "==", "false")
     .get()
     .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            var idDocProcessUser = doc.id;
-            ///
-            var docRef = db.collection("WorkShift").doc(idDocProcessUser);
-            docRef.collection("ProcessUser").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    //// получаем данные по документам смены
-                    var emailPositionUser = doc.data().EmailPositionUser;
-                    var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-                    var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
-                    var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-                    var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
-                    var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-                    ////
-                    if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
-                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
-                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
-                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
-                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
-                    }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
-                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
-                    }else{
-                      var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-                    }
-                    ////
-                    addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        var idDocProcessUser = doc.id;
+        var docProcessUser = doc.data();
+        itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
+        ///
+        ///
+      });
+    }).catch((error) => {
+      console.log("Error getting documents: ", error);
+    }).finally(() => {itemListShift_local;
+      itemListShift_local.forEach(item => {
+        var idDocProcessUser = item.idDocProcessUser;
+        var docProcessUser = item.docProcessUser;
+        ////
+        var docRef = db.collection("WorkShift").doc(idDocProcessUser);
+        docRef.collection("ProcessUser").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                //// получаем данные по документам смены
+                var emailPositionUser = doc.data().EmailPositionUser;
+                var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+                var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+                var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+                var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
+                var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+                ////
+                if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
+                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
+                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
+                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
+                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
+                }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
+                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
+                }else{
+                  var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+                }
+                ////
+                addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
 
 
-                    ////
-                });
+                ////
             });
-            ///
-        });
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
+        }).finally(modal_adminScreenTMR_TableUsers_Edit_Shift());
+
+        ////
+      });
     });
     //// end выбираем смены для данной должности и пользователя
   });
   // end разбираем данные для изменение документов
 }
+///
+// получаем список смены
+function modal_adminScreenTMR_TableUsers_Edit_Shift(){
+  itemListShift_local.forEach(function(item, i, arr) {
+    var doc = itemListShift_local[i].doc;
+    var idDocProcessUser = doc.idDocProcessUser;
+    var docProcessUser = doc.docProcessUser;
+    var docRef = db.collection("WorkShift").doc(idDocProcessUser);
+    docRef.collection("ProcessUser").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            //// получаем данные по документам смены
+            var emailPositionUser = doc.data().EmailPositionUser;
+            var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+            var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+            var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
+            var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
+            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+            ////
+            if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
+            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
+            }else{
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+            }
+            ////
+            addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+
+
+            ////
+        });
+    });
+
+
+
+  });
+
+
+
+
+}
+
+
+
+
 
 // открыть окно Фейсбука
 function location_Href(){

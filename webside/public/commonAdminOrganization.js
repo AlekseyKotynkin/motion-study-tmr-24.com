@@ -53,24 +53,23 @@ const LocalStorageEmailOrganization = (LocalStorageValueObjectOrganization[0]).O
 *  Заполняем шапку табличной части Подразделения.
 */
 
-  var docRef = db.collection("Organization").doc(localStorageOrganizationId);
-    docRef.get().then(function(doc) {
-    if (doc.exists) {
-        documentData.push(doc.data());
-    } else {
-      console.log("No such document!");
-    }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
-    })
-    .finally(() => {documentData;
-     documentData.forEach(item => {
-        my_div = document.getElementById("headerTableSubdivision");
-        var ul = my_div.querySelector("h4");
-        var li = item.Organization;
-        ul.insertAdjacentHTML("beforeend", li);
-    });
+var docRef = db.collection("Organization").doc(localStorageOrganizationId);
+docRef.get().then(function(doc) {
+  if (doc.exists) {
+    documentData.push(doc.data());
+  } else {
+    console.log("No such document!");
+  }
+}).catch(function(error) {
+  console.log("Error getting document:", error);
+}).finally(() => {documentData;
+  documentData.forEach(item => {
+    my_div = document.getElementById("headerTableSubdivision");
+    var ul = my_div.querySelector("h4");
+    var li = item.Organization;
+    ul.insertAdjacentHTML("beforeend", li);
   });
+});
 
 
 /**
