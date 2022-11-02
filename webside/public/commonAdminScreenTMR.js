@@ -464,13 +464,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   }
   ///получаем Дату adminScreenTMR_ActivWindows_data
   var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
-  if(getAnalysisStartDate !== ""){
-    var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
-    var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
-    var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-    var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-    var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
-  } else {
+  if(getAnalysisStartDate == ""){
       if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
       } else {
@@ -478,10 +472,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       }
       return;
   }
-
-
-
-
+  var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
+  var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
+  var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
+  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
   // разбираем данные для изменение документов
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
@@ -502,7 +497,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         console.log(doc.id, " => ", doc.data());
         var idDocProcessUser = doc.id;
         var docProcessUser = doc.data();
-        itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
+        var workShiftStartTime = docProcessUser.WorkShiftStartTime;
+        var workShiftEndTime = docProcessUser.WorkShiftEndTime;
+        if(workShiftStartTime <= dateComparisonStart && workShiftEndTime >= dateComparisonEnd){
+          itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
+        }
         ///
       });
     }).catch((error) => {
