@@ -502,7 +502,9 @@ function modal_adminScreenTMR_TableUsers_Edit(){
                 console.log(daddRows_data);
                 ////
             });
-        }).finally(modal_adminScreenTMR_TableUsers_Edit_Shift());
+        }).finally(() => {addRows_data;
+          modal_adminScreenTMR_TableUsers_Edit_Shift()
+        });
 
         ////
       });
