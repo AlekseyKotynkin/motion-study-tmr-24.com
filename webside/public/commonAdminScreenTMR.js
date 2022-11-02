@@ -494,6 +494,8 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var processUserEndTime_mapChartjs = new Date(processUserEndTime_mapChartjs_local.toDate()).toUTCString();
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
             ////
+            var processUserStartTime_mapChartjs_local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
+            ////
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
