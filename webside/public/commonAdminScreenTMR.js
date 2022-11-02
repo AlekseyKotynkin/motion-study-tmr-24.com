@@ -499,8 +499,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
                 }
                 ////
                 addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
-
-
+                console.log(daddRows_data);
                 ////
             });
         }).finally(modal_adminScreenTMR_TableUsers_Edit_Shift());
@@ -513,57 +512,30 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   // end разбираем данные для изменение документов
 }
 ///
-// получаем список смены
+// публикуем диаграмму Ганта
 function modal_adminScreenTMR_TableUsers_Edit_Shift(){
-  itemListShift_local.forEach(function(item, i, arr) {
-    var doc = itemListShift_local[i].doc;
-    var idDocProcessUser = doc.idDocProcessUser;
-    var docProcessUser = doc.docProcessUser;
-    var docRef = db.collection("WorkShift").doc(idDocProcessUser);
-    docRef.collection("ProcessUser").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            //// получаем данные по документам смены
-            var emailPositionUser = doc.data().EmailPositionUser;
-            var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
-            var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
-            var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
-            var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
-            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-            ////
-            if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
-            }else{
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
-            }
-            ////
-            addRows_data.push([emailPositionUser, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var container = document.getElementById('example4.2');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
 
+    dataTable.addColumn({ type: 'string', id: 'Role' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([addRows_data]);
 
-            ////
-        });
-    });
+      var options = {
+        timeline: { groupByRowLabel: true }
+      };
 
-
-
-  });
-
-
-
+      chart.draw(dataTable, options);
+    }
 
 }
-
-
-
-
-
 // открыть окно Фейсбука
 function location_Href(){
   window.open('https://www.facebook.com/TMR24Systems/');
