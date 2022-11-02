@@ -469,6 +469,8 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     }).catch((error) => {
       console.log("Error getting documents: ", error);
     }).finally(() => {itemListShift_local;
+      var k = 0;
+      var k_l = itemListShift_local.length;
       itemListShift_local.forEach(item => {
         var idDocProcessUser = item.idDocProcessUser;
         var docProcessUser = item.docProcessUser;
@@ -508,10 +510,12 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             console.log(addRows_data);
             ////
           });
-        })
-      }).finally(() => {addRows_data;
-        modal_adminScreenTMR_TableUsers_Edit_Shift()
-
+        }).finally(() => {addRows_data;
+          k = k + 1
+          if(k == k_l){
+            modal_adminScreenTMR_TableUsers_Edit_Shift();
+          }
+      });
         ////
       });
     });
