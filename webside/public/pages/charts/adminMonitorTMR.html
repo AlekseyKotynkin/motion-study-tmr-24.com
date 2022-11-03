@@ -287,52 +287,19 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
-            <!-- Необходимые даты для Воронки Продаж. -->
-            <div class="row" id="adminProBanner">
+          <div class="content-wrapper" id = "adminMonitorTMR_Monitor_Title">
+           <!-- Необходимые даты для Воронки Продаж. -->
+            <!-- Панель отображения выбора. -->
+            <div class="row" id = "adminMonitorTMR_Title">
               <div class="col-12">
-                <span class="d-flex align-items-center purchase-popup">
-                  <p class="lang" key="select_management_positions">Select a source of management positions.</p>
-                  <button onclick="list_user_adminProBanner" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_users" >List users</button>
-                  <!-- <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-6 col-form-label lang" key="data_elementary"> Elementary date  </label>
-                        <div class="col-sm-6">
-                          <input class="form-control" type="date" id="time_adminProBanner_start" name="date" style="width: 150px;" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-6 col-form-label lang" key="data_expiration"> Expiration date </label>
-                        <div class="col-sm-6">
-                          <input class="form-control" type="date" id="time_adminProBanner_end" name="date" style="width: 150px;" required/>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-
-                  <!-- <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_organization" >Manager of the Organization</button>
-                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_subdivision" >Manager of the Subdivision</button>
-                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_position" >Manager of the Position</button> -->
+                <span class="d-flex align-items-center purchase-popup" id="adminMonitorTMR_Choosing_an_Organization">
+                  <h4 class="card-description lang" key="select_organization">Select an organization.</h4>
+                  <button onclick="list_own_organizations_adminScreen()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="list_own_organizations" >List of own organizations</button>
                 </span>
               </div>
             </div>
-            <!-- Необходимые даты для Воронки Продаж. -->
-            <div class="row" id="proBanner">
-              <div class="col-12">
-                <span class="d-flex align-items-center purchase-popup">
-                  <p class="lang" key="select_management_positions">Select a source of management positions.</p>
-                  <button onclick="gridDisplayOrganizationOwner()" target="_blank" class="btn ml-auto btn-inverse-primary btn-fw lang" key="search_projects" >Organization owner</button>
-                  <button onclick="gridDisplayManagerOrganization()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_organization" >Manager of the Organization</button>
-                  <button onclick="gridDisplayManagerSubdivision()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_subdivision" >Manager of the Subdivision</button>
-                  <button onclick="gridDisplayManagerPosition()" target="_blank" class="btn btn-inverse-primary btn-fw lang" key="manager_position" >Manager of the Position</button>
-                </span>
-              </div>
-            </div>
-  <!-- отображаем список доступных по правам должностей. -->
-            <div class="row">
+      <!-- отображаем список доступных по правам должностей. -->
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -354,17 +321,17 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!--отображает список смен данной должности. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div id ="addButtonShiftPosition" class="card-body">
-                    <h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4>
+                    <h4 class="card-description lang" key="list_position_shifts"> List of work shifts by position </h4> -->
                     <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalShiftPosition">
                       + Add Position Shift
                     </button> -->
-                    <div class="table-responsive">
+                    <!-- <div class="table-responsive">
                       <table id="tablePositionShift" class="table">
                         <thead>
                           <tr>
@@ -383,9 +350,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно выбора пользователя. -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -410,7 +377,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Окно выбора смены. -->
             <!-- <div class="row">
               <div class="col-12 grid-margin">
@@ -514,7 +481,7 @@
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- Модальное окно параметров смены Event -->
-          <div id = "gridSystemModalShiftPosition" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <!-- <div id = "gridSystemModalShiftPosition" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -560,7 +527,6 @@
                                   </div>
                                 </div>
                               </div>
-                              <!-- Выводим список доступных пользователей данной должности. -->
                               <div class="row">
                                 <div class="col-12 grid-margin">
                                   <div class="card">
@@ -592,9 +558,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- Модальное окно параметров смены Event -->
-          <div id = "gridSystemModalShiftPosition_Edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <!-- <div id = "gridSystemModalShiftPosition_Edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -640,7 +606,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020-2022 <a href="https://www.tmr-24.com/index" target="_blank">TMR-24 Systems</a>.</span>
