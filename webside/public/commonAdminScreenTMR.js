@@ -512,7 +512,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       itemListShift_local.forEach(item => {
         var idDocProcessUser = item.idDocProcessUser;
         var docProcessUser = item.docProcessUser;
-        ////
+        //// получаем коллекцию документов из документов смен
         var docRef = db.collection("WorkShift").doc(idDocProcessUser);
         docRef.collection("ProcessUser").get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -545,7 +545,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var f_data_e = local_e_0.getSeconds();
             var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
-            ////
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
@@ -557,7 +556,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             }else{
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }
-            ////
+            //// формируем массив для отображения в диаграмме Ганта
             addRows_data.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
             console.log(addRows_data);
             ////

@@ -226,17 +226,49 @@ function toComeInButtonShift_Admin(obj) {
   var idDocPosition = objItem.idDocPosition;
   var userEmail = objItem.UserEmail;
   var itemsActiveUserName = [];
-
+  ///
   var table = document.getElementById("tableChangeUser_Admin");
   for(var i = 1;i<table.rows.length;){
     table.deleteRow(i);
   }
-
+  ///
   var tableDuble = document.getElementById("tableDetailingShift_Admin");
   for(var l = 1; l<tableDuble.rows.length;){
     tableDuble.deleteRow(l);
   }
+  //// отбираем смены попадающие в интервал дат
+  //получаем и проверяем заполненость ячеек из формы
+  var getAnalysisStartDate = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
+  var getAnalysisStartEnd = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
+  if(getAnalysisStartDate !== ""){
+    var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
+    var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
+    var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
+    var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  } else if (getAnalysisStartEnd == ""){
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('Please fill in both dates!');
+    } else {
+      alert('Пожалуйста, заполните обе даты!');
+    }
+    return;
+  }
+  if(getAnalysisStartEnd !== ""){
+    var yearAnalysisEndDate = getAnalysisStartEnd.split("-")[0];
+    var monthAnalysisEndDate = getAnalysisStartEnd.split("-")[1];
+    var dayAnalysisEndDate = getAnalysisStartEnd.split("-")[2];
+    var dateComparisonExpiration = +new Date(yearAnalysisEndDate, monthAnalysisEndDate-1, dayAnalysisEndDate, 23, 59, 59);
+  } else if(getAnalysisStartDate == ""){
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('Please fill in both dates!');
+    } else {
+      alert('Пожалуйста, заполните обе даты!');
+    }
+    return;
+  }
+  //// end отбираем смены попадающие в интервал дат
 
+  ///
   db.collection("WorkShift").where('EmailPositionUser', '==', userEmail).where("IdDocPosition","==", idDocPosition).where("WorkShiftEnd", "==", "false")
   .get()
   .then(function(querySnapshot) {
@@ -246,81 +278,15 @@ function toComeInButtonShift_Admin(obj) {
       var idDocOrganization = parentHierarchyDoc.idDocOrganization;
       var idDocSubdivision = parentHierarchyDoc.idDocSubdivision;
       var idDocPosition = parentHierarchyDoc.idDocPosition;
-      itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
+      var workShiftEndTime = parentHierarchyDoc.WorkShiftEndTime;
+      var workShiftStartTime = parentHierarchyDoc.WorkShiftStartTime;
+      if(getAnalysisStartEnd == "" && getAnalysisStartDate == ""){
+        itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
+      } else if(workShiftStartTime <= dateComparisonStart && workShiftEndTime >= dateComparisonExpiration){
+        itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
+      }
     });
     itemsActiveUserName = itemsActiveUserName.sort(( a, b ) => b.WorkShiftStartTime - a.WorkShiftStartTime);
-    //// отбираем смены попадающие в интервал дат
-    //получаем и проверяем заполненость ячеек из формы
-    var getAnalysisStartDate = document.getElementById("adminChartjsTMR_intervai_shift_data_start").value;
-    var getAnalysisStartEnd = document.getElementById("adminChartjsTMR_intervai_shift_data_end").value;
-    if(getAnalysisStartDate !== ""){
-      var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
-      var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
-      var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-
-
-      // if (dayAnalysisStartDate > 31){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      // if (monthAnalysisStartDate > 12){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      // if (yearAnalysisStartDate.length < 4){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-
-    }
-
-    if(getAnalysisStartEnd !== ""){
-      var yearAnalysisEndDate = getAnalysisStartEnd.split("-")[0];
-      var monthAnalysisEndDate = getAnalysisStartEnd.split("-")[1];
-      var dayAnalysisEndDate = getAnalysisStartEnd.split("-")[2];
-
-      // if (dayAnalysisEndDate > 31){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      // if (monthAnalysisEndDate > 12){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      // if (yearAnalysisEndDate.length < 4){
-      //   if(translation_JS == null || translation_JS == 'en'){
-      //     alert('Please fill in the date according to the template!');
-      //   } else {
-      //     alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      //   }
-      //   return;
-      // }
-      var dateComparisonExpiration = +new Date(yearAnalysisEndDate, monthAnalysisEndDate-1, dayAnalysisEndDate, 23, 59, 59);
-
-
-    }
-    //// end отбираем смены попадающие в интервал дат
     itemsActiveUserName.forEach(function(element){
       var idDocOrganization = element.idDocOrganization ;
       var idDocSubdivision = element.idDocSubdivision ;
