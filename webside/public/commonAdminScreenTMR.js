@@ -524,7 +524,29 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
             var emailPositionUser = doc.data().EmailPositionUser;
             var element_name =""+(emailPositionUser)+" - "+(nameSubdivision)+" - "+(namePosition)+"";
-            var nameDocProcessButton_mapChartjs = doc.data().NameDocProcessButton;
+            var nameDocProcessButton_mapChartjs_local = doc.data().NameDocProcessButton;
+            if(nameDocProcessButton_mapChartjs_local == "Expect"){
+              if(translation_JS == null || translation_JS == 'en'){
+                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+              } else {
+                var nameDocProcessButton_mapChartjs = "Ожидаю";
+              }
+            } else if(nameDocProcessButton_mapChartjs_local == "Other"){
+              if(translation_JS == null || translation_JS == 'en'){
+                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+              } else {
+                var nameDocProcessButton_mapChartjs = "Другое";
+              }
+            }
+            if(nameDocProcessButton_mapChartjs_local == "Gone"){
+              if(translation_JS == null || translation_JS == 'en'){
+                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+              } else {
+                var nameDocProcessButton_mapChartjs = "Отлучился";
+              }
+            } else {
+              var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+            }
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
             var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
             var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
