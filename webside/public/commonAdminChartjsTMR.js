@@ -265,6 +265,13 @@ function toComeInButtonShift_Admin(obj) {
       alert('Пожалуйста, заполните обе даты!');
     }
     return;
+  } else if(getAnalysisStartEnd == "") {
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('Please fill in both dates!');
+    } else {
+      alert('Пожалуйста, заполните обе даты!');
+    }
+    return;
   }
   //// end отбираем смены попадающие в интервал дат
 
