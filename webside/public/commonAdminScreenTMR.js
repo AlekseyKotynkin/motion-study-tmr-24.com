@@ -400,7 +400,7 @@ function adminScreenTMR_Select_an_organization(obj) {
 */
 function modal_adminScreenTMR_TableUsers_Edit(){
   ///получаем Дату  и проверяем ее заполненость adminScreenTMR_ActivWindows_data
-  var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
+  var getAnalysisStartDate = document.getElementById("adminScreenTMR_ActivWindows_data").value;
   if(getAnalysisStartDate == ""){
       if(translation_JS == null || translation_JS == 'en'){
         alert('Please fill in the date according to the template!');
