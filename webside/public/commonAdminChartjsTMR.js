@@ -428,7 +428,7 @@ function toComeInButtonShift_Admin(obj) {
         var processUserStartTime_mapChartjs = doc.data().ProcessUserStartTime;
         var processUserEndTime_mapChartjs = doc.data().ProcessUserEndTime;
         var processUserFormattedTime = processUserEndTime_mapChartjs - processUserStartTime_mapChartjs;
-        var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+        var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
         if(settingsSalesFunnel_Stage_key_mapChartjs == undefined){
           settingsSalesFunnel_Stage_key_mapChartjs ="str0";
         }

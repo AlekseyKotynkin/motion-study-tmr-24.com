@@ -544,7 +544,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var e_data_e = local_e_0.getMinutes();
             var f_data_e = local_e_0.getSeconds();
             var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
-            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key_doc;
+            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
