@@ -537,8 +537,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
               } else {
                 var nameDocProcessButton_mapChartjs = "Другое";
               }
-            }
-            if(nameDocProcessButton_mapChartjs_local == "Gone"){
+            } else if(nameDocProcessButton_mapChartjs_local == "Gone"){
               if(translation_JS == null || translation_JS == 'en'){
                 var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
               } else {
