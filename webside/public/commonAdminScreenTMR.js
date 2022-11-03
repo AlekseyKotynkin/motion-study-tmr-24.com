@@ -412,8 +412,8 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
   var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
   var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-  var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
+  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0)/1000;
+  var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59)/1000;
   // удаляем окно Ганта
   var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
   if(liLast_Gant !== null){
@@ -499,7 +499,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         var docProcessUser = doc.data();
         var workShiftStartTime = docProcessUser.WorkShiftStartTime;
         var workShiftEndTime = docProcessUser.WorkShiftEndTime;
-        if(workShiftStartTime.seconds <= dateComparisonStart && workShiftEndTime.seconds >= dateComparisonEnd){
+        if(workShiftStartTime.seconds >= dateComparisonStart && workShiftEndTime.seconds <= dateComparisonEnd){
           itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
         }
         ///

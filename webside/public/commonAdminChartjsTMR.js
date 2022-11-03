@@ -244,7 +244,7 @@ function toComeInButtonShift_Admin(obj) {
     var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
     var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
     var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-    var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+    var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0)/1000;
   } else if (getAnalysisStartEnd == ""){
     if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in both dates!');
@@ -257,7 +257,7 @@ function toComeInButtonShift_Admin(obj) {
     var yearAnalysisEndDate = getAnalysisStartEnd.split("-")[0];
     var monthAnalysisEndDate = getAnalysisStartEnd.split("-")[1];
     var dayAnalysisEndDate = getAnalysisStartEnd.split("-")[2];
-    var dateComparisonExpiration = +new Date(yearAnalysisEndDate, monthAnalysisEndDate-1, dayAnalysisEndDate, 23, 59, 59);
+    var dateComparisonExpiration = +new Date(yearAnalysisEndDate, monthAnalysisEndDate-1, dayAnalysisEndDate, 23, 59, 59)/1000;
   } else if(getAnalysisStartDate == ""){
     if(translation_JS == null || translation_JS == 'en'){
       alert('Please fill in both dates!');
@@ -282,7 +282,7 @@ function toComeInButtonShift_Admin(obj) {
       var workShiftStartTime = parentHierarchyDoc.WorkShiftStartTime;
       if(getAnalysisStartEnd == "" && getAnalysisStartDate == ""){
         itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
-      } else if(workShiftStartTime.seconds <= dateComparisonStart && workShiftEndTime.seconds >= dateComparisonExpiration){
+      } else if(workShiftStartTime.seconds >= dateComparisonStart && workShiftEndTime.seconds <= dateComparisonExpiration){
         itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
       }
     });
