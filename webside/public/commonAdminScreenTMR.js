@@ -399,12 +399,27 @@ function adminScreenTMR_Select_an_organization(obj) {
 *  Заполняем таблички диаграмм занятости выбранных сотрудников
 */
 function modal_adminScreenTMR_TableUsers_Edit(){
-  //
+  ///получаем Дату  и проверяем ее заполненость adminScreenTMR_ActivWindows_data
+  var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
+  if(getAnalysisStartDate == ""){
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please fill in the date according to the template!');
+      } else {
+        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+      }
+      return;
+  }
+  var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
+  var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
+  var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
+  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
+  var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
+  // удаляем окно Ганта
   var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
   if(liLast_Gant !== null){
     liLast_Gant.remove();
   }
-  ///
+  ///формируем окно Ганта
   if(translation_JS == null || translation_JS == 'en'){
     var html_gant = [
       '<div class="row" id = "adminScreenTMR_Monitor_Gant">',
@@ -462,21 +477,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   if(liLast_0 !== null){
     liLast_0.remove();
   }
-  ///получаем Дату adminScreenTMR_ActivWindows_data
-  var getAnalysisStartEnd = document.getElementById("adminScreenTMR_ActivWindows_data").value;
-  if(getAnalysisStartDate == ""){
-      if(translation_JS == null || translation_JS == 'en'){
-        alert('Please fill in the date according to the template!');
-      } else {
-        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      }
-      return;
-  }
-  var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
-  var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
-  var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0);
-  var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59);
   // разбираем данные для изменение документов
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
