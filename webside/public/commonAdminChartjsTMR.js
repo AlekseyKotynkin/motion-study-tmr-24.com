@@ -282,7 +282,7 @@ function toComeInButtonShift_Admin(obj) {
       var workShiftStartTime = parentHierarchyDoc.WorkShiftStartTime;
       if(getAnalysisStartEnd == "" && getAnalysisStartDate == ""){
         itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
-      } else if(workShiftStartTime <= dateComparisonStart && workShiftEndTime >= dateComparisonExpiration){
+      } else if(workShiftStartTime.seconds <= dateComparisonStart && workShiftEndTime.seconds >= dateComparisonExpiration){
         itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
       }
     });

@@ -499,7 +499,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         var docProcessUser = doc.data();
         var workShiftStartTime = docProcessUser.WorkShiftStartTime;
         var workShiftEndTime = docProcessUser.WorkShiftEndTime;
-        if(workShiftStartTime <= dateComparisonStart && workShiftEndTime >= dateComparisonEnd){
+        if(workShiftStartTime.seconds <= dateComparisonStart && workShiftEndTime.seconds >= dateComparisonEnd){
           itemListShift_local.push({idDocProcessUser: idDocProcessUser, docProcessUser: docProcessUser});
         }
         ///
