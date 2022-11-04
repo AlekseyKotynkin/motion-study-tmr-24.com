@@ -30,6 +30,7 @@ var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
 var itemListShift_local = [];
+var start_function = 0;
 
 //////
 var color_Green = '#0af521'; //зеленый
@@ -322,7 +323,9 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
-                 turnOnTheListener_Shift(idDocShift_local);
+                if(start_function == 0){
+                  turnOnTheListener_Shift(idDocShift_local);
+                }
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
                  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
                      .get()
@@ -465,23 +468,26 @@ function SignoutAdmin() {
 }
 ///
 
+///
 function turnOnTheListener_Shift(idDocShift){
   ///
-  db.collection("WorkShift").doc(idDocShift)
-    .onSnapshot((doc) => {
-        console.log("Current data: ", doc.data());
-    });
+  // db.collection("WorkShift").doc(idDocShift)
+  //   .onSnapshot((doc) => {
+  //       console.log("Current data: ", doc.data());
+  //   });
  var docRef = db.collection("WorkShift").doc(idDocShift);
  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
     .onSnapshot((querySnapshot) => {
         var cities = [];
+        start_function = start_function + 1;
         querySnapshot.forEach((doc) => {
             cities.push(doc.data().name);
+            if(start_function > 1){
+              adminMonitorTMR_Select_an_organization(objItem);
+            }
         });
         console.log("Current cities in CA: ", cities.join(", "));
-    }).finally(() => {
-       adminMonitorTMR_Select_an_organization(objItem);
-    });
+    })
   ///
 }
 ////
