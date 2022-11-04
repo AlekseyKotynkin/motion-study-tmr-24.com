@@ -25,6 +25,7 @@ var namePosition = "";
 var idDocPosition = "";
 var idDocOrganization = "";
 var idDocSubdivision = "";
+var objItem = {};
 var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
@@ -175,7 +176,8 @@ function list_own_organizations_adminMonitorTMR(){
 function adminMonitorTMR_Select_an_organization(obj) {
   //обработка редактирования строки...
   itemsName = [];
-  var objItem = obj.item;
+  objItem = {};
+  objItem = obj.item;
   var idDocOrganization = obj.id;
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
@@ -320,7 +322,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
-                turnOnTheListener_Shift(idDocShift_local);
+                 turnOnTheListener_Shift(idDocShift_local);
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
                  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
                      .get()
@@ -477,12 +479,14 @@ function turnOnTheListener_Shift(idDocShift){
             cities.push(doc.data().name);
         });
         console.log("Current cities in CA: ", cities.join(", "));
+    }).finally(() => {
+       adminMonitorTMR_Select_an_organization(objItem);
     });
   ///
 }
 ////
 
-function finishListening_Shift(idDocShift){
+function finishListening_Shift(){
 ///
 var unsubscribe = db.collection("WorkShift")
     .onSnapshot(() => {
