@@ -320,6 +320,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
+                turnOnTheListener_Shift(idDocShift_local);
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
                  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
                      .get()
@@ -461,3 +462,23 @@ function SignoutAdmin() {
   });
 }
 ///
+
+function turnOnTheListener_Shift(idDocShift){
+  ///
+  db.collection("WorkShift").doc(idDocShift)
+    .onSnapshot((doc) => {
+        console.log("Current data: ", doc.data());
+    });
+ var docRef = db.collection("WorkShift").doc(idDocShift);
+ docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
+    .onSnapshot((querySnapshot) => {
+        var cities = [];
+        querySnapshot.forEach((doc) => {
+            cities.push(doc.data().name);
+        });
+        console.log("Current cities in CA: ", cities.join(", "));
+    });
+
+
+  ///
+}
