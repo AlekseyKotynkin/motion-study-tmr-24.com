@@ -25,7 +25,7 @@ var namePosition = "";
 var idDocPosition = "";
 var idDocOrganization = "";
 var idDocSubdivision = "";
-var objItem = {};
+var obj_activ = {};
 var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
@@ -177,7 +177,8 @@ function list_own_organizations_adminMonitorTMR(){
 function adminMonitorTMR_Select_an_organization(obj) {
   //обработка редактирования строки...
   itemsName = [];
-  objItem = {};
+  obj_activ = {};
+  obj_activ = obj;
   objItem = obj.item;
   var idDocOrganization = obj.id;
   var nameOrganization = objItem.nameOrganization;
@@ -483,7 +484,7 @@ function turnOnTheListener_Shift(idDocShift){
         querySnapshot.forEach((doc) => {
             cities.push(doc.data().name);
             if(start_function > 1){
-              adminMonitorTMR_Select_an_organization(objItem);
+              adminMonitorTMR_Select_an_organization(obj_activ);
             }
         });
         console.log("Current cities in CA: ", cities.join(", "));
