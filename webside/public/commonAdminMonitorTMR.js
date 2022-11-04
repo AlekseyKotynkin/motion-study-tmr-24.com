@@ -273,7 +273,6 @@ function adminMonitorTMR_Select_an_organization(obj) {
                   '<table id="modal_adminMonitorTMR_TableUsers"class="table">',
                     '<thead>',
                       '<tr>',
-                        '<th></th>',
                         '<th class="lang" key="subdivision">Подразделение</th>',
                         '<th class="lang" key="position">Должность</th>',
                         '<th class="lang" key="users_name">ФИО</th>',
@@ -312,207 +311,105 @@ function adminMonitorTMR_Select_an_organization(obj) {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
               console.log(doc.id, " => ", doc.data());
-              var parentHierarchyPositionUser_local = doc.data().doc.data();
+              var idDocShift_local = doc.id;
+              var workShiftStartTime = doc.data().WorkShiftStartTime;
+              var parentHierarchyPositionUser_local = doc.data().ParentHierarchyPositionUser;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
-                
+                 var docRef = db.collection("WorkShift").doc(idDocShift_local);
+                 docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
+                     .get()
+                     .then((querySnapshot) => {
+                         querySnapshot.forEach((doc) => {
+                             // doc.data() is never undefined for query doc snapshots
+                             console.log(doc.id, " => ", doc.data());
+                             var docProcessUser = doc.data();
+                             var nameDocProcessButton = doc.data().NameDocProcessButton;
+                             var processUserStartTime = doc.data().ProcessUserStartTime;
+                             var parentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
+                             var nameSubdivision = parentHierarchyPositionUser.NameSubdivision;
+                             var namePosition = parentHierarchyPositionUser.NamePosition;
+                             var userName = parentHierarchyPositionUser.UserName;
+                             var userEmail = parentHierarchyPositionUser.UserEmail;
+                             var settingsSalesFunnel_Stage_key = doc.data().SettingsSalesFunnel_Stage_key;
+                             //заполняем таблицу
+                             var tr = document.createElement("tr");
+
+                             var nameSubdivision_tr = document.createElement('td');
+                             nameSubdivision_tr.innerHTML = nameSubdivision;
+
+                             var namePosition_tr = document.createElement('td');
+                             namePosition_tr.innerHTML = namePosition;
+
+                             var userName_tr = document.createElement('td');
+                             userName_tr.innerHTML = userName;
+
+                             var userEmail_tr = document.createElement('td');
+                             userEmail_tr.innerHTML = userEmail;
+
+                             var workShiftStartTime_tr = document.createElement('td');
+                             workShiftStartTime_tr.innerHTML = new Date(workShiftStartTime.toDate()).toString();
+                             ///
+
+                             var to_nameDocProcessButton = document.createElement('button');
+                             if(translation_JS == null || translation_JS == 'en'){
+                               to_nameDocProcessButton.innerHTML = nameDocProcessButton;
+                             } else {
+                               if(nameDocProcessButton == "Expect"){
+                                 to_nameDocProcessButton.innerHTML = "Ожидаю";
+                               } else if (nameDocProcessButton == "Other") {
+                                 to_nameDocProcessButton.innerHTML = "Другое";
+                               } else if (nameDocProcessButton == "Gone"){
+                                 to_nameDocProcessButton.innerHTML = "Отлучился";
+                               } else {
+                                 to_nameDocProcessButton.innerHTML = nameDocProcessButton;
+                               }
+                             }
+                             // var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
+                             if(settingsSalesFunnel_Stage_key === "str0"){
+                               to_nameDocProcessButton.style.background = '#d22830';
+                             }else if (settingsSalesFunnel_Stage_key === "str1"){
+                               to_nameDocProcessButton.style.background = '#f0430a';
+                             }else if (settingsSalesFunnel_Stage_key === "str2"){
+                               to_nameDocProcessButton.style.background = '#e9f50a';
+                             }else if (settingsSalesFunnel_Stage_key === "str3"){
+                               to_nameDocProcessButton.style.background = '#0af521';
+                             }else{
+                               to_nameDocProcessButton.style.background = '#d22830';
+                             }
+
+                             var nameDocProcessButton_tr = document.createElement('td');
+                             nameDocProcessButton_tr.appendChild(to_nameDocProcessButton);
+
+                             //
+                             var processUserStartTime_tr = document.createElement('td');
+                             processUserStartTime_tr.innerHTML = new Date(processUserStartTime.toDate()).toString();
+                             //
+                             tr.appendChild(nameSubdivision_tr);
+                             tr.appendChild(namePosition_tr);
+                             tr.appendChild(userName_tr);
+                             tr.appendChild(userEmail_tr);
+                             tr.appendChild(workShiftStartTime_tr);
+                             tr.appendChild(nameDocProcessButton_tr);
+                             tr.appendChild(processUserStartTime_tr);
+
+                             var container = document.getElementById("modal_adminMonitorTMR_TableUsers").getElementsByTagName("tbody")[0];
+
+                             container.appendChild(tr);
+                             //end заполняем таблицу
+                         });
+                     })
+                     .catch((error) => {
+                         console.log("Error getting documents: ", error);
+                     });
               }
-
-
-
-
-
           });
       })
       .catch((error) => {
           console.log("Error getting documents: ", error);
       });
-
-
-  ///
-  var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
-  docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      var idDocSubdivision = doc.id;
-      var nameSubdivision = doc.data().Subdivision;
-      // itemsName.push({...{[idDocSubdivision]: nameSubdivision}});
-      itemsName.push({[idDocSubdivision]: nameSubdivision});
-      //получаем список должностей
-      var docRefSubdivision = docRefOrganization.collection("Subdivision").doc(idDocSubdivision);
-      docRefSubdivision.collection("Position").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-          var idDocPosition = doc.id;
-          var namePosition = doc.data().Position;
-          // itemsName.push({...{[idDocPosition]: namePosition}});
-          itemsName.push({[idDocPosition]: namePosition});
-          //получаем список пользователей
-          var docRefPosition = docRefSubdivision.collection("Position").doc(idDocPosition);
-          docRefPosition.collection("PositionUser").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
-              var idDocUser = doc.id;
-              var userName = doc.data().UserName;
-              var userEmail = doc.data().UserEmail;
-              var userСomment = doc.data().UserСomment;
-              var idDocOrganization_local = doc.data().idDocOrganization;
-              var idDocSubdivision_local = doc.data().idDocSubdivision;
-              var idDocPosition_local = doc.data().idDocPosition;
-              itemsMyListUser.push({[idDocUser]: doc.data()});
-              //заполняем таблицу
-              var tr = document.createElement("tr");
-
-              var toDismissColumn1 = document.createElement('input');
-              toDismissColumn1.type = "checkbox";
-              toDismissColumn1.checked = true;
-              toDismissColumn1.item = doc.data();
-              toDismissColumn1.className = 'form-check';
-              toDismissColumn1.addEventListener("click", function(e) {console.log("checkbox");  });
-
-              var toDismissColumn = document.createElement('td');
-              toDismissColumn.appendChild(toDismissColumn1);
-
-              var userName_tr = document.createElement('td');
-              userName_tr.innerHTML = userName;
-
-              var userEmail_tr = document.createElement('td');
-              userEmail_tr.innerHTML = userEmail;
-              //
-              var userСomment_tr = document.createElement('td');
-              userСomment_tr.innerHTML = userСomment;
-              //
-              var subdivisionColumn = document.createElement('td');
-              itemsName.forEach((element, index, array) => {
-                if(element[idDocSubdivision_local] !== undefined){
-                  subdivisionColumn.innerHTML = element[idDocSubdivision_local];
-                }
-              });
-              //
-              var positionColumn = document.createElement('td');
-              itemsName.forEach((element, index, array) => {
-                if(element[idDocPosition_local] !== undefined){
-                  positionColumn.innerHTML = element[idDocPosition_local];
-                }
-              });
-              //
-              tr.appendChild(toDismissColumn);
-              // tr.appendChild(organizationColumn);
-              tr.appendChild(userEmail_tr);
-              tr.appendChild(userName_tr);
-              tr.appendChild(userСomment_tr);
-              tr.appendChild(subdivisionColumn);
-              tr.appendChild(positionColumn);
-
-              var container = document.getElementById("modal_adminMonitorTMR_TableUsers").getElementsByTagName("tbody")[0];
-
-              container.appendChild(tr);
-              //end заполняем таблицу
-            });
-          });
-          //end получаем список пользователей
-        });
-      });
-      //end получаем список должностей
-    });
-  });
-  //end получаем список подразделений
 }
 
-/**
-* @return {string}
-*  Заполняем таблички диаграмм занятости выбранных сотрудников
-*/
-function modal_adminMonitorTMR_Table_Activ(){
-  ///получаем Дату  и проверяем ее заполненость adminScreenTMR_ActivWindows_data
-  // var getAnalysisStartDate = document.getElementById("adminMonitorTMR_ActivWindows_data").value;
-  // if(getAnalysisStartDate == ""){
-  //     if(translation_JS == null || translation_JS == 'en'){
-  //       alert('Please fill in the date according to the template!');
-  //     } else {
-  //       alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-  //     }
-  //     return;
-  // }
-  // var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
-  // var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
-  // var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-  // var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0)/1000;
-  // var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59)/1000;
-  // удаляем окно Ганта
-  var liLast_Gant = document.getElementById('adminMonitorTMR_Monitor_Shift');
-  if(liLast_Gant !== null){
-    liLast_Gant.remove();
-  }
-  ///формируем окно Ганта
-  if(translation_JS == null || translation_JS == 'en'){
-    var html_gant = [
-      '<div class="row" id = "adminMonitorTMR_Monitor_Shift">',
-        '<div class="col-12 grid-margin stretch-card">',
-          '<div class="card">',
-            '<div class="card-body">',
-              '<h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>',
-              '<div id="example4.2" style="height: 200px;"></div>',
-             '</div>',
-          '</div>',
-        '</div>',
-     '</div>'
-    ].join('');
-  } else {
-    var html_gant = [
-      '<div class="row" id = "adminMonitorTMR_Monitor_Shift">',
-        '<div class="col-12 grid-margin stretch-card">',
-          '<div class="card">',
-            '<div class="card-body">',
-              '<h4 class="card-description lang" key="chart_gantt">Диаграмма Ганта</h4>',
-              '<div id="example4.2" style="height: 200px;"></div>',
-             '</div>',
-          '</div>',
-        '</div>',
-     '</div>'
-    ].join('');
-  }
-  var liLast_gant_0 = document.getElementById('adminMonitorTMR_Monitor');
-  liLast_gant_0.insertAdjacentHTML('beforeend', html_gant);
-  //читаем данные с таблицы
-  var adminScreenTMR_TableUsers = document.getElementById('modal_adminMonitorTMR_TableUsers');
-  // очистить массив
-  itemListShift_local =[];
-  //удалил шапку таблицы
-  var itemListUsers_local =[];
-  // удалить шапку
-  adminScreenTMR_TableUsers.deleteRow(0);
-  /// перечитываем данные из таблицы
-  var rowLength = adminScreenTMR_TableUsers.rows.length;
-  for (i = 0; i < rowLength; i++){
-    var cells = adminScreenTMR_TableUsers.rows.item(i).cells;
-    var cellVal_0 = cells.item(0).lastChild.checked;
-    var cellVal_0_item = cells.item(0).lastChild.item;
-    var cellVal_1 = cells.item(1).innerHTML;
-    var cellVal_2 = cells.item(2).innerHTML;
-    var cellVal_3 = cells.item(3).innerHTML;
-    var cellVal_4 = cells.item(4).innerHTML;
-    var cellVal_5 = cells.item(5).innerHTML;
-    if(cellVal_0 == true){
-      itemListUsers_local.push({UserEmail: cellVal_1, UserName: cellVal_2, NameSubdivision: cellVal_4, NamePosition: cellVal_5, doc: cellVal_0_item});
-    }
-  }
-  ////очистить окно выбора пользователей
-  var liLast_0 = document.getElementById('adminMonitorTMR_ActivWindows');
-  if(liLast_0 !== null){
-    liLast_0.remove();
-  }
-}
-///
-// публикуем диаграмму Ганта
-function modal_adminMonitorTMR_TableUsers_Edit_Shift(){
-  ///
-
-  ///
-}
 // открыть окно Фейсбука
 function location_Href(){
   window.open('https://www.facebook.com/TMR24Systems/');
