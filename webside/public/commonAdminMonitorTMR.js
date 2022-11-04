@@ -304,6 +304,31 @@ function adminMonitorTMR_Select_an_organization(obj) {
   }
   var liLast = document.getElementById('adminMonitorTMR_Monitor_Title');
   liLast.insertAdjacentHTML('afterEnd', html);
+  /// получаем список открытых смен и активных событий
+
+  db.collection("WorkShift").where("WorkShiftEnd", "==", "")
+      .get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              console.log(doc.id, " => ", doc.data());
+              var parentHierarchyPositionUser_local = doc.data().doc.data();
+              var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
+              if (idDocOrganization_local == idDocOrganization){
+                
+              }
+
+
+
+
+
+          });
+      })
+      .catch((error) => {
+          console.log("Error getting documents: ", error);
+      });
+
+
   ///
   var docRefOrganization = db.collection("Organization").doc(idDocOrganization);
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
