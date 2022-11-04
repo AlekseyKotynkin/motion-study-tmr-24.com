@@ -492,18 +492,17 @@ function turnOnTheListener_Shift(idDocShift){
   ///
 }
 ////
+window.addEventListener('beforeunload', function(event) {
+  ///
+  var unsubscribe = db.collection("WorkShift")
+      .onSnapshot(() => {
+        // Respond to data
+        // ...
+      });
 
-function finishListening_Shift(){
-///
-var unsubscribe = db.collection("WorkShift")
-    .onSnapshot(() => {
-      // Respond to data
-      // ...
-    });
+  // Later ...
 
-// Later ...
-
-// Stop listening to changes
-unsubscribe();
-///
-}
+  // Stop listening to changes
+  unsubscribe();
+  ///
+}, false);
