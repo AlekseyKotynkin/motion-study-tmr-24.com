@@ -478,7 +478,21 @@ function turnOnTheListener_Shift(idDocShift){
         });
         console.log("Current cities in CA: ", cities.join(", "));
     });
-
-
   ///
+}
+////
+
+function finishListening_Shift(idDocShift){
+///
+var unsubscribe = db.collection("WorkShift")
+    .onSnapshot(() => {
+      // Respond to data
+      // ...
+    });
+
+// Later ...
+
+// Stop listening to changes
+unsubscribe();
+///
 }
