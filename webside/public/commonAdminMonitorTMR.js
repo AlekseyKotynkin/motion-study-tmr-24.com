@@ -254,7 +254,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
                     // '<input class="form-control" type="date" id="adminMonitorTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
                       // '</div>',
                       // '<div class="col-sm-6 col-form-label">',
-                    '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminMonitorTMR_Table_Activ()">Select employees</button>',
+                    // '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminMonitorTMR_Table_Activ()">Select employees</button>',
                   '</div>',
                 '</div>',
               '</div>',
@@ -292,7 +292,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
                     // '<input class="form-control" type="date" id="adminMonitorTMR_ActivWindows_data" name="date" style="width: 150px;" required/>',
                     //   '</div>',
                     //   '<div class="col-sm-6 col-form-label">',
-                    '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminMonitorTMR_Table_Activ()">Выбрать сотрудников</button>',
+                    // '<button type="button" class="btn btn-primary btn-lg" onclick="modal_adminMonitorTMR_Table_Activ()">Выбрать сотрудников</button>',
                   '</div>',
                 '</div>',
               '</div>',
@@ -314,6 +314,10 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var idDocShift_local = doc.id;
               var workShiftStartTime = doc.data().WorkShiftStartTime;
               var parentHierarchyPositionUser_local = doc.data().ParentHierarchyPositionUser;
+              var nameSubdivision = parentHierarchyPositionUser_local.NameSubdivision;
+              var namePosition = parentHierarchyPositionUser_local.NamePosition;
+              var userName = parentHierarchyPositionUser_local.UserName;
+              var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
@@ -326,11 +330,6 @@ function adminMonitorTMR_Select_an_organization(obj) {
                              var docProcessUser = doc.data();
                              var nameDocProcessButton = doc.data().NameDocProcessButton;
                              var processUserStartTime = doc.data().ProcessUserStartTime;
-                             var parentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
-                             var nameSubdivision = parentHierarchyPositionUser.NameSubdivision;
-                             var namePosition = parentHierarchyPositionUser.NamePosition;
-                             var userName = parentHierarchyPositionUser.UserName;
-                             var userEmail = parentHierarchyPositionUser.UserEmail;
                              var settingsSalesFunnel_Stage_key = doc.data().SettingsSalesFunnel_Stage_key;
                              //заполняем таблицу
                              var tr = document.createElement("tr");
@@ -377,6 +376,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
                              }else{
                                to_nameDocProcessButton.style.background = '#d22830';
                              }
+                             to_nameDocProcessButton.className = 'btn btn-fw';
 
                              var nameDocProcessButton_tr = document.createElement('td');
                              nameDocProcessButton_tr.appendChild(to_nameDocProcessButton);
