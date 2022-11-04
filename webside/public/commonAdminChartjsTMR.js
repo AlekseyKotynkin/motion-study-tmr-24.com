@@ -285,8 +285,8 @@ function toComeInButtonShift_Admin(obj) {
       var idDocOrganization = parentHierarchyDoc.idDocOrganization;
       var idDocSubdivision = parentHierarchyDoc.idDocSubdivision;
       var idDocPosition = parentHierarchyDoc.idDocPosition;
-      var workShiftEndTime = parentHierarchyDoc.WorkShiftEndTime;
-      var workShiftStartTime = parentHierarchyDoc.WorkShiftStartTime;
+      var workShiftEndTime = doc.data().WorkShiftEndTime;
+      var workShiftStartTime = doc.data().WorkShiftStartTime;
       if(getAnalysisStartEnd == "" && getAnalysisStartDate == ""){
         itemsActiveUserName.push({...doc.data(),...{idDocPositionUser: doc.id},...{idDocPosition: idDocPosition},...{idDocSubdivision: idDocSubdivision},...{idDocOrganization: idDocOrganization}});
       } else if(workShiftStartTime.seconds >= dateComparisonStart && workShiftEndTime.seconds <= dateComparisonExpiration){
