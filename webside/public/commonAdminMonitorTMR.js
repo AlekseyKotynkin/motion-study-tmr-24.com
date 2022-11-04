@@ -347,9 +347,16 @@ function adminMonitorTMR_Select_an_organization(obj) {
                              userEmail_tr.innerHTML = userEmail;
 
                              var workShiftStartTime_tr = document.createElement('td');
-                             workShiftStartTime_tr.innerHTML = new Date(workShiftStartTime.toDate()).toString();
+                             var local_0 = new Date(workShiftStartTime.toDate());
+                             var a_data = local_0.getFullYear();
+                             var b_data = local_0.getMonth();
+                             var c_data = local_0.getDate();
+                             var d_data = local_0.getHours();
+                             var e_data = local_0.getMinutes();
+                             var f_data = local_0.getSeconds();
+                             var li_local =""+(a_data)+"-"+(b_data)+"-"+(c_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+                             workShiftStartTime_tr.innerHTML = li_local;
                              ///
-
                              var to_nameDocProcessButton = document.createElement('button');
                              if(translation_JS == null || translation_JS == 'en'){
                                to_nameDocProcessButton.innerHTML = nameDocProcessButton;
@@ -380,10 +387,17 @@ function adminMonitorTMR_Select_an_organization(obj) {
 
                              var nameDocProcessButton_tr = document.createElement('td');
                              nameDocProcessButton_tr.appendChild(to_nameDocProcessButton);
-
                              //
                              var processUserStartTime_tr = document.createElement('td');
-                             processUserStartTime_tr.innerHTML = new Date(processUserStartTime.toDate()).toString();
+                             var local = new Date(processUserStartTime.toDate());
+                             var a = local.getFullYear();
+                             var b = local.getMonth();
+                             var c = local.getDate();
+                             var d = local.getHours();
+                             var e = local.getMinutes();
+                             var f = local.getSeconds();
+                             var li =""+(a)+"-"+(b)+"-"+(c)+" "+(d)+":"+(e)+":"+(f)+"";
+                             processUserStartTime_tr.innerHTML = li;
                              //
                              tr.appendChild(nameSubdivision_tr);
                              tr.appendChild(namePosition_tr);
