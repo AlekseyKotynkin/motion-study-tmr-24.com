@@ -33,6 +33,7 @@ var itemListShift_local_Green = [];
 var itemListShift_local_Yellow = [];
 var itemListShift_local_Orange = [];
 var itemListShift_local_Red = [];
+var itemListShift_local_User = [];
 //////
 var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
@@ -605,70 +606,74 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
-              var rezul_massiv_red = itemListShift_local_Red.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              var rezul_massiv_red = itemListShift_local_Red.findIndex(item => item.name == element_name);
               if(rezul_massiv_red < 0){
-                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+                itemListShift_local_Red.push({name:element_name, duration:timestamp});
               } else {
                 var element_red = itemListShift_local_Red[rezul_massiv_red];
                 var element_red_duration = element_red.duration;
                 itemListShift_local_Red.splice(rezul_massiv_red, 1);
                 element_red_duration = element_red_duration + timestamp;
-                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:element_red_duration});
+                itemListShift_local_Red.push({name:element_name, duration:element_red_duration});
               }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a'; //оранжевый
-              var rezul_massiv_Orange = itemListShift_local_Orange.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              var rezul_massiv_Orange = itemListShift_local_Orange.findIndex(item => item.name == element_name);
               if(rezul_massiv_Orange < 0){
-                itemListShift_local_Orange.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+                itemListShift_local_Orange.push({name:element_name, duration:timestamp});
               } else {
                 var element_Orange = itemListShift_local_Orange[rezul_massiv_Orange];
                 var element_Orange_duration = element_Orange.duration;
                 itemListShift_local_Orange.splice(rezul_massiv_Orange, 1);
                 element_Orange_duration = element_Orange_duration + timestamp;
-                itemListShift_local_Orange.push({name:nameDocProcessButton_mapChartjs, duration:element_Orange_duration});
+                itemListShift_local_Orange.push({name:element_name, duration:element_Orange_duration});
               }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a'; //желтый
-              var rezul_massiv_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              var rezul_massiv_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == element_name);
               if(rezul_massiv_Yellow < 0){
-                itemListShift_local_Yellow.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+                itemListShift_local_Yellow.push({name:element_name, duration:timestamp});
               } else {
                 var element_Yellow = itemListShift_local_Yellow[rezul_massiv_Yellow];
                 var element_Yellow_duration = element_Yellow.duration;
                 itemListShift_local_Yellow.splice(rezul_massiv_Yellow, 1);
                 element_Yellow_duration = element_Yellow_duration + timestamp;
-                itemListShift_local_Yellow.push({name:nameDocProcessButton_mapChartjs, duration:element_Yellow_duration});
+                itemListShift_local_Yellow.push({name:element_name, duration:element_Yellow_duration});
               }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521'; //зеленый
-              var rezul_massiv_Green = itemListShift_local_Green.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              var rezul_massiv_Green = itemListShift_local_Green.findIndex(item => item.name == element_name);
               if(rezul_massiv_Green < 0){
-                itemListShift_local_Green.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+                itemListShift_local_Green.push({name:element_name, duration:timestamp});
               } else {
                 var element_Green = itemListShift_local_Green[rezul_massiv_Green];
                 var element_Green_duration = element_Green.duration;
                 itemListShift_local_Green.splice(rezul_massiv_Green, 1);
                 element_Green_duration = element_Green_duration + timestamp;
-                itemListShift_local_Green.push({name:nameDocProcessButton_mapChartjs, duration:element__Green_duration});
+                itemListShift_local_Green.push({name:element_name, duration:element__Green_duration});
               }
             }else{
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
-              var rezul_massiv_red_1 = itemListShift_local_Red.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              var rezul_massiv_red_1 = itemListShift_local_Red.findIndex(item => item.name == element_name);
               if(rezul_massiv_red_1 < 0){
-                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+                itemListShift_local_Red.push({name:element_name, duration:timestamp});
               } else {
                 var element_red_1 = itemListShift_local_Red[rezul_massiv_red_1];
                 var element_red_duration_1 = element_red_1.duration;
                 itemListShift_local_Red.splice(rezul_massiv_red_1, 1);
                 element_red_duration_1 = element_red_duration_1 + timestamp;
-                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:element_red_duration_1});
+                itemListShift_local_Red.push({name:element_name, duration:element_red_duration_1});
               }
             }
             ///
             //// формируем массив для отображения в диаграмме Ганта
             addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
             console.log(addRows_data_Gantt);
-
+            ///
+            var rezul_massiv_user = itemListShift_local_User.findIndex(item => item.name == element_name);
+            if(rezul_massiv_user < 0){
+              itemListShift_local_User.push({name:element_name});
+            }
             ////
           });
         }).finally(() => {addRows_data_Gantt;
@@ -715,7 +720,89 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
   console.log(itemListShift_local_Yellow);
   console.log(itemListShift_local_Orange);
   console.log(itemListShift_local_Red);
+  itemListShift_local_User.forEach(function(item, index, array) {
+    // ... делать что-то с item
+    var nameUserMassiv = item.name;
+    //
+    var data_start_etap_1 = dateComparisonStart.seconds;
+    var data_start_etap_1_P = data_start_etap_1*1000;
+    var local_0 = new Date(data_start_etap_1_P);
+    var a_data = local_0.getFullYear();
+    var b_data = local_0.getMonth();
+    var c_data = local_0.getDate();
+    var d_data = local_0.getHours();
+    var e_data = local_0.getMinutes();
+    var f_data = local_0.getSeconds();
+    var data_start_etap_1_L = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
+    //
+    var rezul_massiv_user_Green = itemListShift_local_Green.findIndex(item => item.name == nameUserMassiv);
+    if(rezul_massiv_user_Green >= 0){
+      var element_Green = itemListShift_local_Green[rezul_massiv_user_Green];
+      var element_Green_duration = element_Green.duration;
+      var data_end_etap_1 = data_start_etap_1 + element_Green_duration;
 
+      if(translation_JS == null || translation_JS == 'en'){
+        addRows_data_Yamazumi.push([nameUserMassiv, "green - job responsibilities", '#0af521', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      } else {
+        addRows_data_Yamazumi.push([nameUserMassiv, "зеленый - должностные обязанности", '#0af521', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      }
+    } else {
+      var data_end_etap_1 = data_start_etap_1;
+    }
+    //
+    var rezul_massiv_user_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == nameUserMassiv);
+    if(rezul_massiv_user_Yellow >= 0){
+      var element_Yellow = itemListShift_local_Yellow[rezul_massiv_user_Yellow];
+      var element_Yellow_duration = element_Yellow.duration;
+      var data_start_etap_2 = data_end_etap_1 + 1;
+      var data_end_etap_2 = data_start_etap_2 + element_Yellow_duration;
+
+      if(translation_JS == null || translation_JS == 'en'){
+        addRows_data_Yamazumi.push([nameUserMassiv, "yellow - auxiliary duties", '#e9f50a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      } else {
+        addRows_data_Yamazumi.push([nameUserMassiv, "желтый - вспомогательные обязанности", '#e9f50a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      }
+    } else {
+      var data_end_etap_2 = data_start_etap_2;
+    }
+    //
+    var rezul_massiv_user_Orange = itemListShift_local_Orange.findIndex(item => item.name == nameUserMassiv);
+    if(rezul_massiv_user_Orange >= 0){
+      var element_Orange = itemListShift_local_Orange[rezul_massiv_user_Orange];
+      var element_Orange_duration = element_Orange.duration;
+      var data_start_etap_3 = data_end_etap_2 + 1;
+      var data_end_etap_3 = data_start_etap_3 + element_Orange_duration;
+
+      if(translation_JS == null || translation_JS == 'en'){
+        addRows_data_Yamazumi.push([nameUserMassiv, "orange - other activities", '#f0430a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      } else {
+        addRows_data_Yamazumi.push([nameUserMassiv, "оранжевый - прочая деятельность", '#f0430a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      }
+    } else {
+      var data_end_etap_3 = data_start_etap_3;
+    }
+    //
+    var rezul_massiv_user_Red = itemListShift_local_Red.findIndex(item => item.name == nameUserMassiv);
+    if(rezul_massiv_user_Red >= 0){
+      var element_red = itemListShift_local_Red[rezul_massiv_user_Red];
+      var element_red_duration = element_red.duration;
+      var data_start_etap_4 = data_end_etap_3 + 1;
+      var data_end_etap_4 = data_start_etap_4 + element_red_duration;
+
+      if(translation_JS == null || translation_JS == 'en'){
+        addRows_data_Yamazumi.push([nameUserMassiv, "red - simple employee", '#d22830', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      } else {
+        addRows_data_Yamazumi.push([nameUserMassiv, "красный - простой сотрудника", '#d22830', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+      }
+    }
+    //
+
+
+
+
+
+
+  });
 
 
 
