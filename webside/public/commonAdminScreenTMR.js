@@ -29,7 +29,10 @@ var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
 var itemListShift_local = [];
-
+var itemListShift_local_Green = [];
+var itemListShift_local_Yellow = [];
+var itemListShift_local_Orange = [];
+var itemListShift_local_Red = [];
 //////
 var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
@@ -37,6 +40,7 @@ var color_Orange = '#f0430a'; //оранжевый
 var color_Red = '#d22830'; //красный
 var addRows_data_Gantt = [];
 var addRows_data_Yamazumi = [];
+
 /////
 
 /**
@@ -403,12 +407,12 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   ///получаем Дату  и проверяем ее заполненость adminScreenTMR_ActivWindows_data
   var getAnalysisStartDate = document.getElementById("adminScreenTMR_ActivWindows_data").value;
   if(getAnalysisStartDate == ""){
-      if(translation_JS == null || translation_JS == 'en'){
-        alert('Please fill in the date according to the template!');
-      } else {
-        alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
-      }
-      return;
+    if(translation_JS == null || translation_JS == 'en'){
+      alert('Please fill in the date according to the template!');
+    } else {
+      alert('Пожалуйста, заполните дату в соответствии с шаблоном!');
+    }
+    return;
   }
   var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
   var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
@@ -429,48 +433,48 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   if(translation_JS == null || translation_JS == 'en'){
     var html_gant = [
       '<div class="row" id = "adminScreenTMR_Monitor_Gant">',
-        '<div class="col-12 grid-margin stretch-card">',
-          '<div class="card">',
-            '<div class="card-body">',
-              '<h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>',
-              '<div id="example4.2" style="height: 200px;"></div>',
-             '</div>',
-          '</div>',
-        '</div>',
-     '</div>',
-     '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
-       '<div class="col-12 grid-margin stretch-card">',
-         '<div class="card">',
-           '<div class="card-body">',
-             '<h4 class="card-description lang" key="chart_yamazumi">Yamazumi chart</h4>',
-             '<div id="example5.2" style="height: 200px;"></div>',
-            '</div>',
-         '</div>',
-       '</div>',
-    '</div>'
+      '<div class="col-12 grid-margin stretch-card">',
+      '<div class="card">',
+      '<div class="card-body">',
+      '<h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>',
+      '<div id="example4.2" style="height: 200px;"></div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
+      '<div class="col-12 grid-margin stretch-card">',
+      '<div class="card">',
+      '<div class="card-body">',
+      '<h4 class="card-description lang" key="chart_yamazumi">Yamazumi chart</h4>',
+      '<div id="example5.2" style="height: 200px;"></div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '</div>'
     ].join('');
   } else {
     var html_gant = [
       '<div class="row" id = "adminScreenTMR_Monitor_Gant">',
-        '<div class="col-12 grid-margin stretch-card">',
-          '<div class="card">',
-            '<div class="card-body">',
-              '<h4 class="card-description lang" key="chart_gantt">Диаграмма Ганта</h4>',
-              '<div id="example4.2" style="height: 200px;"></div>',
-             '</div>',
-          '</div>',
-        '</div>',
-     '</div>',
-     '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
-       '<div class="col-12 grid-margin stretch-card">',
-         '<div class="card">',
-           '<div class="card-body">',
-             '<h4 class="card-description lang" key="chart_yamazumi">Диаграмма Ямадзуми</h4>',
-             '<div id="example5.2" style="height: 200px;"></div>',
-            '</div>',
-         '</div>',
-       '</div>',
-    '</div>'
+      '<div class="col-12 grid-margin stretch-card">',
+      '<div class="card">',
+      '<div class="card-body">',
+      '<h4 class="card-description lang" key="chart_gantt">Диаграмма Ганта</h4>',
+      '<div id="example4.2" style="height: 200px;"></div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
+      '<div class="col-12 grid-margin stretch-card">',
+      '<div class="card">',
+      '<div class="card-body">',
+      '<h4 class="card-description lang" key="chart_yamazumi">Диаграмма Ямадзуми</h4>',
+      '<div id="example5.2" style="height: 200px;"></div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '</div>'
     ].join('');
   }
   var liLast_gant_0 = document.getElementById('adminScreenTMR_Monitor');
@@ -504,6 +508,8 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     liLast_0.remove();
   }
   // разбираем данные для изменение документов
+  var a = 0;
+  var a_l = itemListShift_local.length;
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
     var userName = doc.UserName;
@@ -512,8 +518,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     var idDocOrganization_local = doc.idDocOrganization;
     var idDocSubdivision_local = doc.idDocSubdivision;
     var idDocPosition_local = doc.idDocPosition;
-    var k = itemListUsers_local.length;
-    var f = 0;
     //// выбираем смены для данной должности и пользователя
     db.collection("WorkShift").where('EmailPositionUser', '==', userEmail).where("IdDocPosition","==", idDocPosition_local).where("WorkShiftEnd", "==", "false")
     .get()
@@ -533,6 +537,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     }).catch((error) => {
       console.log("Error getting documents: ", error);
     }).finally(() => {itemListShift_local;
+      a = a + 1;
       var k = 0;
       var k_l = itemListShift_local.length;
       itemListShift_local.forEach(item => {
@@ -573,6 +578,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
               var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
             }
             var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+            ///
             var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
             var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
             var a_data = local_0.getFullYear();
@@ -582,6 +588,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var e_data = local_0.getMinutes();
             var f_data = local_0.getSeconds();
             var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
+            ///
             var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
             var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
             var a_data_e = local_e_0.getFullYear();
@@ -591,29 +598,86 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             var e_data_e = local_e_0.getMinutes();
             var f_data_e = local_e_0.getSeconds();
             var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
+            ///
+            var workShiftFormattedTime = processUserEndTime_mapChartjs_local - processUserStartTime_mapChartjs_local;
+            var timestamp = new Date(workShiftFormattedTime).getTime();
+            ///
             var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
             if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
+              var rezul_massiv_red = itemListShift_local_Red.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              if(rezul_massiv_red < 0){
+                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+              } else {
+                var element_red = itemListShift_local_Red[rezul_massiv_red];
+                var element_red_duration = element_red.duration;
+                itemListShift_local_Red.splice(rezul_massiv_red, 1);
+                element_red_duration = element_red_duration + timestamp;
+                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:element_red_duration});
+              }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a';
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a'; //оранжевый
+              var rezul_massiv_Orange = itemListShift_local_Orange.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              if(rezul_massiv_Orange < 0){
+                itemListShift_local_Orange.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+              } else {
+                var element_Orange = itemListShift_local_Orange[rezul_massiv_Orange];
+                var element_Orange_duration = element_Orange.duration;
+                itemListShift_local_Orange.splice(rezul_massiv_Orange, 1);
+                element_Orange_duration = element_Orange_duration + timestamp;
+                itemListShift_local_Orange.push({name:nameDocProcessButton_mapChartjs, duration:element_Orange_duration});
+              }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a';
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a'; //желтый
+              var rezul_massiv_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              if(rezul_massiv_Yellow < 0){
+                itemListShift_local_Yellow.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+              } else {
+                var element_Yellow = itemListShift_local_Yellow[rezul_massiv_Yellow];
+                var element_Yellow_duration = element_Yellow.duration;
+                itemListShift_local_Yellow.splice(rezul_massiv_Yellow, 1);
+                element_Yellow_duration = element_Yellow_duration + timestamp;
+                itemListShift_local_Yellow.push({name:nameDocProcessButton_mapChartjs, duration:element_Yellow_duration});
+              }
             }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521';
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521'; //зеленый
+              var rezul_massiv_Green = itemListShift_local_Green.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              if(rezul_massiv_Green < 0){
+                itemListShift_local_Green.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+              } else {
+                var element_Green = itemListShift_local_Green[rezul_massiv_Green];
+                var element_Green_duration = element_Green.duration;
+                itemListShift_local_Green.splice(rezul_massiv_Green, 1);
+                element_Green_duration = element_Green_duration + timestamp;
+                itemListShift_local_Green.push({name:nameDocProcessButton_mapChartjs, duration:element__Green_duration});
+              }
             }else{
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
+              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
+              var rezul_massiv_red_1 = itemListShift_local_Red.findIndex(item => item.name == nameDocProcessButton_mapChartjs);
+              if(rezul_massiv_red_1 < 0){
+                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:timestamp});
+              } else {
+                var element_red_1 = itemListShift_local_Red[rezul_massiv_red_1];
+                var element_red_duration_1 = element_red_1.duration;
+                itemListShift_local_Red.splice(rezul_massiv_red_1, 1);
+                element_red_duration_1 = element_red_duration_1 + timestamp;
+                itemListShift_local_Red.push({name:nameDocProcessButton_mapChartjs, duration:element_red_duration_1});
+              }
             }
+            ///
             //// формируем массив для отображения в диаграмме Ганта
             addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
             console.log(addRows_data_Gantt);
+
             ////
           });
         }).finally(() => {addRows_data_Gantt;
-          k = k + 1
-          if(k == k_l){
+          k = k + 1;
+          if(k == k_l && a == a_l){
             modal_adminScreenTMR_TableUsers_Edit_Gantt();
+            modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data();
           }
-      });
+        });
         ////
       });
     });
@@ -645,7 +709,18 @@ function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
     chart.draw(dataTable, options);
   }
 }
-// публикуем диаграмму Ганта
+// формируем массив для диаграммы Ямадзуми
+function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
+  console.log(itemListShift_local_Green);
+  console.log(itemListShift_local_Yellow);
+  console.log(itemListShift_local_Orange);
+  console.log(itemListShift_local_Red);
+
+
+
+  
+}
+// публикуем диаграмму Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
 
   google.charts.load("current", {packages:["timeline"]});
