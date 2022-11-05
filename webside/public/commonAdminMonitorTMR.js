@@ -30,7 +30,7 @@ var itemsName = [];
 var itemsMyListUser = [];
 var itemsMyOrganization = [];
 var itemListShift_local = [];
-var start_function = 0;
+var start_function = [];
 
 //////
 var color_Green = '#0af521'; //зеленый
@@ -304,8 +304,10 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
-                if(start_function == 0){
+                var s_f_l = start_function.includes(idDocOrganization_local);
+                if(s_f_l == false){
                   turnOnTheListener_Shift(idDocShift_local);
+                  start_function.push(...idDocOrganization_local)
                 }
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
                  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
@@ -463,9 +465,7 @@ function turnOnTheListener_Shift(idDocShift){
         start_function = start_function + 1;
         querySnapshot.forEach((doc) => {
             cities.push(doc.data().name);
-            if(start_function > 1){
-              adminMonitorTMR_Select_an_organization(obj_activ);
-            }
+            adminMonitorTMR_Select_an_organization(obj_activ);
         });
         console.log("Current cities in CA: ", cities.join(", "));
     })

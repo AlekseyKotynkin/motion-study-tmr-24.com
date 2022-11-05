@@ -282,11 +282,27 @@ function toComeInButtonShift(obj) {
 
           var nameOfYourManagerColumn = document.createElement('td');
           var workShiftEndTime = item.WorkShiftEndTime;
-          nameOfYourManagerColumn.innerHTML = new Date(workShiftEndTime.toDate()).toUTCString();
+          var local = new Date(workShiftEndTime.toDate());
+          var a = local.getFullYear();
+          var b = local.getMonth();
+          var c = local.getDate();
+          var d = local.getHours();
+          var e = local.getMinutes();
+          var f = local.getSeconds();
+          var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+          nameOfYourManagerColumn.innerHTML = li;
 
           var statusUserColumn = document.createElement('td');
           var workShiftStartTime = item.WorkShiftStartTime;
-          statusUserColumn.innerHTML = new Date(workShiftStartTime.toDate()).toUTCString();
+          var local_0 = new Date(workShiftStartTime.toDate());
+          var a_data = local_0.getFullYear();
+          var b_data = local_0.getMonth();
+          var c_data = local_0.getDate();
+          var d_data = local_0.getHours();
+          var e_data = local_0.getMinutes();
+          var f_data = local_0.getSeconds();
+          var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+          statusUserColumn.innerHTML = li_local;
 
           var formattedColumn = document.createElement('td');
           var workShiftFormattedTime = workShiftEndTime - workShiftStartTime;
@@ -378,11 +394,27 @@ function toComeInButtonEvent(objs) {
 
       var timeStartShiftColumn = document.createElement('td');
       var processUserStartTime = item.ProcessUserStartTime;
-      timeStartShiftColumn.innerHTML = new Date(processUserStartTime.toDate()).toUTCString();
+      var local = new Date(processUserStartTime.toDate());
+      var a = local.getFullYear();
+      var b = local.getMonth();
+      var c = local.getDate();
+      var d = local.getHours();
+      var e = local.getMinutes();
+      var f = local.getSeconds();
+      var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+      timeStartShiftColumn.innerHTML = li;
 
       var timeEndShiftColumn = document.createElement('td');
       var processUserEndTime = item.ProcessUserEndTime;
-      timeEndShiftColumn.innerHTML = new Date(processUserEndTime.toDate()).toUTCString();
+      var local_0 = new Date(processUserEndTime.toDate());
+      var a_data = local_0.getFullYear();
+      var b_data = local_0.getMonth();
+      var c_data = local_0.getDate();
+      var d_data = local_0.getHours();
+      var e_data = local_0.getMinutes();
+      var f_data = local_0.getSeconds();
+      var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+      timeEndShiftColumn.innerHTML = li_local;
 
       var nameShiftColumn = document.createElement('td');
       nameShiftColumn.innerHTML = item.NameDocProcessButton;
@@ -461,8 +493,8 @@ function gridSystemModalInfoEvent(objsi){
   var idEventItem = objsi.item;
   var processUserStartTime = idEventItem.ProcessUserStartTime;
   var processUserEndTime = idEventItem.ProcessUserEndTime;
-  var timeStartShift = new Date(processUserStartTime.toDate()).toUTCString();
-  var timeEndShift = new Date(processUserEndTime.toDate()).toUTCString();
+  var timeStartShift = new Date(processUserStartTime.toDate()).toString();
+  var timeEndShift = new Date(processUserEndTime.toDate()).toString();
   var processUserFormattedTime = processUserEndTime - processUserStartTime;
   var timestamp = new Date(processUserFormattedTime).getTime();
   var hours = Math.floor(timestamp / 60 / 60);
