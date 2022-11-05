@@ -454,10 +454,6 @@ function SignoutAdmin() {
 ///
 function turnOnTheListener_Shift(idDocShift){
   ///
-  // db.collection("WorkShift").doc(idDocShift)
-  //   .onSnapshot((doc) => {
-  //       console.log("Current data: ", doc.data());
-  //   });
  var docRef = db.collection("WorkShift").doc(idDocShift);
  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
     .onSnapshot((querySnapshot) => {
