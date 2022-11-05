@@ -37,7 +37,6 @@ var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
 var color_Orange = '#f0430a'; //оранжевый
 var color_Red = '#d22830'; //красный
-var addRows_data = [];
 /////
 
 /**

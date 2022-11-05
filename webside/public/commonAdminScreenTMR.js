@@ -35,7 +35,8 @@ var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
 var color_Orange = '#f0430a'; //оранжевый
 var color_Red = '#d22830'; //красный
-var addRows_data = [];
+var addRows_data_Gantt = [];
+var addRows_data_Yamazumi = [];
 /////
 
 /**
@@ -419,6 +420,11 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   if(liLast_Gant !== null){
     liLast_Gant.remove();
   }
+  // удаляем окно Ганта
+  var liLast_Yamazumi = document.getElementById('adminScreenTMR_Monitor_Yamazumi');
+  if(liLast_Yamazumi !== null){
+    liLast_Yamazumi.remove();
+  }
   ///формируем окно Ганта
   if(translation_JS == null || translation_JS == 'en'){
     var html_gant = [
@@ -431,7 +437,17 @@ function modal_adminScreenTMR_TableUsers_Edit(){
              '</div>',
           '</div>',
         '</div>',
-     '</div>'
+     '</div>',
+     '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
+       '<div class="col-12 grid-margin stretch-card">',
+         '<div class="card">',
+           '<div class="card-body">',
+             '<h4 class="card-description lang" key="chart_yamazumi">Yamazumi chart</h4>',
+             '<div id="example5.2" style="height: 200px;"></div>',
+            '</div>',
+         '</div>',
+       '</div>',
+    '</div>'
     ].join('');
   } else {
     var html_gant = [
@@ -444,7 +460,17 @@ function modal_adminScreenTMR_TableUsers_Edit(){
              '</div>',
           '</div>',
         '</div>',
-     '</div>'
+     '</div>',
+     '<div class="row" id = "adminScreenTMR_Monitor_Yamazumi">',
+       '<div class="col-12 grid-margin stretch-card">',
+         '<div class="card">',
+           '<div class="card-body">',
+             '<h4 class="card-description lang" key="chart_yamazumi">Диаграмма Ямадзуми</h4>',
+             '<div id="example5.2" style="height: 200px;"></div>',
+            '</div>',
+         '</div>',
+       '</div>',
+    '</div>'
     ].join('');
   }
   var liLast_gant_0 = document.getElementById('adminScreenTMR_Monitor');
@@ -578,14 +604,14 @@ function modal_adminScreenTMR_TableUsers_Edit(){
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830';
             }
             //// формируем массив для отображения в диаграмме Ганта
-            addRows_data.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
-            console.log(addRows_data);
+            addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+            console.log(addRows_data_Gantt);
             ////
           });
-        }).finally(() => {addRows_data;
+        }).finally(() => {addRows_data_Gantt;
           k = k + 1
           if(k == k_l){
-            modal_adminScreenTMR_TableUsers_Edit_Shift();
+            modal_adminScreenTMR_TableUsers_Edit_Gantt();
           }
       });
         ////
@@ -597,7 +623,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
 }
 ///
 // публикуем диаграмму Ганта
-function modal_adminScreenTMR_TableUsers_Edit_Shift(){
+function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
 
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
@@ -611,7 +637,30 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
-    dataTable.addRows(addRows_data);
+    dataTable.addRows(addRows_data_Gantt);
+    ///
+    var options = {
+      timeline: { groupByRowLabel: true }
+    };
+    chart.draw(dataTable, options);
+  }
+}
+// публикуем диаграмму Ганта
+function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
+
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var container = document.getElementById('example5.2');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    ///
+    dataTable.addColumn({ type: 'string', id: 'Role' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows(addRows_data_Yamazumi);
     ///
     var options = {
       timeline: { groupByRowLabel: true }
