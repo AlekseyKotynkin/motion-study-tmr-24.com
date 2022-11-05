@@ -307,7 +307,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
                 var s_f_l = start_function.includes(idDocOrganization_local);
                 if(s_f_l == false){
                   turnOnTheListener_Shift(idDocShift_local);
-                  start_function.push(...idDocOrganization_local)
+                  start_function.push(idDocOrganization_local);
                 }
                  var docRef = db.collection("WorkShift").doc(idDocShift_local);
                  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
