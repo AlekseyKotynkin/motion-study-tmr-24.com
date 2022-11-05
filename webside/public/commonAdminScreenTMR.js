@@ -509,7 +509,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   }
   // разбираем данные для изменение документов
   var a = 0;
-  var a_l = itemListShift_local.length;
+  var a_l = itemListUsers_local.length;
   itemListUsers_local.forEach(function(item, i, arr) {
     var doc = itemListUsers_local[i].doc;
     var userName = doc.UserName;
@@ -718,7 +718,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
 
 
 
-  
+
 }
 // публикуем диаграмму Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
