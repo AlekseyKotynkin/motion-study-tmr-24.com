@@ -651,7 +651,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
                 var element_Green_duration = element_Green.duration;
                 itemListShift_local_Green.splice(rezul_massiv_Green, 1);
                 element_Green_duration = element_Green_duration + timestamp;
-                itemListShift_local_Green.push({name:element_name, duration:element__Green_duration});
+                itemListShift_local_Green.push({name:element_name, duration:element_Green_duration});
               }
             }else{
               var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
