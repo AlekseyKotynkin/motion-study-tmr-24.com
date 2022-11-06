@@ -34,6 +34,7 @@ var itemListShift_local_Yellow = [];
 var itemListShift_local_Orange = [];
 var itemListShift_local_Red = [];
 var itemListShift_local_User = [];
+var dateComparisonStart = new Date();
 //////
 var color_Green = '#0af521'; //зеленый
 var color_Yellow = '#e9f50a'; //желтый
@@ -418,7 +419,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   var yearAnalysisStartDate = getAnalysisStartDate.split("-")[0];
   var monthAnalysisStartDate = getAnalysisStartDate.split("-")[1];
   var dayAnalysisStartDate = getAnalysisStartDate.split("-")[2];
-  var dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0)/1000;
+  dateComparisonStart = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 0, 0, 0)/1000;
   var dateComparisonEnd = +new Date(yearAnalysisStartDate, monthAnalysisStartDate-1, dayAnalysisStartDate, 23, 59, 59)/1000;
   // удаляем окно Ганта
   var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
