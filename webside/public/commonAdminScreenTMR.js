@@ -795,7 +795,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
         addRows_data_Yamazumi.push([nameUserMassiv, "желтый - вспомогательные обязанности", '#e9f50a', data_start_etap_2_L, data_end_etap_2_L]);
       }
     } else {
-      var data_end_etap_2 = data_start_etap_2;
+      var data_end_etap_2 = data_end_etap_1;
     }
     //
     var rezul_massiv_user_Orange = itemListShift_local_Orange.findIndex(item => item.name == nameUserMassiv);
@@ -831,7 +831,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
         addRows_data_Yamazumi.push([nameUserMassiv, "оранжевый - прочая деятельность", '#f0430a', data_start_etap_3_L, data_end_etap_3_L]);
       }
     } else {
-      var data_end_etap_3 = data_start_etap_3;
+      var data_end_etap_2 = data_end_etap_2;
     }
     //
     var rezul_massiv_user_Red = itemListShift_local_Red.findIndex(item => item.name == nameUserMassiv);
