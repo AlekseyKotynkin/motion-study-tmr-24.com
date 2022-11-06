@@ -89,6 +89,11 @@ function list_own_organizations_adminScreen(){
   if(liLast_Gant !== null){
     liLast_Gant.remove();
   }
+  // удаляем окно Ямадзуми
+  var liLast_Yamazumi = document.getElementById('adminScreenTMR_Monitor_Yamazumi');
+  if(liLast_Yamazumi !== null){
+    liLast_Yamazumi.remove();
+  }
   ///
   var liLast_0 = document.getElementById('adminScreenTMR_ActivWindows');
   if(liLast_0 !== null){
@@ -190,6 +195,11 @@ function adminScreenTMR_Select_an_organization(obj) {
   var liLast_Gant = document.getElementById('adminScreenTMR_Monitor_Gant');
   if(liLast_Gant !== null){
     liLast_Gant.remove();
+  }
+  // удаляем окно Ямадзуми
+  var liLast_Yamazumi = document.getElementById('adminScreenTMR_Monitor_Yamazumi');
+  if(liLast_Yamazumi !== null){
+    liLast_Yamazumi.remove();
   }
   ///
   var liLast_Title = document.getElementById('adminScreenTMR_Monitor_Title');
@@ -426,7 +436,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   if(liLast_Gant !== null){
     liLast_Gant.remove();
   }
-  // удаляем окно Ганта
+  // удаляем окно Ямадзуми
   var liLast_Yamazumi = document.getElementById('adminScreenTMR_Monitor_Yamazumi');
   if(liLast_Yamazumi !== null){
     liLast_Yamazumi.remove();
@@ -680,7 +690,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
         }).finally(() => {addRows_data_Gantt;
           k = k + 1;
           if(k == k_l && a == a_l){
-            modal_adminScreenTMR_TableUsers_Edit_Gantt();
+            modal_adminScreenTMR_TableUsers_Edit_Gantt('example4.2',addRows_data_Gantt);
             modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data();
           }
         });
@@ -693,12 +703,13 @@ function modal_adminScreenTMR_TableUsers_Edit(){
 }
 ///
 // публикуем диаграмму Ганта
-function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
-
+function modal_adminScreenTMR_TableUsers_Edit_Gantt(id, data){
+  var addRows_data = data;
+  var id_doc = id;
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
-    var container = document.getElementById('example4.2');
+    var container = document.getElementById(id_doc);
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
     ///
@@ -707,7 +718,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
-    dataTable.addRows(addRows_data_Gantt);
+    dataTable.addRows(addRows_data);
     ///
     var options = {
       timeline: { groupByRowLabel: true }
@@ -871,30 +882,8 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
   })
   if(y_l == y){
     console.log(addRows_data_Yamazumi);
-    modal_adminScreenTMR_TableUsers_Edit_Yamazumi();
-  }
-}
-// публикуем диаграмму Ямадзуми
-function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
-
-  google.charts.load("current", {packages:["timeline"]});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var container = document.getElementById('example5.2');
-    var chart = new google.visualization.Timeline(container);
-    var dataTable = new google.visualization.DataTable();
-    ///
-    dataTable.addColumn({ type: 'string', id: 'Role' });
-    dataTable.addColumn({ type: 'string', id: 'Name' });
-    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-    dataTable.addColumn({ type: 'date', id: 'Start' });
-    dataTable.addColumn({ type: 'date', id: 'End' });
-    dataTable.addRows(addRows_data_Yamazumi);
-    ///
-    var options = {
-      timeline: { groupByRowLabel: true }
-    };
-    chart.draw(dataTable, options);
+    // modal_adminScreenTMR_TableUsers_Edit_Yamazumi();
+    modal_adminScreenTMR_TableUsers_Edit_Gantt('example5.2',addRows_data_Yamazumi);
   }
 }
 // открыть окно Фейсбука
