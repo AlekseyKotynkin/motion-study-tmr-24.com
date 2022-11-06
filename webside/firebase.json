@@ -30,6 +30,7 @@
     "indexes": "firestore.indexes.json"
   },
   "emulators": {
+
     "functions": {
       "port": 5001
     },
@@ -43,7 +44,7 @@
       "port": 5000
     },
     "pubsub": {
-      "port": 8085
+      "port": 8000
     },
     "ui": {
       "enabled": true,
