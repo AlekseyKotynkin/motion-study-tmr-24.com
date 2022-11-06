@@ -497,6 +497,15 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   itemListShift_local =[];
   //удалил шапку таблицы
   var itemListUsers_local =[];
+  addRows_data_Gantt  = [];
+  addRows_data_Yamazumi = [];
+  itemListShift_local_Green = [];
+  itemListShift_local_Yellow = [];
+  itemListShift_local_Orange = [];
+  itemListShift_local_Red = [];
+  itemListShift_local_User = [];
+
+
   // удалить шапку
   adminScreenTMR_TableUsers.deleteRow(0);
   /// перечитываем данные из таблицы
