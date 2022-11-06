@@ -744,7 +744,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var data_end_etap_1 = data_start_etap_1 + element_Green_duration;
       ///
       var data_end_etap_1_P = data_end_etap_1*1000;
-      var local_end_etap_1 = new Date(data_start_etap_1_P);
+      var local_end_etap_1 = new Date(data_end_etap_1_P);
       var a_data_end_etap_1 = local_end_etap_1.getFullYear();
       var b_data_end_etap_1 = local_end_etap_1.getMonth();
       var c_data_end_etap_1 = local_end_etap_1.getDate();
@@ -780,7 +780,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var data_start_etap_2_L = new Date(a_data_start_etap_2,b_data_start_etap_2,c_data_start_etap_2,d_data_start_etap_2,e_data_start_etap_2,f_data_start_etap_2);
       ///
       var data_end_etap_2_P = data_end_etap_2*1000;
-      var local_end_etap_2 = new Date(data_start_etap_2_P);
+      var local_end_etap_2 = new Date(data_end_etap_2_P);
       var a_data_end_etap_2 = local_end_etap_2.getFullYear();
       var b_data_end_etap_2 = local_end_etap_2.getMonth();
       var c_data_end_etap_2 = local_end_etap_2.getDate();
@@ -816,7 +816,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var data_start_etap_3_L = new Date(a_data_start_etap_3,b_data_start_etap_3,c_data_start_etap_3,d_data_start_etap_3,e_data_start_etap_3,f_data_start_etap_3);
       ///
       var data_end_etap_3_P = data_end_etap_3*1000;
-      var local_end_etap_3 = new Date(data_start_etap_3_P);
+      var local_end_etap_3 = new Date(data_end_etap_3_P);
       var a_data_end_etap_3 = local_end_etap_3.getFullYear();
       var b_data_end_etap_3 = local_end_etap_3.getMonth();
       var c_data_end_etap_3 = local_end_etap_3.getDate();
@@ -852,7 +852,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var data_start_etap_4_L = new Date(a_data_start_etap_4,b_data_start_etap_4,c_data_start_etap_4,d_data_start_etap_4,e_data_start_etap_4,f_data_start_etap_4);
       ///
       var data_end_etap_4_P = data_end_etap_4*1000;
-      var local_end_etap_4 = new Date(data_start_etap_4_P);
+      var local_end_etap_4 = new Date(data_end_etap_4_P);
       var a_data_end_etap_4 = local_end_etap_4.getFullYear();
       var b_data_end_etap_4 = local_end_etap_4.getMonth();
       var c_data_end_etap_4 = local_end_etap_4.getDate();
@@ -870,6 +870,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
     //
   })
   if(y_l == y){
+    console.log(addRows_data_Yamazumi);
     modal_adminScreenTMR_TableUsers_Edit_Yamazumi();
   }
 }
