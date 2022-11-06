@@ -721,6 +721,8 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
   var y = 0;
   var y_l = itemListShift_local_User.length;
   itemListShift_local_User.forEach(function(item, index, array) {
+    //
+    y = y + 1;
     // ... делать что-то с item
     var nameUserMassiv = item.name;
     //
