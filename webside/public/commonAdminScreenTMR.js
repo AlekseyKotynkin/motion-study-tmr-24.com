@@ -714,6 +714,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
     chart.draw(dataTable, options);
   }
 }
+
 // формируем массив для диаграммы Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
   console.log(itemListShift_local_Green);
@@ -726,21 +727,32 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
     //
     var data_start_etap_1 = dateComparisonStart.seconds;
     var data_start_etap_1_P = data_start_etap_1*1000;
-    var local_0 = new Date(data_start_etap_1_P);
-    var a_data = local_0.getFullYear();
-    var b_data = local_0.getMonth();
-    var c_data = local_0.getDate();
-    var d_data = local_0.getHours();
-    var e_data = local_0.getMinutes();
-    var f_data = local_0.getSeconds();
-    var data_start_etap_1_L = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
+    var local_start_etap_1 = new Date(data_start_etap_1_P);
+    var a_data_start_etap_1 = local_start_etap_1.getFullYear();
+    var b_data_start_etap_1 = local_start_etap_1.getMonth();
+    var c_data_start_etap_1 = local_start_etap_1.getDate();
+    var d_data_start_etap_1 = local_start_etap_1.getHours();
+    var e_data_start_etap_1 = local_start_etap_1.getMinutes();
+    var f_data_start_etap_1 = local_start_etap_1.getSeconds();
+    var data_start_etap_1_L = new Date(a_data_start_etap_1,b_data_start_etap_1,c_data_start_etap_1,d_data_start_etap_1,e_data_start_etap_1,f_data_start_etap_1);
     //
     var rezul_massiv_user_Green = itemListShift_local_Green.findIndex(item => item.name == nameUserMassiv);
     if(rezul_massiv_user_Green >= 0){
       var element_Green = itemListShift_local_Green[rezul_massiv_user_Green];
       var element_Green_duration = element_Green.duration;
       var data_end_etap_1 = data_start_etap_1 + element_Green_duration;
-
+      ///
+      // var data_start_etap_1 = dateComparisonStart.seconds;
+      var data_end_etap_1_P = data_end_etap_1*1000;
+      var local_end_etap_1 = new Date(data_start_etap_1_P);
+      var a_data_end_etap_1 = local_end_etap_1.getFullYear();
+      var b_data_end_etap_1 = local_end_etap_1.getMonth();
+      var c_data_end_etap_1 = local_end_etap_1.getDate();
+      var d_data_end_etap_1 = local_end_etap_1.getHours();
+      var e_data_end_etap_1 = local_end_etap_1.getMinutes();
+      var f_data_end_etap_1 = local_end_etap_1.getSeconds();
+      var data_start_etap_1_L = new Date(a_data_end_etap_1,b_data_end_etap_1,c_data_end_etap_1,d_data_end_etap_1,e_data_end_etap_1,f_data_end_etap_1);
+      ///
       if(translation_JS == null || translation_JS == 'en'){
         addRows_data_Yamazumi.push([nameUserMassiv, "green - job responsibilities", '#0af521', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
       } else {
@@ -796,16 +808,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       }
     }
     //
-
-
-
-
-
-
   });
-
-
-
 }
 // публикуем диаграмму Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
