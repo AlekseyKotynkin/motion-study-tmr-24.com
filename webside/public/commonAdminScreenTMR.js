@@ -718,15 +718,13 @@ function modal_adminScreenTMR_TableUsers_Edit_Gantt(){
 
 // формируем массив для диаграммы Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
-  console.log(itemListShift_local_Green);
-  console.log(itemListShift_local_Yellow);
-  console.log(itemListShift_local_Orange);
-  console.log(itemListShift_local_Red);
+  var y = 0;
+  var y_l = itemListShift_local_User.length;
   itemListShift_local_User.forEach(function(item, index, array) {
     // ... делать что-то с item
     var nameUserMassiv = item.name;
     //
-    var data_start_etap_1 = dateComparisonStart.seconds;
+    var data_start_etap_1 = dateComparisonStart;
     var data_start_etap_1_P = data_start_etap_1*1000;
     var local_start_etap_1 = new Date(data_start_etap_1_P);
     var a_data_start_etap_1 = local_start_etap_1.getFullYear();
@@ -743,7 +741,6 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var element_Green_duration = element_Green.duration;
       var data_end_etap_1 = data_start_etap_1 + element_Green_duration;
       ///
-      // var data_start_etap_1 = dateComparisonStart.seconds;
       var data_end_etap_1_P = data_end_etap_1*1000;
       var local_end_etap_1 = new Date(data_start_etap_1_P);
       var a_data_end_etap_1 = local_end_etap_1.getFullYear();
@@ -752,12 +749,12 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var d_data_end_etap_1 = local_end_etap_1.getHours();
       var e_data_end_etap_1 = local_end_etap_1.getMinutes();
       var f_data_end_etap_1 = local_end_etap_1.getSeconds();
-      var data_start_etap_1_L = new Date(a_data_end_etap_1,b_data_end_etap_1,c_data_end_etap_1,d_data_end_etap_1,e_data_end_etap_1,f_data_end_etap_1);
+      var data_end_etap_1_L = new Date(a_data_end_etap_1,b_data_end_etap_1,c_data_end_etap_1,d_data_end_etap_1,e_data_end_etap_1,f_data_end_etap_1);
       ///
       if(translation_JS == null || translation_JS == 'en'){
-        addRows_data_Yamazumi.push([nameUserMassiv, "green - job responsibilities", '#0af521', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "green - job responsibilities", '#0af521', data_start_etap_1_L, data_end_etap_1_L]);
       } else {
-        addRows_data_Yamazumi.push([nameUserMassiv, "зеленый - должностные обязанности", '#0af521', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "зеленый - должностные обязанности", '#0af521', data_start_etap_1_L, data_end_etap_1_L]);
       }
     } else {
       var data_end_etap_1 = data_start_etap_1;
@@ -769,11 +766,31 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var element_Yellow_duration = element_Yellow.duration;
       var data_start_etap_2 = data_end_etap_1 + 1;
       var data_end_etap_2 = data_start_etap_2 + element_Yellow_duration;
-
+      ///
+      var data_start_etap_2_P = data_start_etap_2*1000;
+      var local_start_etap_2 = new Date(data_start_etap_2_P);
+      var a_data_start_etap_2 = local_start_etap_2.getFullYear();
+      var b_data_start_etap_2 = local_start_etap_2.getMonth();
+      var c_data_start_etap_2 = local_start_etap_2.getDate();
+      var d_data_start_etap_2 = local_start_etap_2.getHours();
+      var e_data_start_etap_2 = local_start_etap_2.getMinutes();
+      var f_data_start_etap_2 = local_start_etap_2.getSeconds();
+      var data_start_etap_2_L = new Date(a_data_start_etap_2,b_data_start_etap_2,c_data_start_etap_2,d_data_start_etap_2,e_data_start_etap_2,f_data_start_etap_2);
+      ///
+      var data_end_etap_2_P = data_end_etap_2*1000;
+      var local_end_etap_2 = new Date(data_start_etap_2_P);
+      var a_data_end_etap_2 = local_end_etap_2.getFullYear();
+      var b_data_end_etap_2 = local_end_etap_2.getMonth();
+      var c_data_end_etap_2 = local_end_etap_2.getDate();
+      var d_data_end_etap_2 = local_end_etap_2.getHours();
+      var e_data_end_etap_2 = local_end_etap_2.getMinutes();
+      var f_data_end_etap_2 = local_end_etap_2.getSeconds();
+      var data_end_etap_2_L = new Date(a_data_end_etap_2,b_data_end_etap_2,c_data_end_etap_2,d_data_end_etap_2,e_data_end_etap_2,f_data_end_etap_2);
+      ///
       if(translation_JS == null || translation_JS == 'en'){
-        addRows_data_Yamazumi.push([nameUserMassiv, "yellow - auxiliary duties", '#e9f50a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "yellow - auxiliary duties", '#e9f50a', data_start_etap_2_L, data_end_etap_2_L]);
       } else {
-        addRows_data_Yamazumi.push([nameUserMassiv, "желтый - вспомогательные обязанности", '#e9f50a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "желтый - вспомогательные обязанности", '#e9f50a', data_start_etap_2_L, data_end_etap_2_L]);
       }
     } else {
       var data_end_etap_2 = data_start_etap_2;
@@ -785,11 +802,31 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var element_Orange_duration = element_Orange.duration;
       var data_start_etap_3 = data_end_etap_2 + 1;
       var data_end_etap_3 = data_start_etap_3 + element_Orange_duration;
-
+      ///
+      var data_start_etap_3_P = data_start_etap_3*1000;
+      var local_start_etap_3 = new Date(data_start_etap_3_P);
+      var a_data_start_etap_3 = local_start_etap_3.getFullYear();
+      var b_data_start_etap_3 = local_start_etap_3.getMonth();
+      var c_data_start_etap_3 = local_start_etap_3.getDate();
+      var d_data_start_etap_3 = local_start_etap_3.getHours();
+      var e_data_start_etap_3 = local_start_etap_3.getMinutes();
+      var f_data_start_etap_3 = local_start_etap_3.getSeconds();
+      var data_start_etap_3_L = new Date(a_data_start_etap_3,b_data_start_etap_3,c_data_start_etap_3,d_data_start_etap_3,e_data_start_etap_3,f_data_start_etap_3);
+      ///
+      var data_end_etap_3_P = data_end_etap_3*1000;
+      var local_end_etap_3 = new Date(data_start_etap_3_P);
+      var a_data_end_etap_3 = local_end_etap_3.getFullYear();
+      var b_data_end_etap_3 = local_end_etap_3.getMonth();
+      var c_data_end_etap_3 = local_end_etap_3.getDate();
+      var d_data_end_etap_3 = local_end_etap_3.getHours();
+      var e_data_end_etap_3 = local_end_etap_3.getMinutes();
+      var f_data_end_etap_3 = local_end_etap_3.getSeconds();
+      var data_end_etap_3_L = new Date(a_data_end_etap_3,b_data_end_etap_3,c_data_end_etap_3,d_data_end_etap_3,e_data_end_etap_3,f_data_end_etap_3);
+      ///
       if(translation_JS == null || translation_JS == 'en'){
-        addRows_data_Yamazumi.push([nameUserMassiv, "orange - other activities", '#f0430a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "orange - other activities", '#f0430a', data_start_etap_3_L, data_end_etap_3_L]);
       } else {
-        addRows_data_Yamazumi.push([nameUserMassiv, "оранжевый - прочая деятельность", '#f0430a', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "оранжевый - прочая деятельность", '#f0430a', data_start_etap_3_L, data_end_etap_3_L]);
       }
     } else {
       var data_end_etap_3 = data_start_etap_3;
@@ -801,15 +838,38 @@ function modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data(){
       var element_red_duration = element_red.duration;
       var data_start_etap_4 = data_end_etap_3 + 1;
       var data_end_etap_4 = data_start_etap_4 + element_red_duration;
-
+      ///
+      var data_start_etap_4_P = data_start_etap_4*1000;
+      var local_start_etap_4 = new Date(data_start_etap_4_P);
+      var a_data_start_etap_4 = local_start_etap_4.getFullYear();
+      var b_data_start_etap_4 = local_start_etap_4.getMonth();
+      var c_data_start_etap_4 = local_start_etap_4.getDate();
+      var d_data_start_etap_4 = local_start_etap_4.getHours();
+      var e_data_start_etap_4 = local_start_etap_4.getMinutes();
+      var f_data_start_etap_4 = local_start_etap_4.getSeconds();
+      var data_start_etap_4_L = new Date(a_data_start_etap_4,b_data_start_etap_4,c_data_start_etap_4,d_data_start_etap_4,e_data_start_etap_4,f_data_start_etap_4);
+      ///
+      var data_end_etap_4_P = data_end_etap_4*1000;
+      var local_end_etap_4 = new Date(data_start_etap_4_P);
+      var a_data_end_etap_4 = local_end_etap_4.getFullYear();
+      var b_data_end_etap_4 = local_end_etap_4.getMonth();
+      var c_data_end_etap_4 = local_end_etap_4.getDate();
+      var d_data_end_etap_4 = local_end_etap_4.getHours();
+      var e_data_end_etap_4 = local_end_etap_4.getMinutes();
+      var f_data_end_etap_4 = local_end_etap_4.getSeconds();
+      var data_end_etap_4_L = new Date(a_data_end_etap_4,b_data_end_etap_4,c_data_end_etap_4,d_data_end_etap_4,e_data_end_etap_4,f_data_end_etap_4);
+      ///
       if(translation_JS == null || translation_JS == 'en'){
-        addRows_data_Yamazumi.push([nameUserMassiv, "red - simple employee", '#d22830', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "red - simple employee", '#d22830', data_start_etap_4_L, data_end_etap_4_L]);
       } else {
-        addRows_data_Yamazumi.push([nameUserMassiv, "красный - простой сотрудника", '#d22830', processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        addRows_data_Yamazumi.push([nameUserMassiv, "красный - простой сотрудника", '#d22830', data_start_etap_4_L, data_end_etap_4_L]);
       }
     }
     //
-  });
+  })
+  if(y_l == y){
+    modal_adminScreenTMR_TableUsers_Edit_Yamazumi();
+  }
 }
 // публикуем диаграмму Ямадзуми
 function modal_adminScreenTMR_TableUsers_Edit_Yamazumi(){
