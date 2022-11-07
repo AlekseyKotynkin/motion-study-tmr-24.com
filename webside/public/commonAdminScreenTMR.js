@@ -558,7 +558,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     }).catch((error) => {
       console.log("Error getting documents: ", error);
     }).finally(() => {itemListShift_local;
-      a = a + 1;
       var k = 0;
       var k_l = itemListShift_local.length;
       itemListShift_local.forEach(item => {
@@ -697,6 +696,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
             ////
           });
         }).finally(() => {addRows_data_Gantt;
+          a = a + 1;
           k = k + 1;
           if(k == k_l && a == a_l){
             modal_adminScreenTMR_TableUsers_Edit_Gantt('example4.2',addRows_data_Gantt);
