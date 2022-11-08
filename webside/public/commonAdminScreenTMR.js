@@ -504,8 +504,6 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   itemListShift_local_Orange = [];
   itemListShift_local_Red = [];
   itemListShift_local_User = [];
-
-
   // удалить шапку
   adminScreenTMR_TableUsers.deleteRow(0);
   /// перечитываем данные из таблицы
@@ -713,8 +711,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
     });
     ////
   });
-// });
-//// end выбираем смены для данной должности и пользователя
+  //// end выбираем смены для данной должности и пользователя
 }
 ///
 // публикуем диаграмму Ганта
