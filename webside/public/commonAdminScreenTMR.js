@@ -497,7 +497,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
   itemListShift_local =[];
   //удалил шапку таблицы
   var itemListUsers_local =[];
-  addRows_data_Gantt  = [];
+  addRows_data_Gantt = [];
   addRows_data_Yamazumi = [];
   itemListShift_local_Green = [];
   itemListShift_local_Yellow = [];
@@ -558,157 +558,163 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     }).catch((error) => {
       console.log("Error getting documents: ", error);
     }).finally(() => {itemListShift_local;
-      var k = 0;
-      var k_l = itemListShift_local.length;
-      itemListShift_local.forEach(item => {
-        var idDocProcessUser = item.idDocProcessUser;
-        var docProcessUser = item.docProcessUser;
-        //// получаем коллекцию документов из документов смен
-        var docRef = db.collection("WorkShift").doc(idDocProcessUser);
-        docRef.collection("ProcessUser").get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            //// получаем данные по документам смены
-            var doc_ParentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
-            var nameSubdivision = doc_ParentHierarchyPositionUser.NameSubdivision;
-            var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
-            var emailPositionUser = doc.data().EmailPositionUser;
-            var element_name =""+(emailPositionUser)+" - "+(nameSubdivision)+" - "+(namePosition)+"";
-            var nameDocProcessButton_mapChartjs_local = doc.data().NameDocProcessButton;
-            if(nameDocProcessButton_mapChartjs_local == "Expect"){
-              if(translation_JS == null || translation_JS == 'en'){
-                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
-              } else {
-                var nameDocProcessButton_mapChartjs = "Ожидаю";
-              }
-            } else if(nameDocProcessButton_mapChartjs_local == "Other"){
-              if(translation_JS == null || translation_JS == 'en'){
-                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
-              } else {
-                var nameDocProcessButton_mapChartjs = "Другое";
-              }
-            } else if(nameDocProcessButton_mapChartjs_local == "Gone"){
-              if(translation_JS == null || translation_JS == 'en'){
-                var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
-              } else {
-                var nameDocProcessButton_mapChartjs = "Отлучился";
-              }
-            } else {
-              var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
-            }
-            var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
-            ///
-            var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
-            var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
-            var a_data = local_0.getFullYear();
-            var b_data = local_0.getMonth();
-            var c_data = local_0.getDate();
-            var d_data = local_0.getHours();
-            var e_data = local_0.getMinutes();
-            var f_data = local_0.getSeconds();
-            var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
-            ///
-            var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
-            var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
-            var a_data_e = local_e_0.getFullYear();
-            var b_data_e = local_e_0.getMonth();
-            var c_data_e = local_e_0.getDate();
-            var d_data_e = local_e_0.getHours();
-            var e_data_e = local_e_0.getMinutes();
-            var f_data_e = local_e_0.getSeconds();
-            var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
-            ///
-            var workShiftFormattedTime = processUserEndTime_mapChartjs_local - processUserStartTime_mapChartjs_local;
-            var timestamp = new Date(workShiftFormattedTime).getTime();
-            ///
-            var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
-            if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
-              var rezul_massiv_red = itemListShift_local_Red.findIndex(item => item.name == element_name);
-              if(rezul_massiv_red < 0){
-                itemListShift_local_Red.push({name:element_name, duration:timestamp});
-              } else {
-                var element_red = itemListShift_local_Red[rezul_massiv_red];
-                var element_red_duration = element_red.duration;
-                itemListShift_local_Red.splice(rezul_massiv_red, 1);
-                element_red_duration = element_red_duration + timestamp;
-                itemListShift_local_Red.push({name:element_name, duration:element_red_duration});
-              }
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a'; //оранжевый
-              var rezul_massiv_Orange = itemListShift_local_Orange.findIndex(item => item.name == element_name);
-              if(rezul_massiv_Orange < 0){
-                itemListShift_local_Orange.push({name:element_name, duration:timestamp});
-              } else {
-                var element_Orange = itemListShift_local_Orange[rezul_massiv_Orange];
-                var element_Orange_duration = element_Orange.duration;
-                itemListShift_local_Orange.splice(rezul_massiv_Orange, 1);
-                element_Orange_duration = element_Orange_duration + timestamp;
-                itemListShift_local_Orange.push({name:element_name, duration:element_Orange_duration});
-              }
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a'; //желтый
-              var rezul_massiv_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == element_name);
-              if(rezul_massiv_Yellow < 0){
-                itemListShift_local_Yellow.push({name:element_name, duration:timestamp});
-              } else {
-                var element_Yellow = itemListShift_local_Yellow[rezul_massiv_Yellow];
-                var element_Yellow_duration = element_Yellow.duration;
-                itemListShift_local_Yellow.splice(rezul_massiv_Yellow, 1);
-                element_Yellow_duration = element_Yellow_duration + timestamp;
-                itemListShift_local_Yellow.push({name:element_name, duration:element_Yellow_duration});
-              }
-            }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521'; //зеленый
-              var rezul_massiv_Green = itemListShift_local_Green.findIndex(item => item.name == element_name);
-              if(rezul_massiv_Green < 0){
-                itemListShift_local_Green.push({name:element_name, duration:timestamp});
-              } else {
-                var element_Green = itemListShift_local_Green[rezul_massiv_Green];
-                var element_Green_duration = element_Green.duration;
-                itemListShift_local_Green.splice(rezul_massiv_Green, 1);
-                element_Green_duration = element_Green_duration + timestamp;
-                itemListShift_local_Green.push({name:element_name, duration:element_Green_duration});
-              }
-            }else{
-              var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
-              var rezul_massiv_red_1 = itemListShift_local_Red.findIndex(item => item.name == element_name);
-              if(rezul_massiv_red_1 < 0){
-                itemListShift_local_Red.push({name:element_name, duration:timestamp});
-              } else {
-                var element_red_1 = itemListShift_local_Red[rezul_massiv_red_1];
-                var element_red_duration_1 = element_red_1.duration;
-                itemListShift_local_Red.splice(rezul_massiv_red_1, 1);
-                element_red_duration_1 = element_red_duration_1 + timestamp;
-                itemListShift_local_Red.push({name:element_name, duration:element_red_duration_1});
-              }
-            }
-            ///
-            //// формируем массив для отображения в диаграмме Ганта
-            addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
-            console.log(addRows_data_Gantt);
-            ///
-            var rezul_massiv_user = itemListShift_local_User.findIndex(item => item.name == element_name);
-            if(rezul_massiv_user < 0){
-              itemListShift_local_User.push({name:element_name});
-            }
-            ////
-          });
-        }).finally(() => {addRows_data_Gantt;
-          a = a + 1;
-          k = k + 1;
-          if(k == k_l && a == a_l){
-            modal_adminScreenTMR_TableUsers_Edit_Gantt('example4.2',addRows_data_Gantt);
-            modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data();
+      a = a + 1;
+      if(a == a_l){
+        modal_adminScreenTMR_TableUsers_Edit_Shift();
+      }
+    })
+  })
+}
+//
+function modal_adminScreenTMR_TableUsers_Edit_Shift(){
+  var k = 0;
+  var k_l = itemListShift_local.length;
+  itemListShift_local.forEach(item => {
+    var idDocProcessUser = item.idDocProcessUser;
+    var docProcessUser = item.docProcessUser;
+    //// получаем коллекцию документов из документов смен
+    var docRef = db.collection("WorkShift").doc(idDocProcessUser);
+    docRef.collection("ProcessUser").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        //// получаем данные по документам смены
+        var doc_ParentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
+        var nameSubdivision = doc_ParentHierarchyPositionUser.NameSubdivision;
+        var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
+        var emailPositionUser = doc.data().EmailPositionUser;
+        var element_name =""+(emailPositionUser)+" - "+(nameSubdivision)+" - "+(namePosition)+"";
+        var nameDocProcessButton_mapChartjs_local = doc.data().NameDocProcessButton;
+        if(nameDocProcessButton_mapChartjs_local == "Expect"){
+          if(translation_JS == null || translation_JS == 'en'){
+            var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+          } else {
+            var nameDocProcessButton_mapChartjs = "Ожидаю";
           }
-        });
+        } else if(nameDocProcessButton_mapChartjs_local == "Other"){
+          if(translation_JS == null || translation_JS == 'en'){
+            var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+          } else {
+            var nameDocProcessButton_mapChartjs = "Другое";
+          }
+        } else if(nameDocProcessButton_mapChartjs_local == "Gone"){
+          if(translation_JS == null || translation_JS == 'en'){
+            var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+          } else {
+            var nameDocProcessButton_mapChartjs = "Отлучился";
+          }
+        } else {
+          var nameDocProcessButton_mapChartjs = nameDocProcessButton_mapChartjs_local;
+        }
+        var idDocProcessButton_mapChartjs = doc.data().IdDocProcessButton;
+        ///
+        var processUserStartTime_mapChartjs_local = doc.data().ProcessUserStartTime;
+        var local_0 = new Date(processUserStartTime_mapChartjs_local.toDate());
+        var a_data = local_0.getFullYear();
+        var b_data = local_0.getMonth();
+        var c_data = local_0.getDate();
+        var d_data = local_0.getHours();
+        var e_data = local_0.getMinutes();
+        var f_data = local_0.getSeconds();
+        var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
+        ///
+        var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
+        var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
+        var a_data_e = local_e_0.getFullYear();
+        var b_data_e = local_e_0.getMonth();
+        var c_data_e = local_e_0.getDate();
+        var d_data_e = local_e_0.getHours();
+        var e_data_e = local_e_0.getMinutes();
+        var f_data_e = local_e_0.getSeconds();
+        var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
+        ///
+        var workShiftFormattedTime = processUserEndTime_mapChartjs_local - processUserStartTime_mapChartjs_local;
+        var timestamp = new Date(workShiftFormattedTime).getTime();
+        ///
+        var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
+        if(settingsSalesFunnel_Stage_key_mapChartjs === "str0"){
+          var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
+          var rezul_massiv_red = itemListShift_local_Red.findIndex(item => item.name == element_name);
+          if(rezul_massiv_red < 0){
+            itemListShift_local_Red.push({name:element_name, duration:timestamp});
+          } else {
+            var element_red = itemListShift_local_Red[rezul_massiv_red];
+            var element_red_duration = element_red.duration;
+            itemListShift_local_Red.splice(rezul_massiv_red, 1);
+            element_red_duration = element_red_duration + timestamp;
+            itemListShift_local_Red.push({name:element_name, duration:element_red_duration});
+          }
+        }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str1"){
+          var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#f0430a'; //оранжевый
+          var rezul_massiv_Orange = itemListShift_local_Orange.findIndex(item => item.name == element_name);
+          if(rezul_massiv_Orange < 0){
+            itemListShift_local_Orange.push({name:element_name, duration:timestamp});
+          } else {
+            var element_Orange = itemListShift_local_Orange[rezul_massiv_Orange];
+            var element_Orange_duration = element_Orange.duration;
+            itemListShift_local_Orange.splice(rezul_massiv_Orange, 1);
+            element_Orange_duration = element_Orange_duration + timestamp;
+            itemListShift_local_Orange.push({name:element_name, duration:element_Orange_duration});
+          }
+        }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str2"){
+          var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#e9f50a'; //желтый
+          var rezul_massiv_Yellow = itemListShift_local_Yellow.findIndex(item => item.name == element_name);
+          if(rezul_massiv_Yellow < 0){
+            itemListShift_local_Yellow.push({name:element_name, duration:timestamp});
+          } else {
+            var element_Yellow = itemListShift_local_Yellow[rezul_massiv_Yellow];
+            var element_Yellow_duration = element_Yellow.duration;
+            itemListShift_local_Yellow.splice(rezul_massiv_Yellow, 1);
+            element_Yellow_duration = element_Yellow_duration + timestamp;
+            itemListShift_local_Yellow.push({name:element_name, duration:element_Yellow_duration});
+          }
+        }else if (settingsSalesFunnel_Stage_key_mapChartjs === "str3"){
+          var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#0af521'; //зеленый
+          var rezul_massiv_Green = itemListShift_local_Green.findIndex(item => item.name == element_name);
+          if(rezul_massiv_Green < 0){
+            itemListShift_local_Green.push({name:element_name, duration:timestamp});
+          } else {
+            var element_Green = itemListShift_local_Green[rezul_massiv_Green];
+            var element_Green_duration = element_Green.duration;
+            itemListShift_local_Green.splice(rezul_massiv_Green, 1);
+            element_Green_duration = element_Green_duration + timestamp;
+            itemListShift_local_Green.push({name:element_name, duration:element_Green_duration});
+          }
+        }else{
+          var settingsSalesFunnel_Stage_key_mapChartjs_colors = '#d22830'; //красный
+          var rezul_massiv_red_1 = itemListShift_local_Red.findIndex(item => item.name == element_name);
+          if(rezul_massiv_red_1 < 0){
+            itemListShift_local_Red.push({name:element_name, duration:timestamp});
+          } else {
+            var element_red_1 = itemListShift_local_Red[rezul_massiv_red_1];
+            var element_red_duration_1 = element_red_1.duration;
+            itemListShift_local_Red.splice(rezul_massiv_red_1, 1);
+            element_red_duration_1 = element_red_duration_1 + timestamp;
+            itemListShift_local_Red.push({name:element_name, duration:element_red_duration_1});
+          }
+        }
+        ///
+        //// формируем массив для отображения в диаграмме Ганта
+        addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
+        console.log(addRows_data_Gantt);
+        ///
+        var rezul_massiv_user = itemListShift_local_User.findIndex(item => item.name == element_name);
+        if(rezul_massiv_user < 0){
+          itemListShift_local_User.push({name:element_name});
+        }
         ////
       });
+    }).finally(() => {addRows_data_Gantt;
+      k = k + 1;
+      if(k == k_l){
+        modal_adminScreenTMR_TableUsers_Edit_Gantt('example4.2',addRows_data_Gantt);
+        modal_adminScreenTMR_TableUsers_Edit_Yamazumi_data();
+      }
     });
-    //// end выбираем смены для данной должности и пользователя
+    ////
   });
-  // end разбираем данные для изменение документов
+// });
+//// end выбираем смены для данной должности и пользователя
 }
 ///
 // публикуем диаграмму Ганта
