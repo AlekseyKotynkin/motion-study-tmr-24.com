@@ -64,7 +64,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 .then((querySnapshot) => {
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
+    // console.log(doc.id, " => ", doc.data());
     var idDocOrganization = doc.id;
     var item = doc.data();
     var nameOrganization = doc.data().Organization;
@@ -323,7 +323,7 @@ function adminScreenTMR_Select_an_organization(obj) {
   docRefOrganization.collection("Subdivision").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+      // console.log(doc.id, " => ", doc.data());
       var idDocSubdivision = doc.id;
       var nameSubdivision = doc.data().Subdivision;
       // itemsName.push({...{[idDocSubdivision]: nameSubdivision}});
@@ -333,7 +333,7 @@ function adminScreenTMR_Select_an_organization(obj) {
       docRefSubdivision.collection("Position").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          // console.log(doc.id, " => ", doc.data());
           var idDocPosition = doc.id;
           var namePosition = doc.data().Position;
           // itemsName.push({...{[idDocPosition]: namePosition}});
@@ -343,7 +343,7 @@ function adminScreenTMR_Select_an_organization(obj) {
           docRefPosition.collection("PositionUser").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
+              // console.log(doc.id, " => ", doc.data());
               var idDocUser = doc.id;
               var userName = doc.data().UserName;
               var userEmail = doc.data().UserEmail;
@@ -543,7 +543,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         var idDocProcessUser = doc.id;
         var docProcessUser = doc.data();
         var workShiftStartTime = docProcessUser.WorkShiftStartTime;
@@ -575,9 +575,12 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
     docRef.collection("ProcessUser").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         //// получаем данные по документам смены
         var doc_ParentHierarchyPositionUser = doc.data().ParentHierarchyPositionUser;
+        if(doc_ParentHierarchyPositionUser == null){
+          console.log(doc.id, " => ", doc.data());
+        }
         var nameSubdivision = doc_ParentHierarchyPositionUser.NameSubdivision;
         var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
         var emailPositionUser = doc.data().EmailPositionUser;
@@ -617,14 +620,18 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
         var processUserStartTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
         ///
         var processUserEndTime_mapChartjs_local = doc.data().ProcessUserEndTime;
-        var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
-        var a_data_e = local_e_0.getFullYear();
-        var b_data_e = local_e_0.getMonth();
-        var c_data_e = local_e_0.getDate();
-        var d_data_e = local_e_0.getHours();
-        var e_data_e = local_e_0.getMinutes();
-        var f_data_e = local_e_0.getSeconds();
-        var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
+        if(processUserEndTime_mapChartjs_local !== undefined){
+          var local_e_0 = new Date(processUserEndTime_mapChartjs_local.toDate());
+          var a_data_e = local_e_0.getFullYear();
+          var b_data_e = local_e_0.getMonth();
+          var c_data_e = local_e_0.getDate();
+          var d_data_e = local_e_0.getHours();
+          var e_data_e = local_e_0.getMinutes();
+          var f_data_e = local_e_0.getSeconds();
+          var processUserEndTime_mapChartjs = new Date(a_data_e,b_data_e,c_data_e,d_data_e,e_data_e,f_data_e);
+        } else {
+          var processUserEndTime_mapChartjs = new Date(a_data,b_data,c_data,d_data,e_data,f_data);
+        }
         ///
         var workShiftFormattedTime = processUserEndTime_mapChartjs_local - processUserStartTime_mapChartjs_local;
         var timestamp = new Date(workShiftFormattedTime).getTime();
@@ -694,7 +701,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
         ///
         //// формируем массив для отображения в диаграмме Ганта
         addRows_data_Gantt.push([element_name, nameDocProcessButton_mapChartjs, settingsSalesFunnel_Stage_key_mapChartjs_colors, processUserStartTime_mapChartjs, processUserEndTime_mapChartjs]);
-        console.log(addRows_data_Gantt);
+        // console.log(addRows_data_Gantt);
         ///
         var rezul_massiv_user = itemListShift_local_User.findIndex(item => item.name == element_name);
         if(rezul_massiv_user < 0){

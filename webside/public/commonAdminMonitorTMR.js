@@ -453,7 +453,17 @@ function SignoutAdmin() {
 ///
 function turnOnTheListener_Shift(idDocShift){
   ///
- var docRef = db.collection("WorkShift").doc(idDocShift);
+ var docRef = db.collection("WorkShift").doc(idDocShift)
+     .onSnapshot((querySnapshot) => {
+         var cities = [];
+         start_function = start_function + 1;
+         querySnapshot.forEach((doc) => {
+             cities.push(doc.data().name);
+             adminMonitorTMR_Select_an_organization(obj_activ);
+         });
+         console.log("Current cities in CA: ", cities.join(", "));
+     })
+
  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
     .onSnapshot((querySnapshot) => {
         var cities = [];
