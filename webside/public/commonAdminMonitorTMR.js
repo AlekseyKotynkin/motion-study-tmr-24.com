@@ -31,6 +31,8 @@ var itemsMyListUser = [];
 var itemsMyOrganization = [];
 var itemListShift_local = [];
 var start_function = [];
+var start_function_process = [];
+
 
 //////
 var color_Green = '#0af521'; //зеленый
@@ -59,7 +61,7 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
-    var idDocOrganization = doc.id;
+    idDocOrganization = doc.id;
     var item = doc.data();
     var nameOrganization = doc.data().Organization;
     itemsMyOrganization.push({idDocOrganization: idDocOrganization, nameOrganization: nameOrganization});
@@ -74,6 +76,10 @@ db.collection("Organization").where("OwnerEmail", "==", EmailLocalStorage)
 *  Формируем таблицу доступных Организаций.
 */
 function list_own_organizations_adminMonitorTMR(){
+  ///
+  start_function = [];
+  start_function_process = [];
+  ///
   var liLast_Title = document.getElementById('adminMonitorTMR_Monitor_Title');
   if(liLast_Title !== null){
     liLast_Title.remove();
@@ -172,14 +178,12 @@ function list_own_organizations_adminMonitorTMR(){
 }
 
 //Получение открытых смен и устанавливаем слушатель по данной организации.
-
 function adminMonitorTMR_Select_an_organization(obj) {
   //обработка редактирования строки...
   itemsName = [];
-  obj_activ = {};
   obj_activ = obj;
-  objItem = obj.item;
-  var idDocOrganization = obj.id;
+  var objItem = obj.item;
+  idDocOrganization = obj.id;
   var nameOrganization = objItem.nameOrganization;
   itemsName.push({[idDocOrganization]: nameOrganization});
   //
@@ -303,107 +307,111 @@ function adminMonitorTMR_Select_an_organization(obj) {
               var userEmail = parentHierarchyPositionUser_local.UserEmail;
               var idDocOrganization_local = parentHierarchyPositionUser_local.idDocOrganization;
               if (idDocOrganization_local == idDocOrganization){
-                var s_f_l = start_function.includes(idDocOrganization_local);
-                if(s_f_l == false){
-                  turnOnTheListener_Shift(idDocShift_local);
-                  start_function.push(idDocOrganization_local);
-                }
-                 var docRef = db.collection("WorkShift").doc(idDocShift_local);
-                 docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
-                     .get()
-                     .then((querySnapshot) => {
-                         querySnapshot.forEach((doc) => {
-                             // doc.data() is never undefined for query doc snapshots
-                             console.log(doc.id, " => ", doc.data());
-                             var docProcessUser = doc.data();
-                             var nameDocProcessButton = doc.data().NameDocProcessButton;
-                             var processUserStartTime = doc.data().ProcessUserStartTime;
-                             var settingsSalesFunnel_Stage_key = doc.data().SettingsSalesFunnel_Stage_key;
-                             //заполняем таблицу
-                             var tr = document.createElement("tr");
+                var docRef = db.collection("WorkShift").doc(idDocShift_local);
+                docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            // doc.data() is never undefined for query doc snapshots
+                            console.log(doc.id, " => ", doc.data());
+                            var docProcessUser = doc.data();
+                            var nameDocProcessButton = doc.data().NameDocProcessButton;
+                            var processUserStartTime = doc.data().ProcessUserStartTime;
+                            var settingsSalesFunnel_Stage_key = doc.data().SettingsSalesFunnel_Stage_key;
+                            //заполняем таблицу
+                            var tr = document.createElement("tr");
 
-                             var nameSubdivision_tr = document.createElement('td');
-                             nameSubdivision_tr.innerHTML = nameSubdivision;
+                            var nameSubdivision_tr = document.createElement('td');
+                            nameSubdivision_tr.innerHTML = nameSubdivision;
 
-                             var namePosition_tr = document.createElement('td');
-                             namePosition_tr.innerHTML = namePosition;
+                            var namePosition_tr = document.createElement('td');
+                            namePosition_tr.innerHTML = namePosition;
 
-                             var userName_tr = document.createElement('td');
-                             userName_tr.innerHTML = userName;
+                            var userName_tr = document.createElement('td');
+                            userName_tr.innerHTML = userName;
 
-                             var userEmail_tr = document.createElement('td');
-                             userEmail_tr.innerHTML = userEmail;
+                            var userEmail_tr = document.createElement('td');
+                            userEmail_tr.innerHTML = userEmail;
 
-                             var workShiftStartTime_tr = document.createElement('td');
-                             var local_0 = new Date(workShiftStartTime.toDate());
-                             var a_data = local_0.getFullYear();
-                             var b_data = local_0.getMonth();
-                             var c_data = local_0.getDate();
-                             var d_data = local_0.getHours();
-                             var e_data = local_0.getMinutes();
-                             var f_data = local_0.getSeconds();
-                             var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
-                             workShiftStartTime_tr.innerHTML = li_local;
-                             ///
-                             var to_nameDocProcessButton = document.createElement('button');
-                             if(translation_JS == null || translation_JS == 'en'){
-                               to_nameDocProcessButton.innerHTML = nameDocProcessButton;
-                             } else {
-                               if(nameDocProcessButton == "Expect"){
-                                 to_nameDocProcessButton.innerHTML = "Ожидаю";
-                               } else if (nameDocProcessButton == "Other") {
-                                 to_nameDocProcessButton.innerHTML = "Другое";
-                               } else if (nameDocProcessButton == "Gone"){
-                                 to_nameDocProcessButton.innerHTML = "Отлучился";
-                               } else {
-                                 to_nameDocProcessButton.innerHTML = nameDocProcessButton;
-                               }
-                             }
-                             // var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
-                             if(settingsSalesFunnel_Stage_key === "str0"){
-                               to_nameDocProcessButton.style.background = '#d22830';
-                             }else if (settingsSalesFunnel_Stage_key === "str1"){
-                               to_nameDocProcessButton.style.background = '#f0430a';
-                             }else if (settingsSalesFunnel_Stage_key === "str2"){
-                               to_nameDocProcessButton.style.background = '#e9f50a';
-                             }else if (settingsSalesFunnel_Stage_key === "str3"){
-                               to_nameDocProcessButton.style.background = '#0af521';
-                             }else{
-                               to_nameDocProcessButton.style.background = '#d22830';
-                             }
-                             to_nameDocProcessButton.className = 'btn btn-fw';
+                            var workShiftStartTime_tr = document.createElement('td');
+                            var local_0 = new Date(workShiftStartTime.toDate());
+                            var a_data = local_0.getFullYear();
+                            var b_data = local_0.getMonth();
+                            var c_data = local_0.getDate();
+                            var d_data = local_0.getHours();
+                            var e_data = local_0.getMinutes();
+                            var f_data = local_0.getSeconds();
+                            var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+                            workShiftStartTime_tr.innerHTML = li_local;
+                            ///
+                            var to_nameDocProcessButton = document.createElement('button');
+                            if(translation_JS == null || translation_JS == 'en'){
+                              to_nameDocProcessButton.innerHTML = nameDocProcessButton;
+                            } else {
+                              if(nameDocProcessButton == "Expect"){
+                                to_nameDocProcessButton.innerHTML = "Ожидаю";
+                              } else if (nameDocProcessButton == "Other") {
+                                to_nameDocProcessButton.innerHTML = "Другое";
+                              } else if (nameDocProcessButton == "Gone"){
+                                to_nameDocProcessButton.innerHTML = "Отлучился";
+                              } else {
+                                to_nameDocProcessButton.innerHTML = nameDocProcessButton;
+                              }
+                            }
+                            // var settingsSalesFunnel_Stage_key_mapChartjs = doc.data().SettingsSalesFunnel_Stage_key;
+                            if(settingsSalesFunnel_Stage_key === "str0"){
+                              to_nameDocProcessButton.style.background = '#d22830';
+                            }else if (settingsSalesFunnel_Stage_key === "str1"){
+                              to_nameDocProcessButton.style.background = '#f0430a';
+                            }else if (settingsSalesFunnel_Stage_key === "str2"){
+                              to_nameDocProcessButton.style.background = '#e9f50a';
+                            }else if (settingsSalesFunnel_Stage_key === "str3"){
+                              to_nameDocProcessButton.style.background = '#0af521';
+                            }else{
+                              to_nameDocProcessButton.style.background = '#d22830';
+                            }
+                            to_nameDocProcessButton.className = 'btn btn-fw';
 
-                             var nameDocProcessButton_tr = document.createElement('td');
-                             nameDocProcessButton_tr.appendChild(to_nameDocProcessButton);
-                             //
-                             var processUserStartTime_tr = document.createElement('td');
-                             var local = new Date(processUserStartTime.toDate());
-                             var a = local.getFullYear();
-                             var b = local.getMonth();
-                             var c = local.getDate();
-                             var d = local.getHours();
-                             var e = local.getMinutes();
-                             var f = local.getSeconds();
-                             var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
-                             processUserStartTime_tr.innerHTML = li;
-                             //
-                             tr.appendChild(nameSubdivision_tr);
-                             tr.appendChild(namePosition_tr);
-                             tr.appendChild(userName_tr);
-                             tr.appendChild(userEmail_tr);
-                             tr.appendChild(workShiftStartTime_tr);
-                             tr.appendChild(nameDocProcessButton_tr);
-                             tr.appendChild(processUserStartTime_tr);
+                            var nameDocProcessButton_tr = document.createElement('td');
+                            nameDocProcessButton_tr.appendChild(to_nameDocProcessButton);
+                            //
+                            var processUserStartTime_tr = document.createElement('td');
+                            var local = new Date(processUserStartTime.toDate());
+                            var a = local.getFullYear();
+                            var b = local.getMonth();
+                            var c = local.getDate();
+                            var d = local.getHours();
+                            var e = local.getMinutes();
+                            var f = local.getSeconds();
+                            var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+                            processUserStartTime_tr.innerHTML = li;
+                            //
+                            tr.appendChild(nameSubdivision_tr);
+                            tr.appendChild(namePosition_tr);
+                            tr.appendChild(userName_tr);
+                            tr.appendChild(userEmail_tr);
+                            tr.appendChild(workShiftStartTime_tr);
+                            tr.appendChild(nameDocProcessButton_tr);
+                            tr.appendChild(processUserStartTime_tr);
 
-                             var container = document.getElementById("modal_adminMonitorTMR_TableUsers").getElementsByTagName("tbody")[0];
+                            var container = document.getElementById("modal_adminMonitorTMR_TableUsers").getElementsByTagName("tbody")[0];
 
-                             container.appendChild(tr);
-                             //end заполняем таблицу
-                         });
-                     })
-                     .catch((error) => {
-                         console.log("Error getting documents: ", error);
-                     });
+                            container.appendChild(tr);
+                            //end заполняем таблицу
+                        });
+                    })
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    }).finally(() => {
+                      var s_f_l = start_function.includes(idDocShift_local);
+                      if(s_f_l == false){
+                        start_function.push(idDocShift_local);
+                        turnOnTheListener_Shift(idDocShift_local, 1);
+                        turnOnTheListener_Shift_Process(idDocShift_local, 1);
+                        ///
+                      }
+
+                  });
               }
           });
       })
@@ -450,33 +458,44 @@ function SignoutAdmin() {
 }
 ///
 
-///
-function turnOnTheListener_Shift(idDocShift){
+/// прослушиватель документа смена
+function turnOnTheListener_Shift(idDocShift, status){
+  //
+  var status_local = status;
+  db.collection("WorkShift").doc(idDocShift)
+      .onSnapshot((doc) => {
+          console.log("Current data: ", doc.data());
+          if(status_local == 1){
+            status_local = 0;
+          } else {
+            adminMonitorTMR_Select_an_organization(obj_activ);
+          }
+      });
   ///
- var docRef = db.collection("WorkShift").doc(idDocShift)
-     .onSnapshot((querySnapshot) => {
-         var cities = [];
-         start_function = start_function + 1;
-         querySnapshot.forEach((doc) => {
-             cities.push(doc.data().name);
-             adminMonitorTMR_Select_an_organization(obj_activ);
-         });
-         console.log("Current cities in CA: ", cities.join(", "));
-     })
+}
 
+/// прослушиватель документа процесса
+function turnOnTheListener_Shift_Process(idDocShift, status){
+ ///
+ var status_local = status;
+ var docRef = db.collection("WorkShift").doc(idDocShift);
  docRef.collection("ProcessUser").where("ProcessUserEnd", "==", "")
     .onSnapshot((querySnapshot) => {
         var cities = [];
-        start_function = start_function + 1;
+        // start_function = start_function + 1;
         querySnapshot.forEach((doc) => {
             cities.push(doc.data().name);
-            adminMonitorTMR_Select_an_organization(obj_activ);
+            if(status_local == 1){
+              status_local = 0;
+            } else {
+              adminMonitorTMR_Select_an_organization(obj_activ);
+            }
         });
         console.log("Current cities in CA: ", cities.join(", "));
     })
   ///
 }
-////
+//// снятие прослушивателей при выходе
 window.addEventListener('beforeunload', function(event) {
   ///
   var unsubscribe = db.collection("WorkShift")
