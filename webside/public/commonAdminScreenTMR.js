@@ -448,7 +448,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       '<div class="col-12 grid-margin stretch-card">',
       '<div class="card">',
       '<div class="card-body">',
-      '<h4 class="card-description lang" key="chart_gantt">Gantt chart</h4>',
+      '<h4 class="card-description lang" key="chart_gantt">Employee loading - by cycle time</h4>',
       '<div id="example4.2" style="height: 200px;"></div>',
       '</div>',
       '</div>',
@@ -458,7 +458,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       '<div class="col-12 grid-margin stretch-card">',
       '<div class="card">',
       '<div class="card-body">',
-      '<h4 class="card-description lang" key="chart_yamazumi">Yamazumi chart</h4>',
+      '<h4 class="card-description lang" key="chart_yamazumi">Employee workload - total cycle time</h4>',
       '<div id="example5.2" style="height: 200px;"></div>',
       '</div>',
       '</div>',
@@ -471,7 +471,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       '<div class="col-12 grid-margin stretch-card">',
       '<div class="card">',
       '<div class="card-body">',
-      '<h4 class="card-description lang" key="chart_gantt">Диаграмма Ганта</h4>',
+      '<h4 class="card-description lang" key="chart_gantt">Загрузку сотрудников - по времени циклов</h4>',
       '<div id="example4.2" style="height: 200px;"></div>',
       '</div>',
       '</div>',
@@ -481,7 +481,7 @@ function modal_adminScreenTMR_TableUsers_Edit(){
       '<div class="col-12 grid-margin stretch-card">',
       '<div class="card">',
       '<div class="card-body">',
-      '<h4 class="card-description lang" key="chart_yamazumi">Диаграмма Ямадзуми</h4>',
+      '<h4 class="card-description lang" key="chart_yamazumi">Загрузку сотрудников - суммарное время циклов</h4>',
       '<div id="example5.2" style="height: 200px;"></div>',
       '</div>',
       '</div>',
@@ -584,7 +584,7 @@ function modal_adminScreenTMR_TableUsers_Edit_Shift(){
         var nameSubdivision = doc_ParentHierarchyPositionUser.NameSubdivision;
         var namePosition = doc_ParentHierarchyPositionUser.NamePosition;
         var emailPositionUser = doc.data().EmailPositionUser;
-        var element_name =""+(emailPositionUser)+" - "+(nameSubdivision)+" - "+(namePosition)+"";
+        var element_name =""+(emailPositionUser)+" - "+(namePosition)+" - "+(nameSubdivision)+"";
         var nameDocProcessButton_mapChartjs_local = doc.data().NameDocProcessButton;
         if(nameDocProcessButton_mapChartjs_local == "Expect"){
           if(translation_JS == null || translation_JS == 'en'){
