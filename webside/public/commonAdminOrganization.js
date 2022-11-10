@@ -240,24 +240,88 @@ docRef.get().then(function(doc) {
   function toComeInButtonSubdivision(obj) {
   //обработка редактирования строки...
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
-
-    var articleDiv = document.getElementById("headerTablePosition").innerHTML;
-    // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
-    var articleDivOn = '';
-    document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
-
-    var xhr= new XMLHttpRequest();
-    if(translation_JS == null || translation_JS == 'en'){
-      xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
-    } else {
-      xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition_RU.html', true);
+    //
+    var liLast_0 = document.getElementById('indexAdminOrganization_Monitor_ListPosition');
+    if(liLast_0 !== null){
+      liLast_0.remove();
     }
-    xhr.send();
-    xhr.onreadystatechange= function() {
-    if (this.readyState!==4) return;
-    if (this.status!==200) return; // или любую другую обработку ошибок, которую вы хотите
-    document.getElementById('headerTablePosition').innerHTML= this.responseText;
-    };
+    if(translation_JS == null || translation_JS == 'en'){
+      var html = [
+        '<div class="row" id = "indexAdminOrganization_Monitor_ListPosition">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div id="headerTablePosition" class="card-body">',
+                '<h4 class="card-description">List of position in your subdivision - Select subdivision</h4>',
+                '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>',
+                '<div class="table-responsive">',
+                  '<table id="tablePosition"class="table">',
+                    '<thead>',
+                          '<tr>',
+                            '<th> Position </th>',
+                            '<th> Сomment </th>',
+                            '<th> The number of employees </th>',
+                            '<th></th>',
+                            '<th></th>',
+                          '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                  '</table>',
+                '</div>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+      ].join('');
+    } else {
+      var html = [
+        '<div class="row" id = "indexAdminOrganization_Monitor_ListPosition">',
+          '<div class="col-12 grid-margin">',
+            '<div class="card">',
+              '<div id="headerTablePosition" class="card-body">',
+                '<h4 class="card-description">Список должностей в вашем подразделении - Выберите подразделение</h4>',
+                '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Добавить должность</button>',                '<div class="table-responsive">',
+                  '<table id="tablePosition"class="table">',
+                    '<thead>',
+                          '<tr>',
+                            '<th> Подразделение </th>',
+                            '<th> Комментарий </th>',
+                            '<th> Количество сотрудников </th>',
+                            '<th></th>',
+                            '<th></th>',
+                          '</tr>',
+                    '</thead>',
+                      '<tbody>',
+                      '</tbody>',
+                  '</table>',
+                '</div>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+      ].join('');
+    }
+    var liLast = document.getElementById('indexAdminOrganization_Monitor');
+    liLast.insertAdjacentHTML('beforeend', html);
+
+    //
+    //var articleDiv = document.getElementById("headerTablePosition").innerHTML;
+    // var articleDivOn = '<div id="headerTablePosition" class="card-body"></div>';
+    //var articleDivOn = '';
+    //document.body.innerHTML = document.body.innerHTML.replace(articleDiv, articleDivOn);
+
+    //var xhr= new XMLHttpRequest();
+    //if(translation_JS == null || translation_JS == 'en'){
+    //  xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition.html', true);
+    //} else {
+    //  xhr.open('GET', 'indexAdminOrganizationHeaderTablePosition_RU.html', true);
+    //}
+    //xhr.send();
+    //xhr.onreadystatechange= function() {
+    //if (this.readyState!==4) return;
+    //if (this.status!==200) return; // или любую другую обработку ошибок, которую вы хотите
+    //document.getElementById('headerTablePosition').innerHTML= this.responseText;
+    //};
 
     docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);
     docRefFull.get().then(function(doc) {
@@ -279,13 +343,13 @@ docRef.get().then(function(doc) {
           my_div = document.getElementById("headerTablePosition");
           var ul = my_div.querySelector("h4");
           var li = item.Subdivision;
-          if(translation_JS == null || translation_JS == 'en'){
-            var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>';
-          } else {
-            var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Добавить должность</button>';
-          }
+          // if(translation_JS == null || translation_JS == 'en'){
+          //   var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>';
+          // } else {
+          //   var lit = '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Добавить должность</button>';
+          // }
           ul.insertAdjacentHTML("beforeend", li);
-          ul.insertAdjacentHTML("afterend", lit);
+          // ul.insertAdjacentHTML("afterend", lit);
 
           localStorageSubdivision = item.idSubdivision;
             var itemsArray = [{
