@@ -200,6 +200,7 @@ docRef.get().then(function(doc) {
           }
           toComeInUserName.className = 'badge badge-gradient-success';
           toComeInUserName.id = item.idSubdivision;
+          toComeInUserName.item = item.Subdivision;
           toComeInUserName.setAttribute('onclick', 'toComeInButtonSubdivision(this)');
 
           var toComeInUserColumn = document.createElement('td');
@@ -238,6 +239,7 @@ docRef.get().then(function(doc) {
    */
 
   function toComeInButtonSubdivision(obj) {
+    var nameSubdivision = obj.item;
   //обработка редактирования строки...
     localStorage.removeItem('TMR::rememberedAdminSubdivision');
     //
@@ -251,7 +253,7 @@ docRef.get().then(function(doc) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div id="headerTablePosition" class="card-body">',
-                '<h4 class="card-description">List of position in your subdivision - Select subdivision</h4>',
+                '<h4 class="card-description">List of position in your subdivision: '+(nameSubdivision)+'</h4>',
                 '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Add Position</button>',
                 '<div class="table-responsive">',
                   '<table id="tablePosition"class="table">',
@@ -279,7 +281,7 @@ docRef.get().then(function(doc) {
           '<div class="col-12 grid-margin">',
             '<div class="card">',
               '<div id="headerTablePosition" class="card-body">',
-                '<h4 class="card-description">Список должностей в вашем подразделении - Выберите подразделение</h4>',
+                '<h4 class="card-description">Список должностей в вашем подразделении: '+(nameSubdivision)+'</h4>',
                 '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewPosition">+ Добавить должность</button>',                '<div class="table-responsive">',
                   '<table id="tablePosition"class="table">',
                     '<thead>',
@@ -316,15 +318,6 @@ docRef.get().then(function(doc) {
       })
       .finally(() => {documentDataSubdivision;
        documentDataSubdivision.forEach(item => {
-          if(translation_JS == null || translation_JS == 'en'){
-           document.body.innerHTML = document.body.innerHTML.replace('- Select subdivision', '- ');
-          } else {
-           document.body.innerHTML = document.body.innerHTML.replace('- Выберите подразделение', '- ');
-          }
-          my_div = document.getElementById("headerTablePosition");
-          var ul = my_div.querySelector("h4");
-          var li = item.Subdivision;
-          ul.insertAdjacentHTML("beforeend", li);
           localStorageSubdivision = item.idSubdivision;
             var itemsArray = [{
               SubdivisionId: localStorageSubdivision,
