@@ -285,6 +285,12 @@ var arrLang = {
     'start_shift': 'Start of shift',
     'active_button': 'Active button',
     'timeStart_active_button': 'Start of events',
+    'Products': 'Products',
+    'Virtual_Assistant_Manager': 'Virtual Assistant Manager',
+    'Operational_Data_Collector': 'Operational Data Collector',
+
+
+
 
 
 
@@ -529,8 +535,9 @@ var arrLang = {
     'start_shift': 'Начало смены',
     'active_button': 'Активная кнопка',
     'timeStart_active_button': 'Начало события',
-
-
+    'Products': 'Продукт',
+    'Virtual_Assistant_Manager': 'Виртуальный Помощник Руководителя',
+    'Operational_Data_Collector': 'Сборщик Оперативных Данных',
 
 
 

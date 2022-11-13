@@ -25,11 +25,53 @@ var storage = firebase.storage();
  * @return {string}
  *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
  */
-const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
-const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
-const EmailLocalStorage = (LocalStorageValueObject[0]).email;
-const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+var LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+if (LocalStorageValueObject !== null){
+  var UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
+  var EmailLocalStorage = (LocalStorageValueObject[0]).email;
+  var FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
 
+  var html = [
+    '<li class="nav-item nav-profile dropdown">',
+      '<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">',
+        '<div class="nav-profile-img">',
+          '<img src="" name="IDFotoUrlLocalStorage" alt="image">',
+          '<span class="availability-status online"></span>',
+        '</div>',
+        '<div class="nav-profile-text">',
+          '<p class="mb-1 text-black" id="user_name_local">',
+          '</p>',
+        '</div>',
+      '</a>',
+      '<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">',
+        '<a class="dropdown-item lang" key="activity_log" href="#">',
+          '<i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>',
+        '<div class="dropdown-divider"></div>',
+        '<a onclick="SignoutAdmin()" class="dropdown-item lang" key="sign_out" href="#">',
+          '<i class="mdi mdi-logout mr-2 text-primary"></i> Sign out </a>',
+      '</div>',
+    '</li>'
+  ].join('');
+var liLast = document.getElementById('indexKnowledgeBase_accaundUsers');
+liLast.insertAdjacentHTML('afterbegin', html);
+///
+if(FotoUrlLocalStorage == null){
+  var reader = new XMLHttpRequest();
+  var checkFor = FotoUrlLocalStorage;
+  reader.open('get', checkFor, true);
+  reader.onreadystatechange = checkReadyState;
+  reader.send(null);
+}else{
+  var up_names = document.getElementsByName("IDFotoUrlLocalStorage");
+  up_names[0].src = FotoUrlLocalStorage;
+}
+document.getElementById("user_name_local").textContent = UserNamelocalStorage
+} else {
+  var liLast_Title = document.getElementById('indexKnowledgeBase_accaundUsers');
+  if(liLast_Title !== null){
+    liLast_Title.remove();
+  }
+}
 
 /**
 * @return {string}
@@ -45,7 +87,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
      var translation_JS = localStorage.getItem('TMR::translation');
      localStorage.clear();
      localStorage.setItem('TMR::translation', translation_JS);
-     window.location.replace("index.html")
+     window.location.replace("indexKnowledgeBase.html")
    }).catch(function(error) {
      // An error happened.
      // Произошла ошибка.
@@ -69,3 +111,14 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
  // заполняем строки с английскими значениями
  function translationCommon_EN (){
  }
+
+/**
+* @return {string}
+*  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
+*/
+function checkReadyState() {
+  hiddenImg= new Image();
+  hiddenImg.src= "svg/logo TMR Systems 192 80.svg";
+  document.IDFotoUrlLocalStorage.src=hiddenImg.src;
+  return;
+}
