@@ -288,6 +288,10 @@ var arrLang = {
     'Products': 'Products',
     'Virtual_Assistant_Manager': 'Virtual Assistant Manager',
     'Operational_Data_Collector': 'Operational Data Collector',
+    'tmr_admin_VAM': 'TMR-24 Virtual Assistant Manager',
+    'tmr_admin_VAM_title': 'Delegate the routine to a Virtual Assistant Manager.',
+
+
 
 
 
@@ -538,7 +542,8 @@ var arrLang = {
     'Products': 'Продукт',
     'Virtual_Assistant_Manager': 'Виртуальный Помощник Руководителя',
     'Operational_Data_Collector': 'Сборщик Оперативных Данных',
-
+    'tmr_admin_VAM': 'TMR-24 Виртуальный Помощник Руководителя',
+    'tmr_admin_VAM_title': 'Делегируй рутину Виртуальный Помощник Руководителя.',
 
 
     'search_projects': 'Поиск',
