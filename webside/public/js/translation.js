@@ -290,11 +290,15 @@ var arrLang = {
     'Operational_Data_Collector': 'Operational Data Collector',
     'tmr_admin_VAM': 'TMR-24 Virtual Assistant Manager',
     'tmr_admin_VAM_title': 'Delegate the routine to a Virtual Assistant Manager.',
-
-
-
-
-
+    'tmr_admin_VAM_1_1': 'Operational management support.',
+    'tmr_admin_VAM_1_2': 'Provides regular reports and notifies of failure in case of deviation from the specified parameters.',
+    'tmr_admin_VAM_1_3': 'Controls the receipt of data.',
+    'tmr_admin_VAM_1_4': 'Verifies the validity of the received data.',
+    'tmr_admin_VAM_1_5': 'Helps to formulate tasks and control points based on best practices.',
+    'tmr_admin_VAM_1_6': 'Аnalyzes the data within the scope of the task.',
+    'tmr_admin_VAM_1_7': 'Can change the criteria of the task at the request of the client.',
+    'tmr_admin_VAM_texst_1': 'We do not offer a "remind calendar", but a trained virtual assistant manager who, upon request or schedule, can submit reports, monitor running processes to achieve specific goals of the organization and, in case of deviation from the specified parameters, notify of a failure.',
+    'order_specialist_consultation': 'Order a specialist consultation',
 
 
 
@@ -544,6 +548,18 @@ var arrLang = {
     'Operational_Data_Collector': 'Сборщик Оперативных Данных',
     'tmr_admin_VAM': 'TMR-24 Виртуальный Помощник Руководителя',
     'tmr_admin_VAM_title': 'Делегируй рутину Виртуальный Помощник Руководителя.',
+    'tmr_admin_VAM_1_1': 'Поддержка оперативного управления.',
+    'tmr_admin_VAM_1_2': 'Представляет регулярные отчеты и извещает о сбое в случае отклонения от заданных параметров.',
+    'tmr_admin_VAM_1_3': 'Контролирует получение данных.',
+    'tmr_admin_VAM_1_4': 'Проверяет достоверность полученных данных.',
+    'tmr_admin_VAM_1_5': 'Помогает сформулировать задачи и точки контроля на основе лучших практик.',
+    'tmr_admin_VAM_1_6': 'Анализирует данные в рамках поставленной задачи.',
+    'tmr_admin_VAM_1_7': 'Может изменять критерии задачи по желанию клиента.',
+    'tmr_admin_VAM_texst_1': 'Мы предлагаем не «календарь напоминай», а обучаемый виртуальный помощник руководителя, который по запросу или расписанию, может представлять отчеты,  осуществлять контроль запущенных процессов для достижения конкретных целей организации и в случае отклонения от заданных параметров извещать о сбое.',
+    'order_specialist_consultation': 'Заказать консультацию специалиста',
+
+
+
 
 
     'search_projects': 'Поиск',
