@@ -189,48 +189,6 @@ var database = firebase.database();
     });
   }
 
-
-     //  Вход пользователя через форму Google.
-  // function signInWathGoogle()
-  // {
-  //   firebase.auth().signInWithPopup(provider).then(function(result) {
-  //     // This gives you a Google Access Token. You can use it to access the Google API.
-  //     // Это дает вам токен доступа Google. Вы можете использовать его для доступа к Google API.
-  //     var token = result.credential.accessToken;
-  //     // The signed-in user info.
-  //     // Информация о вошедшем в систему пользователе.
-  //     var user = result.user;
-  //         var name = user.displayName;
-  //         var email = user.email;
-  //         var photoUrl = user.photoUrl;
-  //
-  //         var itemsArray = [{
-  //           displayName: name,
-  //           email: email,
-  //           photoUrl: photoUrl
-  //         }];
-  //         localStorage.setItem('firebaseui::rememberedAccounts', JSON.stringify(itemsArray));
-  //         if(translation_JS == null || translation_JS == 'en'){
-  //           alert ("Welcome!");
-  //         } else {
-  //           alert ("Здравствуйте!");
-  //         }
-  //         window.location.replace("index.html")
-  //   }).catch(function(error) {
-  //     // Handle Errors here.
-  //     // Здесь обрабатываются ошибки.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     // Электронная почта используемой учетной записи пользователя.
-  //     var email = error.email;
-  //     // The firebase.auth.AuthCredential type that was used.
-  //     // Используемый тип firebase.auth.AuthCredential.
-  //     var credential = error.credential;
-  //     // ...
-  //   });
-  // }
-
   // открыть окно Фейсбука
   function location_Href(){
     window.open('https://www.facebook.com/TMR24Systems/');
@@ -243,3 +201,54 @@ var database = firebase.database();
   // заполняем строки с английскими значениями
   function translationCommon_EN (){
   }
+  // открываем модальное окно Заказ консультации специалиста
+  function modal_order_specialist_consultation_send(){
+    var nameUser = document.getElementById("exampleInputName").value;
+    var telephone = document.getElementById("exampleInputPhone").value;
+    var comment = document.getElementById("exampleInputComment").value;
+    if (nameUser.length < 4 || nameUser.length > 30 )
+    {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please enter an name.');
+      } else {
+        alert ("Пожалуйста, введите как к Вам обращаться!");
+      }
+      return;
+    }
+    if (telephone.length < 10 || telephone.length > 20 )
+    {
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Please enter an telephone.');
+      } else {
+        alert ("Пожалуйста, введите номер телефона для связи с Вами!");
+      }
+      return;
+    }
+    //
+    // Add a new document with a generated id.
+    db.collection("OrderSpecialist").add({
+      nameUser: nameUser,
+      telephoneUser: telephone,
+      commentUser: comment,
+      dataStartEvent: firebase.firestore.FieldValue.serverTimestamp(),
+      dataEndEvent: "",
+      rezultEvent: "",
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+      if(translation_JS == null || translation_JS == 'en'){
+        alert('Thank you! The data has been transferred to the consultant.');
+      } else {
+        alert ("Благодарим Вас! Данные переданы консультанту.");
+      }
+      $('#modal_order_specialist_consultation').modal('toggle');
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+
+
+
+
+
+}

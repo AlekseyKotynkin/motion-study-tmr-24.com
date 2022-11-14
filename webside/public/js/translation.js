@@ -299,6 +299,11 @@ var arrLang = {
     'tmr_admin_VAM_1_7': 'Can change the criteria of the task at the request of the client.',
     'tmr_admin_VAM_texst_1': 'We do not offer a "remind calendar", but a trained virtual assistant manager who, upon request or schedule, can submit reports, monitor running processes to achieve specific goals of the organization and, in case of deviation from the specified parameters, notify of a failure.',
     'order_specialist_consultation': 'Order a specialist consultation',
+    'telephone': 'Telephone',
+    'modal_order_specialist_consultation_title_1': 'The consultant will call you back!',
+    'modal_order_specialist_consultation_title_2': 'Fill out the form and specify the time at which to contact you.',
+    'send': 'Send',
+
 
 
 
@@ -557,6 +562,11 @@ var arrLang = {
     'tmr_admin_VAM_1_7': 'Может изменять критерии задачи по желанию клиента.',
     'tmr_admin_VAM_texst_1': 'Мы предлагаем не «календарь напоминай», а обучаемый виртуальный помощник руководителя, который по запросу или расписанию, может представлять отчеты,  осуществлять контроль запущенных процессов для достижения конкретных целей организации и в случае отклонения от заданных параметров извещать о сбое.',
     'order_specialist_consultation': 'Заказать консультацию специалиста',
+    'telephone': 'Номер телефона',
+    'modal_order_specialist_consultation_title_1': 'Консультант перезвонит Вам!',
+    'modal_order_specialist_consultation_title_2': 'Заполните форму и укажите время в которое связаться с Вами.',
+    'send': 'Отправить',
+
 
 
 
