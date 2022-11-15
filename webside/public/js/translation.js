@@ -303,6 +303,15 @@ var arrLang = {
     'modal_order_specialist_consultation_title_1': 'The consultant will call you back!',
     'modal_order_specialist_consultation_title_2': 'Fill out the form and specify the time at which to contact you.',
     'send': 'Send',
+    'tmr_admin_ODC': 'TMR-24 Operational Data Collector',
+    'tmr_admin_ODC_title': 'Transparency of processes – fulfillment of order deadlines – cost optimization.',
+    'tmr_admin_ODC_1_1': 'Integration with existing accounting systems via api.',
+    'tmr_admin_ODC_1_2': 'A module and an assortment of industrial Internet of Things for collecting various parameters (temperature of the environment and equipment, vibration, energy consumption, oxygen, illumination, door opening).',
+    'tmr_admin_ODC_1_3': 'Mobile application "Staff workload" and "In-house document flow".',
+    'tmr_admin_ODC_1_4': 'Chatbots for communication interaction.',
+    'tmr_admin_ODC_texst_1': 'Our equipment and application solutions for the collection of operational data, free your employees from routine work, ensure the reliability of the collected data by collecting data 24 hours a day, 7 days a week.',
+
+
 
 
 
@@ -566,7 +575,13 @@ var arrLang = {
     'modal_order_specialist_consultation_title_1': 'Консультант перезвонит Вам!',
     'modal_order_specialist_consultation_title_2': 'Заполните форму и укажите время в которое связаться с Вами.',
     'send': 'Отправить',
-
+    'tmr_admin_ODC': 'TMR-24 Сборщик Оперативных Данных',
+    'tmr_admin_ODC_title': 'Прозрачность процессов – выполнение сроков заказов – оптимизация себестоимости.',
+    'tmr_admin_ODC_1_1': 'Интеграция с существующими учетными системами по API.',
+    'tmr_admin_ODC_1_2': 'Модуль и ассортимент индустриальных интернет вещей для сбора разнообразных параметров (температура среды и оборудования, вибрации, потребления энергии, кислорода, освещенности, открытия дверей и т.д.).',
+    'tmr_admin_ODC_1_3': 'Мобильное приложение «Загруженность персонала» и «Внутрицеховой документооборот».',
+    'tmr_admin_ODC_1_4': 'Чат боты для коммуникационного взаимодействия.',
+    'tmr_admin_ODC_texst_1': 'Наше оборудование и прикладные решения для сбора оперативных данных, освобождают Ваших сотрудников от рутинной работы, обеспечивают достоверность собираемых данных, осуществляя сбор данных 24 часа в сутки, 7 дней в неделю.',
 
 
 
