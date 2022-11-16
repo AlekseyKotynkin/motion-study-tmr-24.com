@@ -379,13 +379,25 @@ function adminMonitorTMR_Select_an_organization(obj) {
                             var local = new Date(processUserStartTime.toDate());
                             var a = local.getFullYear();
                             var b = local.getMonth();
+                            if(b.length == 1){
+                              b = "0"+(b);
+                            }
                             var c = local.getDate();
+                            if(c.length == 1){
+                              c = "0"+(c);
+                            }
                             var d = local.getHours();
                             if(d.length == 1){
                               d = "0"+(d);
                             }
                             var e = local.getMinutes();
+                            if(e.length == 1){
+                              e = "0"+(e);
+                            }
                             var f = local.getSeconds();
+                            if(f.length == 1){
+                              f = "0"+(f);
+                            }
                             var li =""+(c)+"."+(b)+"."+(a)+" "+(d)+":"+(e)+":"+(f)+"";
                             processUserStartTime_tr.innerHTML = li;
                             //
