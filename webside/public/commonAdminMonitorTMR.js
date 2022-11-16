@@ -337,23 +337,23 @@ function adminMonitorTMR_Select_an_organization(obj) {
                             var local_0 = new Date(workShiftStartTime.toDate());
                             var a_data = local_0.getFullYear();
                             var b_data = local_0.getMonth();
-                            if(b_data.length == 1){
+                            if(b_data.toString().length == 1){
                               b_data = "0"+(b_data);
                             }
                             var c_data = local_0.getDate();
-                            if(c_data.length == 1){
+                            if(c_data.toString().length == 1){
                               c_data = "0"+(c_data);
                             }
                             var d_data = local_0.getHours();
-                            if(d_data.length == 1){
+                            if(d_data.toString().length == 1){
                               d_data = "0"+(d_data);
                             }
                             var e_data = local_0.getMinutes();
-                            if(e_data.length == 1){
+                            if(e_data.toString().length == 1){
                               e_data = "0"+(e_data);
                             }
                             var f_data = local_0.getSeconds();
-                            if(f_data.length == 1){
+                            if(f_data.toString().length == 1){
                               f_data = "0"+(f_data);
                             }
                             var li_local =""+(c_data)+"."+(b_data)+"."+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
@@ -394,23 +394,23 @@ function adminMonitorTMR_Select_an_organization(obj) {
                             var local = new Date(processUserStartTime.toDate());
                             var a = local.getFullYear();
                             var b = local.getMonth();
-                            if(b.length == 1){
+                            if(b.toString().length == 1){
                               b = "0"+(b);
                             }
                             var c = local.getDate();
-                            if(c.length == 1){
+                            if(c.toString().length == 1){
                               c = "0"+(c);
                             }
                             var d = local.getHours();
-                            if(d.length == 1){
+                            if(d.toString().length == 1){
                               d = "0"+(d);
                             }
                             var e = local.getMinutes();
-                            if(e.length == 1){
+                            if(e.toString().length == 1){
                               e = "0"+(e);
                             }
                             var f = local.getSeconds();
-                            if(f.length == 1){
+                            if(f.toString().length == 1){
                               f = "0"+(f);
                             }
                             var li =""+(c)+"."+(b)+"."+(a)+" "+(d)+":"+(e)+":"+(f)+"";
