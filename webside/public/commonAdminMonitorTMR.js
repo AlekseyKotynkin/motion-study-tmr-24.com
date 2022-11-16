@@ -341,7 +341,7 @@ function adminMonitorTMR_Select_an_organization(obj) {
                             var d_data = local_0.getHours();
                             var e_data = local_0.getMinutes();
                             var f_data = local_0.getSeconds();
-                            var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+                            var li_local =""+(c_data)+"."+(b_data)+"."+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
                             workShiftStartTime_tr.innerHTML = li_local;
                             ///
                             var to_nameDocProcessButton = document.createElement('button');
@@ -381,9 +381,12 @@ function adminMonitorTMR_Select_an_organization(obj) {
                             var b = local.getMonth();
                             var c = local.getDate();
                             var d = local.getHours();
+                            if(d.length == 1){
+                              d = "0"+(d);
+                            }
                             var e = local.getMinutes();
                             var f = local.getSeconds();
-                            var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+                            var li =""+(c)+"."+(b)+"."+(a)+" "+(d)+":"+(e)+":"+(f)+"";
                             processUserStartTime_tr.innerHTML = li;
                             //
                             tr.appendChild(nameSubdivision_tr);

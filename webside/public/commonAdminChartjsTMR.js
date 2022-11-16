@@ -353,7 +353,7 @@ function toComeInButtonShift_Admin(obj) {
             var d = local.getHours();
             var e = local.getMinutes();
             var f = local.getSeconds();
-            var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+            var li =""+(c)+"."+(b)+"."+(a)+" "+(d)+":"+(e)+":"+(f)+"";
             nameOfYourManagerColumn.innerHTML = li;
             //
             var statusUserColumn = document.createElement('td');
@@ -365,7 +365,7 @@ function toComeInButtonShift_Admin(obj) {
             var d_data = local_0.getHours();
             var e_data = local_0.getMinutes();
             var f_data = local_0.getSeconds();
-            var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+            var li_local =""+(c_data)+"."+(b_data)+"."+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
             statusUserColumn.innerHTML = li_local;
             //
             var formattedColumn = document.createElement('td');
@@ -465,7 +465,7 @@ function toComeInButtonShift_Admin(obj) {
           var d = local.getHours();
           var e = local.getMinutes();
           var f = local.getSeconds();
-          var li =""+(c)+"-"+(b)+"-"+(a)+" "+(d)+":"+(e)+":"+(f)+"";
+          var li =""+(c)+"."+(b)+"."+(a)+" "+(d)+":"+(e)+":"+(f)+"";
           timeStartShiftColumn.innerHTML = li;
           //
           var timeEndShiftColumn = document.createElement('td');
@@ -477,7 +477,7 @@ function toComeInButtonShift_Admin(obj) {
           var d_data = local_0.getHours();
           var e_data = local_0.getMinutes();
           var f_data = local_0.getSeconds();
-          var li_local =""+(c_data)+"-"+(b_data)+"-"+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
+          var li_local =""+(c_data)+"."+(b_data)+"."+(a_data)+" "+(d_data)+":"+(e_data)+":"+(f_data)+"";
           timeEndShiftColumn.innerHTML = li_local;
           //
           var nameShiftColumn = document.createElement('td');
