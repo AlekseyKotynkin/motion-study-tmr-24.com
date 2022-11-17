@@ -310,6 +310,19 @@ var arrLang = {
     'tmr_admin_ODC_1_3': 'Mobile application "Staff workload" and "In-house document flow".',
     'tmr_admin_ODC_1_4': 'Chatbots for communication interaction.',
     'tmr_admin_ODC_texst_1': 'Our equipment and application solutions for the collection of operational data, free your employees from routine work, ensure the reliability of the collected data by collecting data 24 hours a day, 7 days a week.',
+    'mobile_applications': 'Mobile applications',
+    'mobile_applications_1': 'Provide rapid data exchange, reduce downtime, identify the talents of your employees, optimize business processes:',
+    'staff_workload': 'Staff workload',
+    'house_document_flow': 'In-house document flow',
+    'data_collection_system': 'Data collection system',
+    'data_collection_system_1': 'Implements the process of converting signals from the outside world into a digital domain for display, storage and analysis:',
+    'sensors': 'Sensors',
+    'signal_converters': 'Signal converters',
+    'integration_modules': 'System and product integration modules',
+    'integration_modules_1': 'Combine specialized products into a corporate database, accelerate the decision-making process.',
+    'accounting_systems': 'With accounting systems',
+    'industrial_equipment': 'With industrial equipment',
+    'get_detailed_advice': 'Get detailed advice',
 
 
 
@@ -582,6 +595,21 @@ var arrLang = {
     'tmr_admin_ODC_1_3': 'Мобильное приложение «Загруженность персонала» и «Внутрицеховой документооборот».',
     'tmr_admin_ODC_1_4': 'Чат боты для коммуникационного взаимодействия.',
     'tmr_admin_ODC_texst_1': 'Наше оборудование и прикладные решения для сбора оперативных данных, освобождают Ваших сотрудников от рутинной работы, обеспечивают достоверность собираемых данных, осуществляя сбор данных 24 часа в сутки, 7 дней в неделю.',
+    'mobile_applications': 'Мобильные приложения',
+    'mobile_applications_1': 'Обеспечивают оперативный обмен данными, сокращают время «простоя», выявляют таланты Ваших сотрудников, оптимизируют бизнес процессы:',
+    'staff_workload': 'Загруженность персонала',
+    'house_document_flow': 'Внутрицеховой документооборот',
+    'data_collection_system': 'Система сбора данных',
+    'data_collection_system_1': 'Реализует процесс преобразования сигналов из внешнего мира в цифровую область для отображения, хранения и анализа:',
+    'sensors': 'Датчики',
+    'signal_converters': 'Преобразователи сигналов',
+    'integration_modules': 'Модули интеграции систем и продуктов',
+    'integration_modules_1': 'Объединяют специализированные продукты в корпоративную базу данных, ускоряют процесс принятия решений.',
+    'accounting_systems': 'C учетными системами',
+    'industrial_equipment': 'C промышленным оборудованием',
+    'get_detailed_advice': 'Получить подробную консультацию',
+
+
 
 
 
