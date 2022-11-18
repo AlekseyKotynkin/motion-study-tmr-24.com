@@ -323,6 +323,9 @@ var arrLang = {
     'accounting_systems': 'With accounting systems',
     'industrial_equipment': 'With industrial equipment',
     'get_detailed_advice': 'Get detailed advice',
+    'digitalization_enterprise': 'Digitalization of the enterprise',
+    'digitalization_enterprise_1': 'Digitalization includes not so much CRM, ERP, MES and other process structuring systems, as a system of "transparency" of all production and trade chains with their optimization.',
+
 
 
 
@@ -608,7 +611,8 @@ var arrLang = {
     'accounting_systems': 'C учетными системами',
     'industrial_equipment': 'C промышленным оборудованием',
     'get_detailed_advice': 'Получить подробную консультацию',
-
+    'digitalization_enterprise': 'Цифровизация предприятия',
+    'digitalization_enterprise_1': 'Цифровизация включает в себя не столько CRM, ERP, MES и прочие системы структурирования процессов, сколько систему "прозрачности" всех производственных и торговых цепочек с их оптимизацией.',
 
 
 
