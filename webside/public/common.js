@@ -246,9 +246,14 @@ var database = firebase.database();
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
+  }
 
+  // переход по странице к блоку Staff Workload
+  function transition_StaffWorkload() {
+    document.getElementById("staff_workload").scrollIntoView({behavior: 'smooth'});
+  }
 
-
-
-
-}
+  // переход по странице к блоку Staff Workload
+  function transition_HouseDocumentFlow() {
+    document.getElementById("staff_workload").scrollIntoView({behavior: 'smooth'});
+  }
