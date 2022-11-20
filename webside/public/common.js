@@ -255,5 +255,22 @@ var database = firebase.database();
 
   // переход по странице к блоку Staff Workload
   function transition_HouseDocumentFlow() {
-    document.getElementById("staff_workload").scrollIntoView({behavior: 'smooth'});
+    document.getElementById("house_document_flow").scrollIntoView({behavior: 'smooth'});
+  }
+
+  // переход по странице к блоку Staff Workload
+  function transition_Sensors() {
+    document.getElementById("sensors").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице к блоку Staff Workload
+  function transition_SignalConverters() {
+    document.getElementById("signal_converters").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице к блоку Staff Workload
+  function transition_AccountingSystems() {
+    document.getElementById("integration_modules").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице к блоку Staff Workload
+  function transition_IndustrialEquipment() {
+    document.getElementById("industrial_equipment").scrollIntoView({behavior: 'smooth'});
   }
