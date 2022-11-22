@@ -222,10 +222,10 @@
                         <p class="card-text lang" key="data_collection_system_1">Implements the process of converting signals from the outside world into a digital domain for display, storage and analysis:</p>
                         <ul class="list-arrow">
                           <li>
-                            <a class="lang" key="sensors" href="javascript:void(0);" onclick="transition_HouseDocumentFlow()">Sensors</a>
+                            <a class="lang" key="sensors" href="javascript:void(0);" onclick="transition_Sensors()">Sensors</a>
                           </li>
                           <li>
-                            <a class="lang" key="signal_converters" href="javascript:void(0);" onclick="transition_HouseDocumentFlow()">Signal converters</a>
+                            <a class="lang" key="signal_converters" href="javascript:void(0);" onclick="transition_SignalConverters()">Signal converters</a>
                           </li>
                         </ul>
                         <button type="button" class="btn btn-gradient-warning btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
@@ -248,10 +248,10 @@
                         <p class="card-text lang" key="integration_modules_1">Combine specialized products into a corporate database, accelerate the decision-making process.</p>
                         <ul class="list-arrow">
                           <li>
-                            <a class="lang" key="accounting_systems" href="javascript:void(0);" onclick="transition_HouseDocumentFlow()">With accounting systems</a>
+                            <a class="lang" key="accounting_systems" href="javascript:void(0);" onclick="transition_AccountingSystems()">1C integration module</a>
                           </li>
                           <li>
-                            <a class="lang" key="industrial_equipment" href="javascript:void(0);" onclick="transition_HouseDocumentFlow()">With industrial equipment</a>
+                            <a class="lang" key="industrial_equipment" href="javascript:void(0);" onclick="transition_IndustrialEquipment()">With industrial equipment</a>
                           </li>
                         </ul>
                         <br>
@@ -262,7 +262,7 @@
                 </div>
               </div>
               <!-- Начало блока Мобильное приложение "Загруженность персонала"-->
-              <div class="col-12 grid-margin stretch-card" id="staff_workload">
+              <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <h2 class="display-2-center lang" key="ma_staff_workload">Mobile application "Staff workload"</h2>
@@ -273,7 +273,7 @@
                     <br>
                     <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
                     <br>
-                    <h3 class="card-title lang" key="tmr_admin">TMR-24 WEB administrator</h3>
+                    <h3 class="card-title lang" key="tmr_admin" id="staff_workload">TMR-24 WEB administrator</h3>
                     <p class="mb-0 font-weight-light lang" key="tmr_admin_title">Monitor the involvement of your team in the work, identify the talents of employees.</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
@@ -365,8 +365,6 @@ This strategy makes the life of the company more comfortable and transparent.</p
                       </div>
                       <div class="ml-auto">
                         <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                        <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_admin_texst_3">Follow the link, more details and details about the application </span>
-                        <a class="lang" key="tmr_client" href="tmr_Client.html" target="_blank">TMR-24 Client</a> -->
                       </div>
                     </div>
                   </div>
@@ -380,14 +378,13 @@ This strategy makes the life of the company more comfortable and transparent.</p
                   <div class="card-body">
                     <h2 class="display-2-center lang" key="ma_house_document_flow">Mobile application "In-house document flow"</h2>
                     <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_house_document_flow_1">Survey of the enterprise for drawing up a plan for digitalization of the organization</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_house_document_flow_2">or</p>
-                    <p class="lang" key="ma_house_document_flow_3">Operational data acquisition in "real time" mode on the involvement of personnel in the projects and processes of the enterprise, on the relationships of the organization, on the actual workload and availability of personnel.</p>
+                    <p class="mb-0 font-weight-light lang" key="ma_house_document_flow_1">The application is implemented on the 1C: Enterprise 8.3 mobile platform.</p>
+                    <p class="lang" key="ma_house_document_flow_3">Mobile technologies have firmly entered our lives: the share of mobile traffic in the Russian segment of the Internet recently reached a record 83%. The same wave has reached the automation of business.</p>
                     <br>
                     <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_admin">TMR-24 WEB administrator</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_admin_title">Monitor the involvement of your team in the work, identify the talents of employees.</p>
+                    <br>
+                    <h3 class="card-title lang" key="tmr_house_document_flow">TMR-24 In-house document flow</h3>
+                    <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_title">Operational accounting of stages of work execution of production tasks with reference to technological maps (MES).</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
                         <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
@@ -395,79 +392,32 @@ This strategy makes the life of the company more comfortable and transparent.</p
                             <div class="d-flex align-items-center purchase-popup">
                               <ul>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_dashboard">Application Administration.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_1">Providing personnel and equipment with the information necessary to start the production process.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics">Key metrics in real time.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_2">Establishing links between personnel and equipment within the production.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="report_factory">Report factory.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_3">Establishing links between production and suppliers, consumers, engineering department, sales department and management.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics_online">Displaying the workload of the staff in real time.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_4">Tracking of production capacities.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_tool">A tool for direct interaction with the team.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_5">Tracking and control of quality parameters.</h4>
                                 </li>
                               </ul>
                             </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_1">Personnel management is integrated with the strategy of commodity turnover and inventory management, the development of the material and technical base and the financial development of the enterprise.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_texst_1">In production, the management of information and resource flows takes place in a multifactorial environment, in production units, planning, departments of process engineers, maintenance and repair, internal logistics, quality, etc.</p>
                             <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_2"> The main goal of managing the number and composition of personnel is to optimize the costs of human labor to perform the main types of work related to the activities of a trading enterprise, and to ensure that the necessary jobs are filled with employees of the relevant professions, specialties and skill levels. The implementation of this function of personnel management to the greatest extent should be linked to the general strategy of trade management, since the labor potential formed at the enterprise and will ensure the implementation of all strategic goals and directions of its activities. </p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_texst_2">All processes need to be linked so that the products are produced on time and with the required level of quality.</p>
+                            <br>
+                            <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
                           </div>
                         </div>
                       </div>
                       <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_12_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="tmr_StaffWorkload" href="tmr_StaffWorkload_Administrator.html" target="_blank">TMR-24 Staff Workload</a>
-                      </div>
-                    </div> -->
-
-                    <!-- вторая часть блока Мобильное приложение "Загруженность персонала" -->
-
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_client"> TMR-24 Client </h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_client_title"> Mobile app. Aimed at identifying effective skills among team members and organizing the harmonious movement of the team towards the set goals. </p>
-                    <div class="row mt-3">
-                      <div class="col-6 pr-1">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_registrar">The employment registration panel in the personnel processes.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_dashboard">Panel for working with projects and tasks.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_messenger">The registration panel for the start and end of the work shift.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_plan">Employee engagement diagram.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_personal">Note creation tools: text, list, photo, audio, location.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_2">In the modern world, it is impossible to do without mobile devices. Now every person has these gadgets, sometimes not even one. That is why the mobile app is a fast and convenient way to collect data.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_3">We are the main tool for working with staff. This application collects data and identifies the talents of employees. All this totality helps the team to perform its tasks most effectively, to see its development, and therefore the development of the enterprise.
-This strategy makes the life of the company more comfortable and transparent.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_13_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/img_14_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                     </div>
                     <div class="d-flex mt-5 align-items-top">
@@ -477,20 +427,20 @@ This strategy makes the life of the company more comfortable and transparent.</p
                         <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
                       </div>
                       <div class="ml-auto">
-                        <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
+                        <a class="lang" key="tmr_house_document_flow" href="tmr_House_Document_Flow.html" target="_blank">TMR-24 In-house document flow</a>
                       </div>
-                    </div> -->
-
+                    </div>
                   </div>
                 </div>
               </div>
               <!-- Окончание блока Мобильное приложение "Внутрицеховой Документооборот" -->
 
               <!-- Начало блока Система Сбора Данных "Датчики"-->
-              <div class="col-12 grid-margin stretch-card" id="sensors">
+              <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_sensors">Data collection system "Sensors"</h2>
+                    <h2 class="display-2-center lang" key="ma_sensors">Data Collection System</h2>
                     <br>
                     <p class="mb-0 font-weight-light lang" key="ma_sensors_1">The Industrial Internet of Things is a system of networks and industrial facilities connected to them with built—in sensors and software for data collection and exchange, with the possibility of remote monitoring and control in automated mode, without human intervention.</p>
                     <p class="mb-0 font-weight-light lang" key="ma_sensors_2">The Industrial Internet of Things is a key element of the Fourth Industrial Revolution (Industry 4.0).</p>
@@ -533,12 +483,10 @@ This strategy makes the life of the company more comfortable and transparent.</p
                         <a class="lang" key="tmr_sensors" href="tmr_DataCollectionSystem.html" target="_blank">Data collection system</a>
                       </div>
                     </div>
-
                     <!-- вторая часть блока Система Сбора Данных "Датчики" -->
-
                     <br>
-                    <h3 class="card-title lang" key="tmr_sensors">TMR-24 Sensors</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_sensors_title">There are many examples of the use of technology in various activities, it is difficult to find an area where it is impossible to apply technology.</p>
+                    <h3 class="card-title lang" key="tmr_sensors" id="sensors">TMR-24 Sensors</h3>
+                    <p class="mb-0 font-weight-light lang" key="tmr_sensors_title">There are many examples of the use of technology in various activities, it is difficult to find an area where it is impossible to apply technology:</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
                         <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
@@ -573,7 +521,7 @@ This strategy makes the life of the company more comfortable and transparent.</p
                             </div>
                             <p class="mb-0 font-weight-light lang" key="tmr_sensors_text_1">The principle of operation of the technology is as follows: sensors, actuators, controllers and human-machine interfaces are initially installed on key parts of the equipment, after which information is collected, which subsequently allows the company to acquire objective and accurate data on the state of the enterprise.</p>
                             <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_sensors_text_2">Thanks to such solutions, the cost of application is available to everyone, from industry giants to a private entrepreneur</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_sensors_text_2">Thanks to such technologies, the cost of application is available to everyone, from industry giants to a private entrepreneur.</p>
                           </div>
                         </div>
                       </div>
@@ -582,11 +530,6 @@ This strategy makes the life of the company more comfortable and transparent.</p
                       </div>
                     </div>
                     <div class="d-flex mt-5 align-items-top">
-                      <!-- <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                      <div class="mb-0 flex-grow">
-                        <br>
-                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
-                      </div> -->
                       <div class="ml-auto">
                         <div class="ml-auto">
                           <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
@@ -594,11 +537,9 @@ This strategy makes the life of the company more comfortable and transparent.</p
                         </div>
                       </div>
                     </div>
-
                     <!-- третья часть блока Система Сбора Данных "Преобразователи Сигналов" -->
-
                     <br>
-                    <h3 class="card-title lang" key="tmr_signal_converters">TMR-24 Signal converters</h3>
+                    <h3 class="card-title lang" key="tmr_signal_converters" id="signal_converters">TMR-24 Signal converters</h3>
                     <p class="mb-0 font-weight-light lang" key="tmr_signal_converters_title">Signal converters is a collective term and includes extremely diverse devices used in many areas of economy and industry.</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
@@ -648,21 +589,20 @@ This strategy makes the life of the company more comfortable and transparent.</p
                 </div>
               </div>
               <!-- Окончание блока Система Сбора Данных "Датчики" -->
-
               <!-- Начало блока Модули Интеграции Систем И Продуктов "C учетными системами"-->
-              <div class="col-12 grid-margin stretch-card" id="integration_modules">
+              <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_integration_modules">System and Product Integration Modules "With accounting systems"</h2>
+                    <h2 class="display-2-center lang" key="ma_integration_modules">System and Product Integration Modules</h2>
                     <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_1">Survey of the enterprise for drawing up a plan for digitalization of the organization</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_2">or</p>
-                    <p class="lang" key="ma_integration_modules_3">Operational data acquisition in "real time" mode on the involvement of personnel in the projects and processes of the enterprise, on the relationships of the organization, on the actual workload and availability of personnel.</p>
+                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_1">Modules are used to exchange information between devices, software products, databases.</p>
+                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_2">In business, any action that is done more than twice needs to be automated.</p>
+                    <p class="lang" key="ma_integration_modules_3">Reducing the amount of routine work, automating standard business processes, optimizing actions related to customer service - all this gives the company a number of competitive advantages.</p>
                     <br>
                     <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_admin">TMR-24 WEB administrator</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_admin_title">Monitor the involvement of your team in the work, identify the talents of employees.</p>
+                    <br>
+                    <h3 class="card-title lang" key="tmr_modul_1c" id="integration_modules">1C integration module</h3>
+                    <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_title">The integration module provides direct access without cloning to up-to-date data when working with standard configurations:</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
                         <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
@@ -670,44 +610,39 @@ This strategy makes the life of the company more comfortable and transparent.</p
                             <div class="d-flex align-items-center purchase-popup">
                               <ul>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_dashboard">Application Administration.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_1">1С: ERP</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics">Key metrics in real time.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_2">1C: Complex automation</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="report_factory">Report factory.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_3">1C: Management of a small company</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics_online">Displaying the workload of the staff in real time.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_tool">A tool for direct interaction with the team.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_4">1C: Trade Management</h4>
                                 </li>
                               </ul>
                             </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_1">Personnel management is integrated with the strategy of commodity turnover and inventory management, the development of the material and technical base and the financial development of the enterprise.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_texst_1">Integration is a very important part of the work of automating business processes. In different situations, there is a need to quickly exchange data between different configurations, between software products and a website, etc.</p>
                             <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_2"> The main goal of managing the number and composition of personnel is to optimize the costs of human labor to perform the main types of work related to the activities of a trading enterprise, and to ensure that the necessary jobs are filled with employees of the relevant professions, specialties and skill levels. The implementation of this function of personnel management to the greatest extent should be linked to the general strategy of trade management, since the labor potential formed at the enterprise and will ensure the implementation of all strategic goals and directions of its activities. </p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_texst_2">In general, it is impossible to combine the work of various departments of the company and automate the workflow without using integration in most cases.</p>
                           </div>
                         </div>
                       </div>
                       <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_12_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/img_17_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                     </div>
                     <div class="d-flex mt-5 align-items-top">
                       <div class="ml-auto">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="tmr_StaffWorkload" href="tmr_StaffWorkload_Administrator.html" target="_blank">TMR-24 Staff Workload</a>
+                        <a class="lang" key="ma_integration_modules" href="tmr_System_and_Product_Integratio_Modules.html" target="_blank">System and Product Integration Modules</a>
                       </div>
-                    </div> -->
-
+                    </div>
                     <!-- вторая часть блока Мобильное приложение "Загруженность персонала" -->
-
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_client"> TMR-24 Client </h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_client_title"> Mobile app. Aimed at identifying effective skills among team members and organizing the harmonious movement of the team towards the set goals. </p>
+                    <br>
+                    <h3 class="card-title lang" key="industrial_equipment" id="industrial_equipment">With industrial equipment</h3>
+                    <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_title">With the help of the integration module, we can implement integration with virtually any system, depending on the tasks and needs of your company.</p>
                     <div class="row mt-3">
                       <div class="col-6 pr-1">
                         <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
@@ -718,31 +653,30 @@ This strategy makes the life of the company more comfortable and transparent.</p
                             <div class="d-flex align-items-center purchase-popup">
                               <ul>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_registrar">The employment registration panel in the personnel processes.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_1">Machines with numerical control.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_dashboard">Panel for working with projects and tasks.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_2">Fire and security alarm systems.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_messenger">The registration panel for the start and end of the work shift.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_3">Various video surveillance systems.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_plan">Employee engagement diagram.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_4">Automatic doors, turnstiles, gates.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_personal">Note creation tools: text, list, photo, audio, location.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_5">The system of medical examinations.</h4>
                                 </li>
                               </ul>
                             </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_2">In the modern world, it is impossible to do without mobile devices. Now every person has these gadgets, sometimes not even one. That is why the mobile app is a fast and convenient way to collect data.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_text_1">Today, the facilities of organizations and enterprises are equipped with various kinds of security systems, monitoring, communication, etc. These include: video surveillance, access control and management, lighting, fire, security and perimeter alarm systems, telephony, ventilation and so on.</p>
                             <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_3">We are the main tool for working with staff. This application collects data and identifies the talents of employees. All this totality helps the team to perform its tasks most effectively, to see its development, and therefore the development of the enterprise.
-This strategy makes the life of the company more comfortable and transparent.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_text_2">The maximum efficiency of their application is achieved by the interaction of systems with each other.</p>
                           </div>
                         </div>
                       </div>
                       <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_13_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/img_18_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                     </div>
                     <div class="d-flex mt-5 align-items-top">
@@ -754,125 +688,13 @@ This strategy makes the life of the company more comfortable and transparent.</p
                       <div class="ml-auto">
                         <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
                       </div>
-                    </div> -->
+                    </div>
 
 
                   </div>
                 </div>
               </div>
               <!-- Окончание блока Модули Интеграции Систем И Продуктов "C учетными системами" -->
-
-              <!-- Начало блока Модули Интеграции Систем И Продуктов "C промышленным оборудованием"-->
-              <div class="col-12 grid-margin stretch-card" id="industrial_equipment">
-                <div class="card">
-                  <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_industrial_equipment">System and Product Integration Modules "With industrial equipment"</h2>
-                    <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_industrial_equipment_1">Survey of the enterprise for drawing up a plan for digitalization of the organization</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_industrial_equipment_2">or</p>
-                    <p class="lang" key="ma_industrial_equipment_3">Operational data acquisition in "real time" mode on the involvement of personnel in the projects and processes of the enterprise, on the relationships of the organization, on the actual workload and availability of personnel.</p>
-                    <br>
-                    <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_admin">TMR-24 WEB administrator</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_admin_title">Monitor the involvement of your team in the work, identify the talents of employees.</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pr-1">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_dashboard">Application Administration.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics">Key metrics in real time.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="report_factory">Report factory.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics_online">Displaying the workload of the staff in real time.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_tool">A tool for direct interaction with the team.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_1">Personnel management is integrated with the strategy of commodity turnover and inventory management, the development of the material and technical base and the financial development of the enterprise.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_2"> The main goal of managing the number and composition of personnel is to optimize the costs of human labor to perform the main types of work related to the activities of a trading enterprise, and to ensure that the necessary jobs are filled with employees of the relevant professions, specialties and skill levels. The implementation of this function of personnel management to the greatest extent should be linked to the general strategy of trade management, since the labor potential formed at the enterprise and will ensure the implementation of all strategic goals and directions of its activities. </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_12_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="tmr_StaffWorkload" href="tmr_StaffWorkload_Administrator.html" target="_blank">TMR-24 Staff Workload</a>
-                      </div>
-                    </div> -->
-
-                    <!-- вторая часть блока Мобильное приложение "Загруженность персонала" -->
-
-                    <!-- <br>
-                    <h3 class="card-title lang" key="tmr_client"> TMR-24 Client </h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_client_title"> Mobile app. Aimed at identifying effective skills among team members and organizing the harmonious movement of the team towards the set goals. </p>
-                    <div class="row mt-3">
-                      <div class="col-6 pr-1">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_registrar">The employment registration panel in the personnel processes.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_dashboard">Panel for working with projects and tasks.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_messenger">The registration panel for the start and end of the work shift.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_plan">Employee engagement diagram.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_personal">Note creation tools: text, list, photo, audio, location.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_2">In the modern world, it is impossible to do without mobile devices. Now every person has these gadgets, sometimes not even one. That is why the mobile app is a fast and convenient way to collect data.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_3">We are the main tool for working with staff. This application collects data and identifies the talents of employees. All this totality helps the team to perform its tasks most effectively, to see its development, and therefore the development of the enterprise.
-This strategy makes the life of the company more comfortable and transparent.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_13_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                      <div class="mb-0 flex-grow">
-                        <br>
-                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
-                      </div>
-                      <div class="ml-auto">
-                        <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                      </div>
-                    </div> -->
-
-                  </div>
-                </div>
-              </div>
-              <!-- Окончание блока Модули Интеграции Систем И Продуктов "C промышленным оборудованием" -->
 
               <!-- Окончание общего блока -->
             </div>

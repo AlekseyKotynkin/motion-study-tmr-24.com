@@ -52,8 +52,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <!-- endinject -->
     <script src="js/index.js"></script>
-    <!-- Plugin css for this page -->
-    <script src="common.js"></script>
+      <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -247,22 +246,27 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title lang" key ="Products">Products</span>
+                <span class="menu-title lang" key ="Product_Description">Product Description</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-file-tree menu-icon"></i>
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link lang" key="Virtual_Assistant_Manager" href="tmr_Virtual_Assistant_Manager_sales.html">Virtual Assistant Manager</a></li>
-                  <li class="nav-item"> <a class="nav-link lang" key="Operational_Data_Collector" href="tmr_Operational_Data_Collector_sales.html">Operational Data Collector</a></li>
+                  <li class="nav-item"> <a class="nav-link lang" key="Virtual_Assistant_Manager" href="tmr_Virtual_Assistant_Manager.html">Virtual Assistant Manager</a></li>
+                  <li class="nav-item"> <a class="nav-link lang" key="Operational_Data_Collector" href="tmr_Operational_Data_Collector.html">Operational Data Collector</a></li>
                 </ul>
               </div>
             </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="pages/icons/mdi.html">
+                <span class="menu-title">Icons</span>
+                <i class="mdi mdi-contacts menu-icon"></i>
+              </a>
+            </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="indexKnowledgeBase.html">
-                <span class="menu-title lang" key ="knowledge_base">Knowledge base</span>
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
-                <!-- <i class="mdi mdi-account-plus menu-icon"></i> -->
+              <a class="nav-link" href="">
+                <span class="menu-title lang" key="releases">Releases</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
             <!-- <li class="nav-item">
@@ -283,106 +287,93 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <!-- Начало общего блока -->
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <blockquote class="blockquote blockquote-primary">
-                      <h1 class="card-title lang" key="tmr_admin_VAM">TMR-24 Virtual Assistant Manager</h1>
-                      <br>
-                      <p class="mb-0 font-weight-light lang" key="tmr_admin_VAM_title"> “Delegate the routine to a Virtual Assistant Manager.</p>
-                      <br>
-                      <p class="mb-0 font-weight-light lang" key="tmr_admin_VAM_texst_1">We do not offer a "remind calendar", but a trained virtual assistant manager who, upon request or schedule, can submit reports, monitor running processes to achieve specific goals of the organization and, in case of deviation from the specified parameters, notify of a failure.</p>
-                      <br>
-                      <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                    </blockquote>
-                  </div>
-                </div>
-              </div>
-              <!-- Окончание общего блока -->
-              <!-- Начало Рекламного Блока 1. -->
-              <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title lang" key="tmr_VAM_control_points">Supervision of "control points" of business processes</h4>
-                    <div class="media">
-                      <div class="col-4 pl-1">
-                        <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <br>
-                        <p class="card-text lang" key="tmr_VAM_control_points_text">Monitor the accuracy of business processes, calculate the values of performance indicators and correlate them with planned values, then identify problems and promptly report to the manager.</p>
-                        <ul class="list-arrow">
-                          <li>
-                            <a class="lang" key="tmr_VAM_control_points_example_1" href="javascript:void(0);" onclick="transition_StaffWorkload()">More detailed</a>
-                          </li>
-                        </ul>
-                        <button type="button" class="btn btn-gradient-success btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
-                      </div>
+                    <h4 class="card-description lang" key="knowledge_base">Knowledge base</h4>
+                    <!-- Окно выбора Организации. -->
+                    <div class="table-responsive">
+                      <table id="tableActiveUser"class="table">
+                        <thead>
+                          <tr>
+                            <th>  </th>
+                            <th>  </th>
+                            <th>  </th>
+                            <th>  </th>
+                            <th>  </th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                          <tbody>
+                          </tbody>
+                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Начало Рекламного Блока 2. -->
-              <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title lang" key="tmr_VAM_operational_reporting">Operational reporting in Telegram for the accuracy of decision-making</h4>
-                    <div class="media">
-                      <div class="col-4 pl-1">
-                        <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <br>
-                        <!-- <br> -->
-                        <p class="card-text lang" key="tmr_VAM_operational_reporting_text">The application sends a report at a configured interval, on request, according to the trained criteria and allows the owner to promptly monitor the business processes of the enterprise.</p>
-                        <ul class="list-arrow">
-                          <br>
-                          <li>
-                            <a class="lang" key="tmr_VAM_operational_reporting_example_1" href="javascript:void(0);" onclick="transition_Sensors()">More detailed</a>
-                          </li>
-                        </ul>
-                        <button type="button" class="btn btn-gradient-warning btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Начало Рекламного Блока 3. -->
-              <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title lang" key="tmr_VAM_personnel_management">Personnel management via Telegram chatbot (operational Manager)</h4>
-                    <div class="media">
-                      <div class="col-4 pl-1">
-                        <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <br>
-                        <p class="card-text lang" key="tmr_VAM_personnel_management_text">To make life easier for the manager, we developed a special Telegram bot, which took over some of the routine tasks:</p>
-                        <ul class="list-arrow">
-                          <li>
-                            <a class="lang" key="tmr_VAM_personnel_management_example_1" href="javascript:void(0);" onclick="transition_AccountingSystems()">Supervision over the execution of an order by an employee</a>
-                          </li>
-                          <li>
-                            <a class="lang" key="tmr_VAM_personnel_management_example_2" href="javascript:void(0);" onclick="transition_IndustrialEquipment()">Employee training and testing</a>
-                          </li>
-                        </ul>
-                        <button type="button" class="btn btn-gradient-danger btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Начало первого блока "" -->
-
-
-
-
-
-
             </div>
-            <!-- Начало общего блока -->
+            <!-- <div class="content-wrapper"> -->
+              <!-- <div class="row">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">List of posts in which you are involved as a User</h4>
+                      <!-- Окно выбора Организации. -->
+                      <!-- <div class="table-responsive">
+                        <table id="tablePostsUser"class="table">
+                          <thead>
+                            <tr>
+                              <th> Organization </th>
+                              <th> Subdivision </th>
+                              <th> Position </th>
+                              <th> Сomment </th>
+                              <th> Email </th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                            </tbody>
+                         </table>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              <!-- </div> -->
+            <!-- <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">List of organizations you are involved in as Owner</h4>
+                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModalNewOrganization">
+                        + Add Organization
+                      </button>
+                    <!-- Окно выбора Организации. -->
+                    <!-- <div class="table-responsive">
+                       <script type="text/javascript">createATableOfClientAdmin()</script>
+                        <table id="table"class="table">
+                          <thead>
+                            <tr>
+                              <th> Organization </th>
+                              <th> Subdivision </th>
+                              <th> Position </th>
+                              <th> Position of your manager </th>
+                              <th> Name of your manager </th>
+                              <th> Status </th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                            </tbody>
+                         </table>
+                          <script>
+                            var container = document.getElementById("table").getElementsByTagName("tbody")[0];
+                          </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
 
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
@@ -464,43 +455,6 @@
                         </div>
                         <button type="button" class="btn btn-gradient-primary mr-2" onclick="gridSystemModalNewOrganizationSubmit()">Submit</button>
                         <button class="btn btn-light">Cancel</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="modal_order_specialist_consultation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid bd-example-row">
-                <div class="col-12 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-description lang" key="modal_order_specialist_consultation_title_1">The consultant will call you back!</h4>
-                      <p class="card-description lang" key="modal_order_specialist_consultation_title_2">Fill out the form and specify the time at which to contact you.</p>
-                      <form class="forms-sample">
-                        <div class="form-group">
-                          <label for="exampleInputNamen" class="lang" key="users_name">Name</label>
-                          <input type="text" class="form-control" id="exampleInputName" placeholder="Name">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputTelephone" class="lang" key="telephone">Telephone</label>
-                          <input type="phone" class="form-control form-control-lg" id="exampleInputPhone" placeholder="Phone">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPosition" class="lang" key="comment">Comment</label>
-                          <input type="text" class="form-control" id="exampleInputComment" placeholder="comment">
-                        </div>
-                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="send" onclick="modal_order_specialist_consultation_send()">Send</button>
-                        <button class="btn btn-light lang" key="cancel">Cancel</button>
                       </form>
                     </div>
                   </div>
