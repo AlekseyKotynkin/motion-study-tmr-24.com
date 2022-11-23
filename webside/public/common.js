@@ -282,9 +282,9 @@ var database = firebase.database();
   }
   // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку Personnel Management 1
   function transition_PersonnelManagement_1() {
-    document.getElementById("personnel_management_1").scrollIntoView({behavior: 'smooth'});
+    document.getElementById("personnel_management").scrollIntoView({behavior: 'smooth'});
   }
   // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку Personnel Management 2
   function transition_PersonnelManagement_2() {
-    document.getElementById("personnel_management_2").scrollIntoView({behavior: 'smooth'});
+    document.getElementById("personnel_management").scrollIntoView({behavior: 'smooth'});
   }
