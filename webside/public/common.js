@@ -248,29 +248,43 @@ var database = firebase.database();
     });
   }
 
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку Staff Workload
   function transition_StaffWorkload() {
     document.getElementById("staff_workload").scrollIntoView({behavior: 'smooth'});
   }
-
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку House Document Flow
   function transition_HouseDocumentFlow() {
     document.getElementById("house_document_flow").scrollIntoView({behavior: 'smooth'});
   }
-
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку Sensors
   function transition_Sensors() {
     document.getElementById("sensors").scrollIntoView({behavior: 'smooth'});
   }
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку Signal Converters
   function transition_SignalConverters() {
     document.getElementById("signal_converters").scrollIntoView({behavior: 'smooth'});
   }
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку Accounting Systems
   function transition_AccountingSystems() {
     document.getElementById("integration_modules").scrollIntoView({behavior: 'smooth'});
   }
-  // переход по странице к блоку Staff Workload
+  // переход по странице tmr_Operational_Data_Collector_sales к блоку Industrial Equipment
   function transition_IndustrialEquipment() {
     document.getElementById("industrial_equipment").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку IControl Points
+  function transition_ControlPoints() {
+    document.getElementById("control_points").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку Operational Reporting
+  function transition_OperationalReporting() {
+    document.getElementById("operational_reporting").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку Personnel Management 1
+  function transition_PersonnelManagement_1() {
+    document.getElementById("personnel_management_1").scrollIntoView({behavior: 'smooth'});
+  }
+  // переход по странице tmr_Virtual_Assistant_Manager_sales к блоку Personnel Management 2
+  function transition_PersonnelManagement_2() {
+    document.getElementById("personnel_management_2").scrollIntoView({behavior: 'smooth'});
   }

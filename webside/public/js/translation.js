@@ -399,10 +399,27 @@ var arrLang = {
     'tmr_VAM_operational_reporting': 'Operational reporting in Telegram for the accuracy of decision-making',
     'tmr_VAM_operational_reporting_text': 'The application sends a report at a configured interval, on request, according to the trained criteria and allows the owner to promptly monitor the business processes of the enterprise.',
     'tmr_VAM_operational_reporting_example_1': 'More detailed',
-    'tmr_VAM_personnel_management': 'Personnel management via Telegram chatbot (operational Manager)',
+    'tmr_VAM_personnel_management': 'Personnel management via Telegram chatbot (Operational Manager)',
     'tmr_VAM_personnel_management_text': 'To make life easier for the manager, we developed a special Telegram bot, which took over some of the routine tasks:',
     'tmr_VAM_personnel_management_example_1': 'Supervision over the execution of an order by an employee',
     'tmr_VAM_personnel_management_example_2': 'Employee training and testing',
+    'tmr_VAM_control_points_1': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_2': 'Each manager has his own view, one is convinced that it is only necessary to ask for the result, the other prefers to track all the stages of completing tasks, and for the third control means spying on employees and catching violators of discipline.',
+    'tmr_VAM_control_points_3': 'Automated control in this case is used not so much as a tool to measure the effectiveness of individual employees, but in order to quickly notice emerging problems at the macro level and solve them; so that the top manager has the opportunity at any time to assess the situation by objective parameters, and not rely only on reports of subordinates.',
+    'tmr_VAM_operational_reporting_1': 'A virtual digital assistant based on natural language processing (NLP) technologies instantly prepares business reports in the Telegram messenger chat, connecting to your company',
+    'tmr_VAM_operational_reporting_2': 'The parameters for the report are changed according to your request based on the learning platform, and the data is displayed in a simple format.',
+    'tmr_VAM_operational_reporting_3': 'Bots work 24/7 and will allow you to be as informed as possible in decision-making issues.',
+    'tmr_VAM_personnel_management_1': 'The chatbot can manage assigned projects, send messages, post tasks according to the plan, and also, can make mailing to subordinates in automatic mode, thereby saving the time and effort of the manager.',
+    'tmr_VAM_personnel_management_2': 'It is not enough to hire qualified specialists: the market is constantly in development, new technologies are being introduced, new trends are emerging that require employees to regularly update their knowledge.',
+    'tmr_VAM_personnel_management_3': 'The chat bot is based on And allows you to undergo training at any convenient time, without interrupting the employee from the main activity, without loss of productivity, and most importantly controls and engages the learning process.',
+    'tmr_VAM_control_points_title': 'We will implement a chatbot and support stable work, in the shortest possible time with a personal manager, your virtual assistant will start working.',
+    'tmr_VAM_control_points_example_2': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_3': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_4': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_5': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_texst_1': 'The mechanism of business processes perfectly fits into the structure of the bots dialogue, individual tasks in blocks are bot phrases, branching points are the branching points of a conversation with answer options - buttons, etc.',
+    'tmr_VAM_control_points_texst_2': 'Visualization of the map simplifies the work of the team, but is not a guarantee of its success. It is important to check the map regularly to track failures and make adjustments if necessary.',
+
 
 
 
@@ -767,6 +784,26 @@ var arrLang = {
     'tmr_VAM_personnel_management_text': 'Чтобы облегчить жизнь руководителю, мы разработали специального Telegram-бота, который часть рутинных задач забрал на себя:',
     'tmr_VAM_personnel_management_example_1': 'Надзор над исполнением поручения сотрудником',
     'tmr_VAM_personnel_management_example_2': 'Обучение и тестирование сотрудников',
+    'tmr_VAM_control_points_1': 'Что контролировать: результат или процесс?',
+    'tmr_VAM_control_points_2': 'У каждого руководителя свой взгляд, один убежден, что необходимо только спрашивать результат, другой предпочитает отслеживать все этапы выполнения заданий, а для третьего контроль означает шпионаж за сотрудниками и ловлю нарушителей дисциплины.',
+    'tmr_VAM_control_points_3': 'Автоматизированный контроль в этом случае применяется не столько как инструмент, позволяющий измерить эффективность отдельных работников, сколько для того, чтобы оперативно замечать возникающие проблемы на макроуровне и решать их; чтобы у топ-менеджера была возможность в любой момент времени оценить ситуацию по объективным параметрам, а не полагаться лишь на отчеты подчиненных.',
+    'tmr_VAM_operational_reporting_1': 'Виртуальный цифровой помощник, основанный на технологиях обработки естественного языка (NLP), мгновенно готовит бизнес-отчеты в чате Telegram мессенджера, подключаясь к источникам данных Вашей компании.',
+    'tmr_VAM_operational_reporting_2': 'Параметры для отчета изменяются по Вашему запросу на базе обучаемой платформы, и данные отображаются в простом формате.',
+    'tmr_VAM_operational_reporting_3': 'Боты работают в режиме 24/7 и позволят быть максимально информированным в вопросах принятия решений.',
+    'tmr_VAM_personnel_management_1': 'Чат-бот может управлять порученными проектами, отправлять сообщения, размещать задачи согласно плану, а также, может сделать рассылку подчиненным в автоматическом режиме, тем самым сэкономив время и силы руководителя.',
+    'tmr_VAM_personnel_management_2': 'Недостаточно принять на работу квалифицированных специалистов: рынок постоянно находится в развитии, внедряются новые технологии, появляются новые тенденции, которые требуют от сотрудников регулярного обновления знаний.',
+    'tmr_VAM_personnel_management_3': 'Чат бот на основе ИИ позволяет проходить обучение в любое удобное время, без отрыва сотрудника от основной деятельности, без потери производительности, а главное контролирует и вовлекает процесс обучения.',
+    'tmr_VAM_control_points_title': 'Мы реализуем чат-бота и поддержим стабильную работу, в кратчайшие сроки с персональным менеджером Ваш виртуальный помощник преступит к работе.',
+    'tmr_VAM_control_points_example_2': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_3': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_4': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_example_5': 'What to control: the result or the process?',
+    'tmr_VAM_control_points_texst_1': 'Механизм бизнес-процессов прекрасно ложится на структуру диалога бота, отдельные задачи в блоках – это фразы бота, точки ветвления – это точки разветвления разговора с вариантами ответов - кнопками и т.д.',
+    'tmr_VAM_control_points_texst_2': 'Визуализация карты упрощают работу команды, но не являются гарантией его успеха. Важно регулярно сверяться с картой, чтобы отслеживать сбои и при необходимости вносить корректировки.',
+
+
+
+
 
 
 
