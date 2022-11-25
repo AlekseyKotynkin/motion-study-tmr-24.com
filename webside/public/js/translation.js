@@ -442,6 +442,14 @@ var arrLang = {
     'contacts': 'Contacts',
     'E-mail': 'E-mail',
     'telefon': 'Telefon',
+    'working_hours': 'Working hours:',
+    'office': 'Office',
+    'working_hours_time_office': 'On working days from 9 00 to 18 00',
+    'support_service': 'Support service',
+    'address': 'Address',
+
+
+
 
 
     'search_projects': 'Search projects',
@@ -841,6 +849,13 @@ var arrLang = {
     'contacts': 'Контакты',
     'E-mail': 'Почта',
     'telefon': 'Телефон',
+    'working_hours': 'График работы:',
+    'office': 'Офис',
+    'working_hours_time_office': 'В рабочие дни с 9 00 до 18 00 часов',
+    'support_service': 'Служба поддержки',
+    'address': 'Адрес',
+
+
 
 
 
