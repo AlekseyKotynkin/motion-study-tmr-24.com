@@ -1,0 +1,6 @@
+User-agent: Yandex
+Disallow: /tmr_Virtual_Assistant_Manager_sales.html
+Disallow: /tmr_Operational_Data_Collector_sales.html
+Disallow: /widget.html
+Disallow: /pages/samples/register.html
+Sitemap: https://tmr-24.com/sitemap.xml
