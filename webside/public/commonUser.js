@@ -29,9 +29,13 @@ var nameDocActivButtonUser="";
  *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
  */
 const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
-const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
-const EmailLocalStorage = (LocalStorageValueObject[0]).email;
-const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+if (LocalStorageValueObject !== null){
+  var UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
+  var EmailLocalStorage = (LocalStorageValueObject[0]).email;
+  var FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+} else {
+  window.location.replace("widget.html");
+}
 
  /**
  * @return {string}

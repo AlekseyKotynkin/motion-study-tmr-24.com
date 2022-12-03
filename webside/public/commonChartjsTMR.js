@@ -51,6 +51,8 @@ var pie_chart_map = [];
 //переменные под столбчатую диаграмму
 var bar_chart_labels =  []
 var bar_chart_data = [];
+var bar_chart_color = [];
+var bar_chart_color_k = [];
 var bar_chart_map = [];
 //
 
@@ -59,10 +61,13 @@ var bar_chart_map = [];
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
 */
 const LocalStorageValueObject = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
-const UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
-const EmailLocalStorage = (LocalStorageValueObject[0]).email;
-const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
-
+if (LocalStorageValueObject !== null){
+  var UserNamelocalStorage = (LocalStorageValueObject[0]).displayName;
+  var EmailLocalStorage = (LocalStorageValueObject[0]).email;
+  var FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
+} else {
+  window.location.replace("../../widget.html");
+}
 // Получение данных для таблицы List Of Available Users из firestore Список доступных пользователю шаблонов
 var parentHierarchy = db.collectionGroup('PositionUser').where('UserEmail', '==', EmailLocalStorage);
 parentHierarchy.get().then(function (querySnapshot) {
@@ -337,20 +342,38 @@ function toComeInButtonShift(obj) {
           var formattedColumn = document.createElement('td');
           var workShiftFormattedTime = workShiftEndTime - workShiftStartTime;
           var timestamp = new Date(workShiftFormattedTime).getTime();
-          var hours = Math.floor(timestamp / 60 / 60);
-          if (hours < 10) {
-            hours = '0' + hours
+          var days = Math.floor(timestamp / 60 / 60 / 24);
+          if(days == undefined || days == 0){
+            var hours = Math.floor(timestamp / 60 / 60);
+            if (hours < 10) {
+              hours = '0' + hours;
+            }
+            var minutes = Math.floor(timestamp / 60) - (hours * 60);
+            if (minutes < 10) {
+              minutes = '0' + minutes;
+            }
+            var seconds = timestamp % 60;
+            if (seconds < 10) {
+              seconds = '0' + seconds;
+            }
+            var formatted = hours + ':' + minutes + ':' + seconds;
+            formattedColumn.innerHTML = formatted;
+          } else {
+            var hours = Math.floor(timestamp / 60 / 60) - (days * 24);
+            if (hours < 10) {
+              hours = '0' + hours;
+            }
+            var minutes = Math.floor(timestamp / 60) - (hours * 60) - (days * 24 * 60);
+            if (minutes < 10) {
+              minutes = '0' + minutes;
+            }
+            var seconds = timestamp % 60;
+            if (seconds < 10) {
+              seconds = '0' + seconds;
+            }
+            var formatted = days +' - '+ hours + ':' + minutes + ':' + seconds;
+            formattedColumn.innerHTML = formatted;
           }
-          var minutes = Math.floor(timestamp / 60) - (hours * 60);
-          if (minutes < 10) {
-            minutes = '0' + minutes
-          }
-          var seconds = timestamp % 60;
-          if (seconds < 10) {
-            seconds = '0' + seconds
-          }
-          var formatted = hours + ':' + minutes + ':' + seconds;
-          formattedColumn.innerHTML = formatted;
 
           var toComeInUserName = document.createElement('button');
           if(translation_JS == null || translation_JS == 'en'){
@@ -477,25 +500,56 @@ function toComeInButtonEvent(objs) {
       timeEndShiftColumn.innerHTML = li_local;
 
       var nameShiftColumn = document.createElement('td');
-      nameShiftColumn.innerHTML = item.NameDocProcessButton;
+      if(translation_JS == null || translation_JS == 'en'){
+        nameShiftColumn.innerHTML = item.NameDocProcessButton;
+      } else {
+        var nameDocProcessButton = item.NameDocProcessButton;
+        if(nameDocProcessButton == "Expect"){
+          nameShiftColumn.innerHTML = "Ожидаю";
+        } else if (nameDocProcessButton == "Other") {
+          nameShiftColumn.innerHTML = "Другое";
+        } else if (nameDocProcessButton == "Gone"){
+          nameShiftColumn.innerHTML = "Отлучился";
+        } else {
+          nameShiftColumn.innerHTML = nameDocProcessButton;
+        }
+      }
 
       var formattedColumn = document.createElement('td');
       var processUserFormattedTime = processUserEndTime - processUserStartTime;
       var timestamp = new Date(processUserFormattedTime).getTime();
-      var hours = Math.floor(timestamp / 60 / 60);
-      if (hours < 10) {
-        hours = '0' + hours
+      var days = Math.floor(timestamp / 60 / 60 / 24);
+      if(days == undefined || days == 0){
+        var hours = Math.floor(timestamp / 60 / 60);
+        if (hours < 10) {
+          hours = '0' + hours;
+        }
+        var minutes = Math.floor(timestamp / 60) - (hours * 60);
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        var seconds = timestamp % 60;
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        var formatted = hours + ':' + minutes + ':' + seconds;
+        formattedColumn.innerHTML = formatted;
+      } else {
+        var hours = Math.floor(timestamp / 60 / 60) - (days * 24);
+        if (hours < 10) {
+          hours = '0' + hours;
+        }
+        var minutes = Math.floor(timestamp / 60) - (hours * 60) - (days * 24 * 60);
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        var seconds = timestamp % 60;
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        var formatted = days +' - '+ hours + ':' + minutes + ':' + seconds;
+        formattedColumn.innerHTML = formatted;
       }
-      var minutes = Math.floor(timestamp / 60) - (hours * 60);
-      if (minutes < 10) {
-        minutes = '0' + minutes
-      }
-      var seconds = timestamp % 60;
-      if (seconds < 10) {
-        seconds = '0' + seconds
-      }
-      var formatted = hours + ':' + minutes + ':' + seconds;
-      formattedColumn.innerHTML = formatted;
 
       var toComeInUserName = document.createElement('button');
       if(translation_JS == null || translation_JS == 'en'){
@@ -686,9 +740,36 @@ function canvas_bar_chart_data (){
   console.log(bar_chart_map);
   ///
   bar_chart_map.forEach((item_bar)=>{
-    bar_chart_labels.push(item_bar.nameDocProcessButton_mapChartjs);
+    if(translation_JS == null || translation_JS == 'en'){
+      bar_chart_labels.push(item_bar.nameDocProcessButton_mapChartjs);
+    } else {
+      var name_local = item_bar.nameDocProcessButton_mapChartjs;
+      if(name_local == "Expect"){
+        bar_chart_labels.push("Ожидаю");
+      } else if (name_local == "Other") {
+        bar_chart_labels.push("Другое");
+      } else if (name_local == "Gone"){
+        bar_chart_labels.push("Отлучился");
+      } else {
+        bar_chart_labels.push(name_local);
+      }
+    }
     var time_a = Math.ceil(item_bar.processUserFormattedTime/60);
     bar_chart_data.push(time_a);
+    var bar_color_local = item_bar.settingsSalesFunnel_Stage_key_mapChartjs;
+    if(bar_color_local == "str0"){
+      bar_chart_color.push('rgba(240, 10, 48, 1)');
+      bar_chart_color_k.push('rgba(240, 10, 48, 0.2)');
+    } else if (bar_color_local == "str1"){
+      bar_chart_color.push('rgba(240, 67, 10, 1)');
+      bar_chart_color_k.push('rgba(240, 67, 10, 0.2)');
+    } else if (bar_color_local == "str2"){
+      bar_chart_color.push('rgba(233, 245, 10, 1)');
+      bar_chart_color_k.push('rgba(233, 245, 10, 0.2)');
+    } else {
+      bar_chart_color.push('rgba(10, 245, 33, 1)');
+      bar_chart_color_k.push('rgba(10, 245, 33, 0.2)');
+    }
   });
   ///
   canvas_bar_chart();
@@ -743,32 +824,8 @@ function canvas_bar_chart (){
     datasets: [{
       label: '#',
       data: bar_chart_data,
-      backgroundColor: [
-        'rgba(39, 217, 172, 0.2)', // зеленый
-        'rgba(39, 166, 217, 0.2)', // желтый
-        'rgba(76, 37, 217, 0.2)', // оранжевый
-        'rgba(174, 36, 212, 0.2)', // красный
-        'rgba(89, 199, 34, 0.2)', // синий
-        'rgba(201, 199, 38, 0.2)', //
-        'rgba(201, 38, 174, 0.2)', //
-        'rgba(191, 38, 189, 0.2)', //
-        'rgba(153, 102, 255, 0.2)', //
-        'rgba(255, 159, 64, 0.2)' ,//
-        'rgba(255, 99, 132, 0.2)' //
-      ],
-      borderColor: [
-        'rgba(39, 217, 172, 1)', //
-        'rgba(39, 166, 217, 1)', //
-        'rgba(76, 37, 217, 1)', //
-        'rgba(174, 36, 212, 1)', //
-        'rgba(89, 199, 34, 1)',//
-        'rgba(201, 199, 38, 1)', //
-        'rgba(201, 38, 174, 1)', //
-        'rgba(191, 38, 189, 1)', //
-        'rgba(153, 102, 255, 1)', //
-        'rgba(255, 159, 64, 1)', //
-        'rgba(255,99,132,1)' //
-      ],
+      backgroundColor: bar_chart_color_k,
+      borderColor: bar_chart_color,
       borderWidth: 1,
       fill: false
     }]
@@ -802,6 +859,8 @@ function canvas_bar_chart (){
   };
   bar_chart_labels = [];
   bar_chart_data = [];
+  bar_chart_color = [];
+  bar_chart_color_k = [];
   bar_chart_map = [];
 }
 ////
