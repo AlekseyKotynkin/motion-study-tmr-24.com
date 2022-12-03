@@ -36,7 +36,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
        // Sign-out successful.
        // Выход выполнен успешно.
        if (localStorage.getItem('TMR::translation') == null) {
-         localStorage.setItem('TMR::translation', 'en');
+         localStorage.setItem('TMR::translation', 'ru');
        }
        var translation_JS = localStorage.getItem('TMR::translation');
        localStorage.clear();
@@ -97,7 +97,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                 // Sign-out successful.
                 // Выход выполнен успешно.
                 if (localStorage.getItem('TMR::translation') == null) {
-                  localStorage.setItem('TMR::translation', 'en');
+                  localStorage.setItem('TMR::translation', 'ru');
                 }
                 var translation_JS = localStorage.getItem('TMR::translation');
                 localStorage.clear();
@@ -179,7 +179,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                           alert ("Обновление прошло успешно.");
                         }
                         if (localStorage.getItem('TMR::translation') == null) {
-                          localStorage.setItem('TMR::translation', 'en');
+                          localStorage.setItem('TMR::translation', 'ru');
                         }
                         var translation_JS = localStorage.getItem('TMR::translation');
                         localStorage.clear();
@@ -209,7 +209,7 @@ const FotoUrlLocalStorage = (LocalStorageValueObject[0]).photoUrl;
                     alert ("Обновление прошло успешно.");
                   }
                   if (localStorage.getItem('TMR::translation') == null) {
-                    localStorage.setItem('TMR::translation', 'en');
+                    localStorage.setItem('TMR::translation', 'ru');
                   }
                   var translation_JS = localStorage.getItem('TMR::translation');
                   localStorage.clear();

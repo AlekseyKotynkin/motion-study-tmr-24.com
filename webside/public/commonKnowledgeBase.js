@@ -82,7 +82,7 @@ document.getElementById("user_name_local").textContent = UserNamelocalStorage
      // Sign-out successful.
      // Выход выполнен успешно.
      if (localStorage.getItem('TMR::translation') == null) {
-       localStorage.setItem('TMR::translation', 'en');
+       localStorage.setItem('TMR::translation', 'ru');
      }
      var translation_JS = localStorage.getItem('TMR::translation');
      localStorage.clear();
