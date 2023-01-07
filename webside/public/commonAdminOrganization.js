@@ -307,8 +307,10 @@ docRef.get().then(function(doc) {
         '</div>'
       ].join('');
     }
-    var liLast = document.getElementById('indexAdminOrganization_Monitor');
-    liLast.insertAdjacentHTML('beforeend', html);
+    //var liLast = document.getElementById('indexAdminOrganization_Monitor');
+    //liLast.insertAdjacentHTML('beforeend', html);
+    var liLast = document.getElementById('indexAdminOrganization_Monitor_ListSubdivision');
+    liLast.insertAdjacentHTML('afterend', html);
     //
     docRefFull = db.collection("Organization").doc(localStorageOrganizationId).collection("Subdivision").doc(obj.id);
     docRefFull.get().then(function(doc) {

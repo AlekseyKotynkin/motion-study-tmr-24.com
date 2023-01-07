@@ -377,6 +377,7 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper" id = "indexAdminOrganization_Monitor">
+            <!-- Окно выбора Подразделения. -->
             <div class="row" id = "indexAdminOrganization_Monitor_ListSubdivision">
               <div class="col-12 grid-margin">
                 <div class="card">
@@ -385,7 +386,6 @@
                       <button type="button" class="btn btn-primary btn-lg lang" key="add_subdivision" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
                         + Add Subdivision
                       </button>
-                      <!-- Окно выбора Подразделения. -->
                     <div class="table-responsive">
                        <script type="text/javascript">createATableOfClientSubdivision()</script>
                         <table id="tableSubdivision"class="table">
@@ -417,14 +417,12 @@
                   <div id="headerTableListSensors" class="card-body">
                     <h4 class="card-description lang" key="list_position_subdivision_ListSensors">List of sensors in your organization - Select organization</h4>
                     <div class="table-responsive">
-                      <table id="tablePosition"class="table">
+                      <table id="tableListSensors"class="table">
                         <thead>
                           <tr>
+                            <th class="lang" key="MAC_controller"> MAC controller </th>
                             <th class="lang" key="ID_controller"> ID controller </th>
-                            <th class="lang" key="comment"> Сomment </th>
-                            <th class="lang" key="position"> Position </th>
-                            <th class="lang" key="comment"> Сomment </th>
-                            <th class="lang" key="number_employees"> The number of employees </th>
+                            <th class="lang" key="name_controller"> Name </th>
                             <th></th>
                             <th></th>
                           </tr>
