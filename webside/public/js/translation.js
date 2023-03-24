@@ -448,8 +448,15 @@ var arrLang = {
     'working_hours_time_office': 'On working days from 9 00 to 18 00',
     'support_service': 'Support service',
     'address': 'Address',
-
-
+    'MAC_controller': 'MAC controller',
+    'ID_controller': 'ID controller',
+    'name_controller': 'Name controller',
+    'Services': 'Services',
+    'Repair_Industrial_Electronics': 'Repair Of Industrial Electronics',
+    'Contract_Development_Electronics': 'Contract Development Of Electronics',
+    'Product_Description': 'Product Description',
+    'Product_Services': 'Product Services',
+    
 
 
 
@@ -856,8 +863,14 @@ var arrLang = {
     'working_hours_time_office': 'В рабочие дни с 9 00 до 18 00 часов',
     'support_service': 'Служба поддержки',
     'address': 'Адрес',
-
-
+    'MAC_controller': 'MAC адрес',
+    'ID_controller': 'ID контроллера',
+    'name_controller': 'Название контроллера',
+    'Services': 'Услуги',
+    'Repair_Industrial_Electronics': 'Ремонт Промышленной Электроники',
+    'Contract_Development_Electronics': 'Контрактная Разработка Электроники',
+    'Product_Description': 'Описание товара',
+    'Product_Services': 'Описание услуги',
 
 
 

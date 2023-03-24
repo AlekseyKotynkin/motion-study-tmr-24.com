@@ -140,7 +140,111 @@
             </li>
           </ul>
           <!-- завершение иконки для выбора языка -->
-          <ul class="navbar-nav navbar-nav-right" id = "indexKnowledgeBase_accaundUsers"></ul>
+          <ul class="navbar-nav navbar-nav-right" id = "indexKnowledgeBase_accaundUsers">
+            <!-- <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-email-outline"></i>
+                <span class="count-symbol bg-warning"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                <h6 class="p-3 mb-0">Messages</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
+                    <p class="text-gray mb-0"> 1 Minutes ago </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
+                    <p class="text-gray mb-0"> 15 Minutes ago </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
+                    <p class="text-gray mb-0"> 18 Minutes ago </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <h6 class="p-3 mb-0 text-center">4 new messages</h6>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <i class="mdi mdi-bell-outline"></i>
+                <span class="count-symbol bg-danger"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <h6 class="p-3 mb-0">Notifications</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="mdi mdi-calendar"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
+                    <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-warning">
+                      <i class="mdi mdi-settings"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
+                    <p class="text-gray ellipsis mb-0"> Update dashboard </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-info">
+                      <i class="mdi mdi-link-variant"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+                    <p class="text-gray ellipsis mb-0"> New admin wow! </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+              </div>
+            </li>
+            <li class="nav-item nav-logout d-none d-lg-block">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-power"></i>
+              </a>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-block">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-format-line-spacing"></i>
+              </a>
+            </li> -->
+          </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" id="ru" onclick="translation_RU ()">
             <img src="images\russia_flag.jpg" alt="image" width="30px" height="20px">
           </button>
@@ -212,35 +316,33 @@
                 <div class="card">
                   <div class="card-body">
                     <blockquote class="blockquote blockquote-primary">
-                      <h1 class="card-title lang" key="tmr_admin_ODC">TMR-24 Operational Data Collector</h1>
+                      <h1 class="card-title lang" key="tmr_admin_VAM">TMR-24 Virtual Assistant Manager</h1>
                       <br>
-                      <p class="mb-0 font-weight-light lang" key="tmr_admin_ODC_title"> “Transparency of processes – fulfillment of order deadlines – cost optimization.</p>
+                      <p class="mb-0 font-weight-light lang" key="tmr_admin_VAM_title"> “Delegate the routine to a Virtual Assistant Manager.</p>
                       <br>
-                      <footer class="blockquote-footer lang" key="tmr_admin_ODC_texst_1">Our equipment and application solutions for the collection of operational data, free your employees from routine work, ensure the reliability of the collected data by collecting data 24 hours a day, 7 days a week.</footer>
+                      <p class="mb-0 font-weight-light lang" key="tmr_admin_VAM_texst_1">We do not offer a "remind calendar", but a trained virtual assistant manager who, upon request or schedule, can submit reports, monitor running processes to achieve specific goals of the organization and, in case of deviation from the specified parameters, notify of a failure.</p>
                       <br>
                       <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
                     </blockquote>
                   </div>
                 </div>
               </div>
+              <!-- Окончание общего блока -->
               <!-- Начало Рекламного Блока 1. -->
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title lang" key="mobile_applications">Mobile applications</h4>
+                    <h4 class="card-title lang" key="tmr_VAM_control_points">Supervision of "control points" of business processes</h4>
                     <div class="media">
                       <div class="col-4 pl-1">
                         <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                       <div class="media-body">
                         <br>
-                        <p class="card-text lang" key="mobile_applications_1">Provide rapid data exchange, reduce downtime, identify the talents of your employees, optimize business processes:</p>
+                        <p class="card-text lang" key="tmr_VAM_control_points_text">Monitor the accuracy of business processes, calculate the values of performance indicators and correlate them with planned values, then identify problems and promptly report to the manager.</p>
                         <ul class="list-arrow">
                           <li>
-                            <a class="lang" key="staff_workload" href="javascript:void(0);" onclick="transition_StaffWorkload()">Staff workload</a>
-                          </li>
-                          <li>
-                            <a class="lang" key="house_document_flow" href="javascript:void(0);" onclick="transition_HouseDocumentFlow()">In-house document flow</a>
+                            <a class="lang" key="tmr_VAM_control_points_example_1" href="javascript:void(0);" onclick="transition_ControlPoints()">More detailed</a>
                           </li>
                         </ul>
                         <button type="button" class="btn btn-gradient-success btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
@@ -253,20 +355,19 @@
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title lang" key="data_collection_system">Data collection system</h4>
+                    <h4 class="card-title lang" key="tmr_VAM_operational_reporting">Operational reporting in Telegram for the accuracy of decision-making</h4>
                     <div class="media">
                       <div class="col-4 pl-1">
-                        <img src="assets/images/dashboard/mobil_720_1453_2.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                       <div class="media-body">
                         <br>
-                        <p class="card-text lang" key="data_collection_system_1">Implements the process of converting signals from the outside world into a digital domain for display, storage and analysis:</p>
+                        <!-- <br> -->
+                        <p class="card-text lang" key="tmr_VAM_operational_reporting_text">The application sends a report at a configured interval, on request, according to the trained criteria and allows the owner to promptly monitor the business processes of the enterprise.</p>
                         <ul class="list-arrow">
+                          <br>
                           <li>
-                            <a class="lang" key="sensors" href="javascript:void(0);" onclick="transition_Sensors()">Sensors</a>
-                          </li>
-                          <li>
-                            <a class="lang" key="signal_converters" href="javascript:void(0);" onclick="transition_SignalConverters()">Signal converters</a>
+                            <a class="lang" key="tmr_VAM_operational_reporting_example_1" href="javascript:void(0);" onclick="transition_OperationalReporting()">More detailed</a>
                           </li>
                         </ul>
                         <button type="button" class="btn btn-gradient-warning btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
@@ -279,118 +380,69 @@
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title lang" key="integration_modules">System and product integration modules</h4>
+                    <h4 class="card-title lang" key="tmr_VAM_personnel_management">Personnel management via Telegram chatbot (operational Manager)</h4>
                     <div class="media">
                       <div class="col-4 pl-1">
-                        <img src="assets/images/dashboard/mobil_720_1453_3.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/mobil_720_1453_1.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                       <div class="media-body">
                         <br>
-                        <p class="card-text lang" key="integration_modules_1">Combine specialized products into a corporate database, accelerate the decision-making process.</p>
+                        <p class="card-text lang" key="tmr_VAM_personnel_management_text">To make life easier for the manager, we developed a special Telegram bot, which took over some of the routine tasks:</p>
                         <ul class="list-arrow">
                           <li>
-                            <a class="lang" key="accounting_systems" href="javascript:void(0);" onclick="transition_AccountingSystems()">1C integration module</a>
+                            <a class="lang" key="tmr_VAM_personnel_management_example_1" href="javascript:void(0);" onclick="transition_PersonnelManagement_1()">Supervision over the execution of an order by an employee</a>
                           </li>
                           <li>
-                            <a class="lang" key="industrial_equipment" href="javascript:void(0);" onclick="transition_IndustrialEquipment()">With industrial equipment</a>
+                            <a class="lang" key="tmr_VAM_personnel_management_example_2" href="javascript:void(0);" onclick="transition_PersonnelManagement_2()">Employee training and testing</a>
                           </li>
                         </ul>
-                        <br>
                         <button type="button" class="btn btn-gradient-danger btn-rounded btn-fw lang" key="get_detailed_advice"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Get detailed advice</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Начало блока Мобильное приложение "Загруженность персонала"-->
+              <!-- Окончание рекламного блока 3. -->
+              <!-- Начало блока Модули Надзор над «контрольными точками» бизнес-процессов-->
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_staff_workload">Mobile application "Staff workload"</h2>
+                  <div class="card-body" id="control_points">
+                    <h2 class="display-2-center lang" key="tmr_VAM_control_points">Supervision of "control points" of business processes</h2>
                     <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_staff_workload_1">Survey of the enterprise for drawing up a plan for digitalization of the organization</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_staff_workload_2">or</p>
-                    <p class="lang" key="ma_staff_workload_3">Operational data acquisition in "real time" mode on the involvement of personnel in the projects and processes of the enterprise, on the relationships of the organization, on the actual workload and availability of personnel.</p>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_control_points_1">What to control: the result or the process?</p>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_control_points_2">Each manager has his own view, one is convinced that it is only necessary to ask for the result, the other prefers to track all the stages of completing tasks, and for the third control means spying on employees and catching violators of discipline.</p>
+                    <p class="lang" key="tmr_VAM_control_points_3">Automated control in this case is used not so much as a tool to measure the effectiveness of individual employees, but in order to quickly notice emerging problems at the macro level and solve them; so that the top manager has the opportunity at any time to assess the situation by objective parameters, and not rely only on reports of subordinates.</p>
                     <br>
                     <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
                     <br>
-                    <h3 class="card-title lang" key="tmr_admin" id="staff_workload">TMR-24 WEB administrator</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_admin_title">Monitor the involvement of your team in the work, identify the talents of employees.</p>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_control_points_title">We will implement a chatbot and support stable work, in the shortest possible time with a personal manager, your virtual assistant will start working.</p>
                     <div class="row mt-3">
                       <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_12_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                        <img src="assets/images/dashboard/img_19_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
                       </div>
                       <div class="media-body">
                         <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
                           <div class="mb-0 flex-grow">
                             <div class="d-flex align-items-center purchase-popup">
                               <ul>
+                                <br>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_dashboard">Application Administration.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_control_points_example_2">The mission of the company.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics">Key metrics in real time.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_control_points_example_3">The companys strategy.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="report_factory">Report factory.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_control_points_example_4">The companys system of indicators.</h4>
                                 </li>
                                 <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_metrics_online">Displaying the workload of the staff in real time.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_tool">A tool for direct interaction with the team.</h4>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_control_points_example_5">Control points.</h4>
                                 </li>
                               </ul>
                             </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_1">Personnel management is integrated with the strategy of commodity turnover and inventory management, the development of the material and technical base and the financial development of the enterprise.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_control_points_texst_1">The mechanism of business processes perfectly fits into the structure of the bots dialogue, individual tasks in blocks are bot phrases, branching points are the branching points of a conversation with answer options - buttons, etc.</p>
                             <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_texst_2"> The main goal of managing the number and composition of personnel is to optimize the costs of human labor to perform the main types of work related to the activities of a trading enterprise, and to ensure that the necessary jobs are filled with employees of the relevant professions, specialties and skill levels. The implementation of this function of personnel management to the greatest extent should be linked to the general strategy of trade management, since the labor potential formed at the enterprise and will ensure the implementation of all strategic goals and directions of its activities. </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                      </div>
-                    </div>
-                    <!-- вторая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_client"> TMR-24 Client </h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_client_title"> Mobile app. Aimed at identifying effective skills among team members and organizing the harmonious movement of the team towards the set goals. </p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_13_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_registrar">The employment registration panel in the personnel processes.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_dashboard">Panel for working with projects and tasks.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_messenger">The registration panel for the start and end of the work shift.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_plan">Employee engagement diagram.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_client_personal">Note creation tools: text, list, photo, audio, location.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_2">In the modern world, it is impossible to do without mobile devices. Now every person has these gadgets, sometimes not even one. That is why the mobile app is a fast and convenient way to collect data.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_client_text_3">We are the main tool for working with staff. This application collects data and identifies the talents of employees. All this totality helps the team to perform its tasks most effectively, to see its development, and therefore the development of the enterprise.
-This strategy makes the life of the company more comfortable and transparent.</p>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_control_points_texst_2">Visualization of the map simplifies the work of the team, but is not a guarantee of its success. It is important to check the map regularly to track failures and make adjustments if necessary.</p>
                           </div>
                         </div>
                       </div>
@@ -403,335 +455,151 @@ This strategy makes the life of the company more comfortable and transparent.</p
                       </div>
                       <div class="ml-auto">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="tmr_StaffWorkload" href="tmr_StaffWorkload_Administrator.html" target="_blank">TMR-24 Staff Workload</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Окончание блока Мобильное приложение "Загруженность персонала" -->
-
-              <!-- Начало блока Мобильное приложение "Внутрицеховой Документооборот"-->
-              <div class="col-12 grid-margin stretch-card" id="house_document_flow">
-                <div class="card">
-                  <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_house_document_flow">Mobile application "In-house document flow"</h2>
-                    <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_house_document_flow_1">The application is implemented on the 1C: Enterprise 8.3 mobile platform.</p>
-                    <p class="lang" key="ma_house_document_flow_3">Mobile technologies have firmly entered our lives: the share of mobile traffic in the Russian segment of the Internet recently reached a record 83%. The same wave has reached the automation of business.</p>
-                    <br>
-                    <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_house_document_flow">TMR-24 In-house document flow</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_title">Operational accounting of stages of work execution of production tasks with reference to technological maps (MES).</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_14_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_1">Providing personnel and equipment with the information necessary to start the production process.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_2">Establishing links between personnel and equipment within the production.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_3">Establishing links between production and suppliers, consumers, engineering department, sales department and management.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_4">Tracking of production capacities.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_house_document_flow_example_5">Tracking and control of quality parameters.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_texst_1">In production, the management of information and resource flows takes place in a multifactorial environment, in production units, planning, departments of process engineers, maintenance and repair, internal logistics, quality, etc.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_house_document_flow_texst_2">All processes need to be linked so that the products are produced on time and with the required level of quality.</p>
-                            <br>
-                            <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                      <div class="mb-0 flex-grow">
-                        <br>
-                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
-                      </div>
-                      <div class="media-body">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="tmr_house_document_flow" href="tmr_House_Document_Flow.html" target="_blank">TMR-24 In-house document flow</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Окончание блока Мобильное приложение "Внутрицеховой Документооборот" -->
-
-              <!-- Начало блока Система Сбора Данных "Датчики"-->
-              <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_sensors">Data Collection System</h2>
-                    <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_sensors_1">The Industrial Internet of Things is a system of networks and industrial facilities connected to them with built—in sensors and software for data collection and exchange, with the possibility of remote monitoring and control in automated mode, without human intervention.</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_sensors_2">The Industrial Internet of Things is a key element of the Fourth Industrial Revolution (Industry 4.0).</p>
-                    <p class="lang" key="ma_sensors_3">The main task of the technology is to make complex work processes more efficient: eliminate theft, minimize downtime, increase security or simply save electricity.</p>
-                    <!-- первая часть блока Система Сбора Данных "Датчики" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_admin">TMR-24 WEB administrator</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_admin_title_sensor">Access to data anywhere, accuracy of decisions made.</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_12_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_sensor_example_1">Real-time data.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_sensor_example_2">Occupational safety at the enterprise.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_admin_sensor_example_3">Comparative analysis of resources consumed.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_sensor_texst_1">Collecting data from sensors allows you to complement the visualization of the digital twin of the enterprise, allows you to make a decision quickly to the head.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_admin_sensor_texst_2">An important aspect of the successful application of digital twins is that the development of devices and systems should be carried out taking into account this concept, which will significantly affect the construction of business processes of the enterprise and the creation of new services.</p>
-                            <br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="data_collection_system" href="tmr_DataCollectionSystem.html" target="_blank">Data collection system</a>
-                      </div>
-                    </div>
-                    <!-- вторая часть блока Система Сбора Данных "Датчики" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_sensors" id="sensors">TMR-24 Sensors</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_sensors_title">There are many examples of the use of technology in various activities, it is difficult to find an area where it is impossible to apply technology:</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_15_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_1">Vibration sensors.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_2">Temperature sensors.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_3">Environmental monitoring sensor.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_4">Motion sensors.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_5">Mass sensors.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_6">Individual metering devices for water, electricity, heat, gas.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_sensors_example_7">Devices of the composition and volume of the liquid.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_sensors_text_1">The principle of operation of the technology is as follows: sensors, actuators, controllers and human-machine interfaces are initially installed on key parts of the equipment, after which information is collected, which subsequently allows the company to acquire objective and accurate data on the state of the enterprise.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_sensors_text_2">Thanks to such technologies, the cost of application is available to everyone, from industry giants to a private entrepreneur.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                      </div>
-                    </div>
-                    <!-- третья часть блока Система Сбора Данных "Преобразователи Сигналов" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_signal_converters" id="signal_converters">TMR-24 Signal converters</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_signal_converters_title">Signal converters is a collective term and includes extremely diverse devices used in many areas of economy and industry.</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_16_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_signal_converters_example_1">Sound.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_signal_converters_example_2">Electric.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_signal_converters_example_3">Of a technological nature.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_signal_converters_example_4">Temperature.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_signal_converters_text_1">The process of signal conversion itself can occur both within one type of signal and between these types - a striking example is an analog-to-digital signal converter.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_signal_converters_text_2">The digital signal is not distorted during transmission, it provides excellent quality of transmitted data, and digital signal transmission technologies are constantly being improved.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                      <div class="mb-0 flex-grow">
-                        <br>
-                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
-                      </div>
-                      <div class="media-body">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="data_collection_system" href="tmr_DataCollectionSystem.html" target="_blank">Data collection system</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Окончание блока Система Сбора Данных "Датчики" -->
-              <!-- Начало блока Модули Интеграции Систем И Продуктов "C учетными системами"-->
-              <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h2 class="display-2-center lang" key="ma_integration_modules">System and Product Integration Modules</h2>
-                    <br>
-                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_1">Modules are used to exchange information between devices, software products, databases.</p>
-                    <p class="mb-0 font-weight-light lang" key="ma_integration_modules_2">In business, any action that is done more than twice needs to be automated.</p>
-                    <p class="lang" key="ma_integration_modules_3">Reducing the amount of routine work, automating standard business processes, optimizing actions related to customer service - all this gives the company a number of competitive advantages.</p>
-                    <br>
-                    <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <br>
-                    <h3 class="card-title lang" key="tmr_modul_1c" id="integration_modules">1C integration module</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_title">The integration module provides direct access without cloning to up-to-date data when working with standard configurations:</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_17_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_1">1С: ERP</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_2">1C: Complex automation</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_3">1C: Management of a small company</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_modul_1c_example_4">1C: Trade Management</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_texst_1">Integration is a very important part of the work of automating business processes. In different situations, there is a need to quickly exchange data between different configurations, between software products and a website, etc.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_modul_1c_texst_2">In general, it is impossible to combine the work of various departments of the company and automate the workflow without using integration in most cases.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <div class="ml-auto">
-                        <button type="button" class="btn btn-inverse-primary btn-fw lang" key="order_specialist_consultation"  data-toggle="modal" data-target="#modal_order_specialist_consultation">Order a specialist consultation</button>
-                      </div>
-                    </div>
-                    <!-- вторая часть блока Мобильное приложение "Загруженность персонала" -->
-                    <br>
-                    <h3 class="card-title lang" key="industrial_equipment" id="industrial_equipment">With industrial equipment</h3>
-                    <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_title">With the help of the integration module, we can implement integration with virtually any system, depending on the tasks and needs of your company.</p>
-                    <div class="row mt-3">
-                      <div class="col-6 pl-1">
-                        <img src="assets/images/dashboard/img_18_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
-                      </div>
-                      <div class="media-body">
-                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                          <div class="mb-0 flex-grow">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="d-flex align-items-center purchase-popup">
-                              <ul>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_1">Machines with numerical control.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_2">Fire and security alarm systems.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_3">Various video surveillance systems.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_4">Automatic doors, turnstiles, gates.</h4>
-                                </li>
-                                <li>
-                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_industrial_equipment_example_5">The system of medical examinations.</h4>
-                                </li>
-                              </ul>
-                            </div>
-                            <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_text_1">Today, the facilities of organizations and enterprises are equipped with various kinds of security systems, monitoring, communication, etc. These include: video surveillance, access control and management, lighting, fire, security and perimeter alarm systems, telephony, ventilation and so on.</p>
-                            <br>
-                            <p class="mb-0 font-weight-light lang" key="tmr_industrial_equipment_text_2">The maximum efficiency of their application is achieved by the interaction of systems with each other.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex mt-5 align-items-top">
-                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                      <div class="mb-0 flex-grow">
-                        <br>
-                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
-                      </div>
-                      <div class="media-body">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
-                        <a class="lang" key="ma_integration_modules" href="tmr_System_and_Product_Integratio_Modules.html" target="_blank">System and Product Integration Modules</a>
+                        <a class="lang" key="tmr_admin_VAM" href="tmr_Virtual_Assistant_Manager.html" target="_blank">TMR-24 Virtual Assistant Manager</a>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Окончание блока Модули Интеграции Систем И Продуктов "C учетными системами" -->
-
-              <!-- Окончание общего блока -->
+              <!-- Начало блока Оперативная отчетность в Telegram для точности принятия решений-->
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body" id="operational_reporting">
+                    <h2 class="display-2-center lang" key="tmr_VAM_operational_reporting">Operational reporting in Telegram for the accuracy of decision-making</h2>
+                    <br>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_operational_reporting_1">A virtual digital assistant based on natural language processing (NLP) technologies instantly prepares business reports in the Telegram messenger chat, connecting to your company's data sources.</p>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_operational_reporting_2">The parameters for the report are changed according to your request based on the learning platform, and the data is displayed in a simple format.</p>
+                    <p class="lang" key="tmr_VAM_operational_reporting_3">Bots work 24/7 and will allow you to be as informed as possible in decision-making issues.</p>
+                    <br>
+                    <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
+                    <br>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_operational_reporting_title">Our specialists are always ready to implement your tasks, offer an individual solution in the shortest possible time or set up a standard report:</p>
+                    <div class="row mt-3">
+                      <div class="col-6 pl-1">
+                        <img src="assets/images/dashboard/img_20_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                      </div>
+                      <div class="media-body">
+                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
+                          <div class="mb-0 flex-grow">
+                            <div class="d-flex align-items-center purchase-popup">
+                              <ul>
+                                <br>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_2">Implementation of the sales plan.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_3">The girth of the customer base.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_4">The workload of the staff.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_5">The workload of the equipment.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_6">Overdue customer orders.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_7">Plan-fact analysis.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_operational_reporting_example_8">Aging of inventory.</h4>
+                                </li>
+                              </ul>
+                            </div>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_operational_reporting_texst_1">The efficiency of the enterprise when using KPI and BSC systems depends entirely on how these indicators are selected and set, because the range of possible indicators is extremely wide.</p>
+                            <br>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_operational_reporting_texst_2">The means and principles (policies) of achieving the goals are set, otherwise the principles of "the goal justifies the means" and "all means are good to achieve the goal" begin to operate, and very serious negative consequences are possible in the near future.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-5 align-items-top">
+                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
+                      <div class="mb-0 flex-grow">
+                        <br>
+                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
+                      </div>
+                      <div class="ml-auto">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
+                        <a class="lang" key="tmr_admin_VAM" href="tmr_Virtual_Assistant_Manager.html" target="_blank">TMR-24 Virtual Assistant Manager</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Окончание блока Модули Интеграции Систем И Продуктов "C учетными системами" -->
+              <!-- Начало блока Управление персоналом посредствам чат-бот Telegram (оперативный менеджер)-->
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="display-2-center lang" key="tmr_VAM_personnel_management">Personnel management via Telegram chatbot (Operational Manager)</h2>
+                    <br>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_personnel_management_1">The chatbot can manage assigned projects, send messages, post tasks according to the plan, and also, can make mailing to subordinates in automatic mode, thereby saving the time and effort of the manager.</p>
+                    <p class="mb-0 font-weight-light lang" key="tmr_VAM_personnel_management_2">It is not enough to hire qualified specialists: the market is constantly in development, new technologies are being introduced, new trends are emerging that require employees to regularly update their knowledge.</p>
+                    <p class="lang" key="tmr_VAM_personnel_management_3">The chat bot is based on And allows you to undergo training at any convenient time, without interrupting the employee from the main activity, without loss of productivity, and most importantly controls and engages the learning process.</p>
+                    <br>
+                    <!-- первая часть блока Мобильное приложение "Загруженность персонала" -->
+                    <br>
+                    <h3 class="card-title lang" key="tmr_VAM_personnel_management_title" id="personnel_management">Chatbots are the main hit of this year, they suddenly turned from a curiosity into a popular, effective technology where artificial intelligence harmoniously complements the functionality of bots penetrating into different areas of activity.</h3>
+                    <div class="row mt-3">
+                      <div class="col-6 pl-1">
+                        <img src="assets/images/dashboard/img_21_1280_800.jpg" class="mw-100 w-100 rounded" alt="image">
+                      </div>
+                      <div class="media-body">
+                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
+                          <div class="mb-0 flex-grow">
+                            <div class="d-flex align-items-center purchase-popup">
+                              <ul>
+                                <br>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_3">Organization of personnel work (issuance of production tasks, control of execution, simplification of the companys workflow).</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_4">Training and testing of personnel.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_5">In groups of messengers and social networks.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_6">The site widget.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_7">Voice assistant.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_8">Call center.</h4>
+                                </li>
+                                <li>
+                                  <h4 class="ml-auto font-weight-bold lang" key="tmr_VAM_personnel_management_example_9">Surveys and questionnaires.</h4>
+                                </li>
+                              </ul>
+                            </div>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_personnel_management_texst_1">The bot surpasses any person in the possibility of storing and operating large amounts of data, can select the right words to communicate with each user from a multimillion-dollar list. Such a subtle personalization of communication will definitely benefit any business.</p>
+                            <br>
+                            <p class="mb-0 font-weight-light lang" key="tmr_VAM_personnel_management_texst_2">The instant reaction of the bot to the users actions helps the business a lot, shows interest in both the client and the companys staff, making the business more efficient.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-5 align-items-top">
+                      <img src="assets\images\dashboard\icon_Р.jpg" class="img-sm rounded-circle mr-3" alt="image">
+                      <div class="mb-0 flex-grow">
+                        <br>
+                        <p class="mb-0 font-weight-light lang" key="time_money_result">Time. Money. Result.</p>
+                      </div>
+                      <div class="ml-auto">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block lang" key="tmr_StaffWorkload_description">Description and instructions for </span>
+                        <a class="lang" key="tmr_admin_VAM" href="tmr_Virtual_Assistant_Manager.html" target="_blank">TMR-24 Virtual Assistant Manager</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Окончание блока Модули Интеграции Систем И Продуктов "C учетными системами" -->
             </div>
+            <!-- Окончание общего блока -->
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
@@ -904,3 +772,5 @@ This strategy makes the life of the company more comfortable and transparent.</p
     </script>
   </body>
 </html>
+
+
