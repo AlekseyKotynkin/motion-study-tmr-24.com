@@ -540,12 +540,10 @@ var arrLang = {
     'tmr_CDE_development_example_2_5': 'Preparation of documentation for certification.',
     'tmr_CDE_development_example_2_texst_1': 'Quality control is a constant activity to obtain information about the signs, parameters and characteristics of products, compare the results obtained with the established requirements and identify inconsistencies.',
     'tmr_CDE_development_example_2_texst_2': 'The overall goal of certification is to give confidence to all interested parties that products, processes and services meet the established requirements.',
-
-
-
-
-    
-    
+    'organization_name': 'Organization - ',
+    'list_products': 'Products',
+    'products_name': 'Name Products',
+    'products_comments': 'Comments',
     
 
     'search_projects': 'Search projects',
@@ -1043,11 +1041,12 @@ var arrLang = {
     'tmr_CDE_development_example_2_5': 'Подготовка документации для сертификации.',
     'tmr_CDE_development_example_2_texst_1': 'Контроль качества — это постоянная деятельность по получению информации о признаках, параметрах и характеристиках продукции, сопоставлению полученных результатов с установленными требованиями и выявлению несоответствий.',
     'tmr_CDE_development_example_2_texst_2': 'Общей целью сертификации является придание уверенности всем заинтересованным сторонам в том, что продукция, процессы и услуги удовлетворяют установленным требованиям.',
+    'organization_name': 'Организация - ',
+    'list_products': 'Продукция',
+    'products_name': 'Название',
+    'products_comments': 'Комментарии',
 
-
-
-
-
+    
 
     'search_projects': 'Поиск',
   }

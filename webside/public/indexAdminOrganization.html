@@ -377,6 +377,39 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper" id = "indexAdminOrganization_Monitor">
+            <!-- Окно бизнес разделов организации. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div  id='headerTableBusinessProcesses' class="card-body">
+                    <h4 class="card-description lang" key="organization_name">Organization - </h4>
+                      <!-- <button type="button" class="btn btn-primary btn-lg lang" key="add_subdivision" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
+                        + Add Subdivision
+                      </button> -->
+                    <!-- <div class="table-responsive">
+                       <script type="text/javascript">createATableOfClientSubdivision()</script>
+                        <table id="tableSubdivision"class="table">
+                          <thead>
+                            <tr>
+                              <th class="lang" key="subdivision"> Subdivision </th>
+                              <th class="lang" key="name_department_head"> Name of department head </th>
+                              <th class="lang" key="head_unit"> Head of unit </th>
+                              <th class="lang" key="number_employees"> The number of employees </th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                        <script>
+                          var container = document.getElementById("tableSubdivision").getElementsByTagName("tbody")[0];
+                        </script>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Окно выбора Подразделения. -->
             <div class="row" id = "indexAdminOrganization_Monitor_ListSubdivision">
               <div class="col-12 grid-margin">
@@ -387,7 +420,7 @@
                         + Add Subdivision
                       </button>
                     <div class="table-responsive">
-                       <script type="text/javascript">createATableOfClientSubdivision()</script>
+                        <script type="text/javascript">createATableOfClientSubdivision()</script>
                         <table id="tableSubdivision"class="table">
                           <thead>
                             <tr>
@@ -437,6 +470,37 @@
                 </div>
               </div>
             </div>
+            <!-- Окно список продукции организации. -->
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div  id='headerTableProducts' class="card-body">
+                    <h4 class="card-description lang" key="list_products">Products</h4>
+                      <button type="button" class="btn btn-primary btn-lg lang" key="add_products" data-toggle="modal" data-target="#gridSystemModalNewProducts">
+                        + Add Products
+                      </button>
+                    <div class="table-responsive">
+                        <script type="text/javascript">createTableProducts()</script>
+                        <table id="tableProducts"class="table">
+                          <thead>
+                            <tr>
+                              <th class="lang" key="products_name"> Name Products </th>
+                              <th class="lang" key="products_comments"> Comments </th>
+                              <th class="lang" key="products_1"></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                        <script> var container = document.getElementById("tableProducts").getElementsByTagName("tbody")[0]; </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- Модальное окно регистрации Подразделения. -->
@@ -471,7 +535,7 @@
                               <input type="email" class="form-control" id="exampleInputModalSubdivisionSubdivisionOfYourManager" placeholder="Email" required="required">
                             </div>
                             <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSubdivisionSubmit()">Submit</button>
-                            <button class="btn btn-light lang" key="cancel">Cancel</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>
                       </div>
@@ -513,7 +577,49 @@
                               <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
                             </div>
                             <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewPositionSubmit()">Submit</button>
-                            <button class="btn btn-light lang" key="cancel">Cancel</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Модальное окно регистрации Продукции. -->
+          <div id="gridSystemModalNewProducts" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-description lang" key="products_add">+ Add Products</h4>
+                          <p class="card-description lang" key="products_add_comments"> Create a new products </p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalProductsTitle" class="lang" key="products_name">Name Products</label>
+                              <input type="text" class="form-control" id="exampleInputModalProductsTitle" placeholder="Title">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalProductsСomment" class="lang" key="products_сomment">Сomments</label>
+                              <input type="text" class="form-control" id="exampleInputModalProductsСomment" placeholder="Сomment">
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
+                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
+                            </div> -->
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewProducts()">Submit</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>
                       </div>
