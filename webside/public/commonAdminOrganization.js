@@ -555,6 +555,8 @@ function createTableProducts() /** Продукции_Получение дан�
         tr.appendChild(toComeInUserColumn);
         tr.appendChild(quitColumn);
 
+        var container = document.getElementById("tableProducts").getElementsByTagName("tbody")[0];
+
         container.appendChild(tr);
       });
     });
@@ -637,7 +639,7 @@ function quitButtonProducts(obj) /** Продукт_Обработчик кно�
   } else {
     alert('Документ успешно удален!' + (objId));
   }
-  bd.collection("Products").doc(objId).delete().then(function () {
+  db.collection("Products").doc(objId).delete().then(function () {
     console.log("Document successfully deleted!");
     window.location.reload();
   }).catch(function (error) {
