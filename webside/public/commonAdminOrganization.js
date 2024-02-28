@@ -22,6 +22,7 @@ var documentData = [];
 var documentDataSubdivision = [];
 var items = [];
 var itemsPosition = [];
+var itemsProducts = [];
 var localStorageSubdivision = 0;
 var docRefFull = [];
 
@@ -61,8 +62,11 @@ docRef.get().then(function(doc) {
   documentData.forEach(item => {
     my_div = document.getElementById("headerTableSubdivision");
     var ul = my_div.querySelector("h4");
+    my_div_process = document.getElementById("headerTableProducts");
+    var ul_process = my_div_process.querySelector("h4");
     var li = item.Organization;
     ul.insertAdjacentHTML("beforeend", li);
+    ul_process.insertAdjacentHTML("beforeend", li);
   });
 });
 
@@ -454,7 +458,7 @@ function gridSystemModalNewPositionSubmit() /** Должность_Обрабо�
     });
 }
 
-function toComeInButtonPosition(obj) /** Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved. */
+function toComeInButtonPosition(obj) /**Подразделение_Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved. */
 {
   //обработка редактирования строки...
   var objId = obj.id;
@@ -469,7 +473,7 @@ function toComeInButtonPosition(obj) /** Обработчик кнопки toCom
   window.location.replace("indexAdminPosition.html");
 }
 
-function quitButtonPosition(obj) /** Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */
+function quitButtonPosition(obj) /**Подразделение_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */
 {
   var objId = obj.id;
   if (translation_JS == null || translation_JS == 'en') {
@@ -492,7 +496,7 @@ function createTableProducts() /** Продукции_Получение дан�
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        items.push({ ...doc.data(), ...{ idProducts: doc.id } });
+        itemsProducts.push({ ...doc.data(), ...{ idProducts: doc.id } });
       });
 
     })
@@ -500,8 +504,8 @@ function createTableProducts() /** Продукции_Получение дан�
       console.log("Error getting documents: ", error);
     })
     .finally(() => {
-      items;
-      items.forEach(item => {
+      itemsProducts;
+      itemsProducts.forEach(item => {
         var tr = document.createElement("tr");
 
         var productsTitle = document.createElement('td');
@@ -608,6 +612,38 @@ function gridSystemModalNewProducts() /** Продукции_Обработка 
         alert('Ошибка добавления документа:');
       }
     });
+}
+
+function toComeInButtonProducts(obj) /** Продукт_Обработчик кнопки toComeInUserColumn из таблицы List Of Organizations In Which You Are Involved. */
+{
+  //обработка редактирования строки...
+  var objId = obj.id;
+  console.log(obj);
+
+  var itemsArray = [{
+    ProductsId: objId,
+    OwnerEmail: EmailLocalStorage,
+    ProviderId: "TMR-24.com"
+  }];
+  localStorage.setItem('TMR::rememberedAdminProducts', JSON.stringify(itemsArray));
+  window.location.replace("indexAdminProducts.html");
+}
+
+function quitButtonProducts(obj) /** Продукт_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */
+{
+  var objId = obj.id;
+  if (translation_JS == null || translation_JS == 'en') {
+    alert('Document successfully deleted!' + (objId));
+  } else {
+    alert('Документ успешно удален!' + (objId));
+  }
+  bd.collection("Products").doc(objId).delete().then(function () {
+    console.log("Document successfully deleted!");
+    window.location.reload();
+  }).catch(function (error) {
+    console.error("Error removing document: ", error);
+  });
+
 }
 
 function location_Href() /** Открыть окно Фейсбука.*/
