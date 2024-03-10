@@ -71,9 +71,13 @@ docRefOrganization.get().then(function (doc) /** Заполняем шапки �
   documentDataOrganization;
   documentDataOrganization.forEach(item => {
     nameOrganization = item.Organization;
+    var i = $('#Organization_h4').text();
+    document.getElementById("Organization_h4").innerHTML = "new text "+nameOrganization;
 
-    var q = document.getElementById(Organization_h4);
-    
+
+
+    var q = document.getElementById("Organization_h4");
+
 
     my_div = document.getElementById("headerTableSubdivision");
     var ul = my_div.querySelector("h4");
