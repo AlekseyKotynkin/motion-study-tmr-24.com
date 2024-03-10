@@ -57,9 +57,9 @@ var documentDataProducts = [];
 
 /**
 * @return {string}
-*  Заполняем шапки табличных частей Пользователи и Процессы (название кнопок).
+*  Заполняем шапки табличных частей .
 */
-docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей Пользователи и Процессы (название кнопок).*/ {
+docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей .*/ {
   if (doc.exists) {
     documentDataOrganization.push(doc.data());
   } else {
@@ -71,25 +71,31 @@ docRefOrganization.get().then(function (doc) /** Заполняем шапки �
   documentDataOrganization;
   documentDataOrganization.forEach(item => {
     nameOrganization = item.Organization;
-    var i = $('#Organization_h4').text();
-    document.getElementById("Organization_h4").innerHTML = "new text "+nameOrganization;
+    if (translation_JS == null || translation_JS == 'en') {
+      document.getElementById("Organization_h4").innerHTML = "Organization - "+ nameOrganization;
+    } else {
+      document.getElementById("Organization_h4").innerHTML = "Организация - "+ nameOrganization;
+    }
+  });
+});
 
-
-
-    var q = document.getElementById("Organization_h4");
-
-
-    my_div = document.getElementById("headerTableSubdivision");
-    var ul = my_div.querySelector("h4");
-    my_div_process = document.getElementById("headerTableProducts");
-    var ul_process = my_div_process.querySelector("h4");
-    var li = item.Organization;
-    ul.insertAdjacentHTML("beforeend", li);
-    ul_process.insertAdjacentHTML("beforeend", li);
-
-
-
-
+docRefProducts.get().then(function (doc) /** Заполняем шапки табличных частей .*/ {
+  if (doc.exists) {
+    documentDataProducts.push(doc.data());
+  } else {
+    console.log("No such document!");
+  }
+}).catch(function (error) {
+  console.log("Error getting document:", error);
+}).finally(() => {
+  documentDataProducts;
+  documentDataProducts.forEach(item => {
+    nameProducts = item.ProductsTitle;
+    if (translation_JS == null || translation_JS == 'en') {
+      document.getElementById("Products_h4").innerHTML = "Products - "+ nameProducts;
+    } else {
+      document.getElementById("Products_h4").innerHTML = "Продукция - "+ nameProducts;
+    }
   });
 });
 
