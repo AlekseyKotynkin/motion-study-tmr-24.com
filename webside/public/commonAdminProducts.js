@@ -71,8 +71,25 @@ docRefOrganization.get().then(function (doc) /** Заполняем шапки �
   documentDataOrganization;
   documentDataOrganization.forEach(item => {
     nameOrganization = item.Organization;
+
+    var q = document.getElementById(Organization_h4);
+    
+
+    my_div = document.getElementById("headerTableSubdivision");
+    var ul = my_div.querySelector("h4");
+    my_div_process = document.getElementById("headerTableProducts");
+    var ul_process = my_div_process.querySelector("h4");
+    var li = item.Organization;
+    ul.insertAdjacentHTML("beforeend", li);
+    ul_process.insertAdjacentHTML("beforeend", li);
+
+
+
+
   });
 });
+
+
 
 /**
 * @return {string}

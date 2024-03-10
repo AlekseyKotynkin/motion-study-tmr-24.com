@@ -544,6 +544,11 @@ var arrLang = {
     'list_products': 'Products',
     'products_name': 'Name Products',
     'products_comments': 'Comments',
+    'add_specificatio': '+ Add Specificatio',
+    'list_specificatio': 'Specificatio',
+
+
+    
     
 
     'search_projects': 'Search projects',
@@ -1045,8 +1050,8 @@ var arrLang = {
     'list_products': 'Продукция',
     'products_name': 'Название',
     'products_comments': 'Комментарии',
-
-    
+    'add_specificatio': '+ Спецификацию',
+    'list_specificatio': 'Спецификации',
 
     'search_projects': 'Поиск',
   }
