@@ -284,6 +284,7 @@ var arrLang = {
     'select_organization_title': 'Select the organization to generate the report.',
     'chart_gantt': 'Gantt chart.',
     'data_on': 'On the date:',
+    'data': 'Data',
     'start_shift': 'Start of shift',
     'active_button': 'Active button',
     'timeStart_active_button': 'Start of events',
@@ -546,8 +547,8 @@ var arrLang = {
     'products_comments': 'Comments',
     'add_specificatio': '+ Add Specificatio',
     'list_specificatio': 'Specificatio',
-
-
+    'title_specificatio': 'Title',
+    
     
     
 
@@ -790,6 +791,7 @@ var arrLang = {
     'select_organization_title': 'Выберите организацию для формирования  отчета.',
     'chart_gantt': 'Диаграмма Ганта',
     'data_on': 'На дату:',
+    'data': 'Дата',
     'start_shift': 'Начало смены',
     'active_button': 'Активная кнопка',
     'timeStart_active_button': 'Начало события',
@@ -1052,6 +1054,12 @@ var arrLang = {
     'products_comments': 'Комментарии',
     'add_specificatio': '+ Спецификацию',
     'list_specificatio': 'Спецификации',
+    'title_specificatio': 'Название',
+
+
+
+
+
 
     'search_projects': 'Поиск',
   }
