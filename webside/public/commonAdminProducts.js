@@ -59,7 +59,8 @@ var documentDataProducts = [];
 * @return {string}
 *  Заполняем шапки табличных частей .
 */
-docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей .*/ {
+docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей .*/
+{
   if (doc.exists) {
     documentDataOrganization.push(doc.data());
   } else {
@@ -147,6 +148,7 @@ function CallPrint() /** Обработка модального окна Печ
   WinPrint.close();
   prtContent.innerHTML=strOldOne;
 }
+
 /**
 * @return {string}
 *  Обработка модального окна Регистрация Пользователя.

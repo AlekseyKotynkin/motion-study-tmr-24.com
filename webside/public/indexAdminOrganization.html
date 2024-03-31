@@ -64,6 +64,8 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
+    <!-- Barcode генерация штрихкода -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
     <!-- Файл с текстами на разных языках -->
     <script src="js/translation.js"></script>
     <!-- Layout styles -->
@@ -382,7 +384,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div  id='headerTableBusinessProcesses' class="card-body">
-                    <h4 class="card-description lang" key="organization_name">Organization - </h4>
+                    <h4 id='Organization_h4' class="card-description lang" key="organization_name">Organization - </h4>
                       <!-- <button type="button" class="btn btn-primary btn-lg lang" key="add_subdivision" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
                         + Add Subdivision
                       </button> -->
@@ -406,6 +408,23 @@
                           var container = document.getElementById("").getElementsByTagName("tbody")[0];
                         </script>
                     </div> -->
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select id = "list_serial_number" class="form-control">
+                          <option>Электроник</option>
+                          <option>Сыроежкин</option>
+                          <option>Чижиков</option>
+                          <option>Кукушкина</option>
+                        </select>
+                        <!-- <input type="text" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2"> -->
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button">+ Add Serial Number</button>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalNewSerialNumber">
+                          Label Printing
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -621,6 +640,72 @@
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Модальное окно вывод печатной формы Серийный номер. -->
+          <div id="gridSystemModalNewSerialNumber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-description lang" key="label_printing">Label Printing</h4>
+                          <form class="forms-sample">
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint()">Print</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 grid-margin stretch-card">
+                    <div id="print-content" class="card">
+                      <div class="card-body">
+                        <form>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="form-row">
+                                  <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="mw-170 w-170 rounded" alt="image">
+                                </div>
+                                <div class="form-row">
+                                  <div style='text-align: center;'>
+                                    <svg id="barcode"></svg>
+                                    <script>
+                                      JsBarcode("#barcode", "00000001", {
+                                        format: "CODE39",
+                                        lineColor: "#000",
+                                        width: 1,
+                                        height: 74,
+                                        displayValue: true,
+                                        fontSize: 40
+                                      });
+                                    </script>
+                                  </div>
+                                </div>
+                                  <p class="text-center lang" key="products_add_comments"> серийный номер </p>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="col-6 pl-1">
+                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180" class="mw-170 w-170 rounded" alt="image">
+                                </div>
+                                <p class="text-center lang" key="products_add_comments"> avrora-v.ru </p>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>

@@ -67,6 +67,12 @@ docRef.get().then(function(doc) {
     var li = item.Organization;
     ul.insertAdjacentHTML("beforeend", li);
     ul_process.insertAdjacentHTML("beforeend", li);
+    if (translation_JS == null || translation_JS == 'en') {
+      document.getElementById("Organization_h4").innerHTML = "Organization - "+ li;
+    } else {
+      document.getElementById("Organization_h4").innerHTML = "Организация - "+ li;
+    }
+
   });
 });
 
@@ -629,6 +635,44 @@ function toComeInButtonProducts(obj) /** Продукт_Обработчик к�
   }];
   localStorage.setItem('TMR::rememberedAdminProducts', JSON.stringify(itemsArray));
   window.location.replace("indexAdminProducts.html");
+}
+
+function CallPrint()
+{    
+  // Create and insert new print section
+  var elem = document.getElementById("print-content");
+  var domClone = elem.cloneNode(true);
+  var $printSection = document.createElement("div");
+  $printSection.id = "printSection";
+  $printSection.appendChild(domClone);
+  document.body.insertBefore($printSection, document.body.firstChild);
+
+  window.print(); 
+
+  // Clean up print section for future use
+  var oldElem = document.getElementById("printSection");
+  if (oldElem != null) { oldElem.parentNode.removeChild(oldElem); } 
+                        //oldElem.remove() not supported by IE
+
+  return true;
+
+
+var element = $("#print-content"); // global variable
+var getCanvas; // global variable
+$('document').ready(function(){
+  html2canvas(element, {
+    onrendered: function (canvas) {
+      $("#previewImage").append(canvas);
+      getCanvas = canvas;
+    }
+  });
+});
+$("#download").on('click', function () {
+  var imgageData = getCanvas.toDataURL("image/png");
+  // Now browser starts downloading it instead of just showing it
+  var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+  $("#download").attr("download", "image.png").attr("href", newData);
+});
 }
 
 function quitButtonProducts(obj) /** Продукт_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */
