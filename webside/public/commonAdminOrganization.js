@@ -639,11 +639,9 @@ function toComeInButtonProducts(obj) /** Продукт_Обработчик к�
 
 function CallPrint()
 {    
+  var URL = "https://tmr-24.com/indexPrintSerialNumber.html?SN=00000002";
+  window.open(URL, '_blank');
 
-
-
-
-  
 }
 
 function quitButtonProducts(obj) /** Продукт_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */
