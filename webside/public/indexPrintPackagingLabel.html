@@ -1,0 +1,354 @@
+<html lang = "en">
+
+<head>
+  <meta charset = "utf-8">
+  <title>TMR Systems</title>
+  <!-- Barcode генерация штрихкода -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+  <!-- Layout styles -->
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <link href = "labels.css" rel = "stylesheet" type = "text/css">
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    width: 10.000000cm;
+    height: 10.000000cm;
+    }
+ 
+    .label{
+    margin: 0;
+    padding-top: 0.000000px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0.000000px;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    width: 9.800000cm;
+    height: 9.800000cm;
+
+    font-family: Century Gothic;
+    font-size: 9.000000px;
+    font-weight: bold;
+    float: left;
+    text-align: Left;
+    overflow: hidden;
+    }
+
+    .page-break  {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    display:block;
+    page-break-after:always;
+    }
+
+
+
+
+    .pharmacyLogo {
+    margin-left: 1.000000px;
+    margin-top: 1.000000px;
+    display: inline-block;
+    width:187.000000px;
+    height: 47.000000px;
+    }
+
+    .pharmacyBARCODE {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    text-align:  center;
+    width:180.000000px;
+    height: 110.000000px;
+    }
+
+    .textLine_1 {
+    margin-left: 1.000000px;
+    margin-top: 1.000000px;
+    display: inline-block;
+    text-align:  center;
+    font-size: 12.000000px;
+    width:180.000000px;
+    height: 34.000000px;  
+    }
+    .textLine_2 {
+    margin-left: 0.000000px;
+    margin-top: 0.000000px;
+    display: inline-block;
+    text-align:  center;
+    font-size: 9.000000px;
+    width:180.000000px;
+    height: 12.000000px;  
+    }
+    .textLine_3 {
+    margin-left: 0.000000px;
+    margin-top: 0.000000px;
+    display: inline-block;
+    text-align:  center;
+    font-size: 12.000000px;
+    width:362.000000px;
+    height: 36.000000px;  
+    }
+
+    .textBasement_1 {
+    margin-left: 1.000000px;
+    margin-top: 3.000000px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px; 
+    width:110.000000px;
+    height: 12.000000px;  
+    }
+    
+    .textBasement_2 {
+    margin-top: 3.000000px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  5px;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px; 
+    width:180.000000px;
+    height: 12.000000px;  
+    }
+    
+    .textBasement_3 {
+    margin-top: 3.000000px;
+    right: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  5px;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px; 
+    }
+
+    .textOptions_name  {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 11px;
+    }
+
+    .textOptions_value  {
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align: right;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 11px;
+    }
+
+    .pharmacyInfoBARCODE {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  center;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px;
+    }
+
+    .pharmacyInfoQRcode {
+    margin-top: 5px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  center;
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px;
+    }
+
+.bar-line {
+  display: flex;
+  padding: 1px;
+}
+
+.bar-line__left {
+  flex: 1;
+}
+
+.bar-line__right {
+  flex: 1;
+  margin-left: 0px;
+}
+  </style>
+
+</head>
+
+<body onload = "printFunction();">
+    <!-- <div class = "label">
+        <span class = "pharmacyBlock">
+          <p class = "pharmacyname">STORE PHARMACY</p>
+          <img src = "https://i.imgur.com/L1Zfjan.jpeg" class = "pharmacyLogo" />
+        </span>
+        <p class = "descriptionvalue">FLUANXOL 0.5MG X 60 TABS                                     </p>
+        <p class = "pricevalue">&euro;5.78</p>
+        <p class = "origindate">AGENT310321 VAT: 0% Inv: 487021</p>
+    </div>
+    <div class = "page-break"></div>
+ -->
+  <div class = "label">
+    <div class="bar-line">
+      <div class="bar-line__left">
+        <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="pharmacyLogo" alt="image">
+      </div>
+      <div class="bar-line__right">
+        <!-- <img src="https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180" class="pharmacyQRcode" alt="image"> -->
+        <b class="textLine_1 lang" key="products_add_comments"> Разработано и произведено в РОССИИ ООО "ОРКОР" </b>
+        <p class="textLine_2 lang" key="products_add_comments"> 248021 г.Калуга, ул.Московская д.184А </p>
+      </div>
+    </div>
+    <div class="bar-line">
+      <p class="textLine_3 lang" key="products_add_comments">Шкаф управления автоматизированным комплексом проецирования дорожной разметки АВРОРА-V серия V исполнение 1-1</p>
+    </div>
+    <div class="bar-line">
+      <div class="bar-line__left">
+        <svg id="barcode" class="pharmacyBARCODE"></svg>
+        <script>
+          JsBarcode("#barcode", "4631172281704", {
+            format: "EAN13",
+            lineColor: "#000",
+            width: 1,
+            height: 30,
+            displayValue: true,
+            fontSize: 30
+          });
+        </script>
+      </div>
+      <div class="bar-line__right">
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Срок службы</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Срок годности</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Дата изготовления</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Длина</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Ширина</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Высота</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textOptions_name lang" key="products_add_comments">Вес</p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bar-line">
+      <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2Fphoto_2024-04-02_13-40-44.jpg?alt=media&token=114a4876-7548-4f94-b744-c45fa6ee12c9" alt="image">
+    </div>
+    <div class="bar-line">
+      <div class="bar-line__left">
+        <div class="bar-line">
+          <div class="bar-line__left">
+            <p class="textBasement_1 lang" key="products_add_comments"> Изготовлен по ТУ </p>
+          </div>
+          <div class="bar-line__right">
+            <p class="textBasement_2 lang" key="products_add_comments"> 27.90.70-003-0101241526-2023 </p>
+          </div>
+        </div>
+    
+        <!-- <p class="pharmacyInfoQRcode lang" key="products_add_comments"> avrora-v.ru </p> -->
+      </div>
+      <div class="bar-line__right">
+        <p class="textBasement_3 lang" key="products_add_comments"> avrora-v.ru </p>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+  
+  <div class = "page-break"></div>
+
+
+    <script>
+    function printFunction() {
+      var r = confirm("Do you want to open the print dialouge now?");
+      if (r == true) {
+        window.print();;
+      } else {
+        // closes alert
+      }
+    }
+    </script>
+
+</body>
+
+</html>

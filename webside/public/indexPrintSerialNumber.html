@@ -1,0 +1,179 @@
+<html lang = "en">
+
+<head>
+  <meta charset = "utf-8">
+  <title>TMR Systems</title>
+  <!-- Barcode генерация штрихкода -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+  <!-- Layout styles -->
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <link href = "labels.css" rel = "stylesheet" type = "text/css">
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    width: 10.000000cm;
+    height: 5.000000cm;
+    }
+ 
+    .label{
+    margin: 0;
+    padding-top: 0.000000px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0.000000px;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    width: 9.800000cm;
+    height: 4.900000cm;
+
+    font-family: Century Gothic;
+    font-size: 9.000000px;
+    font-weight: bold;
+    float: left;
+    text-align: Left;
+    overflow: hidden;
+    }
+
+    .page-break  {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    display:block;
+    page-break-after:always;
+    }
+
+    .pharmacyLogo {
+    margin-left: 1.000000px;
+    margin-top: 1.000000px;
+    display: inline-block;
+    width:187.000000px;
+    height: 47.000000px;
+    }
+
+    .pharmacyBARCODE {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    text-align:  center;
+    width:182.000000px;
+    height: 126.000000px;
+    }
+
+    .pharmacyQRcode {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    text-align:  center;
+    width:170.000000px;
+    height: 170.000000px;
+    }
+
+    .pharmacyInfoBARCODE {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  center;
+
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px;
+    }
+
+    .pharmacyInfoQRcode {
+    margin-top: 5px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-align:  center;
+    display:block;
+    font-family: Century Gothic;
+    font-size: 12.000000px;
+    line-height: 5px;
+    }
+
+.bar-line {
+  display: flex;
+  padding: 1px;
+}
+
+.bar-line__left {
+  flex: 1;
+  width:196.000000px;
+  height: 196.000000px;
+}
+
+.bar-line__right {
+  flex: 1;
+  margin-left: 0px;
+  width:196.000000px;
+  height: 196.000000px;
+}
+  </style>
+
+</head>
+
+<body onload = "printFunction();">
+    <!-- <div class = "label">
+        <span class = "pharmacyBlock">
+          <p class = "pharmacyname">STORE PHARMACY</p>
+          <img src = "https://i.imgur.com/L1Zfjan.jpeg" class = "pharmacyLogo" />
+        </span>
+        <p class = "descriptionvalue">FLUANXOL 0.5MG X 60 TABS                                     </p>
+        <p class = "pricevalue">&euro;5.78</p>
+        <p class = "origindate">AGENT310321 VAT: 0% Inv: 487021</p>
+    </div>
+    <div class = "page-break"></div>
+ -->
+    <div class = "label">
+    <div class="bar-line">
+      <div class="bar-line__left">
+        <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="pharmacyLogo" alt="image">
+        <svg id="barcode" class="pharmacyBARCODE"></svg>
+        <script>
+          JsBarcode("#barcode", "00000001", {
+            format: "CODE39",
+            lineColor: "#000",
+            width: 1,
+            height: 74,
+            displayValue: true,
+            fontSize: 40
+          });
+        </script>
+        <p class="pharmacyInfoBARCODE lang" key="products_add_comments"> серийный номер </p>
+      </div>
+      <div class="bar-line__right">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180" class="pharmacyQRcode" alt="image">
+        <p class="pharmacyInfoQRcode lang" key="products_add_comments"> avrora-v.ru </p>
+      </div>
+    </div>
+  </div>
+  <div class = "page-break"></div>
+
+
+    <script>
+    function printFunction() {
+      var r = confirm("Do you want to open the print dialouge now?");
+      if (r == true) {
+        window.print();;
+      } else {
+        // closes alert
+      }
+    }
+    </script>
+
+</body>
+
+</html>
