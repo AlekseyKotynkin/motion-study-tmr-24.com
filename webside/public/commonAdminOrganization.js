@@ -25,6 +25,7 @@ var itemsPosition = [];
 var itemsProducts = [];
 var localStorageSubdivision = 0;
 var docRefFull = [];
+var ArraySerialNumber = [];
 var SN = "00000000";
 
 
@@ -77,6 +78,28 @@ docRef.get().then(function(doc) {
 
   });
 });
+
+/** Заполняем поле Серийного номера*/
+db.collection("SerialNumber").where("ProductsOrganizationId", "==", localStorageOrganizationId)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            var document = doc.data();
+            ArraySerialNumber= document.ArraySerialNumber;
+            var newASN = ArraySerialNumber.sort((a, b) => a - b);;
+            console.log(ArraySerialNumber);
+
+
+
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+
 
 function SignoutAdmin() /** Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts. */ 
 {
@@ -647,6 +670,30 @@ function CallPrint_SerialNumber()
   var url = new URL("https://tmr-24.com/indexPrintSerialNumber.html/?SN=00000000");
   url.searchParams.set('SN', SN);
   window.open(url, '_blank');
+}
+
+function addNewSerialNumber()
+{
+  var newSerialNumber = document.getElementById("newSerialNumber").value;
+  if (newSerialNumber.length === 7) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the eight-digit serial number.');
+    } else {
+      alert('Пожалуйста, введите серийный номер из восьми цифр.');
+    }
+    return;
+  }
+  var isDigitsOnly = /^\d+$/.test(newSerialNumber);
+  if (isDigitsOnly === false) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the eight-digit serial number.');
+    } else {
+      alert('Пожалуйста, введите серийный номер из восьми цифр.');
+    }
+    return;
+  }
+
+
 }
 
 function quitButtonProducts(obj) /** Продукт_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */

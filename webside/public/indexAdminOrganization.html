@@ -410,17 +410,12 @@
                     </div> -->
                     <div class="form-group">
                       <div class="input-group">
-                        <select id = "list_serial_number" class="form-control">
-                          <option>Электроник</option>
-                          <option>Сыроежкин</option>
-                          <option>Чижиков</option>
-                          <option>Кукушкина</option>
-                        </select>
-                        <!-- <input type="text" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2"> -->
+                        <input type="text" id="newSerialNumber" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                          <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button">+ Add Serial Number</button>
+                          <!-- <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSubdivisionSubmit()">Submit</button> -->
+                          <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button" onclick="addNewSerialNumber()">+ Add Serial Number</button>
                         </div>
-                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalNewSerialNumber">
+                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalPrintSerialNumber">
                           Label Printing
                         </button>
                       </div>
@@ -648,7 +643,7 @@
             </div>
           </div>
           <!-- Модальное окно вывод печатной формы Серийный номер. -->
-          <div id="gridSystemModalNewSerialNumber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div id="gridSystemModalPrintSerialNumber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
