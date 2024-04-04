@@ -639,7 +639,7 @@ function toComeInButtonProducts(obj) /** Продукт_Обработчик к�
   window.location.replace("indexAdminProducts.html");
 }
 
-function CallPrint()
+function CallPrint_SerialNumber()
 {  
   var SN = "00000002";
   // var URL = "https://tmr-24.com/indexPrintSerialNumber.html/?SN="+SN+"";
