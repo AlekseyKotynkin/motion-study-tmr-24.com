@@ -153,11 +153,13 @@
     <div class="bar-line">
       <div class="bar-line__left">
         <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="pharmacyLogo" alt="image">
-        <b class="pharmacyBARCODE lang" key="products_add_comments">ID_complex</b>
+        <b id = "text_IDComplex" class="pharmacyBARCODE lang" key="products_add_comments">ID_complex</b>
+        <script>
+          document.getElementById("text_IDComplex").innerText=ID_complex;
+        </script>
         <p class="pharmacyInfoBARCODE lang" key="products_add_comments"> ID комплекса </p>
       </div>
       <div class="bar-line__right">
-        <!-- <img src="https://api.qrserver.com/v1/create-qr-code/?data=0536&size=180x180" class="pharmacyQRcode" alt="image"> -->
         <img id="img_IDComplex" src="" class="pharmacyQRcode" alt="image">
         <script>
            document.getElementById("img_IDComplex").src=url_IDComplex;

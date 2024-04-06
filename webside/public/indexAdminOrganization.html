@@ -410,14 +410,37 @@
                     </div> -->
                     <div class="form-group">
                       <div class="input-group">
-                        <input type="text" id="newSerialNumber" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2">
+                        <input type="text" id="newSerialNumber" class="form-control"/>
                         <div class="input-group-append">
-                          <!-- <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSubdivisionSubmit()">Submit</button> -->
                           <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button" onclick="addNewSerialNumber()">+ Add Serial Number</button>
                         </div>
-                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalPrintSerialNumber">
-                          Label Printing
-                        </button>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_SerialNumber()">Label Printing</button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" id="newIDComplex" class="form-control"/>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button" onclick="addNewIDComplex()">+ Add ID Complex</button>
+                        </div>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IDComplex()">Label Printing</button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select id = "octet_3_select" class="form-control" name="select">
+                          <!--Supplement an id here instead of using 'name'-->
+                          <option class="text-dark" value="2">2</option>
+                          <option class="text-dark" value="3">3</option>
+                          <option class="text-dark" value="4">4</option>
+                          <!-- <option value="value3">5</option> -->
+                        </select>
+                        <i class="mdi mdi-sitemap"></i>
+                        <input type="text" id="newIPCamera_4octet" class="form-control"/>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-gradient-primary lang" key="add_serial_number" type="button" onclick="addNewIPCamera()">+ Add IP Camera</button>
+                        </div>
+                        <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IPCamera()">Label Printing</button>
                       </div>
                     </div>
                   </div>
@@ -643,7 +666,7 @@
             </div>
           </div>
           <!-- Модальное окно вывод печатной формы Серийный номер. -->
-          <div id="gridSystemModalPrintSerialNumber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+<!--           <div id="gridSystemModalPrintSerialNumber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -677,7 +700,7 @@
                                   <div style='text-align: center;'>
                                     <svg id="barcode"></svg>
                                     <script>
-                                      JsBarcode("#barcode", "00000001", {
+                                      JsBarcode("#barcode", SN, {
                                         format: "CODE39",
                                         lineColor: "#000",
                                         width: 1,
@@ -694,7 +717,12 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="col-6 pl-1">
-                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180" class="mw-170 w-170 rounded" alt="image">
+                                  <img id="img_qr" src="" class="mw-170 w-170 rounded" alt="image">
+                                  <script>
+                                     var url_qr = new URL("https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180");
+                                     url_qr.searchParams.set('data', SN);
+                                     document.getElementById("img_qr").src=url_qr;
+                                  </script>
                                 </div>
                                 <p class="text-center lang" key="products_add_comments"> avrora-v.ru </p>
                               </div>
@@ -708,6 +736,113 @@
               </div>
             </div>
           </div>
+ -->          <!-- Модальное окно вывод печатной формы ID комплекса (продукта). -->
+          <!-- <div id="gridSystemModalPrintIDComplex" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div id="print-content" class="card-body">
+                          <h4 class="card-description lang" key="label_printing">Label Printing</h4>
+                          <form class="forms-sample">
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IDComplex()">Print</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <form>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="form-row">
+                                  <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="mw-170 w-170 rounded" alt="image">
+                                </div>
+                                <div class="form-row">
+                                  <div style='    margin-left: auto;
+                                  margin-right: auto;
+                                  margin-top: 10px;
+                                  margin-bottom: 25px;
+                                  display: inline-block;
+                                  text-align:  center;
+                                  width:182.000000px;
+                                  height: 100.000000px;
+                                  font-size: 80px;'>
+                                    <b class="lang" key="products_add_comments">0536</b>
+                                  </div>
+                                </div>
+                                  <p class="text-center lang" key="products_add_comments"> ID комплекса </p>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="col-6 pl-1">
+                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=0536&size=180x180" class="mw-170 w-170 rounded" alt="image">
+                                </div>
+                                <p class="text-center lang" key="products_add_comments"> avrora-v.ru </p>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- Модальное окно вывод печатной формы IP камеры. -->
+          <!-- <div id="gridSystemModalPrintIPCamera" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div id="print-content" class="card-body">
+                          <h4 class="card-description lang" key="label_printing">Label Printing</h4>
+                          <form class="forms-sample">
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IPCamera()">Print</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <form>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="col-6 pl-1">
+                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=0536&size=180x180" class="mw-170 w-170 rounded" alt="image">
+                                </div>
+                                <p class="text-center lang" key="products_add_comments">2.101</p>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">

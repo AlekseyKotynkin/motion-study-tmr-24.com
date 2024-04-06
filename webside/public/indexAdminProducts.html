@@ -384,40 +384,30 @@
                   <div class="card-body">
                     <h4 id='Organization_h4' class="card-description lang" key="organization_name">Organization - </h4>
                     <h4 id='Products_h4' class="card-description lang" key="list_products">Products</h4>
-                    <div class="form-group">
-                      <div class="input-group">
-                        <select id = "list_serial_number" class="form-control">
-                          <option>Электроник</option>
-                          <option>Сыроежкин</option>
-                          <option>Чижиков</option>
-                          <option>Кукушкина</option>
-                        </select>
-                        <!-- <input type="text" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2"> -->
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-gradient-primary lang" key="add_id_products" type="button" data-toggle="modal" data-target="#gridSystemModalNewIDComplex">+ Add ID Complex</button>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalPrintIDComplex">
-                          Label Printing
-                        </button>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="input-group">
-                        <select id = "list_serial_number" class="form-control">
-                          <option>Электроник</option>
-                          <option>Сыроежкин</option>
-                          <option>Чижиков</option>
-                          <option>Кукушкина</option>
-                        </select>
-                        <!-- <input type="text" class="form-control" placeholder="Product serial number" aria-label="Product serial number" aria-describedby="basic-addon2"> -->
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-gradient-primary lang" key="add_id_products" type="button" data-toggle="modal" data-target="#gridSystemModalNewIPCamera">+ Add IP Camera</button>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-lg lang" key="label_printing" data-toggle="modal" data-target="#gridSystemModalPrintIPCamera">
-                          Label Printing
-                        </button>
-                      </div>
-                    </div>
+                    <h4 id='PackingPlaces_h4' class="card-description lang" key="list_packingPlaces">Packing Places</h4>
+                    <button type="button" class="btn btn-primary btn-lg lang" key="add_packing_places" data-toggle="modal" data-target="#gridSystemModalNewPackingPlaces">
+                      + Add Packing Places
+                    </button>
+                    <div class="table-responsive">
+                      <script type="text/javascript">createTablePackingPlaces()</script>
+                       <table id="list_packingPlaces"class="table">
+                         <thead>
+                           <tr>
+                             <th class="lang" key="title_packingPlaces"> Name of department head </th>
+                             <th class="lang" key="data"> Data </th>
+                             <th class="lang" key="head_unit"> Head of unit </th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                         </tbody>
+                       </table>
+                       <script>
+                         var container = document.getElementById("").getElementsByTagName("tbody")[0];
+                       </script>
+                   </div>
                     <h4 class="card-description lang" key="list_specificatio">Specificatio</h4>
                       <button type="button" class="btn btn-primary btn-lg lang" key="add_specificatio" data-toggle="modal" data-target="#gridSystemModalNewSpecificatio">
                         + Add Specificatio
@@ -719,115 +709,8 @@
               </div>
             </div>
           </div>
-          <!-- Модальное окно вывод печатной формы ID комплекса (продукта). -->
-          <div id="gridSystemModalPrintIDComplex" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div id="print-content" class="card-body">
-                          <h4 class="card-description lang" key="label_printing">Label Printing</h4>
-                          <form class="forms-sample">
-                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IDComplex()">Print</button>
-                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <form>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <div class="form-row">
-                                  <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="mw-170 w-170 rounded" alt="image">
-                                </div>
-                                <div class="form-row">
-                                  <div style='    margin-left: auto;
-                                  margin-right: auto;
-                                  margin-top: 10px;
-                                  margin-bottom: 25px;
-                                  display: inline-block;
-                                  text-align:  center;
-                                  width:182.000000px;
-                                  height: 100.000000px;
-                                  font-size: 80px;'>
-                                    <b class="lang" key="products_add_comments">0536</b>
-                                  </div>
-                                </div>
-                                  <p class="text-center lang" key="products_add_comments"> ID комплекса </p>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <div class="col-6 pl-1">
-                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=0536&size=180x180" class="mw-170 w-170 rounded" alt="image">
-                                </div>
-                                <p class="text-center lang" key="products_add_comments"> avrora-v.ru </p>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно вывод печатной формы IP камеры. -->
-          <div id="gridSystemModalPrintIPCamera" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div id="print-content" class="card-body">
-                          <h4 class="card-description lang" key="label_printing">Label Printing</h4>
-                          <form class="forms-sample">
-                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="print" onclick="CallPrint_IPCamera()">Print</button>
-                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <form>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <div class="col-6 pl-1">
-                                  <img src="https://api.qrserver.com/v1/create-qr-code/?data=0536&size=180x180" class="mw-170 w-170 rounded" alt="image">
-                                </div>
-                                <p class="text-center lang" key="products_add_comments">2.101</p>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно добавления IP_Camera. -->
-          <div id="gridSystemModalNewIPCamera" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <!-- Модальное окно регистрации Упаковочных мест. -->
+          <div id="gridSystemModalNewPackingPlaces" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -838,68 +721,38 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-description lang" key="add_subdivision">+ Add Subdivision</h4>
-                          <p class="card-description lang" key="create_account_subdivision"> Create a new subdivision account </p>
+                          <h4 class="card-description lang" key="add_packingPlaces">+ Add Packing Places</h4>
+                          <p class="card-description lang" key="create_packingPlaces"> Create a new Packing Places</p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionTitle" class="lang" key="subdivision">Subdivision</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionTitle" placeholder="Title">
+                              <label for="exampleInputModalPositionTitle" class="lang" key="packingPlaces_name">Name</label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionTitle" placeholder="Title">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionNameOfDepartamentHead" class="lang" key="name_department_head">Name of department head</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionNameOfDepartamentHead" placeholder="Name">
+                              <label for="exampleInputModalPositionСomment" class="lang" key="сomment">Сomment</label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionСomment" placeholder="Сomment">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionHeadOfUnit" class="lang" key="head_unit">Head of unit</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionHeadOfUnit" placeholder="Position">
+                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionSubdivisionOfYourManager" class="lang" key="email_unit">Email of unit</label>
-                              <input type="email" class="form-control" id="exampleInputModalSubdivisionSubdivisionOfYourManager" placeholder="Email" required="required">
-                            </div>
-                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewIPCameraSubmit()">Submit</button>
-                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Модальное окно добавления ID_Complex. -->
-          <div id="gridSystemModalNewIDComplex" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid bd-example-row">
-                    <div class="col-12 grid-margin stretch-card">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-description lang" key="">+ Add ID Complex</h4>
-                          <!-- <p class="card-description lang" key="create_account_subdivision"> Create a new subdivision account </p> -->
-                          <form class="forms-sample">
-                            <div class="form-group">
-                              <label for="exampleInputModalIDComplexTitle" class="lang" key="">ID Complex</label>
-                              <input type="text" class="form-control" id="ID_Complex" placeholder="ID Complex">
-                            </div>
-                            <!-- <div class="form-group">
-                              <label for="exampleInputModalSubdivisionNameOfDepartamentHead" class="lang" key="name_department_head">Name of department head</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionNameOfDepartamentHead" placeholder="Name">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
+                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionHeadOfUnit" class="lang" key="head_unit">Head of unit</label>
-                              <input type="text" class="form-control" id="exampleInputModalSubdivisionHeadOfUnit" placeholder="Position">
+                              <label for="exampleInputModalPositionСomment" class="lang" key="сomment">Сomment</label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionСomment" placeholder="Сomment">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalSubdivisionSubdivisionOfYourManager" class="lang" key="email_unit">Email of unit</label>
-                              <input type="email" class="form-control" id="exampleInputModalSubdivisionSubdivisionOfYourManager" placeholder="Email" required="required">
-                            </div> -->
-                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewIDComplexSubmit()">Submit</button>
+                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
+                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
+                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
+                            </div>
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewPackingPlacesSubmit()">Submit</button>
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>

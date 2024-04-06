@@ -25,10 +25,20 @@ var itemsPosition = [];
 var itemsProducts = [];
 var localStorageSubdivision = 0;
 var docRefFull = [];
+var doc_sn = "";
+var doc_idComplex = "";
+var doc_ipCamera = "";
+
 var ArraySerialNumber = [];
+var ArrayIDComplex = [];
+var ArrayIPCamera = [];
+
 var SN = "00000000";
+var ID_complex = "0000";
+var IP_camera = "000.000";
 
-
+const currentUrl_host = window.location.host;
+const currentUrl_protocol = window.location.protocol;
 
 /**
 * @return {string}
@@ -86,20 +96,66 @@ db.collection("SerialNumber").where("ProductsOrganizationId", "==", localStorage
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-            var document = doc.data();
-            ArraySerialNumber= document.ArraySerialNumber;
+            doc_sn = doc.id;
+            var doc_f = doc.data();
+            ArraySerialNumber= doc_f.ArraySerialNumber;
             var newASN = ArraySerialNumber.sort((a, b) => a - b);;
-            console.log(ArraySerialNumber);
-
-
-
+            var SN_l = newASN.length -1;
+            SN = newASN[SN_l];
+            document.getElementById("newSerialNumber").value = SN ;
+            console.log(SN);
         });
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
 
+/** Заполняем поле ID Complex*/
+db.collection("IDComplex").where("ProductsOrganizationId", "==", localStorageOrganizationId)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            doc_idComplex = doc.id;
+            var doc_f = doc.data();
+            ArrayIDComplex= doc_f.ArrayIDComplex;
+            var newASN = ArrayIDComplex.sort((a, b) => a - b);;
+            var SN_l = newASN.length -1;
+            ID_complex = newASN[SN_l];
+            document.getElementById("newIDComplex").value = ID_complex ;
+            console.log(ID_complex);
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
 
+/** Заполняем поле IP Camera*/
+db.collection("IPCamera").where("ProductsOrganizationId", "==", localStorageOrganizationId)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            doc_ipCamera = doc.id;
+            var doc_f = doc.data();
+            ArrayIPCamera= doc_f.ArrayIPCamera;
+            var newASN = ArrayIPCamera.sort((a, b) => a - b);;
+            var SN_l = newASN.length -1;
+            IP_camera = newASN[SN_l];
+            var arr = IP_camera.split('.', 3);
+            var octet_3 = arr[0];
+            var octet_4 = arr[1];
+            var select = document.querySelector('#octet_3_select');
+            select.value = octet_3;
+            document.getElementById("newIPCamera_4octet").value = octet_4 ;
+            console.log(IP_camera);
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
 
 function SignoutAdmin() /** Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts. */ 
 {
@@ -155,7 +211,7 @@ function gridSystemModalNewSubdivisionSubmit() /** Подразделения_р
     }
     return false;
   }
-  // Добавляем в коллекциию организации Подразделения и данные руководителя.
+  /**Добавляем в коллекциию организации Подразделения и данные руководителя.*/
   docRef.collection("Subdivision").add({
     Subdivision: subdivisionTitle,
     NameOfDepartmentHead: nameOfDepartmentHead,
@@ -664,10 +720,11 @@ function toComeInButtonProducts(obj) /** Продукт_Обработчик к�
 
 function CallPrint_SerialNumber()
 {  
-  var SN = "00000002";
-  // var URL = "https://tmr-24.com/indexPrintSerialNumber.html/?SN="+SN+"";
-  // window.open(URL, '_blank');
   var url = new URL("https://tmr-24.com/indexPrintSerialNumber.html/?SN=00000000");
+  if (currentUrl_host !== "tmr-24.com"){
+    url.host = currentUrl_host;
+    url.protocol = currentUrl_protocol;      
+  }
   url.searchParams.set('SN', SN);
   window.open(url, '_blank');
 }
@@ -692,8 +749,132 @@ function addNewSerialNumber()
     }
     return;
   }
+  var l = ArraySerialNumber.indexOf(newSerialNumber);
+  if (l !== -1 ){
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('This serial number already exists, please enter a different value.');
+    } else {
+      alert('Такой серийный номер уже существует, введите другое значение.');
+    }
+    return;
+  }
+  SN = newSerialNumber;
+  var washingtonRef = db.collection("SerialNumber").doc(doc_sn);
+  washingtonRef.update({
+    ArraySerialNumber: firebase.firestore.FieldValue.arrayUnion(newSerialNumber)
+  }); 
+  alert('Серийный номер успешно добавлен.');
 
+}
 
+/**
+* @return {string}
+*  Печать ID  продукта.
+*/
+function CallPrint_IDComplex()
+{  
+  var url_id = new URL("https://tmr-24.com/indexPrintIDComplex.html/?ID_complex=0000");
+  if (currentUrl_host !== "tmr-24.com"){
+    url_id.host = currentUrl_host;
+    url_id.protocol = currentUrl_protocol;      
+  }
+
+  url_id.searchParams.set('ID_complex', ID_complex);
+  window.open(url_id, '_blank');
+}
+
+/**
+* @return {string}
+*  Печать IP камеры.
+*/
+function CallPrint_IPCamera()
+{  
+  var url_ip = new URL("https://tmr-24.com/indexPrintIPCamera.html/?IP_camera=000.000");
+  if (currentUrl_host !== "tmr-24.com"){
+    url_ip.host = currentUrl_host;
+    url_ip.protocol = currentUrl_protocol;      
+  }
+  url_ip.searchParams.set('IP_camera', IP_camera);
+  window.open(url_ip, '_blank');
+}
+
+function addNewIDComplex()
+{
+  var newIDComplex = document.getElementById("newIDComplex").value;
+  if (newIDComplex.length === 3) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the eight-digit serial number.');
+    } else {
+      alert('Пожалуйста, введите серийный номер из четырех цифр.');
+    }
+    return;
+  }
+  var isDigitsOnly = /^\d+$/.test(newIDComplex);
+  if (isDigitsOnly === false) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the eight-digit serial number.');
+    } else {
+      alert('Пожалуйста, введите серийный номер из четырех цифр.');
+    }
+    return;
+  }
+  var l = ArrayIDComplex.indexOf(newIDComplex);
+  if (l !== -1 ){
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('This ID number already exists, please enter a different value.');
+    } else {
+      alert('Такой ID номер уже существует, введите другое значение.');
+    }
+    return;
+  }
+  ID_complex = newIDComplex;
+  var washingtonRef = db.collection("IDComplex").doc(doc_idComplex);
+  washingtonRef.update({
+    ArrayIDComplex: firebase.firestore.FieldValue.arrayUnion(newIDComplex)
+  });
+  alert('ID комплекса успешно добавлен.');
+}
+
+function addNewIPCamera()
+{
+  var select = document.getElementById("octet_3_select");
+  var newIPCamera_3octet = select.value;
+  var newIPCamera_4octet = document.getElementById("newIPCamera_4octet").value;
+  if (newIPCamera_4octet < 9 || newIPCamera_4octet > 256) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter a numeric value between 10 and 255.');
+    } else {
+      alert('Пожалуйста, введите цифровое значение в диапозоне от 10 до 255.');
+    }
+    return;
+  }
+
+  if (newIPCamera_4octet.length !== 3) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the IP in three-digit format.');
+    } else {
+      alert('Пожалуйста, введите IP в формате из трех цифр.');
+    }
+    return;
+  }
+
+  var newIPCamera_bloc = newIPCamera_3octet+'.'+newIPCamera_4octet ;
+  var l = ArrayIPCamera.indexOf(newIPCamera_bloc);
+  if (l !== -1 ){
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('This serial number already exists, please enter a different value.');
+    } else {
+      alert('Такой IP адрес уже существует, введите другое значение.');
+    }
+    return;
+  }
+
+  IP_camera = newIPCamera_bloc;
+  var washingtonRef = db.collection("IPCamera").doc(doc_ipCamera);
+  washingtonRef.update({
+    ArrayIPCamera: firebase.firestore.FieldValue.arrayUnion(newIPCamera_bloc)
+  });
+  alert('IP адрес успешно добавлен.');
 }
 
 function quitButtonProducts(obj) /** Продукт_Обработчик кнопки quitColumn из таблицы List Of Organizations In Which You Are Involved. */

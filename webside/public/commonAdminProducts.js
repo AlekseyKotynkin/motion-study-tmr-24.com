@@ -20,8 +20,6 @@ var db = firebase.firestore();
 //
 var items = [];
 var itemsPositionUser = [];
-var ID_complex = "0000";
-var IP_camera = "000.000";
 
 /**
 * @return {string}
@@ -102,8 +100,6 @@ docRefProducts.get().then(function (doc) /** Заполняем шапки та�
   });
 });
 
-
-
 /**
 * @return {string}
 *  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
@@ -131,32 +127,15 @@ function SignoutAdmin() /**Выход из личного кабинета и о
   });
 }
 
-
-
-
-
 /**
 * @return {string}
-*  Печать ID  продукта.
+*  Обработка модального окна Упаковочных мест.
 */
-function CallPrint_IDComplex()
-{  
-  var ID_complex = "0000";
-  var url_id = new URL("https://tmr-24.com/indexPrintIDComplex.html/?ID_complex=0000");
-  url_id.searchParams.set('ID_complex', ID_complex);
-  window.open(url_id, '_blank');
-}
+function gridSystemModalNewPackingPlacesSubmit() /** Обработка модального окна Регистрация Пользователя.*/
+{
 
-/**
-* @return {string}
-*  Печать IP камеры.
-*/
-function CallPrint_IPCamera()
-{  
-  var IP_camera = "000.000";
-  var url_ip = new URL("https://tmr-24.com/indexPrintIPCamera.html/?IP_camera=000.000");
-  url_ip.searchParams.set('IP_camera', IP_camera);
-  window.open(url_ip, '_blank');
+
+
 }
 
 /**
