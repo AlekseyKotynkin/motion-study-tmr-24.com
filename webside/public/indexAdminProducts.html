@@ -7,31 +7,30 @@
     <title>TMR Systems</title>
     <meta name="description" content="Товары и услуги для цифровизации 4.0 организации. Цифровизация включает в себя не столько CRM, ERP, MES и прочие системы структурирования процессов, сколько систему "прозрачности" всех производственных и торговых цепочек с их оптимизацией.">
     <meta name="keywords" content="E-commerce" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6T633WX1L0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-          <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-6T633WX1L0"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+      gtag('config', 'G-6T633WX1L0');
+    </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        gtag('config', 'G-6T633WX1L0');
-      </script>
-          <!-- Global site tag (gtag.js) - Google Analytics -->
-          <!-- Yandex.Metrika counter -->
-      <script type="text/javascript" >
-         (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-         m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-         ym(71309119, "init", {
-              clickmap:true,
-              trackLinks:true,
-              accurateTrackBounce:true
-         });
-      </script>
-      <noscript><div><img src="https://mc.yandex.ru/watch/71309119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-      <!-- /Yandex.Metrika counter -->
+        ym(71309119, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/71309119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -389,31 +388,27 @@
                       + Add Packing Places
                     </button>
                     <div class="table-responsive">
-                      <script type="text/javascript">createTablePackingPlaces()</script>
-                       <table id="list_packingPlaces"class="table">
-                         <thead>
-                           <tr>
-                             <th class="lang" key="title_packingPlaces"> Name of department head </th>
-                             <th class="lang" key="data"> Data </th>
-                             <th class="lang" key="head_unit"> Head of unit </th>
-                             <th></th>
-                             <th></th>
-                             <th></th>
-                           </tr>
-                         </thead>
-                         <tbody>
-                         </tbody>
-                       </table>
-                       <script>
-                         var container = document.getElementById("").getElementsByTagName("tbody")[0];
-                       </script>
-                   </div>
+                      <table id="list_packingPlaces"class="table">
+                        <thead>
+                          <tr>
+                            <th class="lang" key="title_packingPlaces"> Short Name </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                    <br>
+                    <br>
                     <h4 class="card-description lang" key="list_specificatio">Specificatio</h4>
                       <button type="button" class="btn btn-primary btn-lg lang" key="add_specificatio" data-toggle="modal" data-target="#gridSystemModalNewSpecificatio">
                         + Add Specificatio
                       </button>
                     <div class="table-responsive">
-                       <script type="text/javascript">createTableSpecificatio()</script>
+                       <!-- <script type="text/javascript">createTableSpecificatio()</script> -->
                         <table id="list_products_specificatio"class="table">
                           <thead>
                             <tr>
@@ -428,9 +423,9 @@
                           <tbody>
                           </tbody>
                         </table>
-                        <script>
+                        <!-- <script>
                           var container = document.getElementById("").getElementsByTagName("tbody")[0];
-                        </script>
+                        </script> -->
                     </div>
                   </div>
                 </div>
@@ -698,7 +693,7 @@
                               <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
                               <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
                             </div> -->
-                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewProducts()">Submit</button>
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSpecificatioSubmit()">Submit</button>
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>
@@ -726,31 +721,39 @@
                           <form class="forms-sample">
                             <div class="form-group">
                               <label for="exampleInputModalPositionTitle" class="lang" key="packingPlaces_name">Name</label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionTitle" placeholder="Title">
+                              <input type="text" class="form-control" id="PackingPlaces_Name" placeholder="Title">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionСomment" class="lang" key="сomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionСomment" placeholder="Сomment">
+                              <label for="exampleInputModalPositionTitle" class="lang" key="packingPlaces_nameLitl">Name Litl</label>
+                              <input type="text" class="form-control" id="PackingPlaces_NameLitl" placeholder="Title Litl">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
+                              <label for="exampleInputModalPositionСomment" class="lang" key="packingPlaces_сomment">Сomment</label>
+                              <input type="text" class="form-control" id="PackingPlaces_Comment" placeholder="Сomment">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
-                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
+                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="packingPlaces_barcode">Barcode</label>
+                              <input type="text" class="form-control" id="PackingPlaces_Barcode" placeholder="Barcode">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionСomment" class="lang" key="сomment">Сomment</label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionСomment" placeholder="Сomment">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="packingPlaces_length">Length</label>
+                              <input type="email" class="form-control" id="PackingPlaces_length" placeholder="Length" required="required">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
+                              <label for="exampleInputModalPositionСomment" class="lang" key="packingPlaces_width">Width</label>
+                              <input type="text" class="form-control" id="PackingPlaces_width" placeholder="Width">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
-                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
+                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="packingPlaces_height">Height</label>
+                              <input type="text" class="form-control" id="PackingPlaces_height" placeholder="Height">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="packingPlaces_weight">Weight</label>
+                              <input type="email" class="form-control" id="PackingPlaces_weight" placeholder="Weight" required="required">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalPositionOfManager" class="lang" key="packingPlaces_TU">Technical conditions</label>
+                              <input type="email" class="form-control" id="PackingPlaces_TU" placeholder="TU" required="required">
                             </div>
                             <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewPackingPlacesSubmit()">Submit</button>
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>

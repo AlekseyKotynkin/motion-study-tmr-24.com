@@ -234,7 +234,6 @@ function gridSystemModalNewSubdivisionSubmit() /** Подразделения_р
 }
 
 function createATableOfClientSubdivision() /** Подразделения_Получение данных для таблицы список Подразделений.*/
-
 {
   docRef.collection("Subdivision")
     .get()

@@ -3,6 +3,7 @@
 <head>
   <meta charset = "utf-8">
   <title>TMR Systems</title>
+
   <!-- Barcode генерация штрихкода -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
   <!-- Layout styles -->
@@ -52,9 +53,6 @@
     display:block;
     page-break-after:always;
     }
-
-
-
 
     .pharmacyLogo {
     margin-left: 1.000000px;
@@ -208,6 +206,18 @@
   margin-left: 0px;
 }
   </style>
+  </style>
+  <script type="text/javascript">
+    var url_string = document.URL;
+    var url = new URL(url_string);
+    var PackingPlaces_Barcode = url.searchParams.get("Barcode");
+    var PackingPlaces_Name = url.searchParams.get("Name");
+    var PackingPlaces_length = url.searchParams.get("length");
+    var PackingPlaces_width = url.searchParams.get("width");
+    var PackingPlaces_height = url.searchParams.get("height");
+    var PackingPlaces_weight = url.searchParams.get("weight");
+    var PackingPlaces_TU = url.searchParams.get("TU");
+  </script>
 
 </head>
 
@@ -217,7 +227,7 @@
           <p class = "pharmacyname">STORE PHARMACY</p>
           <img src = "https://i.imgur.com/L1Zfjan.jpeg" class = "pharmacyLogo" />
         </span>
-        <p class = "descriptionvalue">FLUANXOL 0.5MG X 60 TABS                                     </p>
+        <p class = "descriptionvalue">FLUANXOL 0.5MG X 60 TABS</p>
         <p class = "pricevalue">&euro;5.78</p>
         <p class = "origindate">AGENT310321 VAT: 0% Inv: 487021</p>
     </div>
@@ -229,19 +239,18 @@
         <img src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D1%81%D0%B5%D1%80%D1%8B%D0%B9.png?alt=media&token=929345b9-4cdd-414c-87e5-ff43aea90a5e" class="pharmacyLogo" alt="image">
       </div>
       <div class="bar-line__right">
-        <!-- <img src="https://api.qrserver.com/v1/create-qr-code/?data=00000001&size=180x180" class="pharmacyQRcode" alt="image"> -->
         <b class="textLine_1 lang" key="products_add_comments"> Разработано и произведено в РОССИИ ООО "ОРКОР" </b>
         <p class="textLine_2 lang" key="products_add_comments"> 248021 г.Калуга, ул.Московская д.184А </p>
       </div>
     </div>
     <div class="bar-line">
-      <p class="textLine_3 lang" key="products_add_comments">Шкаф управления автоматизированным комплексом проецирования дорожной разметки АВРОРА-V серия V исполнение 1-1</p>
+      <p id="PackingPlaces_Name" class="textLine_3 lang" key="products_add_comments">Шкаф управления автоматизированным комплексом проецирования дорожной разметки АВРОРА-V серия V исполнение 1-1</p>
     </div>
     <div class="bar-line">
       <div class="bar-line__left">
         <svg id="barcode" class="pharmacyBARCODE"></svg>
         <script>
-          JsBarcode("#barcode", "4631172281704", {
+          JsBarcode("#barcode", PackingPlaces_Barcode, {
             format: "EAN13",
             lineColor: "#000",
             width: 1,
@@ -257,7 +266,7 @@
             <p class="textOptions_name lang" key="products_add_comments">Срок службы</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p class="textOptions_value lang" key="products_add_comments"> 10 000 часов </p>
           </div>
         </div>
         <div class="bar-line">
@@ -265,7 +274,7 @@
             <p class="textOptions_name lang" key="products_add_comments">Срок годности</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p class="textOptions_value lang" key="products_add_comments"> 5 лет </p>
           </div>
         </div>
         <div class="bar-line">
@@ -273,7 +282,7 @@
             <p class="textOptions_name lang" key="products_add_comments">Дата изготовления</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p type="date" id="PackingPlaces_data" class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
           </div>
         </div>
         <div class="bar-line">
@@ -281,32 +290,36 @@
             <p class="textOptions_name lang" key="products_add_comments">Длина</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p  id="PackingPlaces_length" class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
           </div>
+          <p  class="textOptions_value lang" key="products_add_comments">мм.</p>
         </div>
         <div class="bar-line">
           <div class="bar-line__left">
             <p class="textOptions_name lang" key="products_add_comments">Ширина</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p  id="PackingPlaces_width" class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
           </div>
+          <p  class="textOptions_value lang" key="products_add_comments">мм.</p>
         </div>
         <div class="bar-line">
           <div class="bar-line__left">
             <p class="textOptions_name lang" key="products_add_comments">Высота</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p  id="PackingPlaces_height" class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
           </div>
+          <p  class="textOptions_value lang" key="products_add_comments">мм.</p>
         </div>
         <div class="bar-line">
           <div class="bar-line__left">
             <p class="textOptions_name lang" key="products_add_comments">Вес</p>
           </div>
           <div class="bar-line__right">
-            <p class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
+            <p  id="PackingPlaces_weight" class="textOptions_value lang" key="products_add_comments"> 27.90.70 </p>
           </div>
+          <p  class="textOptions_value lang" key="products_add_comments">кг.</p>
         </div>
       </div>
     </div>
@@ -320,25 +333,31 @@
             <p class="textBasement_1 lang" key="products_add_comments"> Изготовлен по ТУ </p>
           </div>
           <div class="bar-line__right">
-            <p class="textBasement_2 lang" key="products_add_comments"> 27.90.70-003-0101241526-2023 </p>
+            <p  id="PackingPlaces_TU" class="textBasement_2 lang" key="products_add_comments"> 27.90.70-003-0101241526-2023 </p>
           </div>
         </div>
-    
-        <!-- <p class="pharmacyInfoQRcode lang" key="products_add_comments"> avrora-v.ru </p> -->
       </div>
       <div class="bar-line__right">
         <p class="textBasement_3 lang" key="products_add_comments"> avrora-v.ru </p>
       </div>
     </div>
   </div>
-
-
   </div>
-  
   <div class = "page-break"></div>
 
 
     <script>
+      // заполняем дату в форме
+      var d = new Date();
+      date = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth()+1)).slice(-2) + "." + d.getFullYear();
+      document.getElementById("PackingPlaces_data").innerText = date;
+      document.getElementById("PackingPlaces_Name").innerText = PackingPlaces_Name;
+      document.getElementById("PackingPlaces_length").innerText = PackingPlaces_length;
+      document.getElementById("PackingPlaces_width").innerText = PackingPlaces_width;
+      document.getElementById("PackingPlaces_height").innerText = PackingPlaces_height;
+      document.getElementById("PackingPlaces_weight").innerText = PackingPlaces_weight;
+      document.getElementById("PackingPlaces_TU").innerText = PackingPlaces_TU;
+      
     function printFunction() {
       var r = confirm("Do you want to open the print dialouge now?");
       if (r == true) {

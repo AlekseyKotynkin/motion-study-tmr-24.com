@@ -21,6 +21,10 @@ var db = firebase.firestore();
 var items = [];
 var itemsPositionUser = [];
 
+const currentUrl_host = window.location.host;
+const currentUrl_protocol = window.location.protocol;
+
+
 /**
 * @return {string}
 *  Читаем параметры из localStorage 'firebaseui::rememberedAccounts'.
@@ -59,7 +63,7 @@ var documentDataProducts = [];
 * @return {string}
 *  Заполняем шапки табличных частей .
 */
-docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей .*/
+docRefOrganization.get().then(function (doc) /** Заполняем шапки табличных частей Организация.*/
 {
   if (doc.exists) {
     documentDataOrganization.push(doc.data());
@@ -80,17 +84,18 @@ docRefOrganization.get().then(function (doc) /** Заполняем шапки �
   });
 });
 
-docRefProducts.get().then(function (doc) /** Заполняем шапки табличных частей .*/ {
+docRefProducts.get().then(function (doc) /** Заполняем шапки табличных частей Продукт.*/
+{
   if (doc.exists) {
     documentDataProducts.push(doc.data());
   } else {
     console.log("No such document!");
   }
-}).catch(function (error) {
-  console.log("Error getting document:", error);
-}).finally(() => {
-  documentDataProducts;
-  documentDataProducts.forEach(item => {
+  }).catch(function (error) {
+    console.log("Error getting document:", error);
+  }).finally(() => {
+    documentDataProducts;
+    documentDataProducts.forEach(item => {
     nameProducts = item.ProductsTitle;
     if (translation_JS == null || translation_JS == 'en') {
       document.getElementById("Products_h4").innerHTML = "Products - "+ nameProducts;
@@ -100,10 +105,79 @@ docRefProducts.get().then(function (doc) /** Заполняем шапки та�
   });
 });
 
-/**
-* @return {string}
-*  Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.
-*/
+/** Заполняем табличную часть Упаковочные места.*/
+db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
+  .get()
+  .then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      items.push({ ...doc.data(), ...{ idPackingPlaces: doc.id } });
+    });
+
+  })
+  .catch(function (error) {
+    console.log("Error getting documents: ", error);
+  })
+  .finally(() => {
+    items;
+    items.forEach(item => {
+      var tr = document.createElement("tr");
+
+      var PackingPlaces_NameLitl = document.createElement('td');
+      PackingPlaces_NameLitl.innerHTML = item.PackingPlaces_NameLitl;
+
+      ////
+      var toComeInUserName = document.createElement('button');
+      if (translation_JS == null || translation_JS == 'en') {
+        toComeInUserName.innerHTML = "Prints";
+      } else {
+        toComeInUserName.innerHTML = "Печать";
+      }
+      toComeInUserName.className = 'badge badge-gradient-success';
+      toComeInUserName.id = item.idPackingPlaces;
+      // toComeInUserName.item = item.Subdivision;
+      toComeInUserName.setAttribute('onclick', 'toPrintidPackingPlaces(this)');
+
+      var toComeInUserColumn = document.createElement('td');
+      toComeInUserColumn.appendChild(toComeInUserName);
+      ////
+      var quitName = document.createElement('button');
+      if (translation_JS == null || translation_JS == 'en') {
+        quitName.innerHTML = "to Сhange";
+      } else {
+        quitName.innerHTML = "Изменить";
+      }
+      quitName.className = 'badge badge-gradient-warning';
+      quitName.id = item.idPackingPlaces;
+      quitName.setAttribute('onclick', 'to_changePackingPlaces(this)');
+
+      var quitColumn = document.createElement('td');
+      quitColumn.appendChild(quitName);
+      ////
+      var toСhangePackingPlace = document.createElement('button');
+      if (translation_JS == null || translation_JS == 'en') {
+        toСhangePackingPlace.innerHTML = "Quit";
+      } else {
+        toСhangePackingPlace.innerHTML = "Удалить";
+      }
+      toСhangePackingPlace.className = 'badge badge-gradient-danger';
+      toСhangePackingPlace.id = item.idPackingPlaces;
+      toСhangePackingPlace.setAttribute('onclick', 'quitPackingPlaces(this)');
+
+      var to_СhangePackingPlace = document.createElement('td');
+      to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+      ////
+      tr.appendChild(PackingPlaces_NameLitl);
+      tr.appendChild(toComeInUserColumn);
+      tr.appendChild(to_СhangePackingPlace);
+      tr.appendChild(quitColumn);
+      var container = document.getElementById("list_packingPlaces").getElementsByTagName("tbody")[0];
+      container.appendChild(tr);
+    });
+  });
+
+
+
+
 function SignoutAdmin() /**Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.*/
 {
   firebase.auth().signOut().then(function () {
@@ -127,15 +201,192 @@ function SignoutAdmin() /**Выход из личного кабинета и о
   });
 }
 
-/**
-* @return {string}
-*  Обработка модального окна Упаковочных мест.
-*/
-function gridSystemModalNewPackingPlacesSubmit() /** Обработка модального окна Регистрация Пользователя.*/
+function gridSystemModalNewPackingPlacesSubmit() /** Обработка модального окна добавить Упаковочное место.*/
+{
+  var PackingPlaces_Name = document.getElementById("PackingPlaces_Name").value;
+  if (PackingPlaces_Name.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the name of the packing place.');
+    } else {
+      alert("Пожалуйста введите наименование упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_NameLitl = document.getElementById("PackingPlaces_NameLitl").value;
+  if (PackingPlaces_NameLitl.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the abbreviated name of the packing place.');
+    } else {
+      alert("Пожалуйста введите сокращенное наименование упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_Comment = document.getElementById("PackingPlaces_Comment").value;
+
+  var PackingPlaces_Barcode = document.getElementById("PackingPlaces_Barcode").value;
+  if (PackingPlaces_Barcode.length !== 13) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the barcode of the packing place in the EAN13 format.');
+    } else {
+      alert("Пожалуйста введите штрих-код упаковочного места в формате EAN13.");
+    }
+    return;
+  }
+
+  var PackingPlaces_length = document.getElementById("PackingPlaces_length").value;
+  if (PackingPlaces_length.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the length of the packing place in millimeters.');
+    } else {
+      alert("Пожалуйста введите в миллиметрах длину упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_width = document.getElementById("PackingPlaces_width").value;
+  if (PackingPlaces_width.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the width of the packing place in millimeters.');
+    } else {
+      alert("Пожалуйста введите в миллиметрах ширину упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_height = document.getElementById("PackingPlaces_height").value;
+  if (PackingPlaces_height.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the height of the packing place in millimeters.');
+    } else {
+      alert("Пожалуйста введите в миллиметрах высоту упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_weight = document.getElementById("PackingPlaces_weight").value;
+  if (PackingPlaces_weight.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the weight of the packing place in millimeters.');
+    } else {
+      alert("Пожалуйста введите в миллиметрах вес упаковочного места.");
+    }
+    return;
+  }
+
+  var PackingPlaces_TU = document.getElementById("PackingPlaces_TU").value;
+  if (PackingPlaces_TU.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the number of the product manufacturing specifications.');
+    } else {
+      alert("Пожалуйста введите номер технических условий изготовления продукции.");
+    }
+    return;
+  }
+
+  db.collection("PackingPlaces").add({
+    ProductsOrganizationId: LocalStorageOrganizationId,  
+    ProductsId : LocalStorageProducts,   
+    PackingPlaces_Name: PackingPlaces_Name,
+    PackingPlaces_NameLitl: PackingPlaces_NameLitl,
+    PackingPlaces_Comment: PackingPlaces_Comment,
+    PackingPlaces_Barcode: PackingPlaces_Barcode,
+    PackingPlaces_length: PackingPlaces_length,
+    PackingPlaces_width: PackingPlaces_width,
+    PackingPlaces_height: PackingPlaces_height,
+    PackingPlaces_weight: PackingPlaces_weight,
+    PackingPlaces_TU: PackingPlaces_TU,
+  })
+  .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+    $('#gridSystemModalNewPackingPlaces').modal('toggle');
+    window.location.reload();
+  })
+  .catch((error) => {
+    console.error("Error adding document: ", error);
+    if (translation_JS == null || translation_JS == 'en') {
+      alert("Error adding document: ", error);
+    } else {
+      alert("Ошибка при добавлении документа: ", error);
+    }
+  });
+}
+
+function gridSystemModalNewSpecificatioSubmit() /** Обработка модального окна добавить Спецификацию.*/
 {
 
 
 
+}
+
+function toPrintidPackingPlaces(obj) // Обработчик кнопки из таблицы Упаковочное место - Печати этикетки.
+{
+  var objId = obj.id;
+  var docRef = db.collection("PackingPlaces").doc(objId);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        var PackingPlaces_Barcode = doc.data().PackingPlaces_Barcode;
+        var PackingPlaces_Name = doc.data().PackingPlaces_Name;
+        var PackingPlaces_length = doc.data().PackingPlaces_length;
+        var PackingPlaces_width = doc.data().PackingPlaces_width;
+        var PackingPlaces_height = doc.data().PackingPlaces_height;
+        var PackingPlaces_weight = doc.data().PackingPlaces_weight;
+        var PackingPlaces_TU = doc.data().PackingPlaces_TU;
+        var url = new URL("https://tmr-24.com/indexPrintPackagingLabel.html/?Barcode=00000000&Name=value2&length=value2&width=value2&height=value2&weight=value2&TU=value2");
+        if (currentUrl_host !== "tmr-24.com"){
+          url.host = currentUrl_host;
+          url.protocol = currentUrl_protocol;      
+        }
+        url.searchParams.set('Barcode', PackingPlaces_Barcode);
+        url.searchParams.set('Name', PackingPlaces_Name);
+        url.searchParams.set('length', PackingPlaces_length);
+        url.searchParams.set('width', PackingPlaces_width);
+        url.searchParams.set('height', PackingPlaces_height);
+        url.searchParams.set('weight', PackingPlaces_weight);
+        url.searchParams.set('TU', PackingPlaces_TU);
+        window.open(url, '_blank');
+
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+}
+
+function quitPackingPlaces(obj)/** Обработчик кнопки из таблицы Упаковочное место - удалить.*/
+{
+  var objId = obj.id;
+  if (translation_JS == null || translation_JS == 'en') {
+    alert('The feature is in development!' + (objId));
+  } else {
+    alert('Функция в разработке!' + (objId));
+  }
+  // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function () {
+  //   console.log("Document successfully deleted!");
+  //   window.location.reload();
+  // }).catch(function (error) {
+  //   console.error("Error removing document: ", error);
+  // });
+}
+
+function to_changePackingPlaces(obj)/** Обработчик кнопки из таблицы Упаковочное место - изменить.*/
+{
+  var objId = obj.id;
+  if (translation_JS == null || translation_JS == 'en') {
+    alert('The feature is in development!' + (objId));
+  } else {
+    alert('Функция в разработке!' + (objId));
+  }
+  // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function () {
+  //   console.log("Document successfully deleted!");
+  //   window.location.reload();
+  // }).catch(function (error) {
+  //   console.error("Error removing document: ", error);
+  // });
 }
 
 /**
