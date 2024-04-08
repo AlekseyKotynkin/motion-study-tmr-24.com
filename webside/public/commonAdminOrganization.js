@@ -719,7 +719,7 @@ function toComeInButtonProducts(obj) /** Продукт_Обработчик к�
 
 function CallPrint_SerialNumber()
 {  
-  var url = new URL("https://tmr-24.com/indexPrintSerialNumber.html/?SN=00000000");
+  var url = new URL("https://tmr-24.com/indexPrintSerialNumber.html?SN=00000000");
   if (currentUrl_host !== "tmr-24.com"){
     url.host = currentUrl_host;
     url.protocol = currentUrl_protocol;      
@@ -772,7 +772,7 @@ function addNewSerialNumber()
 */
 function CallPrint_IDComplex()
 {  
-  var url_id = new URL("https://tmr-24.com/indexPrintIDComplex.html/?ID_complex=0000");
+  var url_id = new URL("https://tmr-24.com/indexPrintIDComplex.html?ID_complex=0000");
   if (currentUrl_host !== "tmr-24.com"){
     url_id.host = currentUrl_host;
     url_id.protocol = currentUrl_protocol;      
@@ -788,7 +788,7 @@ function CallPrint_IDComplex()
 */
 function CallPrint_IPCamera()
 {  
-  var url_ip = new URL("https://tmr-24.com/indexPrintIPCamera.html/?IP_camera=000.000");
+  var url_ip = new URL("https://tmr-24.com/indexPrintIPCamera.html?IP_camera=000.000");
   if (currentUrl_host !== "tmr-24.com"){
     url_ip.host = currentUrl_host;
     url_ip.protocol = currentUrl_protocol;      

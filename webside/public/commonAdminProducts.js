@@ -334,7 +334,7 @@ function toPrintidPackingPlaces(obj) // Обработчик кнопки из �
         var PackingPlaces_height = doc.data().PackingPlaces_height;
         var PackingPlaces_weight = doc.data().PackingPlaces_weight;
         var PackingPlaces_TU = doc.data().PackingPlaces_TU;
-        var url = new URL("https://tmr-24.com/indexPrintPackagingLabel.html/?Barcode=00000000&Name=value2&length=value2&width=value2&height=value2&weight=value2&TU=value2");
+        var url = new URL("https://tmr-24.com/indexPrintPackagingLabel.html?Barcode=00000000&Name=value2&length=value2&width=value2&height=value2&weight=value2&TU=value2");
         if (currentUrl_host !== "tmr-24.com"){
           url.host = currentUrl_host;
           url.protocol = currentUrl_protocol;      
