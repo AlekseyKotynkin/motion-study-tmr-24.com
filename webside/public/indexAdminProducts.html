@@ -334,43 +334,6 @@
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
               </a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/icons/mdi.html">
-                <span class="menu-title">Icons</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/forms/basic_elements.html">
-                <span class="menu-title">Forms</span>
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-title">Charts</span>
-                <i class="mdi mdi-chart-bar menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/tables/basic-table.html">
-                <span class="menu-title">Tables</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
-              </a>
-            </li> -->
           </ul>
         </nav>
         <!-- partial -->
@@ -431,93 +394,195 @@
                 </div>
               </div>
             </div>
-            <!-- Окно выбора Подразделения. -->
-            <!-- <div class="row" id = "indexAdminOrganization_Monitor_ListSubdivision">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div id='headerTableSubdivision' class="card-body">
-                    <h4 class="card-description lang" key="list_subdivision_organization">List of subdivision in your organization - </h4>
-                      <button type="button" class="btn btn-primary btn-lg lang" key="add_subdivision" data-toggle="modal" data-target="#gridSystemModalNewSubdivision">
-                        + Add Subdivision
-                      </button>
-                    <div class="table-responsive">
-                        <script type="text/javascript">createATableOfClientSubdivision()</script>
-                        <table id="tableSubdivision"class="table">
-                          <thead>
-                            <tr>
-                              <th class="lang" key="subdivision"> Subdivision </th>
-                              <th class="lang" key="name_department_head"> Name of department head </th>
-                              <th class="lang" key="head_unit"> Head of unit </th>
-                              <th class="lang" key="number_employees"> The number of employees </th>
-                              <th></th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                        </table>
-                        <script>
-                          var container = document.getElementById("tableSubdivision").getElementsByTagName("tbody")[0];
-                        </script>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-             <!-- Окно доступных датчиков -->
-            <!-- <div class="row" id = "indexAdminOrganization_Monitor_ListSensors">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div id="headerTableListSensors" class="card-body">
-                    <h4 class="card-description lang" key="list_position_subdivision_ListSensors">List of sensors in your organization - Select organization</h4>
-                    <div class="table-responsive">
-                      <table id="tableListSensors"class="table">
-                        <thead>
-                          <tr>
-                            <th class="lang" key="organization"> Organization </th>
-                            <th class="lang" key="subdivision"> Subdivision </th>
-                            <th class="lang" key="MAC_controller"> MAC controller </th>
-                            <th class="lang" key="ID_controller"> ID controller </th>
-                            <th class="lang" key="name_controller"> Name controller</th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                          <tbody>
-                          </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <!-- Окно список продукции организации. -->
+            <!-- Окно бизнес разделов организации. -->
             <div class="row">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Basic input groups</h4>
+                    <p class="card-description"> Basic bootstrap input groups </p>
+                    <div class="col-md-4 grid-margin stretch-card">
+                      <ul class="tree">
+                        <li>
+                          <details open>
+                            <summary>Уровень 1</summary>
+                            <ul>
+                              <li>
+                                <details>
+                                  <summary>Газовые</summary>
+                                  <ul>
+                                    <li>
+                                      <details>
+                                        <summary>Газовые</summary>
+                                        <ul>
+                                          <li onclick="">Юпитер</li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="index.html">
+                                              <span class="menu-title lang" key="home_page">Home page</span>
+                                              <i class="mdi mdi-home menu-icon"></i>
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a class="nav-link" href="index.html">
+                                              Home page test
+                                            </a>
+                                          </li>
+
+                                          <li >Admin monitor</li>
+                                          <li>
+                                            <a class="nav-link lang" key="admin_monitor" href="pages/charts/adminMonitorTMR.html">Admin monitor</a>
+                                          </li>
+                                          <li class="nav-item"><a class="nav-link lang" key="admin_monitor" href="pages/charts/adminMonitorTMR.html">Admin monitor</a></li>
+                                          <li>Сатурн</li>
+                                        </ul>
+                                      </details>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" href="index.html">
+                                        <span class="menu-title lang" key="home_page">Home page</span>
+                                        <i class="mdi mdi-home menu-icon"></i>
+                                      </a>
+                                    </li>
+                                    <li class="nav">Admin monitor</li>
+                                    <li class="nav-item"><a class="nav-link lang" key="admin_monitor" href="pages/charts/adminMonitorTMR.html">Admin monitor</a></li>
+                                    <li class="nav-item"><a class="nav-link lang" key="admin_monitor" href="pages/charts/adminMonitorTMR.html">Admin monitor</a></li>
+                                    <li>Сатурн</li>
+                                  </ul>
+                                </details>
+                              </li>
+                              <li>
+                                <details>
+                                  <summary>Ледяные</summary>
+                                  <ul>
+                                    <li>Уран</li>
+                                    <li>Нептун</li>
+                                  </ul>
+                                </details>
+                              </li>
+                            </ul>
+                          </details>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Checkbox Controls</h4>
+                    <p class="card-description">Checkbox and radio controls (default appearance is in primary color)</p>
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input"> Default </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Checked </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" disabled> Disabled </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" disabled checked> Disabled checked </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> Default </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked> Selected </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" disabled> Disabled </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" disabled checked> Selected and disabled </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-description">Add class <code>.form-check-{color}</code> for checkbox and radio controls in theme colors</p>
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="form-check form-check-primary">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Primary </label>
+                            </div>
+                            <div class="form-check form-check-success">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Success </label>
+                            </div>
+                            <div class="form-check form-check-info">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Info </label>
+                            </div>
+                            <div class="form-check form-check-danger">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Danger </label>
+                            </div>
+                            <div class="form-check form-check-warning">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" checked> Warning </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="form-check form-check-primary">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ExampleRadio1" id="ExampleRadio1" checked> Primary </label>
+                            </div>
+                            <div class="form-check form-check-success">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ExampleRadio2" id="ExampleRadio2" checked> Success </label>
+                            </div>
+                            <div class="form-check form-check-info">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ExampleRadio3" id="ExampleRadio3" checked> Info </label>
+                            </div>
+                            <div class="form-check form-check-danger">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ExampleRadio4" id="ExampleRadio4" checked> Danger </label>
+                            </div>
+                            <div class="form-check form-check-warning">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ExampleRadio5" id="ExampleRadio5" checked> Warning </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- Окно список продукции организации. -->
+            <!-- <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div  id='headerTableProducts' class="card-body">
                     <h4 class="card-description lang" key="list_products">Products</h4>
-                      <!-- <button type="button" class="btn btn-primary btn-lg lang" key="add_products" data-toggle="modal" data-target="#gridSystemModalNewProducts">
-                        + Add Products
-                      </button> -->
-                    <!-- <div class="table-responsive">
-                        <script type="text/javascript">createTableProducts()</script>
-                        <table id="tableProducts"class="table">
-                          <thead>
-                            <tr>
-                              <th class="lang" key="products_name"> Name Products </th>
-                              <th class="lang" key="products_comments"> Comments </th>
-                              <th class="lang" key="products_1"></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                        </table>
-                    </div> -->
-
+                    <div class="col-md-4 grid-margin stretch-card">
                     <ul class="tree">
                       <li>
                         <details open>
@@ -571,11 +636,11 @@
                         </details>
                       </li>
                     </ul>
-
+                  </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <!-- content-wrapper ends -->
           <!-- Модальное окно регистрации Подразделения. -->
