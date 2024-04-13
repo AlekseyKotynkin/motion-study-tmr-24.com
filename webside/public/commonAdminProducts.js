@@ -19,6 +19,9 @@ var translation_JS = localStorage.getItem('TMR::translation');
 var db = firebase.firestore();
 //
 var items = [];
+var items_packingPlaces = [];
+var items_specificatio = [];
+
 var itemsPositionUser = [];
 
 const currentUrl_host = window.location.host;
@@ -110,7 +113,7 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
   .get()
   .then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-      items.push({ ...doc.data(), ...{ idPackingPlaces: doc.id } });
+      items_packingPlaces.push({ ...doc.data(), ...{ idPackingPlaces: doc.id } });
     });
 
   })
@@ -118,8 +121,8 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
     console.log("Error getting documents: ", error);
   })
   .finally(() => {
-    items;
-    items.forEach(item => {
+    items_packingPlaces;
+    items_packingPlaces.forEach(item => {
       var tr = document.createElement("tr");
 
       var PackingPlaces_NameLitl = document.createElement('td');
@@ -175,8 +178,85 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
     });
   });
 
+/** Заполняем табличную часть Спецификация.*/
+db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
+  .get()
+  .then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      items_specificatio.push({ ...doc.data(), ...{ idSpecifications: doc.id } });
+    });
 
+  })
+  .catch(function (error) {
+    console.log("Error getting documents: ", error);
+  })
+  .finally(() => {
+    items_specificatio;
+    items_specificatio.forEach(item => {
+      var tr = document.createElement("tr");
 
+      var Specificatio_CreationTime = document.createElement('td');
+      var Specificatio_CreationTime_local = item.Specificatio_CreationTime;
+      var d = new Date(Specificatio_CreationTime_local.toDate());;
+      date = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth()+1)).slice(-2) + "." + d.getFullYear();
+      var processUserStartTime_mapChartjs = date;
+      Specificatio_CreationTime.innerHTML = processUserStartTime_mapChartjs;
+      ////
+      var Specificatio_Name = document.createElement('td');
+      Specificatio_Name.innerHTML = item.Specificatio_Name;
+      ////
+      var Specificatio_Status = document.createElement('td');
+      Specificatio_Status.innerHTML = item.Specificatio_Status;
+      ////
+      // var toComeInUserName = document.createElement('button');
+      // if (translation_JS == null || translation_JS == 'en') {
+      //   toComeInUserName.innerHTML = "Prints";
+      // } else {
+      //   toComeInUserName.innerHTML = "Печать";
+      // }
+      // toComeInUserName.className = 'badge badge-gradient-success';
+      // toComeInUserName.id = item.idSpecifications;
+      // // toComeInUserName.item = item.Subdivision;
+      // toComeInUserName.setAttribute('onclick', 'toPrintidPackingPlaces(this)');
+
+      // var toComeInUserColumn = document.createElement('td');
+      // toComeInUserColumn.appendChild(toComeInUserName);
+      ////
+      var quitName = document.createElement('button');
+      if (translation_JS == null || translation_JS == 'en') {
+        quitName.innerHTML = "to Сhange";
+      } else {
+        quitName.innerHTML = "Изменить";
+      }
+      quitName.className = 'badge badge-gradient-warning';
+      quitName.id = item.idSpecifications;
+      quitName.setAttribute('onclick', 'to_changePackingPlaces(this)');
+
+      var quitColumn = document.createElement('td');
+      quitColumn.appendChild(quitName);
+      ////
+      var toСhangePackingPlace = document.createElement('button');
+      if (translation_JS == null || translation_JS == 'en') {
+        toСhangePackingPlace.innerHTML = "Quit";
+      } else {
+        toСhangePackingPlace.innerHTML = "Удалить";
+      }
+      toСhangePackingPlace.className = 'badge badge-gradient-danger';
+      toСhangePackingPlace.id = item.idSpecifications;
+      toСhangePackingPlace.setAttribute('onclick', 'quitPackingPlaces(this)');
+
+      var to_СhangePackingPlace = document.createElement('td');
+      to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+      ////
+      tr.appendChild(Specificatio_CreationTime);
+      tr.appendChild(Specificatio_Name);
+      tr.appendChild(Specificatio_Status);
+      tr.appendChild(quitColumn);
+      tr.appendChild(to_СhangePackingPlace);
+      var container_specificatio = document.getElementById("list_products_specificatio").getElementsByTagName("tbody")[0];
+      container_specificatio.appendChild(tr);
+    });
+  });
 
 function SignoutAdmin() /**Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.*/
 {
@@ -315,8 +395,49 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
 
 function gridSystemModalNewSpecificatioSubmit() /** Обработка модального окна добавить Спецификацию.*/
 {
+  var Specificatio_Name = document.getElementById("exampleInputModalSpecificatioTitle").value;
+  if (Specificatio_Name.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the name of the specificatio.');
+    } else {
+      alert("Пожалуйста введите наименование спецификации.");
+    }
+    return;
+  }
+  var Specificatio_Status = "";
+  const form_1 = document.getElementById("specificatio_аctive");
+  if(form_1.checked === true){
+    Specificatio_Status = form_1.value;
+  }
+  const form_2 = document.getElementById("specificatio_no_аctive");
+  if(form_2.checked === true){
+    Specificatio_Status = form_2.value;
+  }
+  const form_3 = document.getElementById("specificatio_under_development");
+  if(form_3.checked === true){
+    Specificatio_Status = form_3.value;
+  }
+  var Specificatio_CreationTime = firebase.firestore.FieldValue.serverTimestamp();
+  db.collection("Specifications").add({
+    ProductsId : LocalStorageProducts,   
+    Specificatio_Name: Specificatio_Name,
+    Specificatio_Status: Specificatio_Status,
+    Specificatio_CreationTime: Specificatio_CreationTime,
 
-
+  })
+  .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+    $('#gridSystemModalNewSpecificatio').modal('toggle');
+    window.location.reload();
+  })
+  .catch((error) => {
+    console.error("Error adding document: ", error);
+    if (translation_JS == null || translation_JS == 'en') {
+      alert("Error adding document: ", error);
+    } else {
+      alert("Ошибка при добавлении документа: ", error);
+    }
+  });
 
 }
 

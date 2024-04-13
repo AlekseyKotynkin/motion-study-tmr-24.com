@@ -354,8 +354,8 @@
                       <table id="list_packingPlaces"class="table">
                         <thead>
                           <tr>
-                            <th class="lang" key="title_packingPlaces"> Short Name </th>
-                            <th></th>
+                            <th class="lang" key="short_name">Short Name</th>
+                            <th class="lang" key="print_lebel">Print</th>
                             <th></th>
                             <th></th>
                           </tr>
@@ -377,8 +377,8 @@
                             <tr>
                               <th class="lang" key="data"> Data </th>
                               <th class="lang" key="title_specificatio"> Name of department head </th>
-                              <th class="lang" key="head_unit"> Head of unit </th>
-                              <th class="lang" key="number_employees"> The number of employees </th>
+                              <th class="lang" key="active"> Active </th>
+                              <th></th>
                               <th></th>
                               <th></th>
                             </tr>
@@ -399,13 +399,13 @@
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Basic input groups</h4>
-                    <p class="card-description"> Basic bootstrap input groups </p>
+                    <h4 class="card-title lang" key = "specification_tree">Specification tree</h4>
+                    <p class="card-description lang" key = "specification_tree_title"> Unfold the composition of the wood product </p>
                     <div class="col-md-4 grid-margin stretch-card">
                       <ul class="tree">
                         <li>
                           <details open>
-                            <summary>Уровень 1</summary>
+                            <summary style="display: inline-block; width: 600px;" onclick="testOpen()">ПАК АВРОРА-V, с-V, м-7, исп. 1-1</summary>
                             <ul>
                               <li>
                                 <details>
@@ -470,97 +470,95 @@
               <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Checkbox Controls</h4>
-                    <p class="card-description">Checkbox and radio controls (default appearance is in primary color)</p>
+                    <h4 class="card-title lang" key="selected_details">Selected details:</h4>
+                    <p class="card-description lang" key="appearance">Appearance -</p>
                     <form>
                       <div class="row">
                         <div class="col-md-3">
                           <div style="display: inline-block;">
-                            <img style="width: 200px; height: 200px;" src="/photo/low.jpg"></img>
+                            <img style="width: 200px; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9B%D0%B5%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=a3489774-ea2c-4513-ac36-7fbf3c0ef6ca"></img>
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <!-- <div class="form-group"> -->
-                            <!-- <div class="card"> -->
-                              <!-- <div class="card-body"> -->
-                              <div class="table-responsive">
-                              <table id="list_test"class="table">
-                                <thead>
-                                  <tr>
-                                    <th class="lang" key="title_packingPlaces"> Short Name </th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                              </table>
-                            </div>
+                          <p class="card-description lang" key="routing">Routing:</p>
+                            <div class="table-responsive">
+                            <table id="list_test"class="table">
+                              <thead>
+                                <tr>
+                                  <th>№</th>
+                                  <th class="lang" key="item">Item</th>
+                                  <th class="lang" key="short_description">Short description</th>
+                                  <th class="lang" key="lead_time">Lead time</th>
+                                  <th class="lang" key="training_video">Training video</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <p class="card-description lang" key="full_description">Full description</p>
+                          <output name="full_description">пока так</output>
                         </div>
                       </div>
                     </form>
                   </div>
                   <div class="card-body">
-                    <!-- <h4 class="card-title">Checkbox Controls</h4> -->
-                    <p class="card-description">Checkbox and radio controls (default appearance is in primary color)</p>
+                    <p class="card-description lang" key="required_components">Required components:</p>
                     <form>
                       <div class="row">
                         <div class="col-md-3">
                           <div style="display: inline-block;">
-                            <img style="width: 200px; height: 200px;" src="/photo/low.jpg"></img>
+                            <img style="width: 200px; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa"></img>
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <!-- <div class="form-group"> -->
-                            <!-- <div class="card"> -->
-                              <!-- <div class="card-body"> -->
-                              <div class="table-responsive">
-                              <table id="list_test"class="table">
-                                <thead>
-                                  <tr>
-                                    <th class="lang" key="title_packingPlaces"> Short Name </th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                              </table>
-                            </div>
+                          <div class="table-responsive">
+                            <table id="list_test"class="table">
+                              <thead>
+                                <tr>
+                                  <th>№</th>
+                                  <th class="lang" key="short_name">Short Name</th>
+                                  <th class="lang" key="unit">Unit</th>
+                                  <th class="lang" key="quantity">Quantity</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </form>
                   </div>
                   <div class="card-body">
-                    <!-- <h4 class="card-title">Checkbox Controls</h4> -->
-                    <p class="card-description">Checkbox and radio controls (default appearance is in primary color)</p>
+                    <p class="card-description lang" key="required_tools">Required tools:</p>
                     <form>
                       <div class="row">
                         <div class="col-md-3">
                           <div style="display: inline-block;">
-                            <img style="width: 200px; height: 200px;" src="/photo/low.jpg"></img>
+                            <img style="width: 200px; height: 200px;" src="https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa"></img>
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <!-- <div class="form-group"> -->
-                            <!-- <div class="card"> -->
-                              <!-- <div class="card-body"> -->
-                              <div class="table-responsive">
-                              <table id="list_test"class="table">
-                                <thead>
-                                  <tr>
-                                    <th class="lang" key="title_packingPlaces"> Short Name </th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                              </table>
-                            </div>
+                          <div class="table-responsive">
+                            <table id="list_test"class="table">
+                              <thead>
+                                <tr>
+                                  <th>№</th>
+                                  <th class="lang" key="short_name">Short Name</th>
+                                  <th class="lang" key="unit">Unit</th>
+                                  <th class="lang" key="quantity">Quantity</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </form>
@@ -787,25 +785,34 @@
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-description lang" key="products_add">+ Add Products</h4>
-                          <p class="card-description lang" key="products_add_comments"> Create a new products </p>
+                          <h4 class="card-description lang" key="specificatio_add">+ Add Specificatio</h4>
+                          <p class="card-description lang" key="specificatio_add_comments"> Create a new specificatio </p>
                           <form class="forms-sample">
                             <div class="form-group">
-                              <label for="exampleInputModalProductsTitle" class="lang" key="products_name">Name Products</label>
-                              <input type="text" class="form-control" id="exampleInputModalProductsTitle" placeholder="Title">
+                              <label for="exampleInputModalSpecificatioTitle" class="lang" key="specificatio_name">Name Specificatio</label>
+                              <input type="text" class="form-control" id="exampleInputModalSpecificatioTitle" placeholder="Title">
                             </div>
                             <div class="form-group">
-                              <label for="exampleInputModalProductsСomment" class="lang" key="products_сomment">Сomments</label>
-                              <input type="text" class="form-control" id="exampleInputModalProductsСomment" placeholder="Сomment">
+                              <label for="exampleInputModalSpecificatioСomment" class="lang" key="specificatio_аctive">Active</label>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group" id="specificatio_check">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="specificatio_аctive" name="optionsRadios" id="specificatio_аctive" value="Active" checked> Active <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="specificatio_no_аctive" name="optionsRadios" id="specificatio_no_аctive" value="Not Active"> Not Active <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="specificatio_under_development" name="optionsRadios" id="specificatio_under_development" value="Under development"> Under development <i class="input-helper"></i></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            <!-- <div class="form-group">
-                              <label for="exampleInputModalPositionOfManagerName" class="lang" key="name_manager"> Managers name </label>
-                              <input type="text" class="form-control" id="exampleInputModalPositionOfManagerName" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputModalPositionOfManager" class="lang" key="email_unit"> Email of unit </label>
-                              <input type="email" class="form-control" id="exampleInputModalPositionOfManager" placeholder="Email" required="required">
-                            </div> -->
                             <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSpecificatioSubmit()">Submit</button>
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>

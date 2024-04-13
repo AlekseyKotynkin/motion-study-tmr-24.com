@@ -548,6 +548,36 @@ var arrLang = {
     'add_specificatio': '+ Add Specificatio',
     'list_specificatio': 'Specificatio',
     'title_specificatio': 'Title',
+    'selected_details': 'Selected details:',
+    'appearance': 'Appearance -',
+    'routing': 'Routing:',
+    'item': 'Item',
+    'short_description': 'Short description',
+    'lead_time': 'Lead time',
+    'training_video': 'Training video',
+    'full_description': 'Full description',
+    'required_components': 'Required components:',
+    'short_name': 'Short Name',
+    'unit': 'Unit',
+    'quantity': 'Quantity',
+    'required_tools': 'Required tools:',
+    'specification_tree': 'Specification tree',
+    'specification_tree_title': 'Unfold the composition of the wood product',
+    'list_packingPlaces': 'Packing Places',
+    'add_packing_places': '+ Add Packing Places',
+    'аctive': 'Active',
+    'print_lebel': 'Print Lebel',
+    'specificatio_add': '+ Add Specificatio',
+    'specificatio_add_comments': 'Create a new specificatio',
+    'specificatio_name': 'Name Specificatio',
+    'specificatio_аctive': 'Active',
+    'specificatio_no_аctive': 'Not Active',
+    'specificatio_under_development': 'Under development',
+
+
+
+
+    
     
     
     
@@ -1055,10 +1085,31 @@ var arrLang = {
     'add_specificatio': '+ Спецификацию',
     'list_specificatio': 'Спецификации',
     'title_specificatio': 'Название',
-
-
-
-
+    'selected_details': 'Выбранные детали:',
+    'appearance': 'Внешний вид -',
+    'routing': 'Технологическая карта:',
+    'item': 'Операция',
+    'short_description': 'Краткое описание',
+    'lead_time': 'Продолжительность',
+    'training_video': 'Обучающее видео',
+    'full_description': 'Полное описание',
+    'required_components': 'Необходимые компоненты:',
+    'short_name': 'Наименование',
+    'unit': 'Ед. изм.',
+    'quantity': 'Кол-во',
+    'required_tools': 'Необходимые инструменты:',
+    'specification_tree': 'Дерево спецификации',
+    'specification_tree_title': 'Раскрываем состав дерева изделия',
+    'list_packingPlaces': 'Упаковочные места',
+    'add_packing_places': '+ Упаковочное место',
+    'active': 'Активная',
+    'print_lebel': 'Печать этикетки',
+    'specificatio_add': '+ Спецификацию',
+    'specificatio_add_comments': 'Добавить новую спецификацию',
+    'specificatio_name': 'Наименование',
+    'specificatio_аctive': 'Активная',
+    'specificatio_no_аctive': 'Не активная',
+    'specificatio_under_development': 'Разрабатывается',
 
 
     'search_projects': 'Поиск',
