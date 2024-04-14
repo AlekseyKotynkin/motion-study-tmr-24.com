@@ -115,7 +115,6 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
     querySnapshot.forEach(function (doc) {
       items_packingPlaces.push({ ...doc.data(), ...{ idPackingPlaces: doc.id } });
     });
-
   })
   .catch(function (error) {
     console.log("Error getting documents: ", error);
@@ -124,10 +123,9 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
     items_packingPlaces;
     items_packingPlaces.forEach(item => {
       var tr = document.createElement("tr");
-
+      /////
       var PackingPlaces_NameLitl = document.createElement('td');
       PackingPlaces_NameLitl.innerHTML = item.PackingPlaces_NameLitl;
-
       ////
       var toComeInUserName = document.createElement('button');
       if (translation_JS == null || translation_JS == 'en') {
@@ -137,9 +135,7 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
       }
       toComeInUserName.className = 'badge badge-gradient-success';
       toComeInUserName.id = item.idPackingPlaces;
-      // toComeInUserName.item = item.Subdivision;
       toComeInUserName.setAttribute('onclick', 'toPrintidPackingPlaces(this)');
-
       var toComeInUserColumn = document.createElement('td');
       toComeInUserColumn.appendChild(toComeInUserName);
       ////
@@ -152,7 +148,6 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
       quitName.className = 'badge badge-gradient-warning';
       quitName.id = item.idPackingPlaces;
       quitName.setAttribute('onclick', 'to_changePackingPlaces(this)');
-
       var quitColumn = document.createElement('td');
       quitColumn.appendChild(quitName);
       ////
@@ -165,7 +160,6 @@ db.collection("PackingPlaces").where("ProductsId", "==", LocalStorageProducts)
       toСhangePackingPlace.className = 'badge badge-gradient-danger';
       toСhangePackingPlace.id = item.idPackingPlaces;
       toСhangePackingPlace.setAttribute('onclick', 'quitPackingPlaces(this)');
-
       var to_СhangePackingPlace = document.createElement('td');
       to_СhangePackingPlace.appendChild(toСhangePackingPlace);
       ////
@@ -194,7 +188,7 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
     items_specificatio;
     items_specificatio.forEach(item => {
       var tr = document.createElement("tr");
-
+      /////
       var Specificatio_CreationTime = document.createElement('td');
       var Specificatio_CreationTime_local = item.Specificatio_CreationTime;
       var d = new Date(Specificatio_CreationTime_local.toDate());;
@@ -208,20 +202,6 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
       var Specificatio_Status = document.createElement('td');
       Specificatio_Status.innerHTML = item.Specificatio_Status;
       ////
-      // var toComeInUserName = document.createElement('button');
-      // if (translation_JS == null || translation_JS == 'en') {
-      //   toComeInUserName.innerHTML = "Prints";
-      // } else {
-      //   toComeInUserName.innerHTML = "Печать";
-      // }
-      // toComeInUserName.className = 'badge badge-gradient-success';
-      // toComeInUserName.id = item.idSpecifications;
-      // // toComeInUserName.item = item.Subdivision;
-      // toComeInUserName.setAttribute('onclick', 'toPrintidPackingPlaces(this)');
-
-      // var toComeInUserColumn = document.createElement('td');
-      // toComeInUserColumn.appendChild(toComeInUserName);
-      ////
       var quitName = document.createElement('button');
       if (translation_JS == null || translation_JS == 'en') {
         quitName.innerHTML = "to Сhange";
@@ -230,8 +210,7 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
       }
       quitName.className = 'badge badge-gradient-warning';
       quitName.id = item.idSpecifications;
-      quitName.setAttribute('onclick', 'to_changePackingPlaces(this)');
-
+      quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
       var quitColumn = document.createElement('td');
       quitColumn.appendChild(quitName);
       ////
@@ -243,8 +222,7 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
       }
       toСhangePackingPlace.className = 'badge badge-gradient-danger';
       toСhangePackingPlace.id = item.idSpecifications;
-      toСhangePackingPlace.setAttribute('onclick', 'quitPackingPlaces(this)');
-
+      toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
       var to_СhangePackingPlace = document.createElement('td');
       to_СhangePackingPlace.appendChild(toСhangePackingPlace);
       ////
@@ -256,6 +234,21 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
       var container_specificatio = document.getElementById("list_products_specificatio").getElementsByTagName("tbody")[0];
       container_specificatio.appendChild(tr);
     });
+  });
+
+  /** Заполняем табличную часть Дерево Спецификации.*/
+  db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts).where("Specificatio_Status", "==", "Active")
+  .get()
+  .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          var l =  doc.data().SpecificationTree;
+            $('#IDspecification_tree').load(l); 
+      });
+  })
+  .catch((error) => {
+      console.log("Error getting documents: ", error);
   });
 
 function SignoutAdmin() /**Выход из личного кабинета и очиска localStorage 'firebaseui::rememberedAccounts'.*/
@@ -292,7 +285,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_NameLitl = document.getElementById("PackingPlaces_NameLitl").value;
   if (PackingPlaces_NameLitl.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -302,7 +294,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_Comment = document.getElementById("PackingPlaces_Comment").value;
 
   var PackingPlaces_Barcode = document.getElementById("PackingPlaces_Barcode").value;
@@ -314,7 +305,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_length = document.getElementById("PackingPlaces_length").value;
   if (PackingPlaces_length.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -324,7 +314,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_width = document.getElementById("PackingPlaces_width").value;
   if (PackingPlaces_width.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -334,7 +323,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_height = document.getElementById("PackingPlaces_height").value;
   if (PackingPlaces_height.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -344,7 +332,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_weight = document.getElementById("PackingPlaces_weight").value;
   if (PackingPlaces_weight.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -354,7 +341,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   var PackingPlaces_TU = document.getElementById("PackingPlaces_TU").value;
   if (PackingPlaces_TU.length < 1) {
     if (translation_JS == null || translation_JS == 'en') {
@@ -438,7 +424,6 @@ function gridSystemModalNewSpecificatioSubmit() /** Обработка мода�
       alert("Ошибка при добавлении документа: ", error);
     }
   });
-
 }
 
 function toPrintidPackingPlaces(obj) // Обработчик кнопки из таблицы Упаковочное место - Печати этикетки.
@@ -509,6 +494,39 @@ function to_changePackingPlaces(obj)/** Обработчик кнопки из �
   //   console.error("Error removing document: ", error);
   // });
 }
+
+function quitSpecificatios(obj)/** Обработчик кнопки из таблицы Спецификации - удалить.*/
+{
+  var objId = obj.id;
+  if (translation_JS == null || translation_JS == 'en') {
+    alert('The feature is in development!' + (objId));
+  } else {
+    alert('Функция в разработке!' + (objId));
+  }
+  // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function () {
+  //   console.log("Document successfully deleted!");
+  //   window.location.reload();
+  // }).catch(function (error) {
+  //   console.error("Error removing document: ", error);
+  // });
+}
+
+function to_changeSpecificatios(obj)/** Обработчик кнопки из таблицы Спецификации - изменить.*/
+{
+  var objId = obj.id;
+  if (translation_JS == null || translation_JS == 'en') {
+    alert('The feature is in development!' + (objId));
+  } else {
+    alert('Функция в разработке!' + (objId));
+  }
+  // docRefPosition.collection("PositionSettings").doc(objId).delete().then(function () {
+  //   console.log("Document successfully deleted!");
+  //   window.location.reload();
+  // }).catch(function (error) {
+  //   console.error("Error removing document: ", error);
+  // });
+}
+
 
 /**
 * @return {string}
