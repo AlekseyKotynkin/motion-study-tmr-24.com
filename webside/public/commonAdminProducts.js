@@ -21,7 +21,7 @@ var db = firebase.firestore();
 var items = [];
 var items_packingPlaces = [];
 var items_specificatio = [];
-
+var Specifications_Technological_List = [];
 var itemsPositionUser = [];
 
 const currentUrl_host = window.location.host;
@@ -190,17 +190,17 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
       var tr = document.createElement("tr");
       /////
       var Specificatio_CreationTime = document.createElement('td');
-      var Specificatio_CreationTime_local = item.Specificatio_CreationTime;
+      var Specificatio_CreationTime_local = item.Specifications_CreationTime;
       var d = new Date(Specificatio_CreationTime_local.toDate());;
       date = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth()+1)).slice(-2) + "." + d.getFullYear();
       var processUserStartTime_mapChartjs = date;
       Specificatio_CreationTime.innerHTML = processUserStartTime_mapChartjs;
       ////
       var Specificatio_Name = document.createElement('td');
-      Specificatio_Name.innerHTML = item.Specificatio_Name;
+      Specificatio_Name.innerHTML = item.Specifications_Name;
       ////
       var Specificatio_Status = document.createElement('td');
-      Specificatio_Status.innerHTML = item.Specificatio_Status;
+      Specificatio_Status.innerHTML = item.Specifications_Status;
       ////
       var quitName = document.createElement('button');
       if (translation_JS == null || translation_JS == 'en') {
@@ -237,14 +237,14 @@ db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
   });
 
   /** Заполняем табличную часть Дерево Спецификации.*/
-  db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts).where("Specificatio_Status", "==", "Active")
+  db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts).where("Specifications_Status", "==", "Active")
   .get()
   .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
-          var l =  doc.data().SpecificationTree;
-            $('#IDspecification_tree').load(l); 
+          var l =  doc.data().Specifications_Tree;
+            $('#IDspecifications_tree').load(l); 
       });
   })
   .catch((error) => {
@@ -350,7 +350,6 @@ function gridSystemModalNewPackingPlacesSubmit() /** Обработка мода
     }
     return;
   }
-
   db.collection("PackingPlaces").add({
     ProductsOrganizationId: LocalStorageOrganizationId,  
     ProductsId : LocalStorageProducts,   
@@ -406,9 +405,11 @@ function gridSystemModalNewSpecificatioSubmit() /** Обработка мода�
   var Specificatio_CreationTime = firebase.firestore.FieldValue.serverTimestamp();
   db.collection("Specifications").add({
     ProductsId : LocalStorageProducts,   
-    Specificatio_Name: Specificatio_Name,
-    Specificatio_Status: Specificatio_Status,
-    Specificatio_CreationTime: Specificatio_CreationTime,
+    Specifications_Name: Specificatio_Name,
+    Specifications_Status: Specificatio_Status,
+    Specifications_CreationTime: Specificatio_CreationTime,
+    Specifications_Tree:"",
+    Specifications_Technological_List:[],
 
   })
   .then((docRef) => {
@@ -527,175 +528,170 @@ function to_changeSpecificatios(obj)/** Обработчик кнопки из �
   // });
 }
 
+function testOpen(obj)/** Обработчик нажатия строки для заполнения таблицы Технологической карты.*/
+{
+  Specifications_Technological_List = [];
+  var objId = obj.id;
+  alert(objId);
+  var docRef = db.collection("Specifications").doc(objId);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        var dok = doc.data();
+        var Specifications_Technological_List = dok.Specifications_Technological_List;
+        //// ссылка на фото
+        var ProductsId = dok.ProductsId;
+        var docRef = db.collection("Products").doc(ProductsId);
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                var dok_Products = doc.data();
+                var ProductsFoto_1 = dok_Products.ProductsFoto_1;
+                if (ProductsFoto_1 !=="")
+                {
+                  document.getElementById('ProductsFoto_1').src = ProductsFoto_1;
+                } else {
+                  document.getElementById('ProductsFoto_1').src = 'https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%A4%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84_200_200.png?alt=media&token=6f21bde0-9ddf-45e7-ae47-91d10c1c7569';
+                }
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+        //// ссылка на фото конец
+        var Specifications_FullDescription = dok.Specifications_FullDescription;
+        document.getElementById("full_description").textContent=Specifications_FullDescription;
+        console.log("Document data:", doc.data());
 
-/**
-* @return {string}
-*  Обработка модального окна Регистрация Пользователя.
-*/
-// function gridSystemModalNewUserSubmit() /** Обработка модального окна Регистрация Пользователя.*/
-// {
-//   var email = document.getElementById("exampleInputModalUserTitle").value.toLowerCase();
-//   if (email.length < 1) {
-//     if (translation_JS == null || translation_JS == 'en') {
-//       alert('Please enter an user name.');
-//     } else {
-//       alert("Пожалуйста, введите имя пользователя.");
-//     }
-//     return;
-//   }
-//   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-//   if (reg.test(email) == false) {
-//     if (translation_JS == null || translation_JS == 'en') {
-//       alert('Enter the correct email!');
-//     } else {
-//       alert('Введите корректный email!');
-//     }
-//     return false;
-//   }
-//   var UserСomment = document.getElementById("exampleInputModalUserСomment").value;
-//   if (UserСomment.length < 1) {
-//     if (translation_JS == null || translation_JS == 'en') {
-//       alert('Please enter an comments.');
-//     } else {
-//       alert("Пожалуйста, введите комментарий.");
-//     }
-//     return;
-//   }
-//   var UserName = document.getElementById("exampleInputModalUserName").value;
-//   if (UserName.length < 1) {
-//     if (translation_JS == null || translation_JS == 'en') {
-//       alert('Please enter an users name.');
-//     } else {
-//       alert("Пожалуйста, введите ФИО.");
-//     }
-//     return;
-//   }
-//   docRefPosition.collection("PositionUser").add({
-//     UserEmail: email,
-//     UserСomment: UserСomment,
-//     UserName: UserName,
-//     idDocPosition: LocalStoragePosition,
-//     idDocSubdivision: LocalStorageSubdivision,
-//     idDocOrganization: LocalStorageOrganizationId,
-//   }).then(function (docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-//     db.collection("OrganizationTable").add({
-//       idDocOrganization: LocalStorageOrganizationId,
-//       nameOrganization: nameOrganization,
-//       idDocPosition: LocalStoragePosition,
-//       namePosition: namePosition,
-//       idDocPositionUser: docRef.id,
-//       idDocSubdivision: LocalStorageSubdivision,
-//       nameSubdivision: nameSubdivision,
-//       UserEmail: email,
-//       UserСomment: UserСomment,
-//       UserName: UserName,
-//     }).then(function (docRef) {
-//       console.log("Document written with ID: ", docRef.id);
-//     }).catch(function (error) {
-//       console.error("Error adding document: ", error);
-//       if (translation_JS == null || translation_JS == 'en') {
-//         alert("Error adding document: ", error);
-//       } else {
-//         alert("Ошибка при добавлении документа: ", error);
-//       }
-//     });
-//     $('#gridSystemModalNewUser').modal('toggle');
-//     window.location.reload();
-//   }).catch(function (error) {
-//     console.error("Error adding document: ", error);
-//     if (translation_JS == null || translation_JS == 'en') {
-//       alert("Error adding document: ", error);
-//     } else {
-//       alert("Ошибка при добавлении документа: ", error);
-//     }
-//   });
-// }
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  })
+    .finally(() => {
+      items_specificatio;
+      items_specificatio.forEach(item => {
+        var tr = document.createElement("tr");
+        /////
+        var Specificatio_CreationTime = document.createElement('td');
+        var Specificatio_CreationTime_local = item.Specificatio_CreationTime;
+        var d = new Date(Specificatio_CreationTime_local.toDate());;
+        date = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth()+1)).slice(-2) + "." + d.getFullYear();
+        var processUserStartTime_mapChartjs = date;
+        Specificatio_CreationTime.innerHTML = processUserStartTime_mapChartjs;
+        ////
+        var Specificatio_Name = document.createElement('td');
+        Specificatio_Name.innerHTML = item.Specificatio_Name;
+        ////
+        var Specificatio_Status = document.createElement('td');
+        Specificatio_Status.innerHTML = item.Specificatio_Status;
+        ////
+        var quitName = document.createElement('button');
+        if (translation_JS == null || translation_JS == 'en') {
+          quitName.innerHTML = "to Сhange";
+        } else {
+          quitName.innerHTML = "Изменить";
+        }
+        quitName.className = 'badge badge-gradient-warning';
+        quitName.id = item.idSpecifications;
+        quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
+        var quitColumn = document.createElement('td');
+        quitColumn.appendChild(quitName);
+        ////
+        var toСhangePackingPlace = document.createElement('button');
+        if (translation_JS == null || translation_JS == 'en') {
+          toСhangePackingPlace.innerHTML = "Quit";
+        } else {
+          toСhangePackingPlace.innerHTML = "Удалить";
+        }
+        toСhangePackingPlace.className = 'badge badge-gradient-danger';
+        toСhangePackingPlace.id = item.idSpecifications;
+        toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
+        var to_СhangePackingPlace = document.createElement('td');
+        to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+        ////
+        tr.appendChild(Specificatio_CreationTime);
+        tr.appendChild(Specificatio_Name);
+        tr.appendChild(Specificatio_Status);
+        tr.appendChild(quitColumn);
+        tr.appendChild(to_СhangePackingPlace);
+        var container_specificatio = document.getElementById("list_products_specificatio").getElementsByTagName("tbody")[0];
+        container_specificatio.appendChild(tr);
+      });
+    });
+  
 
-/**
-* @return {string}
-*  Обработчик кнопки toDismiss из таблицы Пользователи.
-*/
 
-// function toDismissButtonUser(obj) /** Обработчик кнопки toDismiss из таблицы Пользователи.*/
-// {
-//   var objId = obj.id;
-//   if (translation_JS == null || translation_JS == 'en') {
-//     alert('Document successfully deleted!' + (objId));
-//   } else {
-//     alert('Документ успешно удален!' + (objId));
-//   }
-//   docRefPosition.collection("PositionUser").doc(objId).delete().then(function () {
-//     console.log("Document successfully deleted!");
-//     window.location.reload();
-//   }).catch(function (error) {
-//     console.error("Error removing document: ", error);
-//   });
-//   db.collection("OrganizationTable").where("idDocPositionUser", "==", objId).where("UserEmail", "==", UserNamelocalStorage)
-//     .get()
-//     .then((querySnapshot) => {
-//       querySnapshot.forEach((doc) => {
-//         // doc.data() is never undefined for query doc snapshots
-//         console.log(doc.id, " => ", doc.data());
-//         db.collection("OrganizationTable").doc(doc.id).delete().then(() => {
-//           console.log("Document successfully deleted!");
-//         }).catch((error) => {
-//           console.error("Error removing document: ", error);
-//         });
-//       });
-//     })
-//     .catch((error) => {
-//       console.log("Error getting documents: ", error);
-//     });
-// }
+  // db.collection("Specifications").where("ProductsId", "==", LocalStorageProducts)
+  // .get()
+  // .then(function (querySnapshot) {
+  //   querySnapshot.forEach(function (doc) {
+  //     items_specificatio.push({ ...doc.data(), ...{ idSpecifications: doc.id } });
+  //   });
 
-/**
-* @return {string}
-*  Обработчик кнопки deleteButtonSettings из таблицы Процессов.
-*/
-// function deleteButtonSettings(obj)/** Обработчик кнопки deleteButtonSettings из таблицы Процессов.*/
-// {
-//   var objId = obj.id;
-//   if (translation_JS == null || translation_JS == 'en') {
-//     alert('Document successfully deleted!' + (objId));
-//   } else {
-//     alert('Документ успешно удален!' + (objId));
-//   }
-//   docRefPosition.collection("PositionSettings").doc(objId).delete().then(function () {
-//     console.log("Document successfully deleted!");
-//     window.location.reload();
-//   }).catch(function (error) {
-//     console.error("Error removing document: ", error);
-//   });
-// }
+  // })
+  // .catch(function (error) {
+  //   console.log("Error getting documents: ", error);
+  // })
+  // .finally(() => {
+  //   items_specificatio;
+  //   items_specificatio.forEach(item => {
+  //     var tr = document.createElement("tr");
+  //     /////
+  //     var Specificatio_CreationTime = document.createElement('td');
+  //     var Specificatio_CreationTime_local = item.Specificatio_CreationTime;
+  //     var d = new Date(Specificatio_CreationTime_local.toDate());;
+  //     date = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth()+1)).slice(-2) + "." + d.getFullYear();
+  //     var processUserStartTime_mapChartjs = date;
+  //     Specificatio_CreationTime.innerHTML = processUserStartTime_mapChartjs;
+  //     ////
+  //     var Specificatio_Name = document.createElement('td');
+  //     Specificatio_Name.innerHTML = item.Specificatio_Name;
+  //     ////
+  //     var Specificatio_Status = document.createElement('td');
+  //     Specificatio_Status.innerHTML = item.Specificatio_Status;
+  //     ////
+  //     var quitName = document.createElement('button');
+  //     if (translation_JS == null || translation_JS == 'en') {
+  //       quitName.innerHTML = "to Сhange";
+  //     } else {
+  //       quitName.innerHTML = "Изменить";
+  //     }
+  //     quitName.className = 'badge badge-gradient-warning';
+  //     quitName.id = item.idSpecifications;
+  //     quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
+  //     var quitColumn = document.createElement('td');
+  //     quitColumn.appendChild(quitName);
+  //     ////
+  //     var toСhangePackingPlace = document.createElement('button');
+  //     if (translation_JS == null || translation_JS == 'en') {
+  //       toСhangePackingPlace.innerHTML = "Quit";
+  //     } else {
+  //       toСhangePackingPlace.innerHTML = "Удалить";
+  //     }
+  //     toСhangePackingPlace.className = 'badge badge-gradient-danger';
+  //     toСhangePackingPlace.id = item.idSpecifications;
+  //     toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
+  //     var to_СhangePackingPlace = document.createElement('td');
+  //     to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+  //     ////
+  //     tr.appendChild(Specificatio_CreationTime);
+  //     tr.appendChild(Specificatio_Name);
+  //     tr.appendChild(Specificatio_Status);
+  //     tr.appendChild(quitColumn);
+  //     tr.appendChild(to_СhangePackingPlace);
+  //     var container_specificatio = document.getElementById("list_products_specificatio").getElementsByTagName("tbody")[0];
+  //     container_specificatio.appendChild(tr);
+  //   });
+  // });
 
-/**
-* @return {string}*  Обработчик кнопки editButtonUser из таблицы Пользователи.
-*/
-// function editButtonUser(obj)
-// {
-//   objIdDocUser = obj.id;
-//   var washingtonRef = docRefPosition.collection("PositionUser").doc(objIdDocUser);
-//   washingtonRef.get().then(function(doc) {
-//     if (doc.exists)
-//   {
-//       let userEmail = doc.data().UserEmail;
-//       let UserСomment = doc.data().UserСomment;
-//       document.getElementById('editExampleInputModalUserTitle').value = userEmail;
-//       document.getElementById('editExampleInputModalUserСomment').value = UserСomment;
-//       var modal = document.getElementById('editGridSystemModalNewUser');
-//       $(document).ready(function(){
-//         $("#editGridSystemModalNewUser").modal('show');
-//         window.location.reload();
-//       });
-//       } else {
-//         console.log("No such document!");
-//       }
-//   }).catch(function(error) {
-//       console.log("Error getting document:", error);
-//   });
-// }
 
+
+}
 
 /**
 * @return {string}* Открыть окно Фейсбука.
