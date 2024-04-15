@@ -22,6 +22,8 @@ var items = [];
 var items_packingPlaces = [];
 var items_specificatio = [];
 var Specifications_Technological_List = [];
+var RequiredСomponents_List = [];
+var RequiredTools_List = [];
 var itemsPositionUser = [];
 
 var Technological_Numer_local = 0;
@@ -530,7 +532,7 @@ function to_changeSpecificatios(obj)/** Обработчик кнопки из �
   // });
 }
 
-function testOpen(obj)/** Обработчик нажатия строки для заполнения таблицы Технологической карты.*/
+function FillInTechnologicalMapTable(obj)/** Обработчик нажатия строки для заполнения таблицы Технологической карты.*/
 {
   Specifications_Technological_List = [];
   let table = document.getElementById('technological_List'); // Привет, таблица!
@@ -685,7 +687,8 @@ function showNeed(obj) /** Заполняем поля табличных час
   $(document).on('submit', 'form', function(e) {
     e.preventDefault(); // или же return false
   });
-
+  RequiredСomponents_List = [];
+  RequiredTools_List = [];
   let table_1 = document.getElementById('required_components_list'); // Привет, таблица!
   let newTbody_1 = document.createElement('tbody'); // Вот ты новый и чистый
   table_1.replaceChild(newTbody_1, table_1.getElementsByTagName('tbody')[0]); // Меняемся!
@@ -699,7 +702,14 @@ function showNeed(obj) /** Заполняем поля табличных час
     if (doc.exists) {
         // console.log("Document data:", doc.data());
         var dok = doc.data();
-        Specifications_Technological_List = dok.Specifications_Technological_List;
+        var RequiredСomponents_List_local = dok.RequiredСomponents_List;
+        RequiredСomponents_List_local.forEach(function(item, index, array) {
+
+
+
+          
+          // ... делать что-то с item
+        });
         //// ссылка на фото
         var ProductsId = dok.ProductsId;
         var docRef = db.collection("Products").doc(ProductsId);
@@ -720,7 +730,85 @@ function showNeed(obj) /** Заполняем поля табличных час
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
+        })    .finally(() => {
+          RequiredСomponents_List;
+          RequiredСomponents_List.forEach(item => {
+            var tr = document.createElement("tr");
+            /////
+            var Technological_Numer = document.createElement('button');
+            Technological_Numer_local = Technological_Numer_local + 1;
+            Technological_Numer.innerHTML = Technological_Numer_local;
+    
+            Technological_Numer.className = 'badge badge-gradient-success';
+            Technological_Numer.setAttribute('type', 'submit');
+            Technological_Numer.setAttribute('onmousedown', 'return false');
+            Technological_Numer.id = item.Technological_RequiredСomponents;
+            Technological_Numer.item = item.Technological_RequiredTools;
+            Technological_Numer.setAttribute('onclick', 'showNeed(this)');
+            var Technological_Numer_ = document.createElement('td');
+            Technological_Numer_.appendChild(Technological_Numer);
+    
+            ////
+            var Technological_Iten = document.createElement('td');
+            Technological_Iten.innerHTML = item.Technological_Item;
+            ////
+            var Technological_ShortDescription = document.createElement('td');
+            Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
+            ////
+            var Technological_LeadTime_s = document.createElement('td');
+            Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
+            ////
+            var openVideo = document.createElement('button');
+            if (translation_JS == null || translation_JS == 'en') {
+              openVideo.innerHTML = "Video";
+            } else {
+              openVideo.innerHTML = "Показать";
+            }
+            openVideo.className = 'badge badge-gradient-info';
+            openVideo.setAttribute('type', 'submit');
+            openVideo.setAttribute('onmousedown', 'return false');
+            openVideo.id = item.Technological_TrainingVideo;
+            openVideo.setAttribute('onclick', 'openModalVideo(this)');
+            var openVideo_local = document.createElement('td');
+            openVideo_local.appendChild(openVideo);
+            ////
+            var quitName = document.createElement('button');
+            if (translation_JS == null || translation_JS == 'en') {
+              quitName.innerHTML = "to Сhange";
+            } else {
+              quitName.innerHTML = "Изменить";
+            }
+            quitName.className = 'badge badge-gradient-warning';
+            quitName.id = item.idSpecifications;
+            quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
+            var quitColumn = document.createElement('td');
+            quitColumn.appendChild(quitName);
+            ////
+            var toСhangePackingPlace = document.createElement('button');
+            if (translation_JS == null || translation_JS == 'en') {
+              toСhangePackingPlace.innerHTML = "Quit";
+            } else {
+              toСhangePackingPlace.innerHTML = "Удалить";
+            }
+            toСhangePackingPlace.className = 'badge badge-gradient-danger';
+            toСhangePackingPlace.id = item.idSpecifications;
+            toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
+            var to_СhangePackingPlace = document.createElement('td');
+            to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+            ////
+            tr.appendChild(Technological_Numer_);
+            tr.appendChild(Technological_Iten);
+            tr.appendChild(Technological_ShortDescription);
+            tr.appendChild(Technological_LeadTime_s);
+            tr.appendChild(openVideo_local);
+            tr.appendChild(quitColumn);
+            tr.appendChild(to_СhangePackingPlace);
+    
+            var container_specificatio = document.getElementById("required_components_list").getElementsByTagName("tbody")[0];
+            container_specificatio.appendChild(tr);
+          });
         });
+    
         //// ссылка на фото конец
         var Specifications_FullDescription = dok.Specifications_FullDescription;
 
@@ -734,85 +822,85 @@ function showNeed(obj) /** Заполняем поля табличных час
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
-  })
-    .finally(() => {
-      Specifications_Technological_List;
-      Specifications_Technological_List.forEach(item => {
-        var tr = document.createElement("tr");
-        /////
-        var Technological_Numer = document.createElement('button');
-        Technological_Numer_local = Technological_Numer_local + 1;
-        Technological_Numer.innerHTML = Technological_Numer_local;
+  });
+    // .finally(() => {
+    //   RequiredСomponents_List;
+    //   RequiredСomponents_List.forEach(item => {
+    //     var tr = document.createElement("tr");
+    //     /////
+    //     var Technological_Numer = document.createElement('button');
+    //     Technological_Numer_local = Technological_Numer_local + 1;
+    //     Technological_Numer.innerHTML = Technological_Numer_local;
 
-        Technological_Numer.className = 'badge badge-gradient-success';
-        Technological_Numer.setAttribute('type', 'submit');
-        Technological_Numer.setAttribute('onmousedown', 'return false');
-        Technological_Numer.id = item.Technological_RequiredСomponents;
-        Technological_Numer.item = item.Technological_RequiredTools;
-        Technological_Numer.setAttribute('onclick', 'showNeed(this)');
-        var Technological_Numer_ = document.createElement('td');
-        Technological_Numer_.appendChild(Technological_Numer);
+    //     Technological_Numer.className = 'badge badge-gradient-success';
+    //     Technological_Numer.setAttribute('type', 'submit');
+    //     Technological_Numer.setAttribute('onmousedown', 'return false');
+    //     Technological_Numer.id = item.Technological_RequiredСomponents;
+    //     Technological_Numer.item = item.Technological_RequiredTools;
+    //     Technological_Numer.setAttribute('onclick', 'showNeed(this)');
+    //     var Technological_Numer_ = document.createElement('td');
+    //     Technological_Numer_.appendChild(Technological_Numer);
 
-        ////
-        var Technological_Iten = document.createElement('td');
-        Technological_Iten.innerHTML = item.Technological_Item;
-        ////
-        var Technological_ShortDescription = document.createElement('td');
-        Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
-        ////
-        var Technological_LeadTime_s = document.createElement('td');
-        Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
-        ////
-        var openVideo = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          openVideo.innerHTML = "Video";
-        } else {
-          openVideo.innerHTML = "Показать";
-        }
-        openVideo.className = 'badge badge-gradient-info';
-        openVideo.setAttribute('type', 'submit');
-        openVideo.setAttribute('onmousedown', 'return false');
-        openVideo.id = item.Technological_TrainingVideo;
-        openVideo.setAttribute('onclick', 'openModalVideo(this)');
-        var openVideo_local = document.createElement('td');
-        openVideo_local.appendChild(openVideo);
-        ////
-        var quitName = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          quitName.innerHTML = "to Сhange";
-        } else {
-          quitName.innerHTML = "Изменить";
-        }
-        quitName.className = 'badge badge-gradient-warning';
-        quitName.id = item.idSpecifications;
-        quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
-        var quitColumn = document.createElement('td');
-        quitColumn.appendChild(quitName);
-        ////
-        var toСhangePackingPlace = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          toСhangePackingPlace.innerHTML = "Quit";
-        } else {
-          toСhangePackingPlace.innerHTML = "Удалить";
-        }
-        toСhangePackingPlace.className = 'badge badge-gradient-danger';
-        toСhangePackingPlace.id = item.idSpecifications;
-        toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
-        var to_СhangePackingPlace = document.createElement('td');
-        to_СhangePackingPlace.appendChild(toСhangePackingPlace);
-        ////
-        tr.appendChild(Technological_Numer_);
-        tr.appendChild(Technological_Iten);
-        tr.appendChild(Technological_ShortDescription);
-        tr.appendChild(Technological_LeadTime_s);
-        tr.appendChild(openVideo_local);
-        tr.appendChild(quitColumn);
-        tr.appendChild(to_СhangePackingPlace);
+    //     ////
+    //     var Technological_Iten = document.createElement('td');
+    //     Technological_Iten.innerHTML = item.Technological_Item;
+    //     ////
+    //     var Technological_ShortDescription = document.createElement('td');
+    //     Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
+    //     ////
+    //     var Technological_LeadTime_s = document.createElement('td');
+    //     Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
+    //     ////
+    //     var openVideo = document.createElement('button');
+    //     if (translation_JS == null || translation_JS == 'en') {
+    //       openVideo.innerHTML = "Video";
+    //     } else {
+    //       openVideo.innerHTML = "Показать";
+    //     }
+    //     openVideo.className = 'badge badge-gradient-info';
+    //     openVideo.setAttribute('type', 'submit');
+    //     openVideo.setAttribute('onmousedown', 'return false');
+    //     openVideo.id = item.Technological_TrainingVideo;
+    //     openVideo.setAttribute('onclick', 'openModalVideo(this)');
+    //     var openVideo_local = document.createElement('td');
+    //     openVideo_local.appendChild(openVideo);
+    //     ////
+    //     var quitName = document.createElement('button');
+    //     if (translation_JS == null || translation_JS == 'en') {
+    //       quitName.innerHTML = "to Сhange";
+    //     } else {
+    //       quitName.innerHTML = "Изменить";
+    //     }
+    //     quitName.className = 'badge badge-gradient-warning';
+    //     quitName.id = item.idSpecifications;
+    //     quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
+    //     var quitColumn = document.createElement('td');
+    //     quitColumn.appendChild(quitName);
+    //     ////
+    //     var toСhangePackingPlace = document.createElement('button');
+    //     if (translation_JS == null || translation_JS == 'en') {
+    //       toСhangePackingPlace.innerHTML = "Quit";
+    //     } else {
+    //       toСhangePackingPlace.innerHTML = "Удалить";
+    //     }
+    //     toСhangePackingPlace.className = 'badge badge-gradient-danger';
+    //     toСhangePackingPlace.id = item.idSpecifications;
+    //     toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
+    //     var to_СhangePackingPlace = document.createElement('td');
+    //     to_СhangePackingPlace.appendChild(toСhangePackingPlace);
+    //     ////
+    //     tr.appendChild(Technological_Numer_);
+    //     tr.appendChild(Technological_Iten);
+    //     tr.appendChild(Technological_ShortDescription);
+    //     tr.appendChild(Technological_LeadTime_s);
+    //     tr.appendChild(openVideo_local);
+    //     tr.appendChild(quitColumn);
+    //     tr.appendChild(to_СhangePackingPlace);
 
-        var container_specificatio = document.getElementById("technological_List").getElementsByTagName("tbody")[0];
-        container_specificatio.appendChild(tr);
-      });
-    });
+    //     var container_specificatio = document.getElementById("required_components_list").getElementsByTagName("tbody")[0];
+    //     container_specificatio.appendChild(tr);
+    //   });
+    // });
 
   var idDocRequiredTools = obj.item;
   var docRef = db.collection("DocRequiredTools").doc(idDocRequiredTools);
@@ -857,8 +945,8 @@ function showNeed(obj) /** Заполняем поля табличных час
     console.log("Error getting document:", error);
   })
     .finally(() => {
-      Specifications_Technological_List;
-      Specifications_Technological_List.forEach(item => {
+      RequiredTools_List;
+      RequiredTools_List.forEach(item => {
         var tr = document.createElement("tr");
         /////
         var Technological_Numer = document.createElement('button');
@@ -930,7 +1018,7 @@ function showNeed(obj) /** Заполняем поля табличных час
         tr.appendChild(quitColumn);
         tr.appendChild(to_СhangePackingPlace);
 
-        var container_specificatio = document.getElementById("technological_List").getElementsByTagName("tbody")[0];
+        var container_specificatio = document.getElementById("required_tools_list").getElementsByTagName("tbody")[0];
         container_specificatio.appendChild(tr);
       });
     });
