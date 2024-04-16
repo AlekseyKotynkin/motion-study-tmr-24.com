@@ -573,7 +573,7 @@ var arrLang = {
     'specificatio_аctive': 'Active',
     'specificatio_no_аctive': 'Not Active',
     'specificatio_under_development': 'Under development',
-
+    'short_class': 'Class',
 
 
 
@@ -1110,6 +1110,11 @@ var arrLang = {
     'specificatio_аctive': 'Активная',
     'specificatio_no_аctive': 'Не активная',
     'specificatio_under_development': 'Разрабатывается',
+    'short_class': 'Группа',
+
+
+
+
 
 
     'search_projects': 'Поиск',

@@ -559,7 +559,7 @@ function FillInTechnologicalMapTable(obj)/** Обработчик нажатия
         var docRef = db.collection("Products").doc(ProductsId);
         docRef.get().then((doc) => {
             if (doc.exists) {
-                console.log("Document data:", doc.data());
+                // console.log("Document data:", doc.data());
                 var dok_Products = doc.data();
                 var ProductsFoto_1 = dok_Products.ProductsFoto_1;
                 if (ProductsFoto_1 !=="")
@@ -682,7 +682,7 @@ function openModalVideo(obj) /** переход по ссылке для пок�
 
 }
 
-function showNeed(obj) /** Заполняем поля табличных частей Необходимые компоненты м Необходимые инструменты.*/
+function showNeed(obj) /** Подготовка массивов для заполняем поля табличных частей Необходимые компоненты и Необходимые инструменты.*/
 {
   $(document).on('submit', 'form', function(e) {
     e.preventDefault(); // или же return false
@@ -697,125 +697,36 @@ function showNeed(obj) /** Заполняем поля табличных час
   table_2.replaceChild(newTbody_2, table_2.getElementsByTagName('tbody')[0]); // Меняемся!
 
   var idDocRequiredСomponents = obj.id;
-  var docRef = db.collection("DocRequiredСomponents").doc(idDocRequiredСomponents);
+  var docRef = db.collection("RequiredСomponents").doc(idDocRequiredСomponents);
   docRef.get().then((doc) => {
     if (doc.exists) {
         // console.log("Document data:", doc.data());
         var dok = doc.data();
         var RequiredСomponents_List_local = dok.RequiredСomponents_List;
         RequiredСomponents_List_local.forEach(function(item, index, array) {
-
-
-
-          
-          // ... делать что-то с item
-        });
-        //// ссылка на фото
-        var ProductsId = dok.ProductsId;
-        var docRef = db.collection("Products").doc(ProductsId);
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-                var dok_Products = doc.data();
-                var ProductsFoto_1 = dok_Products.ProductsFoto_1;
-                if (ProductsFoto_1 !=="")
-                {
-                  document.getElementById('ProductsFoto_1').src = ProductsFoto_1;
-                } else {
-                  document.getElementById('ProductsFoto_1').src = 'https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%A4%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84_200_200.png?alt=media&token=6f21bde0-9ddf-45e7-ae47-91d10c1c7569';
-                }
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        })    .finally(() => {
-          RequiredСomponents_List;
-          RequiredСomponents_List.forEach(item => {
-            var tr = document.createElement("tr");
-            /////
-            var Technological_Numer = document.createElement('button');
-            Technological_Numer_local = Technological_Numer_local + 1;
-            Technological_Numer.innerHTML = Technological_Numer_local;
-    
-            Technological_Numer.className = 'badge badge-gradient-success';
-            Technological_Numer.setAttribute('type', 'submit');
-            Technological_Numer.setAttribute('onmousedown', 'return false');
-            Technological_Numer.id = item.Technological_RequiredСomponents;
-            Technological_Numer.item = item.Technological_RequiredTools;
-            Technological_Numer.setAttribute('onclick', 'showNeed(this)');
-            var Technological_Numer_ = document.createElement('td');
-            Technological_Numer_.appendChild(Technological_Numer);
-    
-            ////
-            var Technological_Iten = document.createElement('td');
-            Technological_Iten.innerHTML = item.Technological_Item;
-            ////
-            var Technological_ShortDescription = document.createElement('td');
-            Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
-            ////
-            var Technological_LeadTime_s = document.createElement('td');
-            Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
-            ////
-            var openVideo = document.createElement('button');
-            if (translation_JS == null || translation_JS == 'en') {
-              openVideo.innerHTML = "Video";
-            } else {
-              openVideo.innerHTML = "Показать";
-            }
-            openVideo.className = 'badge badge-gradient-info';
-            openVideo.setAttribute('type', 'submit');
-            openVideo.setAttribute('onmousedown', 'return false');
-            openVideo.id = item.Technological_TrainingVideo;
-            openVideo.setAttribute('onclick', 'openModalVideo(this)');
-            var openVideo_local = document.createElement('td');
-            openVideo_local.appendChild(openVideo);
-            ////
-            var quitName = document.createElement('button');
-            if (translation_JS == null || translation_JS == 'en') {
-              quitName.innerHTML = "to Сhange";
-            } else {
-              quitName.innerHTML = "Изменить";
-            }
-            quitName.className = 'badge badge-gradient-warning';
-            quitName.id = item.idSpecifications;
-            quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
-            var quitColumn = document.createElement('td');
-            quitColumn.appendChild(quitName);
-            ////
-            var toСhangePackingPlace = document.createElement('button');
-            if (translation_JS == null || translation_JS == 'en') {
-              toСhangePackingPlace.innerHTML = "Quit";
-            } else {
-              toСhangePackingPlace.innerHTML = "Удалить";
-            }
-            toСhangePackingPlace.className = 'badge badge-gradient-danger';
-            toСhangePackingPlace.id = item.idSpecifications;
-            toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
-            var to_СhangePackingPlace = document.createElement('td');
-            to_СhangePackingPlace.appendChild(toСhangePackingPlace);
-            ////
-            tr.appendChild(Technological_Numer_);
-            tr.appendChild(Technological_Iten);
-            tr.appendChild(Technological_ShortDescription);
-            tr.appendChild(Technological_LeadTime_s);
-            tr.appendChild(openVideo_local);
-            tr.appendChild(quitColumn);
-            tr.appendChild(to_СhangePackingPlace);
-    
-            var container_specificatio = document.getElementById("required_components_list").getElementsByTagName("tbody")[0];
-            container_specificatio.appendChild(tr);
+          var ProductsId = item.RequiredComponentsID;
+          var RequiredComponentsQuantity = item.RequiredComponentsQuantity;
+          var docRef = db.collection("Products").doc(ProductsId);
+          docRef.get().then((doc) => {
+              if (doc.exists) {
+                  // console.log("Document data:", doc.data());
+                  var dok_pr = doc.data();
+                  var ProductsTitle = dok_pr.ProductsTitle;
+                  var ProductsClass = dok_pr.ProductsClass;
+                  var ProductsFoto_1 = dok_pr.ProductsFoto_1;
+                  var ProductsUnits = dok_pr.ProductsUnits;
+                  RequiredСomponents_List.push({ProductsTitle: ProductsTitle, ProductsClass: ProductsClass, ProductsFoto_1: ProductsFoto_1, ProductsQuantity: RequiredComponentsQuantity,ProductsUnits:ProductsUnits});
+                  if(index===array.length-1){
+                    fillQutTheNeedsTables("RequiredСomponents")
+                  }
+              } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+              }
+          }).catch((error) => {
+              console.log("Error getting document:", error);
           });
         });
-    
-        //// ссылка на фото конец
-        var Specifications_FullDescription = dok.Specifications_FullDescription;
-
-        
-        document.getElementById("full_description").textContent=Specifications_FullDescription;
-        // console.log("Document data:", doc.data());
-        // console.log(Specifications_Technological_List);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -823,211 +734,136 @@ function showNeed(obj) /** Заполняем поля табличных час
   }).catch((error) => {
     console.log("Error getting document:", error);
   });
-    // .finally(() => {
-    //   RequiredСomponents_List;
-    //   RequiredСomponents_List.forEach(item => {
-    //     var tr = document.createElement("tr");
-    //     /////
-    //     var Technological_Numer = document.createElement('button');
-    //     Technological_Numer_local = Technological_Numer_local + 1;
-    //     Technological_Numer.innerHTML = Technological_Numer_local;
-
-    //     Technological_Numer.className = 'badge badge-gradient-success';
-    //     Technological_Numer.setAttribute('type', 'submit');
-    //     Technological_Numer.setAttribute('onmousedown', 'return false');
-    //     Technological_Numer.id = item.Technological_RequiredСomponents;
-    //     Technological_Numer.item = item.Technological_RequiredTools;
-    //     Technological_Numer.setAttribute('onclick', 'showNeed(this)');
-    //     var Technological_Numer_ = document.createElement('td');
-    //     Technological_Numer_.appendChild(Technological_Numer);
-
-    //     ////
-    //     var Technological_Iten = document.createElement('td');
-    //     Technological_Iten.innerHTML = item.Technological_Item;
-    //     ////
-    //     var Technological_ShortDescription = document.createElement('td');
-    //     Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
-    //     ////
-    //     var Technological_LeadTime_s = document.createElement('td');
-    //     Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
-    //     ////
-    //     var openVideo = document.createElement('button');
-    //     if (translation_JS == null || translation_JS == 'en') {
-    //       openVideo.innerHTML = "Video";
-    //     } else {
-    //       openVideo.innerHTML = "Показать";
-    //     }
-    //     openVideo.className = 'badge badge-gradient-info';
-    //     openVideo.setAttribute('type', 'submit');
-    //     openVideo.setAttribute('onmousedown', 'return false');
-    //     openVideo.id = item.Technological_TrainingVideo;
-    //     openVideo.setAttribute('onclick', 'openModalVideo(this)');
-    //     var openVideo_local = document.createElement('td');
-    //     openVideo_local.appendChild(openVideo);
-    //     ////
-    //     var quitName = document.createElement('button');
-    //     if (translation_JS == null || translation_JS == 'en') {
-    //       quitName.innerHTML = "to Сhange";
-    //     } else {
-    //       quitName.innerHTML = "Изменить";
-    //     }
-    //     quitName.className = 'badge badge-gradient-warning';
-    //     quitName.id = item.idSpecifications;
-    //     quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
-    //     var quitColumn = document.createElement('td');
-    //     quitColumn.appendChild(quitName);
-    //     ////
-    //     var toСhangePackingPlace = document.createElement('button');
-    //     if (translation_JS == null || translation_JS == 'en') {
-    //       toСhangePackingPlace.innerHTML = "Quit";
-    //     } else {
-    //       toСhangePackingPlace.innerHTML = "Удалить";
-    //     }
-    //     toСhangePackingPlace.className = 'badge badge-gradient-danger';
-    //     toСhangePackingPlace.id = item.idSpecifications;
-    //     toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
-    //     var to_СhangePackingPlace = document.createElement('td');
-    //     to_СhangePackingPlace.appendChild(toСhangePackingPlace);
-    //     ////
-    //     tr.appendChild(Technological_Numer_);
-    //     tr.appendChild(Technological_Iten);
-    //     tr.appendChild(Technological_ShortDescription);
-    //     tr.appendChild(Technological_LeadTime_s);
-    //     tr.appendChild(openVideo_local);
-    //     tr.appendChild(quitColumn);
-    //     tr.appendChild(to_СhangePackingPlace);
-
-    //     var container_specificatio = document.getElementById("required_components_list").getElementsByTagName("tbody")[0];
-    //     container_specificatio.appendChild(tr);
-    //   });
-    // });
 
   var idDocRequiredTools = obj.item;
-  var docRef = db.collection("DocRequiredTools").doc(idDocRequiredTools);
+  var docRef = db.collection("RequiredTools").doc(idDocRequiredTools);
   docRef.get().then((doc) => {
     if (doc.exists) {
         // console.log("Document data:", doc.data());
         var dok = doc.data();
-        Specifications_Technological_List = dok.Specifications_Technological_List;
-        //// ссылка на фото
-        var ProductsId = dok.ProductsId;
-        var docRef = db.collection("Products").doc(ProductsId);
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-                var dok_Products = doc.data();
-                var ProductsFoto_1 = dok_Products.ProductsFoto_1;
-                if (ProductsFoto_1 !=="")
-                {
-                  document.getElementById('ProductsFoto_1').src = ProductsFoto_1;
-                } else {
-                  document.getElementById('ProductsFoto_1').src = 'https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%A4%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84_200_200.png?alt=media&token=6f21bde0-9ddf-45e7-ae47-91d10c1c7569';
-                }
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
+        var RequiredTools_List_local = dok.RequiredTools_List;
+        RequiredTools_List_local.forEach(function(item, index, array) {
+          var ProductsId = item.RequiredToolsID;
+          var RequiredToolsQuantity = item.RequiredToolsQuantity;
+          var docRef = db.collection("Products").doc(ProductsId);
+          docRef.get().then((doc) => {
+              if (doc.exists) {
+                  // console.log("Document data:", doc.data());
+                  var dok_pr = doc.data();
+                  var ProductsTitle = dok_pr.ProductsTitle;
+                  var ProductsClass = dok_pr.ProductsClass;
+                  var ProductsFoto_1 = dok_pr.ProductsFoto_1;
+                  var ProductsUnits = dok_pr.ProductsUnits;
+                  RequiredTools_List.push({ProductsTitle: ProductsTitle, ProductsClass: ProductsClass, ProductsFoto_1: ProductsFoto_1, ProductsQuantity:RequiredToolsQuantity, ProductsUnits:ProductsUnits});
+                  if(index===array.length-1){
+                    fillQutTheNeedsTables("RequiredTools")
+                  }
+              } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+              }
+          }).catch((error) => {
+              console.log("Error getting document:", error);
+          });
         });
-        //// ссылка на фото конец
-        var Specifications_FullDescription = dok.Specifications_FullDescription;
-
-        
-        document.getElementById("full_description").textContent=Specifications_FullDescription;
-        // console.log("Document data:", doc.data());
-        // console.log(Specifications_Technological_List);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
-  })
-    .finally(() => {
-      RequiredTools_List;
-      RequiredTools_List.forEach(item => {
-        var tr = document.createElement("tr");
-        /////
-        var Technological_Numer = document.createElement('button');
-        Technological_Numer_local = Technological_Numer_local + 1;
-        Technological_Numer.innerHTML = Technological_Numer_local;
+  });
+}
 
-        Technological_Numer.className = 'badge badge-gradient-success';
-        Technological_Numer.setAttribute('type', 'submit');
-        Technological_Numer.setAttribute('onmousedown', 'return false');
-        Technological_Numer.id = item.Technological_RequiredСomponents;
-        Technological_Numer.item = item.Technological_RequiredTools;
-        Technological_Numer.setAttribute('onclick', 'showNeed(this)');
-        var Technological_Numer_ = document.createElement('td');
-        Technological_Numer_.appendChild(Technological_Numer);
+function fillQutTheNeedsTables(obj) /** Заполняем поля табличных частей Необходимые компоненты м Необходимые инструменты.*/
+{
+  var obj = obj;
+  $(document).on('submit', 'form', function(e) {
+    e.preventDefault(); // или же return false
+  });
+var Local_List= [];
+var Local_ID = "";
+var Local_Numer_local = 0;
+if(obj === "RequiredСomponents"){
+  Local_List = RequiredСomponents_List;
+  Local_ID = "required_components_list";
+}else{
+  Local_List = RequiredTools_List;
+  Local_ID = "required_tools_list";
+}
+Local_List.forEach(item => {
+    var tr = document.createElement("tr");
+    /////
+    var Local_Numer = document.createElement('td');
+    Local_Numer_local = Local_Numer_local + 1;
+    Local_Numer.innerHTML = Local_Numer_local;
+    ////
+    var Local_Class = document.createElement('td');
+    Local_Class.innerHTML = item.ProductsClass;
+    ////
+    var Local_Name = document.createElement('td');
+    Local_Name.innerHTML = item.ProductsTitle;
+    ////
+    var Local_Unit = document.createElement('td');
+    Local_Unit.innerHTML = item.ProductsUnits;
+    ////
+    var Local_Quantity = document.createElement('td');
+    Local_Quantity.innerHTML = item.ProductsQuantity;
+    ////
+    var openFoto = document.createElement('button');
+    if (translation_JS == null || translation_JS == 'en') {
+      openFoto.innerHTML = "Foto";
+    } else {
+      openFoto.innerHTML = "Показать";
+    }
+    openFoto.className = 'badge badge-gradient-info';
+    openFoto.setAttribute('type', 'submit');
+    openFoto.setAttribute('onmousedown', 'return false');
+    openFoto.id = item.ProductsFoto_1;
+    openFoto.item = Local_ID;
+    openFoto.setAttribute('onclick', 'openModalFoto(this)');
+    var openFoto_local = document.createElement('td');
+    openFoto_local.appendChild(openFoto);
+    ////
+    tr.appendChild(Local_Numer);
+    tr.appendChild(Local_Class);
+    tr.appendChild(Local_Name);
+    tr.appendChild(Local_Unit);
+    tr.appendChild(Local_Quantity);
+    tr.appendChild(openFoto_local);
 
-        ////
-        var Technological_Iten = document.createElement('td');
-        Technological_Iten.innerHTML = item.Technological_Item;
-        ////
-        var Technological_ShortDescription = document.createElement('td');
-        Technological_ShortDescription.innerHTML = item.Technological_ShortDescription;
-        ////
-        var Technological_LeadTime_s = document.createElement('td');
-        Technological_LeadTime_s.innerHTML = item.Technological_LeadTime_s;
-        ////
-        var openVideo = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          openVideo.innerHTML = "Video";
-        } else {
-          openVideo.innerHTML = "Показать";
-        }
-        openVideo.className = 'badge badge-gradient-info';
-        openVideo.setAttribute('type', 'submit');
-        openVideo.setAttribute('onmousedown', 'return false');
-        openVideo.id = item.Technological_TrainingVideo;
-        openVideo.setAttribute('onclick', 'openModalVideo(this)');
-        var openVideo_local = document.createElement('td');
-        openVideo_local.appendChild(openVideo);
-        ////
-        var quitName = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          quitName.innerHTML = "to Сhange";
-        } else {
-          quitName.innerHTML = "Изменить";
-        }
-        quitName.className = 'badge badge-gradient-warning';
-        quitName.id = item.idSpecifications;
-        quitName.setAttribute('onclick', 'to_changeSpecificatios(this)');
-        var quitColumn = document.createElement('td');
-        quitColumn.appendChild(quitName);
-        ////
-        var toСhangePackingPlace = document.createElement('button');
-        if (translation_JS == null || translation_JS == 'en') {
-          toСhangePackingPlace.innerHTML = "Quit";
-        } else {
-          toСhangePackingPlace.innerHTML = "Удалить";
-        }
-        toСhangePackingPlace.className = 'badge badge-gradient-danger';
-        toСhangePackingPlace.id = item.idSpecifications;
-        toСhangePackingPlace.setAttribute('onclick', 'quitSpecificatios(this)');
-        var to_СhangePackingPlace = document.createElement('td');
-        to_СhangePackingPlace.appendChild(toСhangePackingPlace);
-        ////
-        tr.appendChild(Technological_Numer_);
-        tr.appendChild(Technological_Iten);
-        tr.appendChild(Technological_ShortDescription);
-        tr.appendChild(Technological_LeadTime_s);
-        tr.appendChild(openVideo_local);
-        tr.appendChild(quitColumn);
-        tr.appendChild(to_СhangePackingPlace);
-
-        var container_specificatio = document.getElementById("required_tools_list").getElementsByTagName("tbody")[0];
-        container_specificatio.appendChild(tr);
-      });
-    });
-
+    var container_specificatio = document.getElementById(Local_ID).getElementsByTagName("tbody")[0];
+    container_specificatio.appendChild(tr);
+  });
 
 }
 
+function openModalFoto(obj){
+  $(document).on('submit', 'form', function(e) {
+    e.preventDefault(); // или же return false
+  });
 
+  var objID = obj.id;
+  var objItem = obj.item;
+  if(objItem === "required_components_list"){
+    if (objID !=="")
+    {
+      document.getElementById('ProductsFoto_required_components').src = objID;
+    } else {
+      document.getElementById('ProductsFoto_required_components').src = 'https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%A4%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84_200_200.png?alt=media&token=6f21bde0-9ddf-45e7-ae47-91d10c1c7569';
+    }
+  
+  }
+  if(objItem === "required_tools_list"){
+    if (objID !=="")
+    {
+      document.getElementById('ProductsFoto_required_tools').src = objID;
+    } else {
+      document.getElementById('ProductsFoto_required_tools').src = 'https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%A4%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84_200_200.png?alt=media&token=6f21bde0-9ddf-45e7-ae47-91d10c1c7569';
+    }
+  }
 
+}
 
 
 /**
