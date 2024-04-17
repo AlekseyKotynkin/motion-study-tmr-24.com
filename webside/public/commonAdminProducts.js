@@ -545,6 +545,9 @@ function FillInTechnologicalMapTable(obj)/** Обработчик нажатия
   let table_2 = document.getElementById('required_tools_list'); // Привет, таблица!
   let newTbody_2 = document.createElement('tbody'); // Вот ты новый и чистый
   table_2.replaceChild(newTbody_2, table_2.getElementsByTagName('tbody')[0]); // Меняемся!
+  document.getElementById('ProductsFoto_required_components').src = "https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa";
+  document.getElementById('ProductsFoto_required_tools').src = "https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa";
+  document.getElementById('ProductsFoto_1').src = "https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9B%D0%B5%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=a3489774-ea2c-4513-ac36-7fbf3c0ef6ca";
   /////
   var objId = obj.id;
   // alert(objId);
@@ -695,6 +698,9 @@ function showNeed(obj) /** Подготовка массивов для запо
   let table_2 = document.getElementById('required_tools_list'); // Привет, таблица!
   let newTbody_2 = document.createElement('tbody'); // Вот ты новый и чистый
   table_2.replaceChild(newTbody_2, table_2.getElementsByTagName('tbody')[0]); // Меняемся!
+  document.getElementById('ProductsFoto_required_components').src = "https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa";
+  document.getElementById('ProductsFoto_required_tools').src = "https://firebasestorage.googleapis.com/v0/b/motion-study-tmr-24.appspot.com/o/avrora-v%2F%D0%9F%D1%80%D0%B0%D0%B2%D0%B0%D1%8F%20%D1%87%D0%B0%D1%81%D1%82%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20200_220.png?alt=media&token=05108b12-3886-409b-af0a-b5b2b75c06fa";
+
 
   var idDocRequiredСomponents = obj.id;
   var docRef = db.collection("RequiredСomponents").doc(idDocRequiredСomponents);
@@ -864,6 +870,111 @@ function openModalFoto(obj){
   }
 
 }
+
+function gridSystemModalNewNomenclatureSubmit() /** Обработка модального окна добавить Номенклатуру.*/
+{
+  var Nomenclature_Name = document.getElementById("exampleInputModalNomenclatureTitle").value;
+  if (Nomenclature_Name.length < 1) {
+    if (translation_JS == null || translation_JS == 'en') {
+      alert('Please enter the name of the nomenclature.');
+    } else {
+      alert("Пожалуйста введите наименование номенклатуры.");
+    }
+    return;
+  }
+  var ProductsClass = "";
+  const form_1 = document.getElementById("nomenclature_class_GP");
+  if(form_1.checked === true){
+    ProductsClass = form_1.value;
+  }
+  const form_2 = document.getElementById("nomenclature_class_UM");
+  if(form_2.checked === true){
+    ProductsClass = form_2.value;
+  }
+  const form_3 = document.getElementById("nomenclature_class_NODE");
+  if(form_3.checked === true){
+    ProductsClass = form_3.value;
+  }
+  const form_4 = document.getElementById("nomenclature_class_PF");
+  if(form_4.checked === true){
+    ProductsClass = form_4.value;
+  }
+  const form_5 = document.getElementById("nomenclature_class_M");
+  if(form_5.checked === true){
+    ProductsClass = form_5.value;
+  }
+  const form_6 = document.getElementById("nomenclature_class_I");
+  if(form_6.checked === true){
+    ProductsClass = form_6.value;
+  }
+  if (ProductsClass ==="")
+  {
+    alert ("Выберите группу номенклатуры!")
+
+    return
+  }
+  ////
+  var ProductsUnits = "";
+  const form_11 = document.getElementById("nomenclature_units_kit");
+  if(form_11.checked === true){
+    ProductsUnits = form_11.value;
+  }
+  const form_12 = document.getElementById("nomenclature_units_things");
+  if(form_12.checked === true){
+    ProductsUnits = form_12.value;
+  }
+  const form_13 = document.getElementById("nomenclature_units_gr");
+  if(form_13.checked === true){
+    ProductsUnits = form_13.value;
+  }
+  const form_14 = document.getElementById("nomenclature_units_mm");
+  if(form_14.checked === true){
+    ProductsUnits = form_14.value;
+  }
+  const form_15 = document.getElementById("nomenclature_units_m2");
+  if(form_15.checked === true){
+    ProductsUnits = form_15.value;
+  }
+  const form_16 = document.getElementById("nomenclature_units_m3");
+  if(form_16.checked === true){
+    ProductsUnits = form_16.value;
+  }
+  if (ProductsUnits ==="")
+  {
+    alert ("Выберите Единицы измерения!")
+
+    return
+  }
+
+  db.collection("Products").add({
+    ProductsOrganizationId : LocalStorageOrganizationId,   
+    ProductsClass: ProductsClass,
+    ProductsComment: "",
+    ProductsFoto_1: "",
+    ProductsFoto_2:"",
+    ProductsTitle: Nomenclature_Name,
+    ProductsTitleFull:"",
+    ProductsUnits: ProductsUnits,
+
+  })
+  .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+    $('#gridSystemModalNewNomenclature').modal('toggle');
+    alert("Номенклатура созданна!");
+  })
+  .catch((error) => {
+    console.error("Error adding document: ", error);
+    if (translation_JS == null || translation_JS == 'en') {
+      alert("Error adding document: ", error);
+    } else {
+      alert("Ошибка при добавлении документа: ", error);
+    }
+  });
+
+
+}
+
+
 
 
 /**

@@ -578,7 +578,7 @@ function quitButtonPosition(obj) /**Подразделение_Обработч�
 
 function createTableProducts() /** Продукции_Получение данных для таблицы список Продукции.*/
 {
-  db.collection("Products")
+  db.collection("Products").where("ProductsOrganizationId", "==", localStorageOrganizationId).where("ProductsClass", "==", "ГП")
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {

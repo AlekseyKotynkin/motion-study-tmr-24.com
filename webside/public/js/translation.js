@@ -573,7 +573,12 @@ var arrLang = {
     'specificatio_аctive': 'Active',
     'specificatio_no_аctive': 'Not Active',
     'specificatio_under_development': 'Under development',
-    'short_class': 'Class',
+    'nomenclature_units': 'Units',
+    'nomenclature_name': 'Name Nomenclature',
+    'nomenclature_name_full': 'Full Name Nomenclature',
+    'nomenclature_class': 'Class',
+    'nomenclature_add': '+ Add Nomenclature',
+    'nomenclature_add_comments': 'Create a new nomenclature',
 
 
 
@@ -1111,7 +1116,12 @@ var arrLang = {
     'specificatio_no_аctive': 'Не активная',
     'specificatio_under_development': 'Разрабатывается',
     'short_class': 'Группа',
-
+    'nomenclature_units': 'Единицы измерения',
+    'nomenclature_name': 'Наименование',
+    'nomenclature_name_full': 'Полное наименование',
+    'nomenclature_class': 'Группа',
+    'nomenclature_add': '+ Номенклатуру',
+    'nomenclature_add_comments': 'Создать новую номенклатуру',
 
 
 

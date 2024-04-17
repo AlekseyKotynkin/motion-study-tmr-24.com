@@ -386,6 +386,10 @@
                         </tbody>
                       </table>
                     </div>
+                    <!-- <h4 class="card-description lang" key="list_specificatio">Specificatio</h4> -->
+                    <button type="button" class="btn btn-primary btn-lg lang" key="nomenclature_add" data-toggle="modal" data-target="#gridSystemModalNewNomenclature">
+                      + Add Nomenclature
+                    </button>
                   </div>
                 </div>
               </div>
@@ -752,6 +756,106 @@
                               </div>
                             </div>
                             <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewSpecificatioSubmit()">Submit</button>
+                            <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Модальное окно регистрации Номенклатуры. -->
+          <div id="gridSystemModalNewNomenclature" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid bd-example-row">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-description lang" key="nomenclature_add">+ Add Nomenclature</h4>
+                          <p class="card-description lang" key="nomenclature_add_comments"> Create a new nomenclature </p>
+                          <form class="forms-sample">
+                            <div class="form-group">
+                              <label for="exampleInputModalSpecificatioСomment" class="lang" key="nomenclature_class">Class</label>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group" id="nomenclature_check_class">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_GP" name="optionsRadios" id="nomenclature_class_GP" value="ГП" checked> Готовая продукция <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_UM" name="optionsRadios" id="nomenclature_class_UM" value="M"> Упаковочное место <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_NODE" name="optionsRadios" id="nomenclature_class_NODE" value="У">Узел<i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_PF" name="optionsRadios" id="nomenclature_class_PF" value="ПФ">Полуфабрикат<i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_M" name="optionsRadios" id="nomenclature_class_M" value="M">Mатериал<i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_class_I" name="optionsRadios" id="nomenclature_class_I" value="И">Инструмент<i class="input-helper"></i></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalSpecificatioTitle" class="lang" key="nomenclature_name">Name Nomenclature</label>
+                              <input type="text" class="form-control" id="exampleInputModalNomenclatureTitle" placeholder="Title">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalSpecificatioTitle" class="lang" key="nomenclature_name_full">Full Name Nomenclature</label>
+                              <input type="text" class="form-control" id="exampleInputModalNomenclatureFullTitle" placeholder="Full Title">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputModalSpecificatioСomment" class="lang" key="nomenclature_units">Units</label>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group" id="nomenclature_check_units">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_kit" name="optionsRadios_units" id="nomenclature_units_kit" value="набор." checked> Набор <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_things" name="optionsRadios_units" id="nomenclature_units_things" value="шт."> Штук <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_gr" name="optionsRadios_units" id="nomenclature_units_gr" value="гр."> Грамм <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_mm" name="optionsRadios_units" id="nomenclature_units_mm" value="мм."> Миллиметров <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_m2" name="optionsRadios_units" id="nomenclature_units_m2" value="М2"> Метр квадратный <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input lang" key="nomenclature_units_m3" name="optionsRadios_units" id="nomenclature_units_m3" value="М3"> Метр кубический <i class="input-helper"></i></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="button" class="btn btn-gradient-primary mr-2 lang" key="submit" onclick="gridSystemModalNewNomenclatureSubmit()">Submit</button>
                             <button type="button" class="btn btn-light lang" key="cancel">Cancel</button>
                           </form>
                         </div>
